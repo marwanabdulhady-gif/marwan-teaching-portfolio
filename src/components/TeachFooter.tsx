@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowRight, Linkedin, Mail, Youtube } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
-import { FOOTER, BRAND, NAV_ITEMS, RESOURCES, LINKS, mailto } from '../teachingData';
+import { FOOTER, BRAND, NAV_ITEMS, ARCADE, LINKS, mailto } from '../teachingData';
 import { MathMark } from './MathArt';
 
 /** Footer: brand block, two link columns, contact, and a route switch back. */
@@ -94,19 +94,25 @@ export default function TeachFooter() {
             </ul>
           </div>
 
-          {/* Strands */}
+          {/* Play & learn */}
           <div className="text-start">
             <p className="text-[0.68rem] uppercase tracking-[0.18em] text-cyan-400 font-bold mb-5">
               {isRtl ? FOOTER.strandsTitle.ar : FOOTER.strandsTitle.en}
             </p>
             <ul className="space-y-3 list-none">
-              {RESOURCES.strands.map((strand) => (
-                <li key={strand.id}>
+              {[
+                { href: LINKS.youtube, label: { en: 'Lessons on YouTube', ar: 'الدروس على يوتيوب' } },
+                { href: ARCADE.home, label: { en: 'FIKR Math Arcade', ar: 'ألعاب فكر للرياضيات' } },
+                ...ARCADE.games.filter((g) => g.tier === 'class').map((g) => ({ href: ARCADE.play(g.id), label: g.title })),
+              ].map((item) => (
+                <li key={item.href}>
                   <a
-                    href={mailto(`Resource Request — ${strand.title.en}`)}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
                     className="text-[0.83rem] text-[color-mix(in_srgb,var(--t-ink)_60%,transparent)] hover:text-cyan-300 transition-colors"
                   >
-                    {isRtl ? strand.title.ar : strand.title.en}
+                    {isRtl ? item.label.ar : item.label.en}
                   </a>
                 </li>
               ))}

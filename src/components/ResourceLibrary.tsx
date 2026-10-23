@@ -1,94 +1,140 @@
-import { ArrowUpRight } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowUpRight, FileText, Play, Store, Youtube } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
-import { RESOURCES, LINKS, mailto } from '../teachingData';
+import { LINKS, RESOURCES, VIDEOS } from '../teachingData';
 import Reveal from './Reveal';
 
 /**
- * Mathematics Resource Library — the template's store grid, retitled and
- * re-stranded for mathematics. Cards point at LINKS.resources, so swapping in a
- * real storefront is a one-line change in teachingData.ts.
+ * Lessons & resources: the YouTube channel (with featured lessons once their
+ * ids are listed in VIDEOS), worksheets and the Teachers Pay Teachers store.
+ * A card whose link is still empty says "Coming soon" instead of linking
+ * nowhere.
  */
+function VideoCard({ id, title, topic }: { id: string; title: string; topic: string }) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <figure className="teach-card overflow-hidden">
+      <div className="relative aspect-video bg-black">
+        {playing ? (
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}
+            title={title}
+            className="absolute inset-0 w-full h-full border-0"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          // Thumbnail first; the player only loads when the visitor asks for it.
+          <button type="button" onClick={() => setPlaying(true)} className="group absolute inset-0 cursor-pointer" aria-label={title}>
+            <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" className="w-full h-full object-cover" />
+            <span className="absolute inset-0 flex items-center justify-center">
+              <span className="w-14 h-14 rounded-full bg-[var(--t-accent)] text-[#fff] flex items-center justify-center shadow-xl transition-transform group-hover:scale-110">
+                <Play className="w-6 h-6 ms-1" fill="currentColor" />
+              </span>
+            </span>
+          </button>
+        )}
+      </div>
+      <figcaption className="p-4 text-start space-y-1">
+        <p className="teach-eyebrow">{topic}</p>
+        <p className="font-bold text-[0.95rem] text-[var(--t-ink)] leading-snug">{title}</p>
+      </figcaption>
+    </figure>
+  );
+}
+
 export default function ResourceLibrary() {
   const { isRtl } = useLocale();
+  const L = (o: { en: string; ar: string }) => (isRtl ? o.ar : o.en);
 
-  /** Per-strand subject line, so an enquiry arrives pre-labelled. */
-  const strandHref = (title: string) => mailto(`Resource Request — ${title}`);
+  const extras = [
+    { key: 'worksheets', icon: FileText, data: RESOURCES.worksheets, href: LINKS.worksheets },
+    { key: 'tpt', icon: Store, data: RESOURCES.tpt, href: LINKS.tpt },
+  ];
 
   return (
-    <section id="resources" className="relative py-24 md:py-32 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_28%,transparent)]">
-      <div className="absolute bottom-0 end-0 w-[460px] h-[460px] rounded-full bg-cyan-500/[0.06] blur-[140px] pointer-events-none" />
-
+    <section id="resources" className="relative py-24 md:py-32 px-5 lg:px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto relative space-y-12">
-        {/* Heading */}
         <Reveal className="text-center space-y-4">
-          <p className="teach-eyebrow">{isRtl ? RESOURCES.tag.ar : RESOURCES.tag.en}</p>
+          <p className="teach-eyebrow">{L(RESOURCES.tag)}</p>
           <h2 className="teach-section-title">
-            {isRtl ? RESOURCES.titlePrefix.ar : RESOURCES.titlePrefix.en}{' '}
-            <em>{isRtl ? RESOURCES.titleAccent.ar : RESOURCES.titleAccent.en}</em>
+            {L(RESOURCES.titlePrefix)} <em>{L(RESOURCES.titleAccent)}</em>
           </h2>
           <div className="teach-divider" />
-          <p className="teach-section-desc">{isRtl ? RESOURCES.desc.ar : RESOURCES.desc.en}</p>
+          <p className="teach-section-desc">{L(RESOURCES.desc)}</p>
         </Reveal>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {/* Featured full-library card spans two columns on desktop */}
-          <Reveal className="md:col-span-2 lg:col-span-3">
-            <a
-              href={LINKS.resources}
-              className="teach-card group flex flex-col sm:flex-row items-start gap-5 p-7 !rounded-3xl !bg-[linear-gradient(145deg,color-mix(in_srgb,var(--t-accent)_14%,transparent)_0%,color-mix(in_srgb,var(--t-glass)_2%,transparent)_100%)]"
-            >
-              <span
-                className="teach-icon-chip !w-16 !h-16 !text-2xl"
-                style={{ background: 'linear-gradient(135deg, var(--t-accent), var(--t-accent-deep))' }}
-                aria-hidden="true"
-              >
-                {RESOURCES.main.icon}
+        {/* YouTube channel */}
+        <Reveal>
+          <a
+            href={LINKS.youtube}
+            target="_blank"
+            rel="noreferrer"
+            data-theme="dark"
+            className="teach-card chalk group flex flex-col sm:flex-row items-start sm:items-center gap-5 p-7 sm:p-9 !rounded-3xl text-start"
+          >
+            <span className="w-16 h-16 rounded-2xl bg-[#ff0033] text-[#fff] flex items-center justify-center shrink-0 shadow-lg shadow-black/40">
+              <Youtube className="w-8 h-8" />
+            </span>
+            <span className="flex-1 space-y-1.5">
+              <span className="block text-2xl sm:text-3xl font-black" style={{ fontFamily: 'var(--teach-font-display)' }}>
+                {L(RESOURCES.youtube.title)}
               </span>
-              <div className="space-y-2 text-start">
-                <h3
-                  className="text-2xl sm:text-3xl font-black text-white"
-                  style={{ fontFamily: 'var(--teach-font-display)' }}
-                >
-                  {isRtl ? RESOURCES.main.title.ar : RESOURCES.main.title.en}
-                </h3>
-                <p className="text-[0.9rem] leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_65%,transparent)] max-w-3xl font-light">
-                  {isRtl ? RESOURCES.main.desc.ar : RESOURCES.main.desc.en}
-                </p>
-                <span className="inline-flex items-center gap-1.5 text-[0.78rem] font-semibold text-cyan-300 uppercase tracking-[0.1em] pt-1">
-                  {isRtl ? RESOURCES.main.cta.ar : RESOURCES.main.cta.en}
-                  <ArrowUpRight className="w-4 h-4" />
-                </span>
-              </div>
-            </a>
-          </Reveal>
+              <span className="block text-[0.92rem] leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)]">
+                {L(RESOURCES.youtube.desc)}
+              </span>
+            </span>
+            <span className="teach-btn teach-btn-primary shrink-0">
+              {L(RESOURCES.youtube.cta)} <ArrowUpRight className="w-4 h-4" />
+            </span>
+          </a>
+        </Reveal>
 
-          {RESOURCES.strands.map((strand, i) => (
-            <Reveal key={strand.id} delay={0.06 * (i % 3)}>
-              <a
-                href={strandHref(strand.title.en)}
-                className="teach-card block h-full p-6 text-start group"
-              >
-                <span
-                  className="teach-icon-chip mb-5"
-                  style={{ background: strand.gradient }}
-                  aria-hidden="true"
-                >
-                  {strand.icon}
+        {/* Featured lessons (shown once video ids are listed) */}
+        {VIDEOS.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {VIDEOS.map((v, i) => (
+              <Reveal key={v.id} delay={0.05 * i}>
+                <VideoCard id={v.id} title={L(v.title)} topic={L(v.topic)} />
+              </Reveal>
+            ))}
+          </div>
+        )}
+
+        {/* Worksheets + TPT store */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {extras.map(({ key, icon: Icon, data, href }, i) => {
+            const body = (
+              <>
+                <span className="teach-icon-chip !w-12 !h-12 shrink-0"><Icon className="w-5 h-5" /></span>
+                <span className="flex-1 space-y-1.5 text-start">
+                  <span className="flex flex-wrap items-center gap-2">
+                    <span className="text-xl font-black text-[var(--t-ink)]" style={{ fontFamily: 'var(--teach-font-display)' }}>{L(data.title)}</span>
+                    {!href && (
+                      <span className="text-[0.65rem] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-[color-mix(in_srgb,var(--t-sun)_25%,transparent)] text-[var(--t-ink)]">
+                        {L(RESOURCES.soon)}
+                      </span>
+                    )}
+                  </span>
+                  <span className="block text-[0.88rem] leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_68%,transparent)]">{L(data.desc)}</span>
+                  {href && (
+                    <span className="inline-flex items-center gap-1 pt-1 text-sm font-bold text-[var(--t-accent-deep)]">
+                      {L(data.cta)} <ArrowUpRight className="w-4 h-4" />
+                    </span>
+                  )}
                 </span>
-                <h3 className="text-[1.05rem] font-bold text-white mb-2 leading-snug">
-                  {isRtl ? strand.title.ar : strand.title.en}
-                </h3>
-                <p className="text-[0.82rem] leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_60%,transparent)] font-light mb-5">
-                  {isRtl ? strand.desc.ar : strand.desc.en}
-                </p>
-                <span className="inline-flex items-center gap-1.5 text-[0.72rem] font-semibold text-cyan-300 uppercase tracking-[0.1em] group-hover:gap-2.5 transition-all">
-                  {isRtl ? 'تصفح المجموعة' : 'Browse Collection'}
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </span>
-              </a>
-            </Reveal>
-          ))}
+              </>
+            );
+            return (
+              <Reveal key={key} delay={0.08 * i}>
+                {href ? (
+                  <a href={href} target="_blank" rel="noreferrer" className="teach-card h-full flex items-start gap-4 p-6 sm:p-7">{body}</a>
+                ) : (
+                  <div className="teach-card h-full flex items-start gap-4 p-6 sm:p-7">{body}</div>
+                )}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

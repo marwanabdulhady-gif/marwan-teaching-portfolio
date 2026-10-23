@@ -103,7 +103,9 @@ export default function TeachAbout() {
             <Reveal delay={0.4}>
               <div className="flex flex-wrap items-center gap-3">
                 <a
-                  href={LINKS.resources}
+                  href={LINKS.youtube}
+                  target="_blank"
+                  rel="noreferrer"
                   className="teach-btn teach-btn-primary"
                 >
                   {isRtl ? ABOUT.cta.ar : ABOUT.cta.en}

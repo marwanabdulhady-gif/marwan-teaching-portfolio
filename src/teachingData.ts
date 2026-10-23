@@ -22,24 +22,20 @@ export const LINKS = {
   /** Verified contact address used across the corporate portfolio. */
   email: 'Marwanabdulhady@gmail.com',
 
-  /**
-   * Where "Browse Collection" / "Request the Resource Library" leads.
-   * Default is a pre-filled mailto so the page is functional today.
-   * TODO: replace with a real storefront (TPT / Gumroad / Drive folder).
-   */
-  resources: 'mailto:Marwanabdulhady@gmail.com?subject=Mathematics%20Resource%20Library%20Request',
 
   /** Marwan's corporate training & AI enablement portfolio. */
   corporate: 'https://marwan-abdulhady.vercel.app',
   /** Lesson channel on YouTube. */
   youtube: 'https://www.youtube.com/channel/UCJskFXSviblbJ4gm3Ejz0qQ',
+  /** Worksheets (e.g. a shared Google Drive folder). Empty = "Coming soon". */
+  worksheets: '',
+  /** Teachers Pay Teachers store. Empty = "Coming soon". */
+  tpt: '',
   /** 30-minute call on Calendly (interviews and parent/student intro calls). */
   booking: 'https://calendly.com/marwanabdulhady/30min',
   /** WhatsApp number without + or spaces. */
   whatsapp: '966562572728',
 
-  /** Interactive mathematics workspace embedded by the lab section. */
-  labHome: 'https://www.geogebra.org/classic',
 } as const;
 
 export const mailto = (subject: string) =>
@@ -66,8 +62,8 @@ export const NAV_ITEMS: { id: string; label: Bi }[] = [
   { id: 'about', label: { en: 'About', ar: 'نبذة' } },
   { id: 'experience', label: { en: 'Experience', ar: 'الخبرة' } },
   { id: 'designs', label: { en: 'Designs', ar: 'التصاميم' } },
-  { id: 'resources', label: { en: 'Resources', ar: 'الموارد' } },
-  { id: 'lab', label: { en: 'Math Lab', ar: 'المختبر' } },
+  { id: 'resources', label: { en: 'Lessons', ar: 'الدروس' } },
+  { id: 'lab', label: { en: 'Math Arcade', ar: 'صالة الألعاب' } },
   { id: 'gallery', label: { en: 'Gallery', ar: 'المعرض' } },
 ];
 
@@ -147,10 +143,11 @@ export const ABOUT = {
     ar: 'مروان عبد الهادي معلم رياضيات بخبرة تزيد على ست سنوات في المدارس الدولية، ومصمم تعليمي حاصل على بكالوريوس الهندسة الميكانيكية من جامعة بنها ودبلومة التأهيل التربوي PGCE من جامعة ليفربول جون مورس. يحفّز الطلاب على اختلاف أعمارهم ومستوياتهم، وساعد طلاب IGCSE والدبلومة الأمريكية على تحقيق A* في رياضيات Edexcel، CIE، SAT، ACT، EST.',
   },
   bio2: {
-    en: 'Through this teaching hub he shares curriculum-aligned worksheets, interactive graphing and geometry labs, gamified practice loops and project-based investigations spanning algebra, geometry, trigonometry, statistics, mechanics and calculus — every one designed so that a learner who has struggled elsewhere can still find a way in.',
-    ar: 'عبر هذه المنصة يشارك أوراق عمل مطابقة للمناهج، ومختبرات رسم بياني وهندسة تفاعلية، ودورات تدريب مبنية على الألعاب، ومشروعات بحثية تغطي الجبر والهندسة وحساب المثلثات والإحصاء والميكانيكا والتفاضل — كلها مصممة بحيث يجد أي متعلم واجه صعوبة في مكان آخر طريقه إلى الفهم.',
+    en: 'Beyond the classroom he records short mathematics lessons on YouTube and builds the games his students play — the FIKR Math Arcade below is one of them — so a learner who has struggled elsewhere can still find a way in.',
+    ar: 'خارج الفصل يسجّل دروس رياضيات قصيرة على يوتيوب ويبني الألعاب التي يلعبها طلابه — وصالة ألعاب فكر أدناه إحداها — ليجد أي متعلم واجه صعوبة في مكان آخر طريقه إلى الفهم.',
   },
-  cta: { en: 'Request the Resource Library', ar: 'اطلب مكتبة الموارد' },
+
+  cta: { en: 'Watch my lessons on YouTube', ar: 'شاهد دروسي على يوتيوب' },
   /** Mosaic captions beside the About copy. */
   mosaic: [
     { en: 'In the classroom', ar: 'داخل الفصل' },
@@ -168,89 +165,48 @@ export const HERO_STATS: { value: string; label: Bi }[] = [
 ];
 
 /* -------------------------------------------------------------------------
-   RESOURCE LIBRARY
+   LESSONS & RESOURCES — YouTube lessons, worksheets and the TPT store.
+   Paste links into LINKS (worksheets, tpt) and video ids into VIDEOS; a card
+   without a link shows "Coming soon" instead of a dead button.
    ------------------------------------------------------------------------- */
 
+/** YouTube lessons to feature: the 11-character id from youtube.com/watch?v=… */
+export const VIDEOS: { id: string; title: Bi; topic: Bi }[] = [];
+
 export const RESOURCES = {
-  tag: { en: 'Resources', ar: 'الموارد' },
-  titlePrefix: { en: 'Mathematics', ar: 'مكتبة' },
-  titleAccent: { en: 'Resource Library', ar: 'موارد الرياضيات' },
+  tag: { en: 'Lessons & resources', ar: 'الدروس والموارد' },
+  titlePrefix: { en: 'Learn with my', ar: 'تعلّم مع' },
+  titleAccent: { en: 'lessons and resources', ar: 'دروسي ومواردي' },
   desc: {
-    en: 'Classroom-ready mathematics materials aligned to British and American curriculum standards. Downloadable, editable, and ready to use.',
-    ar: 'مواد رياضيات جاهزة للصف ومطابقة لمعايير المنهجين البريطاني والأمريكي. قابلة للتنزيل والتعديل والاستخدام الفوري.',
+    en: 'Short mathematics lessons on YouTube, plus worksheets and classroom resources you can use straight away.',
+    ar: 'دروس رياضيات قصيرة على يوتيوب، مع أوراق عمل وموارد صفية تستخدمها مباشرة.',
   },
-  main: {
-    icon: '🧮',
-    title: { en: 'Full Resource Library', ar: 'المكتبة الكاملة للموارد' },
+  youtube: {
+    title: { en: 'Mathematics lessons on YouTube', ar: 'دروس الرياضيات على يوتيوب' },
     desc: {
-      en: 'Browse the complete collection of mathematics materials — worksheets, investigations, assessments, posters and interactive labs across every strand.',
-      ar: 'استعرض المجموعة الكاملة من مواد الرياضيات — أوراق عمل، ومشروعات بحثية، وتقويمات، وملصقات، ومختبرات تفاعلية في كل فرع.',
+      en: 'Clear, step-by-step explanations for IGCSE and American curriculum students — watch, pause and practise at your own pace.',
+      ar: 'شرح واضح خطوة بخطوة لطلاب IGCSE والمنهج الأمريكي — شاهد وتوقف وتدرّب بالسرعة التي تناسبك.',
     },
-    cta: { en: 'Request Full Access', ar: 'اطلب الوصول الكامل' },
+    cta: { en: 'Watch on YouTube', ar: 'شاهد على يوتيوب' },
   },
-  strands: [
-    {
-      id: 'algebra',
-      icon: '📐',
-      gradient: 'linear-gradient(135deg,#00b4d8,#0077b6)',
-      title: { en: 'Algebra & Equations', ar: 'الجبر والمعادلات' },
-      desc: {
-        en: 'Linear and quadratic relations, simultaneous equations, inequalities and algebraic manipulation for every key stage.',
-        ar: 'العلاقات الخطية والتربيعية، والمعادلات الآنية، والمتباينات، والتلاعب الجبري لكل مرحلة دراسية.',
-      },
+  worksheets: {
+    title: { en: 'Worksheets', ar: 'أوراق العمل' },
+    desc: {
+      en: 'Practice sheets with answers, organised by topic, ready to print or assign.',
+      ar: 'أوراق تدريب مع الإجابات، مرتبة حسب الموضوع، جاهزة للطباعة أو الإرسال.',
     },
-    {
-      id: 'geometry',
-      icon: '📏',
-      gradient: 'linear-gradient(135deg,#48cae4,#0096c7)',
-      title: { en: 'Geometry & Trigonometry', ar: 'الهندسة وحساب المثلثات' },
-      desc: {
-        en: 'Angles, congruence and similarity, circle theorems, vectors and trigonometric ratios anchored in construction-based tasks.',
-        ar: 'الزوايا، والتطابق والتشابه، ونظريات الدائرة، والمتجهات، والنسب المثلثية، مؤسسة على مهام إنشائية.',
-      },
+    cta: { en: 'Open the worksheets', ar: 'افتح أوراق العمل' },
+  },
+  tpt: {
+    title: { en: 'Teachers Pay Teachers store', ar: 'متجر Teachers Pay Teachers' },
+    desc: {
+      en: 'Classroom-ready games, task cards and lesson packs for teachers.',
+      ar: 'ألعاب وبطاقات مهام وحزم دروس جاهزة للمعلمين.',
     },
-    {
-      id: 'functions',
-      icon: '📈',
-      gradient: 'linear-gradient(135deg,#f4a11d,#e76f51)',
-      title: { en: 'Functions & Calculus', ar: 'الدوال والتفاضل والتكامل' },
-      desc: {
-        en: 'Function notation, transformations, limits, differentiation and integration built graphical intuition first, symbols second.',
-        ar: 'ترميز الدوال، والتحويلات، والنهايات، والتفاضل والتكامل — تبدأ بالحدس البياني ثم تأتي الرموز.',
-      },
-    },
-    {
-      id: 'statistics',
-      icon: '📊',
-      gradient: 'linear-gradient(135deg,#6a0dad,#9b5de5)',
-      title: { en: 'Statistics & Probability', ar: 'الإحصاء والاحتمالات' },
-      desc: {
-        en: 'Data handling, distributions, sampling, correlation and probability trees drawn from data the class collects itself.',
-        ar: 'معالجة البيانات، والتوزيعات، والعينات، والارتباط، وأشجار الاحتمالات — من بيانات يجمعها الصف بنفسه.',
-      },
-    },
-    {
-      id: 'mechanics',
-      icon: '⚙️',
-      gradient: 'linear-gradient(135deg,#2d6a4f,#52b788)',
-      title: { en: 'Mechanics & Applied Maths', ar: 'الميكانيكا والرياضيات التطبيقية' },
-      desc: {
-        en: 'Kinematics, forces, moments and mathematical modelling — where a mechanical-engineering degree meets the classroom.',
-        ar: 'علم الحركة، والقوى، والعزوم، والنمذجة الرياضية — حيث تلتقي شهادة الهندسة الميكانيكية بالفصل الدراسي.',
-      },
-    },
-    {
-      id: 'investigations',
-      icon: '🧭',
-      gradient: 'linear-gradient(135deg,#03045e,#0077b6)',
-      title: { en: 'Mathematical Investigations', ar: 'المشروعات البحثية الرياضية' },
-      desc: {
-        en: 'Open-ended, project-based tasks that anchor abstract topics in real-life scenarios and measurable outcomes.',
-        ar: 'مهام مفتوحة قائمة على المشروعات تؤسس المفاهيم المجردة على سيناريوهات واقعية ونتائج قابلة للقياس.',
-      },
-    },
-  ],
-} as const;
+    cta: { en: 'Visit the store', ar: 'زر المتجر' },
+  },
+  soon: { en: 'Coming soon', ar: 'قريباً' },
+};
 
 /* -------------------------------------------------------------------------
    EXPERIENCE — schools and roles, from Marwan's teaching presentation
@@ -473,65 +429,58 @@ export const DESIGNS: Design[] = [
 ];
 
 /* -------------------------------------------------------------------------
-   INTERACTIVE MATHEMATICS LAB
+   MATH ARCADE — the general games from FIKR's MathPlay hub, shipped as a
+   self-contained copy in public/arcade (no lesson games, no pupil data)
    ------------------------------------------------------------------------- */
 
-export const LAB = {
-  tag: { en: 'Interactive', ar: 'تفاعلي' },
-  titlePrefix: { en: 'Interactive', ar: 'مختبر' },
-  titleAccent: { en: 'Mathematics Lab', ar: 'الرياضيات التفاعلي' },
+export type ArcadeTier = 'easy' | 'medium' | 'hard' | 'class';
+
+export const ARCADE = {
+  tag: { en: 'FIKR Math Arcade', ar: 'ألعاب فكر للرياضيات' },
+  titlePrefix: { en: 'Play the', ar: 'العب في' },
+  titleAccent: { en: 'Math Arcade', ar: 'صالة ألعاب الرياضيات' },
   desc: {
-    en: 'Graph it, drag it, and watch the algebra follow. Live construction and visualisation for learners who need to see a concept move before they can own it.',
-    ar: 'ارسمها، واسحبها، وشاهد الجبر يتبعها. بناء وتصوير حيّ للمتعلمين الذين يحتاجون رؤية المفهوم يتحرك قبل أن يمتلكوه.',
+    en: 'The game arcade I built for my FIKR classes: 18 math games, five levels each, playable right here. No account, no download.',
+    ar: 'صالة الألعاب التي بنيتها لفصول فكر: ١٨ لعبة رياضيات، بخمسة مستويات لكل لعبة، تلعبها هنا مباشرة. بلا حساب وبلا تنزيل.',
   },
-  icon: '🧮',
-  heading: { en: 'Enter the Mathematics Lab', ar: 'ادخل مختبر الرياضيات' },
+  heading: { en: 'Enter the arcade', ar: 'ادخل صالة الألعاب' },
   body: {
-    en: 'Plot functions, construct figures, spin solids in three dimensions and run probability simulations — all inside the page, no installation and no account.',
-    ar: 'ارسم الدوال، وأنشئ الأشكال، وأدر المجسمات في ثلاثة أبعاد، وشغّل محاكاة الاحتمالات — كل ذلك داخل الصفحة، دون تثبيت ودون حساب.',
+    en: 'Daily Dash, a practice trainer and every game below in one place. Projector-friendly, so a whole class can play Tug of War or Math Football together.',
+    ar: 'التحدي اليومي ومدرّب التدريب وكل الألعاب أدناه في مكان واحد. مناسبة لجهاز العرض، فيلعب الفصل كله شد الحبل أو كرة القدم الرياضية معاً.',
   },
-  launch: { en: 'Launch Interactive Lab', ar: 'تشغيل المختبر التفاعلي' },
-  openNewTab: { en: 'Open in New Tab', ar: 'افتح في تبويب جديد' },
+  launch: { en: 'Open the arcade', ar: 'افتح صالة الألعاب' },
+  openNewTab: { en: 'Full screen', ar: 'ملء الشاشة' },
   close: { en: 'Close', ar: 'إغلاق' },
-  frameTitle: { en: 'Marwan Abdulhady — Interactive Mathematics Lab', ar: 'مروان عبد الهادي — مختبر الرياضيات التفاعلي' },
-  apps: [
-    {
-      id: 'graphing',
-      icon: '📈',
-      title: { en: 'Graphing & Algebra', ar: 'الرسم والجبر' },
-      desc: { en: 'Plot, solve, transform', ar: 'ارسم، حل، حوّل' },
-      url: 'https://www.geogebra.org/graphing',
-    },
-    {
-      id: 'geometry',
-      icon: '📐',
-      title: { en: 'Geometry', ar: 'الهندسة' },
-      desc: { en: 'Constructions & proofs', ar: 'الإنشاءات والبراهين' },
-      url: 'https://www.geogebra.org/geometry',
-    },
-    {
-      id: '3d',
-      icon: '🧊',
-      title: { en: '3D Calculator', ar: 'الحاسبة ثلاثية الأبعاد' },
-      desc: { en: 'Solids, planes, vectors', ar: 'المجسمات والمستويات والمتجهات' },
-      url: 'https://www.geogebra.org/3d',
-    },
-    {
-      id: 'probability',
-      icon: '🎲',
-      title: { en: 'Probability', ar: 'الاحتمالات' },
-      desc: { en: 'Distributions & sampling', ar: 'التوزيعات والعينات' },
-      url: 'https://www.geogebra.org/probability',
-    },
-    {
-      id: 'cas',
-      icon: '∫',
-      title: { en: 'CAS & Calculus', ar: 'الجبر الرمزي والتفاضل' },
-      desc: { en: 'Symbolic manipulation', ar: 'معالجة رمزية' },
-      url: 'https://www.geogebra.org/cas',
-    },
-  ],
-} as const;
+  frameTitle: { en: 'FIKR Math Arcade', ar: 'ألعاب فكر للرياضيات' },
+  home: '/arcade/index.html#/arcade',
+  play: (id: string) => `/arcade/index.html#/play/${id}`,
+  tiers: {
+    easy: { en: 'Easy · K–2', ar: 'سهل · الروضة–٢' },
+    medium: { en: 'Medium · 2–4', ar: 'متوسط · ٢–٤' },
+    hard: { en: 'Hard · 4–6', ar: 'صعب · ٤–٦' },
+    class: { en: 'Whole-class duels', ar: 'منافسات للفصل كله' },
+  } as Record<ArcadeTier, Bi>,
+  games: [
+    { id: 'odd-even', tier: 'easy', icon: '⚖️', title: { en: 'Odd or Even', ar: 'زوجي أم فردي' }, desc: { en: 'Sort each number into the right bin', ar: 'صنّف كل عدد في سلته الصحيحة' } },
+    { id: 'greater-less', tier: 'easy', icon: '🐊', title: { en: 'Greater or Less', ar: 'أكبر أم أصغر' }, desc: { en: 'Find the bigger side before time runs out', ar: 'اعثر على الجهة الأكبر قبل انتهاء الوقت' } },
+    { id: 'skip-count', tier: 'easy', icon: '🚂', title: { en: 'Skip Count Train', ar: 'قطار العدّ بالقفز' }, desc: { en: 'Find the missing wagon', ar: 'اعثر على العربة الناقصة' } },
+    { id: 'math-bubbles', tier: 'easy', icon: '🫧', title: { en: 'Math Bubbles', ar: 'فقاعات الرياضيات' }, desc: { en: 'Pop the bubble with the answer', ar: 'افقع الفقاعة التي تحمل الجواب' } },
+    { id: 'memory-match', tier: 'easy', icon: '🃏', title: { en: 'Memory Match', ar: 'لعبة الذاكرة' }, desc: { en: 'Pair each equation with its answer', ar: 'طابق كل معادلة مع جوابها' } },
+    { id: 'fraction-frenzy', tier: 'medium', icon: '🥧', title: { en: 'Fraction Frenzy', ar: 'جنون الكسور' }, desc: { en: 'Match shaded pies to fraction names', ar: 'طابق الدوائر المظللة مع أسماء الكسور' } },
+    { id: 'balance-scale', tier: 'medium', icon: '⚖️', title: { en: 'Balance Scale', ar: 'الميزان' }, desc: { en: 'Choose the weight that levels the beam', ar: 'اختر الوزن الذي يوازن الميزان' } },
+    { id: 'number-sort', tier: 'medium', icon: '🏃', title: { en: 'Number Sort Dash', ar: 'سباق ترتيب الأعداد' }, desc: { en: 'Tap ten numbers smallest to biggest', ar: 'رتّب عشرة أعداد من الأصغر للأكبر' } },
+    { id: 'equation-builder', tier: 'medium', icon: '🧱', title: { en: 'Equation Builder', ar: 'باني المعادلات' }, desc: { en: 'Build a true number sentence', ar: 'ابنِ جملة عددية صحيحة' } },
+    { id: 'sum-mines', tier: 'medium', icon: '💣', title: { en: 'Sum Minesweeper', ar: 'كاسحة الألغام الحسابية' }, desc: { en: 'Safe tiles equal the target', ar: 'المربعات الآمنة تساوي الهدف' } },
+    { id: 'prime-patrol', tier: 'hard', icon: '🛡️', title: { en: 'Prime Patrol', ar: 'دورية الأعداد الأولية' }, desc: { en: 'Tap only the primes', ar: 'المس الأعداد الأولية فقط' } },
+    { id: 'math-grid', tier: 'hard', icon: '🔢', title: { en: 'Math Grid', ar: 'شبكة الأرقام' }, desc: { en: '1–4 in every row and column, no repeats', ar: '١–٤ في كل صف وعمود دون تكرار' } },
+    { id: 'number-path', tier: 'hard', icon: '🧵', title: { en: 'Number Path', ar: 'مسار الأعداد' }, desc: { en: 'Tap the numbers in order, each touching the last', ar: 'المس الأعداد بالترتيب، كلٌّ يلامس السابق' } },
+    { id: 'number-maze', tier: 'hard', icon: '🌀', title: { en: 'Number Maze', ar: 'متاهة الأعداد' }, desc: { en: 'Draw a path that adds to the target', ar: 'ارسم مساراً مجموعه يساوي الهدف' } },
+    { id: 'word-hunt', tier: 'hard', icon: '🔎', title: { en: 'Number Word Hunt', ar: 'البحث عن كلمات الأعداد' }, desc: { en: 'Find the number words in the grid', ar: 'اعثر على كلمات الأعداد في الشبكة' } },
+    { id: 'tug-of-war', tier: 'class', icon: '🪢', title: { en: 'Math Tug of War', ar: 'شد الحبل الرياضي' }, desc: { en: 'Two crews, one rope, right answers pull', ar: 'فريقان وحبل واحد، الإجابة الصحيحة تشد' } },
+    { id: 'math-football', tier: 'class', icon: '⚽', title: { en: 'Math Football', ar: 'كرة القدم الرياضية' }, desc: { en: 'Right answers carry the ball up the pitch', ar: 'الإجابات الصحيحة تتقدم بالكرة في الملعب' } },
+    { id: 'math-fighter', tier: 'class', icon: '🥋', title: { en: 'Math Fighter', ar: 'المقاتل الرياضي' }, desc: { en: 'Every right answer is a move', ar: 'كل إجابة صحيحة حركة قتالية' } },
+  ] as { id: string; tier: ArcadeTier; icon: string; title: Bi; desc: Bi }[],
+};
 
 /* -------------------------------------------------------------------------
    CLASSROOM GALLERY
@@ -608,7 +557,7 @@ export const FOOTER = {
     ar: 'منصة تعليم رياضيات من مروان عبد الهادي — تجعل البنية المجردة مرئية وملموسة وقابلة للتعلم حقاً.',
   },
   exploreTitle: { en: 'Explore', ar: 'استكشف' },
-  strandsTitle: { en: 'Mathematical Strands', ar: 'فروع الرياضيات' },
+  strandsTitle: { en: 'Play & learn', ar: 'العب وتعلّم' },
   contactTitle: { en: 'Contact', ar: 'تواصل' },
   copyright: {
     en: '© 2026 Marwan Abdulhady — Mathematics Educator & Instructional Designer',

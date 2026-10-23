@@ -25,8 +25,8 @@ Vite; no settings or environment variables are needed.
 | Credentials marquee | `src/components/CredentialsBar.tsx` |
 | About | `src/components/TeachAbout.tsx` |
 | Learning-experience designs | `src/components/LearningDesigns.tsx` |
-| Resource library | `src/components/ResourceLibrary.tsx` |
-| Interactive math lab | `src/components/MathLab.tsx` |
+| Lessons & resources (YouTube, worksheets, TPT store) | `src/components/ResourceLibrary.tsx` |
+| FIKR Math Arcade | `src/components/MathLab.tsx` + `public/arcade/` |
 | Classroom gallery | `src/components/ClassroomGallery.tsx` |
 | Work with me (schools / parents & students) | `src/components/WorkWithMe.tsx` |
 | Footer | `src/components/TeachFooter.tsx` |
@@ -40,6 +40,19 @@ at the top of that file.
 
 To add a design, add an entry to `DESIGNS` and drop its screenshots
 (`.webp`, 16:10 for desktop, 390×844 for phone) into `public/designs/`.
+
+**Lessons & resources.** Put your worksheets link (for example a shared
+Google Drive folder) in `LINKS.worksheets` and your Teachers Pay Teachers
+store in `LINKS.tpt`; until then each card shows "Coming soon". To feature
+YouTube lessons, add them to `VIDEOS` with the 11-character id from
+`youtube.com/watch?v=…`, a title and a topic.
+
+**FIKR Math Arcade.** `public/arcade/index.html` is the self-contained build
+of the MathPlay hub from the FIKR dashboard repo (`playhub/index.html`), with
+one small style block added that hides the lesson-game links. Only the general
+games ship here: the lesson games and the dashboard (and its pupil data) are
+not part of this repository. To update it, copy the new `playhub/index.html`
+over and keep that style block.
 
 ## Look
 
