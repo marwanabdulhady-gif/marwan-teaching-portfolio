@@ -54,7 +54,7 @@ export default function TeachAbout() {
             <Reveal from="end" delay={0.24}>
               <div data-theme="dark" className="teach-card chalk p-4 flex flex-col gap-3 h-full">
                 <div className="rounded-xl overflow-hidden aspect-[4/3]">
-                  <img src="/photos/andalus-award.webp" alt={isRtl ? 'تكريم مروان في حفل نهاية الفصل بمدارس الأندلس' : 'Marwan honoured at the Al-Andalus end-of-term ceremony'} loading="lazy" className="w-full h-full object-cover" />
+                  <img src="/photos/andalus-grad-speech.webp" alt={isRtl ? 'مروان يقدّم حفل تخرّج الصف التاسع في مدارس الأندلس' : 'Marwan presenting the Al-Andalus Grade 9 graduation'} loading="lazy" className="w-full h-full object-cover" />
                 </div>
                 <p className="text-[0.7rem] text-[color-mix(in_srgb,var(--t-ink)_50%,transparent)] leading-snug text-start">
                   {isRtl ? ABOUT.mosaic[2].ar : ABOUT.mosaic[2].en}

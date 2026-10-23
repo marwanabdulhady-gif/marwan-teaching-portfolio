@@ -152,7 +152,7 @@ export const ABOUT = {
   mosaic: [
     { en: 'In the classroom', ar: 'داخل الفصل' },
     { en: 'Step by step, at the board', ar: 'خطوة بخطوة أمام اللوح' },
-    { en: 'Honoured at Al-Andalus, end of term', ar: 'تكريم في مدارس الأندلس، نهاية الفصل' },
+    { en: 'Main presenter, Grade 9 graduation', ar: 'مقدّم حفل تخرّج الصف التاسع' },
   ],
 } as const;
 
@@ -237,8 +237,9 @@ export const EXPERIENCE = {
       school: { en: 'Al-Andalus International School, Jeddah', ar: 'مدارس الأندلس الدولية، جدة' },
       role: { en: 'English and Mathematics teacher', ar: 'معلم اللغة الإنجليزية والرياضيات' },
       photos: [
-        { src: '/photos/andalus-award.webp', caption: { en: 'Recognised on stage at the end-of-term ceremony', ar: 'تكريم على المسرح في حفل نهاية الفصل' } },
-        { src: '/photos/andalus-ceremony.webp', caption: { en: '“Little Steps Lead to Huge Success” — end of term', ar: '«خطوات صغيرة تقود إلى نجاح كبير» — نهاية الفصل' } },
+        { src: '/photos/andalus-grad-podium.webp', caption: { en: 'Main presenter at the Grade 9 graduation', ar: 'مقدّم حفل تخرّج الصف التاسع' } },
+        { src: '/photos/andalus-grad-speech.webp', caption: { en: 'On the microphone, Grade 9 graduation', ar: 'على المنصة في حفل تخرّج الصف التاسع' } },
+        { src: '/photos/andalus-award.webp', caption: { en: 'Thanked and honoured on stage at the end-of-term ceremony', ar: 'شكر وتكريم على المسرح في حفل نهاية الفصل' } },
       ],
     },
     {
