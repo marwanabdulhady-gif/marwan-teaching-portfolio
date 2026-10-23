@@ -449,8 +449,10 @@ export const DESIGNS: Design[] = [
     device: 'desktop',
     steps: [
       { image: '/designs/compass-1.webp', label: { en: 'Home', ar: 'الرئيسية' } },
-      { image: '/designs/compass-2.webp', label: { en: '330+ AI tools', ar: '+٣٣٠ أداة' } },
-      { image: '/designs/compass-3.webp', label: { en: 'Video playbook', ar: 'دليل الفيديو' } },
+      { image: '/designs/compass-2.webp', label: { en: 'A sample project', ar: 'مشروع نموذجي' } },
+      { image: '/designs/compass-3.webp', label: { en: 'Action map', ar: 'خريطة العمل' } },
+      { image: '/designs/compass-4.webp', label: { en: 'Key content', ar: 'المحتوى الأساسي' } },
+      { image: '/designs/compass-5.webp', label: { en: '330+ AI tools', ar: '+٣٣٠ أداة' } },
     ],
     link: 'https://id-compass-1.vercel.app/',
   },

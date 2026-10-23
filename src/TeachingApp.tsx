@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import Lenis from 'lenis';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, Gamepad2 } from 'lucide-react';
 import { useLocale } from './LocaleContext';
 import useActiveSection from './useActiveSection';
 import { NAV_ITEMS, BRAND } from './teachingData';
@@ -97,6 +97,21 @@ export default function TeachingApp() {
       </main>
 
       <TeachFooter />
+
+      {/* Games: a shortcut to the Math Arcade from anywhere on the page */}
+      <a
+        href="#lab"
+        onClick={(e) => {
+          const lenis = (window as any).__lenis;
+          const el = document.getElementById('lab');
+          if (lenis && el) { e.preventDefault(); lenis.scrollTo(el, { offset: -80 }); }
+        }}
+        className="fixed bottom-6 start-6 z-[900] h-11 ps-3.5 pe-4 rounded-full bg-[var(--t-accent)] text-[#fff] shadow-xl shadow-[color-mix(in_srgb,var(--t-accent)_35%,transparent)] hover:scale-105 transition-transform flex items-center gap-2 text-sm font-bold"
+        aria-label={isRtl ? 'العب ألعاب الرياضيات' : 'Play the math games'}
+      >
+        <Gamepad2 className="w-5 h-5" />
+        <span className="hidden sm:inline">{isRtl ? 'العب الآن' : 'Play games'}</span>
+      </a>
 
       <AnimatePresence>
         {showTop && (
