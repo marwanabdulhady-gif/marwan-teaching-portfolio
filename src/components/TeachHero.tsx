@@ -126,14 +126,27 @@ export default function TeachHero() {
           </motion.div>
         </div>
 
-        {/* Visual */}
+        {/* Portrait in an arch, the math constellation glowing behind it.
+            Phones: shown first, above the copy. */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="relative hidden lg:block"
+          className="relative order-first lg:order-none mx-auto w-full max-w-[260px] sm:max-w-[340px] lg:max-w-[440px]"
         >
-          <MathConstellation />
+          <div className="absolute -inset-[18%] opacity-60 pointer-events-none" aria-hidden>
+            <MathConstellation />
+          </div>
+          <div className="relative rounded-t-full rounded-b-[2rem] p-[3px] bg-gradient-to-b from-[var(--t-accent)] via-[var(--t-sun)] to-transparent shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)]">
+            <img
+              src="/photos/headshot.webp"
+              alt={isRtl ? 'الأستاذ مروان عبد الهادي' : 'Mr. Marwan Abdulhady'}
+              className="block w-full aspect-[3/4] object-cover object-top rounded-t-full rounded-b-[1.85rem]"
+            />
+          </div>
+          <span className="absolute -bottom-3 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 whitespace-nowrap rounded-full px-4 py-1.5 text-[0.72rem] font-bold bg-[var(--t-sun)] text-[#14213d] shadow-lg">
+            A* · Edexcel · CIE · SAT · ACT
+          </span>
         </motion.div>
       </div>
 

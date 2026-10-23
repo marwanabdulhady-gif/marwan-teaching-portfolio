@@ -11,6 +11,7 @@ import CredentialsBar from './components/CredentialsBar';
 import TeachAbout from './components/TeachAbout';
 import ResourceLibrary from './components/ResourceLibrary';
 import LearningDesigns from './components/LearningDesigns';
+import Experience from './components/Experience';
 import MathLab from './components/MathLab';
 import ClassroomGallery from './components/ClassroomGallery';
 import WorkWithMe from './components/WorkWithMe';
@@ -87,6 +88,7 @@ export default function TeachingApp() {
         <TeachHero />
         <CredentialsBar />
         <TeachAbout />
+        <Experience />
         <LearningDesigns />
         <ResourceLibrary />
         <MathLab />

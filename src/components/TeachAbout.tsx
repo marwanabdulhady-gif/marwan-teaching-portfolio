@@ -1,5 +1,4 @@
 import { useLocale } from '../LocaleContext';
-import ThreeDGeometry from './ThreeDGeometry';
 import { ABOUT, HERO_STATS, LINKS } from '../teachingData';
 import { Motif } from './MathArt';
 import Reveal from './Reveal';
@@ -34,7 +33,7 @@ export default function TeachAbout() {
             <Reveal from="start" className="row-span-2">
               <div data-theme="dark" className="teach-card chalk h-full min-h-[420px] flex flex-col justify-between p-4">
                 <div className="flex-1 min-h-0 rounded-2xl overflow-hidden">
-                  <ThreeDGeometry />
+                  <img src="/photos/teaching-board.webp" alt={isRtl ? 'مروان يشرح أمام اللوح' : 'Marwan teaching at the board'} loading="lazy" className="w-full h-full object-cover" />
                 </div>
                 <p className="text-[0.7rem] text-[color-mix(in_srgb,var(--t-ink)_50%,transparent)] mt-3 leading-snug text-start">
                   {isRtl ? ABOUT.mosaic[0].ar : ABOUT.mosaic[0].en}
@@ -44,8 +43,8 @@ export default function TeachAbout() {
 
             <Reveal from="end" delay={0.12}>
               <div data-theme="dark" className="teach-card chalk p-4 flex flex-col gap-3 h-full">
-                <div className="rounded-xl bg-[color-mix(in_srgb,var(--t-accent)_6%,transparent)] p-2">
-                  <Motif name="curve" className="w-full h-auto" />
+                <div className="rounded-xl overflow-hidden aspect-[4/5]">
+                  <img src="/photos/teaching-room.webp" alt={isRtl ? 'مروان يشرح خطوة بخطوة' : 'Marwan explaining step by step'} loading="lazy" className="w-full h-full object-cover" />
                 </div>
                 <p className="text-[0.7rem] text-[color-mix(in_srgb,var(--t-ink)_50%,transparent)] leading-snug text-start">
                   {isRtl ? ABOUT.mosaic[1].ar : ABOUT.mosaic[1].en}

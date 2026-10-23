@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Linkedin, Mail } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Linkedin, Mail, Youtube } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
 import { FOOTER, BRAND, NAV_ITEMS, RESOURCES, LINKS, mailto } from '../teachingData';
 import { MathMark } from './MathArt';
@@ -51,6 +51,15 @@ export default function TeachFooter() {
                 className="w-10 h-10 rounded-xl bg-white/[0.06] border border-[color-mix(in_srgb,var(--t-accent)_20%,transparent)] hover:border-cyan-400/60 hover:bg-cyan-500/15 flex items-center justify-center text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)] hover:text-cyan-300 transition-all"
               >
                 <Linkedin className="w-4 h-4" />
+              </a>
+              <a
+                href={LINKS.youtube}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="YouTube"
+                className="w-10 h-10 rounded-xl bg-white/[0.06] border border-[color-mix(in_srgb,var(--t-accent)_20%,transparent)] hover:border-cyan-400/60 hover:bg-cyan-500/15 flex items-center justify-center text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)] hover:text-cyan-300 transition-all"
+              >
+                <Youtube className="w-4 h-4" />
               </a>
               <a
                 href={mailto('Mathematics Enquiry')}

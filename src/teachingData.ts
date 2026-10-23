@@ -31,6 +31,8 @@ export const LINKS = {
 
   /** Marwan's corporate training & AI enablement portfolio. */
   corporate: 'https://marwan-abdulhady.vercel.app',
+  /** Lesson channel on YouTube. */
+  youtube: 'https://www.youtube.com/channel/UCJskFXSviblbJ4gm3Ejz0qQ',
   /** 30-minute call on Calendly (interviews and parent/student intro calls). */
   booking: 'https://calendly.com/marwanabdulhady/30min',
   /** WhatsApp number without + or spaces. */
@@ -62,6 +64,7 @@ export const BRAND = {
 
 export const NAV_ITEMS: { id: string; label: Bi }[] = [
   { id: 'about', label: { en: 'About', ar: 'نبذة' } },
+  { id: 'experience', label: { en: 'Experience', ar: 'الخبرة' } },
   { id: 'designs', label: { en: 'Designs', ar: 'التصاميم' } },
   { id: 'resources', label: { en: 'Resources', ar: 'الموارد' } },
   { id: 'lab', label: { en: 'Math Lab', ar: 'المختبر' } },
@@ -140,8 +143,8 @@ export const ABOUT = {
   titlePrefix: { en: 'Meet', ar: 'التقوا بـ' },
   titleAccent: { en: 'Mr. Marwan Abdulhady', ar: 'الأستاذ مروان عبد الهادي' },
   bio1: {
-    en: 'Marwan Abdulhady is a mathematics educator, instructional designer and corporate trainer holding a BSc in Mechanical Engineering from Benha University and a PGCE from Liverpool John Moores University, with STEM.org accreditation in progress. His passion lies in turning abstract mathematical structure into something a student can see, touch and actually use.',
-    ar: 'مروان عبد الهادي معلم رياضيات ومصمم تعليمي ومدرب مؤسسي، حاصل على بكالوريوس الهندسة الميكانيكية من جامعة بنها ودبلومة التأهيل التربوي PGCE من جامعة ليفربول جون مورس، واعتماد STEM.org جارٍ. شغفه أن يحول البنية الرياضية المجردة إلى شيء يراه الطالب ويلمسه ويستخدمه فعلياً.',
+    en: 'Marwan Abdulhady is a mathematics teacher with more than six years in international schools, and an instructional designer holding a BSc in Mechanical Engineering from Benha University and a PGCE from Liverpool John Moores University. He motivates students across the age and ability range, and has helped IGCSE and American Diploma students reach A* in Edexcel, CIE, SAT, ACT and EST mathematics.',
+    ar: 'مروان عبد الهادي معلم رياضيات بخبرة تزيد على ست سنوات في المدارس الدولية، ومصمم تعليمي حاصل على بكالوريوس الهندسة الميكانيكية من جامعة بنها ودبلومة التأهيل التربوي PGCE من جامعة ليفربول جون مورس. يحفّز الطلاب على اختلاف أعمارهم ومستوياتهم، وساعد طلاب IGCSE والدبلومة الأمريكية على تحقيق A* في رياضيات Edexcel، CIE، SAT، ACT، EST.',
   },
   bio2: {
     en: 'Through this teaching hub he shares curriculum-aligned worksheets, interactive graphing and geometry labs, gamified practice loops and project-based investigations spanning algebra, geometry, trigonometry, statistics, mechanics and calculus — every one designed so that a learner who has struggled elsewhere can still find a way in.',
@@ -150,18 +153,18 @@ export const ABOUT = {
   cta: { en: 'Request the Resource Library', ar: 'اطلب مكتبة الموارد' },
   /** Mosaic captions beside the About copy. */
   mosaic: [
-    { en: 'Solid geometry, rendered live', ar: 'هندسة مجسمة تُرسم حيّة' },
-    { en: 'Function behaviour, before formula', ar: 'سلوك الدالة قبل الصيغة' },
+    { en: 'In the classroom', ar: 'داخل الفصل' },
+    { en: 'Step by step, at the board', ar: 'خطوة بخطوة أمام اللوح' },
     { en: 'Conic sections, one locus at a time', ar: 'القطوع المخروطية، محلاً واحداً في المرة' },
   ],
 } as const;
 
-/** Hero stats — figures carried over verbatim from the corporate portfolio. */
+/** Hero stats — from Marwan's teaching presentation (Oct 2026) and credentials. */
 export const HERO_STATS: { value: string; label: Bi }[] = [
-  { value: '11+', label: { en: 'Years Teaching', ar: 'سنة في التعليم' } },
+  { value: '6+', label: { en: 'Years Teaching', ar: 'سنوات في التدريس' } },
+  { value: '3', label: { en: 'International Schools', ar: 'مدارس دولية' } },
+  { value: 'A*', label: { en: 'International Exam Results', ar: 'نتائج في الامتحانات الدولية' } },
   { value: '16+', label: { en: 'Verified Credentials', ar: 'اعتماد موثق' } },
-  { value: '20+', label: { en: 'Workshops Delivered', ar: 'ورشة مُقدَّمة' } },
-  { value: '3+', label: { en: 'Sectors Served', ar: 'قطاع مخدوم' } },
 ];
 
 /* -------------------------------------------------------------------------
@@ -250,6 +253,57 @@ export const RESOURCES = {
 } as const;
 
 /* -------------------------------------------------------------------------
+   EXPERIENCE — schools and roles, from Marwan's teaching presentation
+   ------------------------------------------------------------------------- */
+
+export const EXPERIENCE = {
+  tag: { en: 'Experience', ar: 'الخبرة' },
+  titlePrefix: { en: 'Where I have', ar: 'أين' },
+  titleAccent: { en: 'taught', ar: 'درّست' },
+  results: {
+    en: 'IGCSE and American Diploma students reached A* in Edexcel, CIE, SAT, ACT and EST mathematics.',
+    ar: 'حقق طلاب IGCSE والدبلومة الأمريكية A* في رياضيات Edexcel، CIE، SAT، ACT، EST.',
+  },
+  roles: [
+    {
+      id: 'andalus',
+      years: '2024 – present',
+      yearsAr: '٢٠٢٤ – الآن',
+      school: { en: 'Al Andalus International School', ar: 'مدارس الأندلس الدولية' },
+      role: { en: 'Mathematics teacher', ar: 'معلم رياضيات' },
+      photos: [
+        { src: '/photos/andalus-award.webp', caption: { en: 'Recognised on stage at the end-of-term ceremony', ar: 'تكريم على المسرح في حفل نهاية الفصل' } },
+        { src: '/photos/andalus-ceremony.webp', caption: { en: '“Little Steps Lead to Huge Success” — end of term', ar: '«خطوات صغيرة تقود إلى نجاح كبير» — نهاية الفصل' } },
+      ],
+    },
+    {
+      id: 'mhs',
+      years: '2022 – 2024',
+      yearsAr: '٢٠٢٢ – ٢٠٢٤',
+      school: { en: 'MHS American International School', ar: 'مدرسة MHS الأمريكية الدولية' },
+      role: { en: 'Mathematics teacher', ar: 'معلم رياضيات' },
+      photos: [],
+    },
+    {
+      id: 'ris',
+      years: '2020 – 2022',
+      yearsAr: '٢٠٢٠ – ٢٠٢٢',
+      school: { en: 'RIS British International School', ar: 'مدرسة RIS البريطانية الدولية' },
+      role: { en: 'Mathematics teacher', ar: 'معلم رياضيات' },
+      photos: [],
+    },
+    {
+      id: 'tutor',
+      years: '2021 – present',
+      yearsAr: '٢٠٢١ – الآن',
+      school: { en: 'Freelance', ar: 'عمل حر' },
+      role: { en: 'IGCSE mathematics tutor', ar: 'مدرّس رياضيات IGCSE' },
+      photos: [],
+    },
+  ],
+};
+
+/* -------------------------------------------------------------------------
    WORK WITH ME — two paths: schools hiring, and parents/students learning
    ------------------------------------------------------------------------- */
 
@@ -272,7 +326,7 @@ export const WORK = {
       { en: 'PGCE from Liverpool John Moores University, BSc in Mechanical Engineering', ar: 'دبلومة PGCE من جامعة ليفربول جون مورس، وبكالوريوس الهندسة الميكانيكية' },
       { en: 'Gamified practice and teacher dashboards that show each student’s progress', ar: 'تدريب قائم على التلعيب ولوحات للمعلم تُظهر تقدم كل طالب' },
       { en: 'Teaching and training in English and Arabic', ar: 'تدريس وتدريب بالإنجليزية والعربية' },
-      { en: 'Workshops for colleagues on gamification and AI in the classroom', ar: 'ورش للزملاء حول التلعيب والذكاء الاصطناعي في الفصل' },
+      { en: 'Course development, instructional design and teacher training', ar: 'تطوير المقررات والتصميم التعليمي وتدريب المعلمين' },
     ],
     cta: { en: 'Book an interview call', ar: 'احجز مكالمة تعارف' },
     note: 'School / teaching role — interview call',
@@ -286,9 +340,10 @@ export const WORK = {
     },
     points: [
       { en: 'From algebra and geometry to statistics, mechanics and calculus', ar: 'من الجبر والهندسة إلى الإحصاء والميكانيكا والتفاضل' },
+      { en: 'Exam preparation: IGCSE, SAT, ACT and EST', ar: 'التحضير للامتحانات: IGCSE، SAT، ACT، EST' },
       { en: 'Lessons built around the student’s own gaps, not a fixed script', ar: 'دروس مبنية على فجوات الطالب نفسه، لا على نص ثابت' },
-      { en: 'Games and short practice between sessions', ar: 'ألعاب وتدريب قصير بين الجلسات' },
-      { en: 'In English or Arabic', ar: 'بالإنجليزية أو العربية' },
+      { en: 'Coding for kids, and general and business English', ar: 'البرمجة للأطفال، والإنجليزية العامة وللأعمال' },
+      { en: 'Games and short practice between sessions, in English or Arabic', ar: 'ألعاب وتدريب قصير بين الجلسات، بالإنجليزية أو العربية' },
     ],
     cta: { en: 'Book an intro call', ar: 'احجز مكالمة تعريفية' },
     note: 'Parent / student — mathematics learning',
