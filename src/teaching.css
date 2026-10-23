@@ -1,0 +1,330 @@
+/* Playfair Display + DM Sans carry the teaching page's editorial voice; the
+   training portfolio keeps its own Inter / Space Grotesk pairing. */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+/* ==========================================================================
+   TEACHING PORTFOLIO DESIGN SYSTEM
+   Scoped entirely to .teach-root so the corporate training portfolio is
+   untouched by any of these tokens, fonts or component classes.
+   ========================================================================== */
+
+/* Re-declared on chalkboards so var(--t-*) resolves to their dark values */
+.teach-root,
+.teach-root [data-theme='dark'] {
+  /* Core palette — deep navy ground, cyan primary, gold highlight */
+  --teach-navy: var(--t-bg);
+  --teach-navy-deep: var(--t-bg-2);
+  --teach-blue: var(--t-sky);
+  --teach-cyan: var(--t-accent);
+  --teach-cyan-2: var(--t-accent-2);
+  --teach-gold: var(--t-sun);
+  --teach-ink: var(--t-ink);
+  --teach-light: var(--t-ink);
+  --teach-glass: color-mix(in srgb, var(--t-glass) 7%, transparent);
+  --teach-glass-border: color-mix(in srgb, var(--t-accent) 20%, transparent);
+
+  /* Type stacks */
+  --teach-font-display: 'Playfair Display', 'Cairo', 'Tajawal', Georgia, serif;
+  --teach-font-body: 'DM Sans', 'Cairo', 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+  --teach-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+.teach-root {
+  font-family: var(--teach-font-body);
+  background: var(--teach-navy);
+  color: var(--teach-ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Film-grain overlay lifted from the original template */
+.teach-noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* --------------------------------------------------------------------------
+   Typography helpers
+   -------------------------------------------------------------------------- */
+
+.teach-eyebrow {
+  font-size: 0.65rem;
+  color: var(--teach-cyan);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.teach-section-title {
+  font-family: var(--teach-font-display);
+  font-size: clamp(1.9rem, 4.5vw, 3.1rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.5px;
+  color: var(--teach-ink);
+}
+
+.teach-section-title em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teach-cyan), var(--teach-cyan-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.teach-section-desc {
+  color: color-mix(in srgb, var(--t-ink) 62%, transparent);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 46rem;
+  margin-inline: auto;
+}
+
+.teach-divider {
+  width: 68px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teach-cyan), transparent);
+  border-radius: 2px;
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+.teach-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s, background 0.28s, color 0.28s;
+}
+
+.teach-btn-primary {
+  background: linear-gradient(135deg, var(--teach-cyan), var(--t-accent-deep));
+  color: #fff;
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--t-accent) 55%, transparent);
+}
+
+.teach-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px -12px color-mix(in srgb, var(--t-accent) 70%, transparent);
+  color: #fff;
+}
+
+.teach-btn-secondary {
+  background: var(--teach-glass);
+  border-color: var(--teach-glass-border);
+  color: color-mix(in srgb, var(--t-ink) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.teach-btn-secondary:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--t-accent) 50%, transparent);
+  background: color-mix(in srgb, var(--t-accent) 12%, transparent);
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Surfaces
+   -------------------------------------------------------------------------- */
+
+.teach-card {
+  position: relative;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--t-glass) 5.5%, transparent) 0%, color-mix(in srgb, var(--t-glass) 1.5%, transparent) 100%);
+  border: 1px solid var(--teach-glass-border);
+  border-radius: 20px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s;
+}
+
+.teach-card::before {
+  /* Sheen sweep on hover */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, color-mix(in srgb, var(--t-accent) 10%, transparent) 50%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.45s;
+  pointer-events: none;
+}
+
+.teach-card:hover::before {
+  opacity: 1;
+}
+
+.teach-card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--t-accent) 45%, transparent);
+  box-shadow: 0 24px 50px -20px var(--t-shadow);
+}
+
+.teach-icon-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  box-shadow: inset 0 1px 1px color-mix(in srgb, var(--t-glass) 25%, transparent);
+}
+
+/* --------------------------------------------------------------------------
+   Ambient background layers
+   -------------------------------------------------------------------------- */
+
+.teach-hero-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, color-mix(in srgb, var(--t-accent) 12%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 10% 80%, color-mix(in srgb, var(--t-sky) 25%, transparent) 0%, transparent 50%),
+    linear-gradient(160deg, var(--teach-navy) 0%, var(--teach-navy-deep) 100%);
+}
+
+.teach-grid-bg {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--t-accent) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--t-accent) 5%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 20%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 20%, transparent 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Animations
+   -------------------------------------------------------------------------- */
+
+@keyframes teach-fade-up {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes teach-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+@keyframes teach-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes teach-pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 color-mix(in srgb, var(--t-accent) 60%, transparent); }
+  70% { opacity: 0.85; box-shadow: 0 0 0 9px color-mix(in srgb, var(--t-accent) 0%, transparent); }
+}
+
+@keyframes teach-dash {
+  from { stroke-dashoffset: 1400; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes teach-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.teach-anim-float { animation: teach-float 5s ease-in-out infinite; }
+.teach-anim-spin-slow { animation: teach-spin 26s linear infinite; }
+.teach-anim-pulse-dot { animation: teach-pulse-dot 2s infinite; }
+
+.teach-anim-marquee {
+  animation: teach-marquee 34s linear infinite;
+  will-change: transform;
+}
+
+.teach-marquee-track:hover .teach-anim-marquee {
+  animation-play-state: paused;
+}
+
+/* Stroke-drawing effect used by the hero's mathematical line work */
+.teach-draw-path {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: teach-dash 3.2s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+}
+
+/* --------------------------------------------------------------------------
+   Horizontal scroll-snap gallery
+   -------------------------------------------------------------------------- */
+
+.teach-scroll-rail {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-block-end: 1.25rem;
+  scrollbar-width: thin;
+}
+
+.teach-scroll-rail > * {
+  scroll-snap-align: center;
+  flex: 0 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility
+   -------------------------------------------------------------------------- */
+
+.teach-root :focus-visible {
+  outline: 2px solid var(--teach-cyan);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .teach-anim-float,
+  .teach-anim-spin-slow,
+  .teach-anim-pulse-dot,
+  .teach-anim-marquee,
+  .teach-draw-path {
+    animation: none !important;
+  }
+  .teach-draw-path {
+    stroke-dashoffset: 0;
+  }
+  .teach-card:hover {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Chalkboard tiles: dark navy cards on the paper page (pair with
+   data-theme="dark" so their text and chalk colours switch too)
+   -------------------------------------------------------------------------- */
+.teach-card.chalk {
+  background: linear-gradient(160deg, var(--t-bg) 0%, var(--t-bg-2) 100%);
+  border-color: color-mix(in srgb, var(--t-ink) 10%, transparent);
+  box-shadow: 0 24px 50px -28px rgba(20, 33, 61, 0.55);
+}
+
+/* Warm coral card (the "learn with me" path) */
+.teach-card.learn {
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--t-accent) 18%, transparent), transparent 60%),
+    linear-gradient(160deg, #fffaf3 0%, color-mix(in srgb, var(--t-accent) 7%, #fffaf3) 100%);
+  border-color: color-mix(in srgb, var(--t-accent) 30%, transparent);
+  box-shadow: 0 24px 50px -28px color-mix(in srgb, var(--t-accent) 60%, transparent);
+}

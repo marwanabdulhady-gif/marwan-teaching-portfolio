@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+@import "tailwindcss";
+
+/* =====================================================================
+   CLASSROOM PALETTE
+   Warm paper with navy ink, a coral voice and a sky-blue second voice.
+   Components were first written for a dark navy page, so the light theme
+   flips the shared tokens: Tailwind "white" becomes the ink, "black" the
+   paper, and the cyan scale becomes coral (deep shades for text on paper).
+
+   Chalkboards: any element with data-theme="dark" restores the navy
+   values for its subtree — the hero, the art tiles, gallery cards and the
+   footer are dark boards with coral and sunflower chalk.
+   ===================================================================== */
+
+@theme {
+  --color-white: #14213d;
+  --color-black: #fbf6ee;
+  --color-cyan-100: #8f2a17;
+  --color-cyan-200: #a8331d;
+  --color-cyan-300: #c2412a;
+  --color-cyan-400: #e8553d;
+  --color-cyan-500: #e8553d;
+  --color-sky-500: #2e86de;
+}
+
+:root {
+  --t-bg: #fbf6ee;          /* paper */
+  --t-bg-2: #f3eadb;        /* deeper paper */
+  --t-ink: #14213d;         /* navy ink */
+  --t-accent: #e8553d;      /* coral */
+  --t-accent-2: #f2876c;
+  --t-accent-deep: #c2412a;
+  --t-sky: #2e86de;         /* second voice */
+  --t-sun: #f2b33d;         /* sunflower highlight */
+  --t-glass: #14213d;       /* tints are mixed from the ink */
+  --t-shadow: rgba(20, 33, 61, 0.35);
+}
+
+[data-theme='dark'] {
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-cyan-100: #ffe3da;
+  --color-cyan-200: #ffc7b6;
+  --color-cyan-300: #ff9f85;
+  --color-cyan-400: #ff7a5c;
+  --color-cyan-500: #f0613f;
+
+  --t-bg: #13233f;          /* chalkboard navy */
+  --t-bg-2: #0f1c33;
+  --t-ink: #fdf8f0;         /* chalk */
+  --t-accent: #ff7a5c;
+  --t-accent-2: #ffa58c;
+  --t-accent-deep: #e8553d;
+  --t-sky: #6cb4ff;
+  --t-sun: #f6c445;
+  --t-glass: #ffffff;
+  --t-shadow: rgba(0, 0, 0, 0.75);
+  color: var(--t-ink);
+}
+
+html {
+  /* Lenis drives smooth scrolling */
+  scroll-behavior: auto;
+}
+body {
+  background: var(--t-bg);
+}
