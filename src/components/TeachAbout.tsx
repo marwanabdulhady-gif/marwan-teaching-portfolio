@@ -1,6 +1,5 @@
 import { useLocale } from '../LocaleContext';
 import { ABOUT, HERO_STATS, LINKS } from '../teachingData';
-import { Motif } from './MathArt';
 import Reveal from './Reveal';
 
 /**
@@ -54,8 +53,8 @@ export default function TeachAbout() {
 
             <Reveal from="end" delay={0.24}>
               <div data-theme="dark" className="teach-card chalk p-4 flex flex-col gap-3 h-full">
-                <div className="rounded-xl bg-[color-mix(in_srgb,var(--t-sun)_6%,transparent)] p-2">
-                  <Motif name="conics" className="w-full h-auto" />
+                <div className="rounded-xl overflow-hidden aspect-[4/3]">
+                  <img src="/photos/andalus-award.webp" alt={isRtl ? 'تكريم مروان في حفل نهاية الفصل بمدارس الأندلس' : 'Marwan honoured at the Al-Andalus end-of-term ceremony'} loading="lazy" className="w-full h-full object-cover" />
                 </div>
                 <p className="text-[0.7rem] text-[color-mix(in_srgb,var(--t-ink)_50%,transparent)] leading-snug text-start">
                   {isRtl ? ABOUT.mosaic[2].ar : ABOUT.mosaic[2].en}

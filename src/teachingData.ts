@@ -152,7 +152,7 @@ export const ABOUT = {
   mosaic: [
     { en: 'In the classroom', ar: 'داخل الفصل' },
     { en: 'Step by step, at the board', ar: 'خطوة بخطوة أمام اللوح' },
-    { en: 'Conic sections, one locus at a time', ar: 'القطوع المخروطية، محلاً واحداً في المرة' },
+    { en: 'Honoured at Al-Andalus, end of term', ar: 'تكريم في مدارس الأندلس، نهاية الفصل' },
   ],
 } as const;
 
