@@ -50,8 +50,11 @@ export default function Experience() {
                       {isRtl ? r.yearsAr : <span dir="ltr">{r.years}</span>}
                     </span>
                   </div>
+                  {'detail' in r && r.detail && (
+                    <p className="text-[0.9rem] leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)]">{L(r.detail)}</p>
+                  )}
                   {r.photos.length > 0 && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className={`grid gap-3 ${r.photos.length > 2 ? 'grid-cols-2 sm:grid-cols-3' : 'grid-cols-1 sm:grid-cols-2'}`}>
                       {r.photos.map((p) => (
                         <figure key={p.src} className="space-y-1.5">
                           <img src={p.src} alt={L(p.caption)} loading="lazy" className="w-full aspect-[4/3] object-cover rounded-xl" />

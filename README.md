@@ -27,6 +27,7 @@ Vite; no settings or environment variables are needed.
 | Learning-experience designs | `src/components/LearningDesigns.tsx` |
 | Lessons & resources (YouTube, worksheets, TPT store) | `src/components/ResourceLibrary.tsx` |
 | FIKR Math Arcade | `src/components/MathLab.tsx` + `public/arcade/` |
+| Live rooms (Math Fighter, Tug of War) | `src/components/LiveRooms.tsx` + `src/rooms/` |
 | Classroom gallery | `src/components/ClassroomGallery.tsx` |
 | Work with me (schools / parents & students) | `src/components/WorkWithMe.tsx` |
 | Footer | `src/components/TeachFooter.tsx` |
@@ -52,7 +53,18 @@ of the MathPlay hub from the FIKR dashboard repo (`playhub/index.html`), with
 one small style block added that hides the lesson-game links. Only the general
 games ship here: the lesson games and the dashboard (and its pupil data) are
 not part of this repository. To update it, copy the new `playhub/index.html`
-over and keep that style block.
+over and keep that style block. Framed, the hub wears the FIKR look, whose heading
+face is served from `public/vendor/fonts/`.
+
+**Live rooms.** Two players on two devices play the real Math Fighter or Tug of War:
+one makes a room and shares the 4-letter code (or the invite link, `?room=CODE#lab`),
+the other joins. It is the FIKR games page's Live challenge protocol
+(`src/rooms/liveRoom.ts`) over Supabase Realtime — presence and broadcast on
+`mtp-room-…` channels only, nothing stored. By default it uses the FIKR project's
+public URL and publishable key; set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
+to use another project. Add `?rooms=local` to the page URL to play between two tabs of
+one browser with no internet (that is how the rooms are tested). A visitor on their own
+can play the hub's robot (Rookie, Racer, Master).
 
 ## Look
 

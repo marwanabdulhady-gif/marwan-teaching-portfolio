@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Gamepad2, Maximize2, X } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
 import { ARCADE, type ArcadeTier } from '../teachingData';
+import LiveRooms from './LiveRooms';
 import Reveal from './Reveal';
 
 /**
@@ -73,6 +74,8 @@ export default function MathLab() {
           </div>
         </Reveal>
 
+        <LiveRooms />
+
         {/* Lazy-loaded arcade */}
         <AnimatePresence initial={false}>
           {activeUrl && (
@@ -107,7 +110,7 @@ export default function MathLab() {
                   key={activeUrl}
                   src={activeUrl}
                   title={L(ARCADE.frameTitle)}
-                  className="block w-full h-[clamp(480px,75vh,820px)] bg-white border-0"
+                  className="block w-full h-[clamp(480px,75vh,820px)] bg-[var(--t-bg)] border-0"
                   allowFullScreen
                 />
               </div>
