@@ -63,7 +63,7 @@
           '<span>' + (running ? 'Pause' : 'Play') + '</span>';
         btn.setAttribute('aria-pressed', String(!running));
       }
-      if (reduce.matches) frame.setAttribute('data-running', 'false');
+      /* keep illustrations running unless explicitly paused by user */
       btn.setAttribute('type', 'button');
       btn.setAttribute('aria-label', 'Pause or resume this illustration');
       btn.addEventListener('click', function () {
@@ -1558,6 +1558,669 @@
   }
 })();
 
+
+/* ============================================================
+   INTERACTIVE LESSON GRAPH LABS & CONTINUOUS MOTION ENGINE
+   Brings static SSR math graphs, sliders, and "Play motion"
+   controls to life across /academy/index.html and all lessons.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  function q(sel, root) { return (root || document).querySelector(sel); }
+  function qa(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  /* ------------------------------------------------------------
+     A. Home SVG Continuous 60fps Enhancer (/academy/index.html)
+     ------------------------------------------------------------ */
+  function initHomeContinuousMotion() {
+    var frames = qa('.home-module__oe3DtG__motionFrame');
+    if (!frames.length) return;
+
+    // Ensure Precalculus curve uses SVG transform attribute cleanly instead of CSS px mismatch
+    var preFrame = q('.home-module__oe3DtG__precalculus');
+    var preGroup = preFrame && q('.home-module__oe3DtG__transformedCurve', preFrame);
+    if (preGroup) {
+      preGroup.style.animation = 'none';
+      preGroup.style.transform = 'none';
+    }
+
+    // Smooth continuous secant sweep on Calculus card instead of 3s step-end freezes
+    var calcFrame = q('.home-module__oe3DtG__calculus');
+    var calcSvg = calcFrame && q('svg', calcFrame);
+    var liveSecGroup = null;
+    if (calcSvg) {
+      qa('.home-module__oe3DtG__secant', calcSvg).forEach(function (g) {
+        g.style.animation = 'none';
+        g.style.opacity = '0';
+      });
+      liveSecGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      liveSecGroup.innerHTML =
+        '<line stroke="#d97706" stroke-width="2.3"></line>' +
+        '<circle r="5" fill="#d97706" stroke="#ffffff" stroke-width="1.8"></circle>';
+      calcSvg.appendChild(liveSecGroup);
+    }
+
+    // Add live continuous gold tracer on Featured f(x)=x^2 lens
+    var conceptFrame = q('.home-module__oe3DtG__conceptPanel');
+    var conceptSvg = conceptFrame && q('svg', conceptFrame);
+    var lensTracer = null;
+    if (conceptSvg) {
+      lensTracer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      lensTracer.innerHTML =
+        '<path fill="none" stroke="#f5c84c" stroke-opacity="0.8" stroke-width="1.4" stroke-dasharray="3 4"></path>' +
+        '<circle r="8" fill="#f5c84c" fill-opacity="0.2"></circle>' +
+        '<circle r="4.5" fill="#f5c84c" stroke="#0a1931" stroke-width="1.8"></circle>';
+      conceptSvg.appendChild(lensTracer);
+    }
+
+    // GMAT live scanner line
+    var gmatFrame = q('.home-module__oe3DtG__gmat');
+    var gmatSvg = gmatFrame && q('svg', gmatFrame);
+    var gmatScan = null;
+    if (gmatSvg) {
+      gmatScan = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      gmatScan.setAttribute('x1', '65');
+      gmatScan.setAttribute('x2', '299');
+      gmatScan.setAttribute('stroke', '#d97706');
+      gmatScan.setAttribute('stroke-width', '1.6');
+      gmatScan.setAttribute('stroke-dasharray', '4 3');
+      gmatSvg.appendChild(gmatScan);
+    }
+
+    var clocks = { concept: 0, calc: 0, pre: 0, gmat: 0 };
+    var last = performance.now();
+
+    function tick(now) {
+      var dt = Math.min(0.064, (now - last) / 1000);
+      last = now;
+
+      if (conceptFrame && conceptFrame.getAttribute('data-running') !== 'false' && lensTracer) {
+        clocks.concept += dt;
+        var x = -2 * Math.cos(clocks.concept * 0.85);
+        var cx = 145 + 48 * x;
+        var cy = 195 - 34 * x * x;
+        var proj = lensTracer.children[0];
+        var halo = lensTracer.children[1];
+        var dot = lensTracer.children[2];
+        proj.setAttribute('d', 'M' + cx.toFixed(1) + ' 195 V' + cy.toFixed(1) + ' H145');
+        halo.setAttribute('cx', cx.toFixed(1));
+        halo.setAttribute('cy', cy.toFixed(1));
+        dot.setAttribute('cx', cx.toFixed(1));
+        dot.setAttribute('cy', cy.toFixed(1));
+      }
+
+      if (calcFrame && calcFrame.getAttribute('data-running') !== 'false' && liveSecGroup) {
+        clocks.calc += dt;
+        // Original Bezier M7 104 Q139 302 271 16 parameterized by u in [0, 1]; P(1,1) is at u = 7/11 (~0.63636 -> (175,160))
+        var uP = 7 / 11;
+        var du = 0.04 + 0.30 * (0.5 + 0.5 * Math.cos(clocks.calc * 0.9));
+        var uQ = uP + du;
+        var qx = (1 - uQ) * (1 - uQ) * 7 + 2 * (1 - uQ) * uQ * 139 + uQ * uQ * 271;
+        var qy = (1 - uQ) * (1 - uQ) * 104 + 2 * (1 - uQ) * uQ * 302 + uQ * uQ * 16;
+        var px = 175, py = 160;
+        var mSvg = (qy - py) / ((qx - px) || 0.001);
+        var x1 = 90, y1 = py + mSvg * (x1 - px);
+        var x2 = 315, y2 = py + mSvg * (x2 - px);
+        var ln = liveSecGroup.children[0];
+        var pt = liveSecGroup.children[1];
+        ln.setAttribute('x1', x1.toFixed(1));
+        ln.setAttribute('y1', y1.toFixed(1));
+        ln.setAttribute('x2', x2.toFixed(1));
+        ln.setAttribute('y2', y2.toFixed(1));
+        pt.setAttribute('cx', qx.toFixed(1));
+        pt.setAttribute('cy', qy.toFixed(1));
+      }
+
+      if (preFrame && preFrame.getAttribute('data-running') !== 'false' && preGroup) {
+        clocks.pre += dt;
+        var shift = 25 + 25 * Math.sin(clocks.pre * 1.15); // 0 -> 50 -> 0 in SVG units
+        preGroup.setAttribute('transform', 'translate(' + shift.toFixed(2) + ', 0)');
+      }
+
+      if (gmatFrame && gmatFrame.getAttribute('data-running') !== 'false' && gmatScan) {
+        clocks.gmat += dt;
+        var mix = 0.5 - 0.5 * Math.cos(clocks.gmat * 1.35);
+        var sy = 138 - 48 * mix;
+        gmatScan.setAttribute('y1', sy.toFixed(1));
+        gmatScan.setAttribute('y2', sy.toFixed(1));
+      }
+
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* ------------------------------------------------------------
+     B. Lesson 2.6 Related Rates ("Play motion" + Simulator)
+     ------------------------------------------------------------ */
+  function initRelatedRatesLabs() {
+    qa('[data-lab-workspace="true"]').forEach(function (ws) {
+      var svg = q('svg[viewBox="0 0 420 260"]', ws);
+      var range = q('input[type="range"]', ws);
+      var num = q('input[type="number"]', ws);
+      if (!svg || !range) return;
+
+      var motionCtrl = q('[data-motion-controls="true"]', ws);
+      var playBtn = motionCtrl && q('button', motionCtrl);
+      var statusEl = motionCtrl && q('[data-motion-status="true"]', motionCtrl);
+      var timeEl = motionCtrl && q('[data-motion-time="true"]', motionCtrl);
+      var summaryEl = q('[data-motion-summary="true"]', ws);
+      var growthEl = q('[data-motion-growth="true"]', ws);
+      var aria = svg.getAttribute('aria-label') || '';
+      var section = ws.closest('section') || ws.parentElement;
+      var resetBtn = section && qa('button', section).filter(function (b) {
+        return /Reset activity/i.test(b.textContent || '');
+      })[0];
+
+      var initialVal = parseFloat(range.value) || 0;
+      var minVal = parseFloat(range.min) || 0;
+      var maxVal = parseFloat(range.max) || 10;
+      var playing = false;
+      var rafId = 0;
+      var lastTs = 0;
+
+      function updateLadderSvg(xFt) {
+        var yFt = Math.sqrt(Math.max(0.01, 225 - xFt * xFt));
+        var xSvg = 50 + 13 * xFt;
+        var ySvg = 220 - 13 * yFt;
+        var ladder = q('[data-ladder="true"]', svg);
+        var circles = qa('circle', svg);
+        var texts = qa('text', svg);
+        if (ladder) {
+          ladder.setAttribute('x1', '50');
+          ladder.setAttribute('y1', ySvg.toFixed(2));
+          ladder.setAttribute('x2', xSvg.toFixed(2));
+          ladder.setAttribute('y2', '220');
+        }
+        if (circles.length >= 2) {
+          circles[0].setAttribute('cx', xSvg.toFixed(2));
+          circles[0].setAttribute('cy', '220');
+          circles[1].setAttribute('cx', '50');
+          circles[1].setAttribute('cy', ySvg.toFixed(2));
+        }
+        if (texts[0]) texts[0].textContent = 'x = ' + xFt.toFixed(2) + ' ft';
+        if (texts[1]) texts[1].textContent = 'y = ' + yFt.toFixed(2) + ' ft';
+        return yFt;
+      }
+
+      function renderAt(v) {
+        v = Math.max(minVal, Math.min(maxVal, v));
+        range.value = String(v);
+        if (num) num.value = String(Math.round(v * 100) / 100);
+
+        if (/Sphere cross section/i.test(aria)) {
+          // Filling balloon: V0 = (4/3)*pi*10^3, inflow dV/dt = 5 cm^3/min
+          var v0 = (4 / 3) * Math.PI * 1000;
+          var vol = v0 + 5 * v;
+          var rCm = Math.pow((3 * vol) / (4 * Math.PI), 1 / 3);
+          var drdt = 5 / (4 * Math.PI * rCm * rCm);
+          // Exaggerate visual radius delta slightly so growth is clearly visible while keeping r accurate
+          var rPx = 60 + (rCm - 10) * 32;
+          var c = q('circle', svg);
+          var ln = q('line', svg);
+          var txts = qa('text', svg);
+          if (c) c.setAttribute('r', rPx.toFixed(2));
+          if (ln) ln.setAttribute('x2', (180 + rPx).toFixed(2));
+          if (txts[0]) txts[0].textContent = 'r = ' + rCm.toFixed(2) + ' cm';
+          if (timeEl) timeEl.textContent = v.toFixed(1) + ' / 60 min';
+          if (summaryEl) summaryEl.textContent = 'r = ' + rCm.toFixed(3) + ' cm; dr/dt = ' + drdt.toFixed(5) + ' cm/min.';
+          if (growthEl) growthEl.textContent = 'Added volume: +' + (5 * v).toFixed(1) + ' cm³; radius: +' + (rCm - 10).toFixed(3) + ' cm.';
+        } else if (/15 ft ladder.*base 10/i.test(aria)) {
+          // Moving ladder: x(t) = 10 - 0.25*t, dx/dt = -0.25 ft/s
+          var xFt = 10 - 0.25 * v;
+          var yFt = updateLadderSvg(xFt);
+          var dydt = (0.25 * xFt) / yFt;
+          if (timeEl) timeEl.textContent = v.toFixed(1) + ' / 12 s';
+          if (summaryEl) summaryEl.textContent = 'x = ' + xFt.toFixed(2) + ' ft, y = ' + yFt.toFixed(2) + ' ft; dy/dt = ' + dydt.toFixed(4) + ' ft/s.';
+        } else if (/15 ft ladder/i.test(aria)) {
+          // Static/Interactive Related Rates Simulator (x slider directly in ft)
+          updateLadderSvg(v);
+        } else if (/Cone radius 5 ft/i.test(aria)) {
+          // Draining cone: R=5, H=14, h0=12, leak dV/dt = -2 ft^3/hr
+          var coeff = (25 * Math.PI) / 588; // V = coeff * h^3
+          var vInit = coeff * Math.pow(12, 3);
+          var vNow = Math.max(0.5, vInit - 2 * v);
+          var hFt = Math.pow(vNow / coeff, 1 / 3);
+          var rFt = (5 / 14) * hFt;
+          var dhdt = -2 / ((25 * Math.PI / 196) * hFt * hFt);
+          var yWater = 220 - 13 * hFt;
+          var xLeft = 210 - 13 * rFt;
+          var xRight = 210 + 13 * rFt;
+          var waterPath = q('[data-water="true"]', svg);
+          var waterLine = q('line', svg);
+          var cTexts = qa('text', svg);
+          if (waterPath) waterPath.setAttribute('d', 'M' + xLeft.toFixed(2) + ' ' + yWater.toFixed(2) + ' L210 220 L' + xRight.toFixed(2) + ' ' + yWater.toFixed(2) + ' Z');
+          if (waterLine) {
+            waterLine.setAttribute('x1', xLeft.toFixed(2));
+            waterLine.setAttribute('y1', yWater.toFixed(2));
+            waterLine.setAttribute('x2', xRight.toFixed(2));
+            waterLine.setAttribute('y2', yWater.toFixed(2));
+          }
+          if (cTexts[2]) cTexts[2].textContent = 'h = ' + hFt.toFixed(2) + ' ft';
+          if (timeEl) timeEl.textContent = v.toFixed(1) + ' / 60 hr';
+          if (summaryEl) summaryEl.textContent = 'h = ' + hFt.toFixed(3) + ' ft; dh/dt = ' + dhdt.toFixed(4) + ' ft/hr.';
+        } else if (/12 ft lamp/i.test(aria)) {
+          // Moving shadow: person walks at 2 ft/s from x0 = 4 ft
+          var xDist = 4 + 2 * v;
+          var shadow = (5.5 / 6.5) * xDist;
+          var tip = xDist + shadow;
+          var personX = 35 + 9 * xDist;
+          var tipX = 35 + 9 * tip;
+          var lines = qa('line', svg);
+          // lines: [0]=ground, [1]=lamp, [2]=person, [3]=light-ray, [4]=shadow
+          if (lines[2]) {
+            lines[2].setAttribute('x1', personX.toFixed(2));
+            lines[2].setAttribute('x2', personX.toFixed(2));
+          }
+          var ray = q('[data-light-ray="true"]', svg);
+          if (ray) ray.setAttribute('x2', tipX.toFixed(2));
+          if (lines[4]) {
+            lines[4].setAttribute('x1', personX.toFixed(2));
+            lines[4].setAttribute('x2', tipX.toFixed(2));
+          }
+          var sTexts = qa('text', svg);
+          if (sTexts[2]) sTexts[2].textContent = 'x = ' + xDist.toFixed(2) + ' ft · shadow = ' + shadow.toFixed(2) + ' ft';
+          if (timeEl) timeEl.textContent = v.toFixed(1) + ' / 8 s';
+          if (summaryEl) summaryEl.textContent = 'Shadow = ' + shadow.toFixed(2) + ' ft; tip = ' + tip.toFixed(2) + ' ft from pole.';
+        }
+      }
+
+      function stopPlay(done) {
+        playing = false;
+        if (rafId) cancelAnimationFrame(rafId);
+        if (playBtn) {
+          playBtn.textContent = 'Play motion';
+          playBtn.setAttribute('aria-pressed', 'false');
+        }
+        if (statusEl) statusEl.textContent = done ? 'Complete' : 'Paused';
+      }
+
+      function stepPlay(ts) {
+        if (!playing) return;
+        var dt = lastTs ? Math.min(0.064, (ts - lastTs) / 1000) : 0.016;
+        lastTs = ts;
+        // Advance quickly enough to feel lively (full span in ~8 seconds)
+        var speed = Math.max(1, (maxVal - minVal) / 8);
+        var cur = parseFloat(range.value) || 0;
+        var next = cur + speed * dt;
+        if (next >= maxVal) {
+          renderAt(maxVal);
+          // Loop smoothly so continuous motion keeps demonstrating the rate!
+          next = minVal;
+        }
+        renderAt(next);
+        rafId = requestAnimationFrame(stepPlay);
+      }
+
+      if (playBtn) {
+        playBtn.addEventListener('click', function () {
+          if (playing) {
+            stopPlay(false);
+          } else {
+            if ((parseFloat(range.value) || 0) >= maxVal) renderAt(minVal);
+            playing = true;
+            lastTs = 0;
+            playBtn.textContent = 'Pause motion';
+            playBtn.setAttribute('aria-pressed', 'true');
+            if (statusEl) statusEl.textContent = 'Playing';
+            rafId = requestAnimationFrame(stepPlay);
+          }
+        });
+      }
+
+      range.addEventListener('input', function () {
+        if (playing) stopPlay(false);
+        renderAt(parseFloat(range.value) || minVal);
+      });
+      if (num) {
+        num.addEventListener('input', function () {
+          var v = parseFloat(num.value);
+          if (!isNaN(v)) renderAt(v);
+        });
+      }
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function () {
+          stopPlay(false);
+          if (statusEl) statusEl.textContent = 'Ready';
+          renderAt(initialVal);
+        });
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------
+     C. Lesson 2.1 Secant-to-Tangent & Lesson 2.5 Implicit Circle
+     ------------------------------------------------------------ */
+  function initSecantAndImplicitLabs() {
+    // 1. Lesson 2.1: Horizontal change h
+    var hRange = q('input[type="range"][aria-label="Horizontal change h"]');
+    if (hRange) {
+      var ws = hRange.closest('[data-lab-workspace="true"]') || hRange.parentElement.parentElement.parentElement;
+      var svg = ws && q('svg[viewBox="0 0 430 260"]', ws);
+      var hNum = ws && q('input[type="number"][aria-label*="Horizontal change h"]', ws);
+      var secLine = svg && q('[data-secant-line="true"]', svg);
+      var circles = svg ? qa('circle', svg) : [];
+      var texts = svg ? qa('text', svg) : [];
+      var readout = ws && qa('p', ws).filter(function (p) { return /Secant:/i.test(p.textContent || ''); })[0];
+
+      // Coordinate system from SVG: xSvg(x) = 74.78481 + 93.670886 * x, ySvg(y) = 224 - 29.714286 * y
+      // f(x) = 0.5 * x^2 + 0.65; P = (1, 1.15)
+      function updateSecant(h) {
+        h = Math.max(-0.8, Math.min(2, h));
+        if (Math.abs(h) < 0.02) h = h >= 0 ? 0.02 : -0.02;
+        hRange.value = String(h);
+        if (hNum) hNum.value = h.toFixed(2);
+        var xQ = 1 + h;
+        var yQ = 0.5 * xQ * xQ + 0.65;
+        var slope = 1 + 0.5 * h;
+        var qCx = 74.78481 + 93.670886 * xQ;
+        var qCy = 224 - 29.714286 * yQ;
+
+        // Line from xSvg = 42 (x = -0.35) to xSvg = 412 (x = 3.60)
+        var xL = (42 - 74.78481) / 93.670886;
+        var xR = (412 - 74.78481) / 93.670886;
+        var yL = 224 - 29.714286 * (1.15 + slope * (xL - 1));
+        var yR = 224 - 29.714286 * (1.15 + slope * (xR - 1));
+
+        if (secLine) {
+          secLine.setAttribute('y1', yL.toFixed(2));
+          secLine.setAttribute('y2', yR.toFixed(2));
+        }
+        if (circles[1]) {
+          circles[1].setAttribute('cx', qCx.toFixed(2));
+          circles[1].setAttribute('cy', qCy.toFixed(2));
+        }
+        var qTxt = texts.filter(function (t) { return (t.textContent || '').trim() === 'Q'; })[0];
+        if (qTxt) {
+          qTxt.setAttribute('x', (qCx + 9).toFixed(2));
+          qTxt.setAttribute('y', (qCy - 8).toFixed(2));
+        }
+        if (readout) {
+          readout.textContent = 'h = ' + h.toFixed(2) + ' · Secant: ' + slope.toFixed(3);
+        }
+      }
+
+      // Add a Play/Pause motion button right above the slider!
+      var animPlaying = false, animRaf = 0, animT = 0;
+      var playBtn = document.createElement('button');
+      playBtn.type = 'button';
+      playBtn.className = 'min-h-10 rounded-xl border bg-background px-3.5 py-1.5 text-xs font-semibold hover:bg-muted mb-2';
+      playBtn.textContent = '▶ Play secant → tangent motion';
+      hRange.parentElement.insertBefore(playBtn, hRange.parentElement.firstChild);
+
+      playBtn.addEventListener('click', function () {
+        animPlaying = !animPlaying;
+        playBtn.textContent = animPlaying ? '⏸ Pause motion' : '▶ Play secant → tangent motion';
+        if (animPlaying) {
+          var last = performance.now();
+          var loop = function (now) {
+            if (!animPlaying) return;
+            animT += Math.min(0.06, (now - last) / 1000);
+            last = now;
+            var hVal = 0.6 + 1.35 * Math.cos(animT * 1.1);
+            updateSecant(hVal);
+            animRaf = requestAnimationFrame(loop);
+          };
+          animRaf = requestAnimationFrame(loop);
+        } else {
+          cancelAnimationFrame(animRaf);
+        }
+      });
+
+      hRange.addEventListener('input', function () {
+        if (animPlaying) { animPlaying = false; playBtn.textContent = '▶ Play secant → tangent motion'; }
+        updateSecant(parseFloat(hRange.value) || 0.5);
+      });
+      if (hNum) {
+        hNum.addEventListener('input', function () {
+          var v = parseFloat(hNum.value);
+          if (!isNaN(v)) updateSecant(v);
+        });
+      }
+    }
+
+    // 2. Lesson 2.5: Implicit Circle x^2 + y^2 = 16 (center 150,150, r=112 => 28px/unit)
+    var pRange = q('input[type="range"][aria-label="Point x-coordinate"]');
+    if (pRange) {
+      var ws2 = pRange.closest('[data-lab-workspace="true"]') || pRange.parentElement.parentElement.parentElement;
+      var svg2 = ws2 && q('svg[viewBox="0 0 300 300"]', ws2);
+      var pNum = ws2 && q('input[type="number"]', ws2);
+      if (svg2) {
+        var tanLine = q('g[clip-path] line', svg2);
+        var ptCircle = qa('circle', svg2)[1];
+        var pLabel = qa('text', svg2).filter(function (t) { return (t.textContent || '').trim() === 'P'; })[0];
+
+        function updateImplicit(xVal) {
+          xVal = Math.max(-3.8, Math.min(3.8, xVal));
+          pRange.value = String(xVal);
+          if (pNum) pNum.value = xVal.toFixed(2);
+          var yVal = Math.sqrt(Math.max(0.04, 16 - xVal * xVal));
+          var slope = -xVal / yVal;
+          var cx = 150 + 28 * xVal;
+          var cy = 150 - 28 * yVal;
+          if (ptCircle) {
+            ptCircle.setAttribute('cx', cx.toFixed(2));
+            ptCircle.setAttribute('cy', cy.toFixed(2));
+          }
+          if (pLabel) {
+            pLabel.setAttribute('x', (cx + 8).toFixed(2));
+            pLabel.setAttribute('y', (cy - 8).toFixed(2));
+          }
+          if (tanLine) {
+            var x1 = xVal - 3.5, y1 = yVal + slope * -3.5;
+            var x2 = xVal + 3.5, y2 = yVal + slope * 3.5;
+            tanLine.setAttribute('x1', (150 + 28 * x1).toFixed(2));
+            tanLine.setAttribute('y1', (150 - 28 * y1).toFixed(2));
+            tanLine.setAttribute('x2', (150 + 28 * x2).toFixed(2));
+            tanLine.setAttribute('y2', (150 - 28 * y2).toFixed(2));
+          }
+        }
+
+        var impPlaying = false, impT = 0;
+        var impBtn = document.createElement('button');
+        impBtn.type = 'button';
+        impBtn.className = 'min-h-10 rounded-xl border bg-background px-3.5 py-1.5 text-xs font-semibold hover:bg-muted mb-2';
+        impBtn.textContent = '▶ Play tangent glide';
+        pRange.parentElement.insertBefore(impBtn, pRange.parentElement.firstChild);
+        impBtn.addEventListener('click', function () {
+          impPlaying = !impPlaying;
+          impBtn.textContent = impPlaying ? '⏸ Pause motion' : '▶ Play tangent glide';
+          if (impPlaying) {
+            var last = performance.now();
+            var loop = function (now) {
+              if (!impPlaying) return;
+              impT += Math.min(0.06, (now - last) / 1000);
+              last = now;
+              updateImplicit(3.4 * Math.sin(impT * 1.1));
+              requestAnimationFrame(loop);
+            };
+            requestAnimationFrame(loop);
+          }
+        });
+
+        pRange.addEventListener('input', function () {
+          impPlaying = false;
+          impBtn.textContent = '▶ Play tangent glide';
+          updateImplicit(parseFloat(pRange.value) || 2.4);
+        });
+        if (pNum) {
+          pNum.addEventListener('input', function () {
+            var v = parseFloat(pNum.value);
+            if (!isNaN(v)) updateImplicit(v);
+          });
+        }
+      }
+    }
+  }
+
+  /* ------------------------------------------------------------
+     D. Precalculus Lesson 2.6 HSRV Transformation Lab
+     ------------------------------------------------------------ */
+  function initHsrvLab() {
+    var aSlider = q('input[type="range"][aria-label="a slider"]');
+    var bSlider = q('input[type="range"][aria-label="b slider"]');
+    var hSlider = q('input[type="range"][aria-label="h slider"]');
+    var kSlider = q('input[type="range"][aria-label="k slider"]');
+    if (!aSlider || !bSlider || !hSlider || !kSlider) return;
+
+    var root = aSlider.closest('section') || aSlider.closest('.grid') || document.body;
+    var aNum = q('input[type="number"][aria-label="Parameter a"]', root);
+    var bNum = q('input[type="number"][aria-label="Parameter b"]', root);
+    var hNum = q('input[type="number"][aria-label="Parameter h"]', root);
+    var kNum = q('input[type="number"][aria-label="Parameter k"]', root);
+    var curvePath = q('path[stroke="#f97360"]', root);
+    var svg = curvePath && curvePath.closest('svg');
+    var guideGroups = svg ? qa('g[style*="cursor:pointer"]', svg) : [];
+    var playBtn = qa('.hsrv-stages button', root).filter(function (b) { return /^Play|Pause$/i.test((b.textContent || '').trim()); })[0];
+    var zoomBtns = qa('.hsrv-zoom button', root);
+    var guideChk = q('.hsrv-zoom input[type="checkbox"]', root);
+
+    var scale = 32.5; // 1 math unit = 32.5 SVG units around origin (360, 260)
+    var ox = 360, oy = 260;
+
+    function renderHsrv() {
+      var a = parseFloat(aSlider.value); if (isNaN(a)) a = 1;
+      var b = parseFloat(bSlider.value); if (isNaN(b) || Math.abs(b) < 0.1) b = b < 0 ? -0.25 : 0.25;
+      var h = parseFloat(hSlider.value); if (isNaN(h)) h = 0;
+      var k = parseFloat(kSlider.value); if (isNaN(k)) k = 0;
+
+      if (aNum) aNum.value = String(a);
+      if (bNum) bNum.value = String(b);
+      if (hNum) hNum.value = String(h);
+      if (kNum) kNum.value = String(k);
+
+      // g(x) = a * |b*x - h| + k
+      if (curvePath) {
+        var pts = [];
+        for (var i = 0; i <= 160; i++) {
+          var xMath = -11 + (i / 160) * 22;
+          var yMath = a * Math.abs(b * xMath - h) + k;
+          var sx = ox + scale * xMath;
+          var sy = oy - scale * yMath;
+          pts.push((i === 0 ? 'M ' : 'L ') + sx.toFixed(2) + ' ' + sy.toFixed(2));
+        }
+        curvePath.setAttribute('d', pts.join(' '));
+      }
+
+      // Guide points for u = b*x - h in [-2, -1, 0, 1, 2] => x = (u + h) / b, y = a*|u| + k
+      var baseU = [-2, -1, 0, 1, 2];
+      guideGroups.forEach(function (g, idx) {
+        var c = q('circle', g);
+        if (!c || baseU[idx] == null) return;
+        var u = baseU[idx];
+        var xm = (u + h) / b;
+        var ym = a * Math.abs(u) + k;
+        c.setAttribute('cx', (ox + scale * xm).toFixed(2));
+        c.setAttribute('cy', (oy - scale * ym).toFixed(2));
+      });
+    }
+
+    [[aSlider, aNum], [bSlider, bNum], [hSlider, hNum], [kSlider, kNum]].forEach(function (pair) {
+      pair[0].addEventListener('input', renderHsrv);
+      if (pair[1]) {
+        pair[1].addEventListener('input', function () {
+          pair[0].value = pair[1].value;
+          renderHsrv();
+        });
+      }
+    });
+
+    if (guideChk) {
+      guideChk.addEventListener('change', function () {
+        guideGroups.forEach(function (g) { g.style.display = guideChk.checked ? '' : 'none'; });
+      });
+    }
+
+    zoomBtns.forEach(function (zb) {
+      zb.addEventListener('click', function () {
+        var txt = (zb.textContent || '').trim();
+        if (/Zoom \+/.test(txt)) scale = Math.min(65, scale * 1.2);
+        else if (/Zoom/.test(txt)) scale = Math.max(16, scale / 1.2);
+        else {
+          scale = 32.5;
+          aSlider.value = '1'; bSlider.value = '1'; hSlider.value = '0'; kSlider.value = '0';
+        }
+        renderHsrv();
+      });
+    });
+
+    if (playBtn) {
+      var playing = false, tAnim = 0;
+      playBtn.addEventListener('click', function () {
+        playing = !playing;
+        playBtn.textContent = playing ? 'Pause' : 'Play';
+        if (playing) {
+          var last = performance.now();
+          var step = function (now) {
+            if (!playing) return;
+            tAnim += Math.min(0.06, (now - last) / 1000);
+            last = now;
+            hSlider.value = (2.5 * Math.sin(tAnim * 1.1)).toFixed(2);
+            kSlider.value = (1.5 * Math.cos(tAnim * 0.85)).toFixed(2);
+            aSlider.value = (1.25 + 0.65 * Math.sin(tAnim * 0.7)).toFixed(2);
+            renderHsrv();
+            requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        }
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------
+     E. Universal Slider <-> Number Sync & SVG Tracer Fallback
+     ------------------------------------------------------------ */
+  function initUniversalSliders() {
+    qa('input[type="range"]').forEach(function (r) {
+      var lbl = r.getAttribute('aria-label') || '';
+      if (/Horizontal change h|Point x-coordinate|^[abhk] slider$|Elapsed time|Horizontal distance x/.test(lbl)) {
+        return; // already handled with exact geometry above
+      }
+      var container = r.closest('[data-lab-workspace="true"]') || r.parentElement.parentElement;
+      if (!container) return;
+      var num = q('input[type="number"]', r.parentElement) || q('input[type="number"]', container);
+      var svg = q('svg:not(.lucide)', container);
+      var tracer = svg && qa('circle', svg).slice(-1)[0];
+      var origCx = tracer ? parseFloat(tracer.getAttribute('cx') || '0') : 0;
+      var origVal = parseFloat(r.value) || 0;
+      var minV = parseFloat(r.min) || 0;
+      var maxV = parseFloat(r.max) || 10;
+
+      function sync(v) {
+        r.value = String(v);
+        if (num && document.activeElement !== num) num.value = String(v);
+        if (tracer && svg && maxV > minV) {
+          var vb = (svg.getAttribute('viewBox') || '0 0 400 260').split(/\s+/).map(parseFloat);
+          var w = vb[2] || 400;
+          var delta = ((v - origVal) / (maxV - minV)) * (w * 0.55);
+          tracer.setAttribute('cx', Math.max(24, Math.min(w - 24, origCx + delta)).toFixed(2));
+        }
+      }
+      r.addEventListener('input', function () { sync(parseFloat(r.value) || 0); });
+      if (num) {
+        num.addEventListener('input', function () {
+          var v = parseFloat(num.value);
+          if (!isNaN(v)) sync(v);
+        });
+      }
+    });
+  }
+
+  function bootLabs() {
+    initHomeContinuousMotion();
+    initRelatedRatesLabs();
+    initSecantAndImplicitLabs();
+    initHsrvLab();
+    initUniversalSliders();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootLabs);
+  } else {
+    bootLabs();
+  }
+})();
 
 /* ============================================================
    PORTFOLIO <-> ACADEMY APPEARANCE BRIDGE & STANDALONE PILL
