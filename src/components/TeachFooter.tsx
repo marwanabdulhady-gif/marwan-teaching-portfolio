@@ -101,6 +101,9 @@ export default function TeachFooter() {
             </p>
             <ul className="space-y-3 list-none">
               {[
+                { href: '/academy/index.html', label: { en: 'Interactive Mathematics Hub (23 Lessons)', ar: 'أكاديمية الرياضيات التفاعلية (٢٣ درساً)' } },
+                { href: '/academy/courses/grade-12-calculus/desmos/index.html', label: { en: 'Desmos Graphing Lab', ar: 'مختبر Desmos البياني' } },
+                { href: '/academy/tutor/index.html', label: { en: 'Mathematics AI Tutor', ar: 'المعلم الذكي للرياضيات' } },
                 { href: LINKS.youtube, label: { en: 'Lessons on YouTube', ar: 'الدروس على يوتيوب' } },
                 { href: ARCADE.home, label: { en: 'FIKR Math Arcade', ar: 'ألعاب فكر للرياضيات' } },
                 ...ARCADE.games.filter((g) => g.tier === 'class').map((g) => ({ href: ARCADE.play(g.id), label: g.title })),

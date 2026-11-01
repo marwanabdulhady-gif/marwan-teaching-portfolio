@@ -20,12 +20,14 @@ Vite; no settings or environment variables are needed.
 
 | Section | File |
 | --- | --- |
-| Navigation + mobile menu | `src/components/TeachNav.tsx` |
+| Navigation + Search (`/`) + Appearance (`8 themes × 3 sizes`) | `src/components/TeachNav.tsx` + `SearchPalette.tsx` + `AppearanceMenu.tsx` |
 | Hero (chalkboard) | `src/components/TeachHero.tsx` |
 | Credentials marquee | `src/components/CredentialsBar.tsx` |
 | About | `src/components/TeachAbout.tsx` |
+| Visual mathematics (5 animated SVG models) | `src/components/VisualMathShowcase.tsx` |
 | Learning-experience designs | `src/components/LearningDesigns.tsx` |
-| Lessons & resources (YouTube, worksheets, TPT store) | `src/components/ResourceLibrary.tsx` |
+| Courses, interactive labs & resources (23 lessons, GMAT, Desmos, AI Tutor, YouTube) | `src/components/ResourceLibrary.tsx` + `public/academy/` |
+| AI Teacher Studio (6-tool teaching brief & prompt workbench) | `src/components/AiTeacherStudio.tsx` + `public/studio/` |
 | FIKR Math Arcade | `src/components/MathLab.tsx` + `public/arcade/` |
 | Live rooms (Math Fighter, Tug of War) | `src/components/LiveRooms.tsx` + `src/rooms/` |
 | Classroom gallery | `src/components/ClassroomGallery.tsx` |

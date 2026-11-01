@@ -328,3 +328,100 @@
   border-color: color-mix(in srgb, var(--t-accent) 30%, transparent);
   box-shadow: 0 24px 50px -28px color-mix(in srgb, var(--t-accent) 60%, transparent);
 }
+
+html[data-appearance='dark'] .teach-card.learn {
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--t-accent) 22%, transparent), transparent 60%),
+    linear-gradient(160deg, #182235 0%, #13233f 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Visual Mathematics Animated SVG Models (ported from Home Concept & Course Art)
+   -------------------------------------------------------------------------- */
+.m-motion-frame {
+  position: relative;
+}
+.m-motion-frame[data-running='false'] * {
+  animation-play-state: paused !important;
+}
+.m-lens-curve {
+  stroke-dasharray: 1;
+  animation: 12s ease-in-out infinite m-revealFunction;
+}
+.m-lens-highlight {
+  opacity: 0;
+  animation: 12s ease-in-out infinite m-connectValue;
+}
+.m-lens-1 { animation-delay: 0s; }
+.m-lens-2 { animation-delay: -9.6s; }
+.m-lens-3 { animation-delay: -7.2s; }
+.m-lens-4 { animation-delay: -4.8s; }
+.m-lens-5 { animation-delay: -2.4s; }
+
+.m-topic-highlight {
+  opacity: 0.35;
+  animation: 10s ease-in-out infinite m-connectTopic;
+}
+.m-topic-1 { animation-delay: 0s; }
+.m-topic-2 { animation-delay: -7.5s; }
+.m-topic-3 { animation-delay: -5s; }
+.m-topic-4 { animation-delay: -2.5s; }
+
+.m-secant {
+  opacity: 0;
+  animation: 9s step-end infinite m-secantFrames;
+}
+.m-secant-1 { opacity: 1; animation-delay: 0s; }
+.m-secant-2 { animation-delay: -6s; }
+.m-secant-3 { animation-delay: -3s; }
+
+.m-transformed-curve {
+  animation: 7s ease-in-out infinite m-shiftFunction;
+  transform: translate(50px);
+}
+
+.m-data-bar-1,
+.m-data-bar-2,
+.m-data-bar-3 {
+  animation: 7.5s ease-in-out infinite m-compareData;
+}
+.m-data-bar-2 { animation-delay: -5s; }
+.m-data-bar-3 { animation-delay: -2.5s; }
+
+@keyframes m-revealFunction {
+  0%, 6% { stroke-dashoffset: 1px; }
+  45%, 100% { stroke-dashoffset: 0; }
+}
+@keyframes m-connectValue {
+  0%, 16% { opacity: 1; }
+  20%, 96% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes m-connectTopic {
+  0%, 18% { opacity: 1; }
+  25%, 93% { opacity: 0.18; }
+  100% { opacity: 1; }
+}
+@keyframes m-secantFrames {
+  0%, 32% { opacity: 1; }
+  33%, 100% { opacity: 0; }
+}
+@keyframes m-shiftFunction {
+  0%, 16% { transform: translate(0); }
+  60%, 85% { transform: translate(50px); }
+  100% { transform: translate(0); }
+}
+@keyframes m-compareData {
+  0%, 28%, 100% { opacity: 1; }
+  33%, 90% { opacity: 0.55; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m-motion-frame * {
+    animation: none !important;
+  }
+  .m-lens-curve { stroke-dashoffset: 0; }
+  .m-secant-1, .m-secant-2 { opacity: 0; }
+  .m-secant-3 { opacity: 1; }
+  .m-transformed-curve { transform: translate(50px); }
+}

@@ -4,6 +4,8 @@ import { ArrowLeft, ArrowRight, CalendarCheck, Menu, X } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
 import { NAV_ITEMS, BRAND, FOOTER, LINKS } from '../teachingData';
 import { MathMark } from './MathArt';
+import SearchPalette from './SearchPalette';
+import AppearanceMenu from './AppearanceMenu';
 
 interface TeachNavProps {
   /** Id of the section currently dominating the viewport. */
@@ -83,7 +85,7 @@ export default function TeachNav({ activeSection }: TeachNavProps) {
         </a>
 
         {/* Desktop links */}
-        <ul className="hidden lg:flex items-center gap-7 list-none">
+        <ul className="hidden lg:flex items-center gap-5 xl:gap-6 list-none">
           {NAV_ITEMS.map((item) => {
             const label = isRtl ? item.label.ar : item.label.en;
             const isActive = activeSection === item.id;
@@ -108,7 +110,10 @@ export default function TeachNav({ activeSection }: TeachNavProps) {
         </ul>
 
         {/* Controls */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-2.5">
+          <SearchPalette />
+          <AppearanceMenu />
+
           {/* Locale switch */}
           <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold">
             <button

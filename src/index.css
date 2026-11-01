@@ -37,6 +37,108 @@
   --t-shadow: rgba(20, 33, 61, 0.35);
 }
 
+/* 8 Eye-Comfort Appearance Themes & 3 Text Sizes (from AppearanceMenu) */
+html[data-text-size='small'] { font-size: 15px; }
+html[data-text-size='normal'] { font-size: 16px; }
+html[data-text-size='large'] { font-size: 18px; }
+
+html[data-appearance='soft'] {
+  --t-bg: #fffdf8;
+  --t-bg-2: #f4eee3;
+  --t-ink: #243247;
+  --t-accent: #c8523b;
+  --t-accent-2: #e37b63;
+  --t-accent-deep: #9e3925;
+  --t-sky: #2563a6;
+  --t-glass: #243247;
+}
+
+html[data-appearance='dark'] {
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-cyan-100: #ffe3da;
+  --color-cyan-200: #ffc7b6;
+  --color-cyan-300: #ff9f85;
+  --color-cyan-400: #ff7a5c;
+  --color-cyan-500: #f0613f;
+  --t-bg: #111827;
+  --t-bg-2: #182235;
+  --t-ink: #f3f4f6;
+  --t-accent: #ff7a5c;
+  --t-accent-2: #ffa58c;
+  --t-accent-deep: #e8553d;
+  --t-sky: #6cb4ff;
+  --t-sun: #f6c445;
+  --t-glass: #ffffff;
+  --t-shadow: rgba(0, 0, 0, 0.75);
+}
+
+html[data-appearance='blue'] {
+  --t-bg: #f1f7fb;
+  --t-bg-2: #dfeef7;
+  --t-ink: #17324d;
+  --t-accent: #164b73;
+  --t-accent-2: #2b6cb0;
+  --t-accent-deep: #0f3654;
+  --color-cyan-300: #164b73;
+  --color-cyan-400: #1e6091;
+  --t-sky: #2e86de;
+  --t-glass: #17324d;
+}
+
+html[data-appearance='rose'] {
+  --t-bg: #fff7fa;
+  --t-bg-2: #f8e3ed;
+  --t-ink: #402735;
+  --t-accent: #8b3a62;
+  --t-accent-2: #b85685;
+  --t-accent-deep: #6e294c;
+  --color-cyan-300: #8b3a62;
+  --color-cyan-400: #a64474;
+  --t-sky: #9d4edd;
+  --t-glass: #402735;
+}
+
+html[data-appearance='lavender'] {
+  --t-bg: #faf8ff;
+  --t-bg-2: #ebe5f7;
+  --t-ink: #352d4b;
+  --t-accent: #65518c;
+  --t-accent-2: #8b72b6;
+  --t-accent-deep: #4e3d73;
+  --color-cyan-300: #65518c;
+  --color-cyan-400: #765fa3;
+  --t-sky: #5e60ce;
+  --t-glass: #352d4b;
+}
+
+html[data-appearance='mint'] {
+  --t-bg: #f4fbf8;
+  --t-bg-2: #dff2eb;
+  --t-ink: #203d37;
+  --t-accent: #277363;
+  --t-accent-2: #4e9a88;
+  --t-accent-deep: #1b574b;
+  --color-cyan-300: #245f53;
+  --color-cyan-400: #277363;
+  --t-sky: #0f766e;
+  --t-glass: #203d37;
+}
+
+html[data-appearance='contrast'] {
+  --t-bg: #ffffff;
+  --t-bg-2: #eeeeee;
+  --t-ink: #000000;
+  --t-accent: #b82900;
+  --t-accent-2: #d93800;
+  --t-accent-deep: #8a1f00;
+  --color-cyan-300: #8a1f00;
+  --color-cyan-400: #b82900;
+  --t-sky: #00449e;
+  --t-sun: #ffd400;
+  --t-glass: #000000;
+}
+
 [data-theme='dark'] {
   --color-white: #ffffff;
   --color-black: #000000;

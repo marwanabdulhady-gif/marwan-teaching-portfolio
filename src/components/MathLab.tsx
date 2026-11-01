@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Gamepad2, Maximize2, X } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
@@ -35,6 +35,17 @@ export default function MathLab() {
     setActiveUrl(null);
     setActiveTitle('');
   };
+
+  useEffect(() => {
+    const onOpenArcade = (e: Event) => {
+      const detail = (e as CustomEvent<{ id: string; title: string }>).detail;
+      if (detail?.id) {
+        launch(ARCADE.play(detail.id), detail.title || L(ARCADE.frameTitle));
+      }
+    };
+    window.addEventListener('marwan:open-arcade', onOpenArcade);
+    return () => window.removeEventListener('marwan:open-arcade', onOpenArcade);
+  }, [isRtl]);
 
   return (
     <section id="lab" className="relative py-24 md:py-32 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_28%,transparent)]">

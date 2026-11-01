@@ -62,7 +62,8 @@ export const NAV_ITEMS: { id: string; label: Bi }[] = [
   { id: 'about', label: { en: 'About', ar: 'نبذة' } },
   { id: 'experience', label: { en: 'Experience', ar: 'الخبرة' } },
   { id: 'designs', label: { en: 'Designs', ar: 'التصاميم' } },
-  { id: 'resources', label: { en: 'Lessons', ar: 'الدروس' } },
+  { id: 'resources', label: { en: 'Courses & Labs', ar: 'الدورات والمختبرات' } },
+  { id: 'studio', label: { en: 'AI Studio', ar: 'استوديو الذكاء' } },
   { id: 'lab', label: { en: 'Math Arcade', ar: 'صالة الألعاب' } },
   { id: 'gallery', label: { en: 'Gallery', ar: 'المعرض' } },
 ];

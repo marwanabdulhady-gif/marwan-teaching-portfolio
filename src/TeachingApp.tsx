@@ -9,8 +9,10 @@ import TeachNav from './components/TeachNav';
 import TeachHero from './components/TeachHero';
 import CredentialsBar from './components/CredentialsBar';
 import TeachAbout from './components/TeachAbout';
+import VisualMathShowcase from './components/VisualMathShowcase';
 import ResourceLibrary from './components/ResourceLibrary';
 import LearningDesigns from './components/LearningDesigns';
+import AiTeacherStudio from './components/AiTeacherStudio';
 import Experience from './components/Experience';
 import MathLab from './components/MathLab';
 import ClassroomGallery from './components/ClassroomGallery';
@@ -88,9 +90,11 @@ export default function TeachingApp() {
         <TeachHero />
         <CredentialsBar />
         <TeachAbout />
+        <VisualMathShowcase />
         <Experience />
         <LearningDesigns />
         <ResourceLibrary />
+        <AiTeacherStudio />
         <MathLab />
         <ClassroomGallery />
         <WorkWithMe />
