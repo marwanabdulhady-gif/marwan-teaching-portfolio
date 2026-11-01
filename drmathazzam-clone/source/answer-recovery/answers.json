@@ -1,0 +1,1472 @@
+{
+ "guided-v2-type": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "11​ is nonterminating and nonrepeating.",
+  "optionFeedback": [
+   "A terminating decimal is rational: 0.125=1/8."
+  ],
+  "source": "live-crack"
+ },
+ "guided-v2-builder": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The strict inequality excludes −2 while x≤2 includes 2.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-v2-intersection": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Intersection keeps only the elements occurring in both sets.",
+  "optionFeedback": [
+   "One and seven are in A but not in B.",
+   "The sets do share elements: inspect three and five."
+  ],
+  "source": "live-crack"
+ },
+ "guided-v2-interval": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Strict inequality gives an open endpoint at −2; equality includes 1.",
+  "optionFeedback": [
+   "The right endpoint must be included because equality is allowed.",
+   "A bracket at negative two incorrectly includes that excluded endpoint."
+  ],
+  "source": "live-crack"
+ },
+ "guided-v2-absolute": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Since a<b, ∣a−b∣=b−a. Therefore a+b+b−a=2b.",
+  "optionFeedback": [
+   "This would use ∣a−b∣=a−b, but the inside is negative here."
+  ],
+  "source": "live-crack"
+ },
+ "guided-neg-exp": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "A negative exponent means reciprocal; it does not make the expression negative.",
+  "optionFeedback": [
+   "Taking a reciprocal does not invert the exponent fraction."
+  ],
+  "source": "live-crack"
+ },
+ "guided-square-sum-check": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The middle term is 2AB.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-gcf-check": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Always check the GCF first.",
+  "optionFeedback": [
+   "There are only two terms here; first remove their shared factor.",
+   "A shared factor is present and must be removed before considering special products."
+  ],
+  "source": "live-crack"
+ },
+ "guided-factor-completely": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "x2−16 is still a difference of squares.",
+  "optionFeedback": [
+   "There is no denominator here, so there is no factor to cancel against."
+  ],
+  "source": "live-crack"
+ },
+ "guided-identity-method": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "An identity proof shows an algebraic transformation.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-restriction": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Restrictions come from the original denominator, even when a factor later cancels.",
+  "optionFeedback": [
+   "Cross multiplication is not the first step in simplifying one rational expression.",
+   "There may be no division operation between two fractions; inspect the original denominator first."
+  ],
+  "source": "live-crack"
+ },
+ "guided-rational-cancel-domain": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "Factoring gives (x+3)(x−2)(x−3)(x+3)​. Cancel x+3, but retain x=−3,2.",
+  "optionFeedback": [
+   "The numerator and denominator were factored incorrectly.",
+   "The original denominator has two real zeros, so its domain is not all real numbers.",
+   "The removed factor still excludes negative three."
+  ],
+  "source": "live-crack"
+ },
+ "guided-division": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Division becomes multiplication by the reciprocal before simplification.",
+  "optionFeedback": [
+   "Expansion usually hides factors that could cancel; use the reciprocal first."
+  ],
+  "source": "live-crack"
+ },
+ "guided-lcd": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Include each denominator factor to the greatest power needed.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-compound": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "One LCD clears all small fractions efficiently.",
+  "optionFeedback": [
+   "Simplifying the numerator alone can be valid, but leaves the denominator fractions unresolved; one LCD clears both large parts efficiently.",
+   "Taking the reciprocal changes the value unless that operation is explicitly required.",
+   "This is one expression, not an equation with two ratios to cross multiply."
+  ],
+  "source": "live-crack"
+ },
+ "guided-rational-root-domain": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "The square root requires x≥0, while the denominator excludes zero; together, x>0.",
+  "optionFeedback": [
+   "Simplification cannot remove the original domain restrictions.",
+   "Zero makes the original denominator zero.",
+   "This includes negative inputs where the square root is not real."
+  ],
+  "source": "live-crack"
+ },
+ "guided-inequality-negative": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "−3x≤9 gives x≥−3 because division by −3 reverses the sign.",
+  "optionFeedback": [
+   "The inequality must reverse when dividing by a negative number."
+  ],
+  "source": "live-crack"
+ },
+ "guided-inequality-repeated": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Away from −2, the sign is the sign of x−4. Thus x<4, but both zeros −2 and 4 are excluded.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-inequality-rational": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The quotient is positive for x<−2 or x>1, equals zero at 1, and is undefined at −2.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-inequality-absolute": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "−5≤2x−3≤5 gives −2≤2x≤8, hence −1≤x≤4.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-pc19-v2-distance": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The changes are 3 and 4, so the distance is 5.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-pc19-v2-midpoint": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "Average the corresponding coordinates.",
+  "optionFeedback": [
+   "You added coordinates but did not divide each sum by two.",
+   "These are half the coordinate differences, not the averages.",
+   "The vertical sum is −3+5=2, so its average is positive one."
+  ],
+  "source": "live-crack"
+ },
+ "guided-pc19-v2-center": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Reverse the signs for the center and take the square root of 36.",
+  "optionFeedback": [
+   "The right side is r2=36, not r=36.",
+   "The expression x+5 means x−(−5), so the horizontal center is negative five."
+  ],
+  "source": "live-crack"
+ },
+ "guided-pc19-v2-write": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Use opposite signs inside the parentheses and square the radius.",
+  "optionFeedback": [
+   "The horizontal center is positive one, requiring x−1."
+  ],
+  "source": "live-crack"
+ },
+ "guided-pc19-v2-diameter": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The midpoint identifies the center.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-pc19-v2-square": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "Keep the x-work and y-work separated before completing both squares.",
+  "optionFeedback": [
+   "The expression is already expanded; separate the two variables before making squares.",
+   "Midpoint belongs to coordinate pairs, not this algebraic conversion.",
+   "A square root cannot separate this sum into two completed squares."
+  ],
+  "source": "live-crack"
+ },
+ "guided-pc19-v2-normalize": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Normalize the squared coefficients before completing the square.",
+  "optionFeedback": [
+   "Normalize first to use the monic completing-square routine correctly.",
+   "Moving one linear term does not normalize the squared coefficients."
+  ],
+  "source": "live-crack"
+ },
+ "guided-pc19-v2-graph": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The center signs appear oppositely inside the parentheses; the right side is r².",
+  "optionFeedback": [
+   "This equation leaves the center at the origin."
+  ],
+  "source": "live-crack"
+ },
+ "guided-pc19-v2-tangent": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Distance to the x-axis is the absolute value of the y-coordinate.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-pc21-function": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "A function assigns exactly one output to each input. Different inputs may share the same output.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-pc21-representations": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "A table gives numerical input-output pairs.",
+  "optionFeedback": [
+   "A verbal representation describes the rule in words.",
+   "An algebraic representation is a formula or equation.",
+   "A graphical representation plots coordinates on axes."
+  ],
+  "source": "live-crack"
+ },
+ "guided-pc21-eval": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Replace every x with the complete input (-a) before simplifying.",
+  "optionFeedback": [
+   "This drops both the negative input and the square.",
+   "The substitution must retain the square on the whole input."
+  ],
+  "source": "live-crack"
+ },
+ "guided-pc21-piece": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Since -3 is less than -2, use the left-region rule x + 3.",
+  "optionFeedback": [
+   "Exactly the condition containing the input selects the rule."
+  ],
+  "source": "live-crack"
+ },
+ "guided-pc21-dq": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Find f(a+h) and f(a) separately before subtracting. Parentheses help prevent sign errors.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-pc21-domain-rule": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "An even root is defined when its radicand is nonnegative.",
+  "optionFeedback": [
+   "Strict positivity is needed for an even root in a denominator, not from the numerator root alone.",
+   "A denominator must be nonzero, not equal to zero.",
+   "A negative radicand has no real even root."
+  ],
+  "source": "live-crack"
+ },
+ "guided-pc21-common-mistake": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Different inputs may share the same output. A relation fails to be a function when one input is assigned more than one output.",
+  "optionFeedback": [
+   "Unique outputs are required for an inverse function to be a function, not for every function itself.",
+   "Inputs matter: each one must still have exactly one assigned output."
+  ],
+  "source": "live-crack"
+ },
+ "guided-22-family": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Absolute-value vertex form reveals the vertex immediately.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-22-power1": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "7 is odd, so the graph has the general odd-power shape.",
+  "optionFeedback": [
+   "An odd power changes sign, so it has origin rather than y-axis symmetry.",
+   "For this odd power, negative inputs give negative outputs and positive inputs positive outputs.",
+   "A positive-integer power is continuous, not a staircase."
+  ],
+  "source": "live-crack"
+ },
+ "guided-22-piece": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The condition 0<x≤3 includes 3 because of the equality; x>3 excludes it.",
+  "optionFeedback": [
+   "The two conditions cannot both contain three because one is strict.",
+   "The condition with the equality does contain three."
+  ],
+  "source": "live-crack"
+ },
+ "guided-22-abs": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The zero of the inside expression is the breaking point.",
+  "optionFeedback": [
+   "Differentiation is unnecessary; the sign of the inside determines the rewrite."
+  ],
+  "source": "live-crack"
+ },
+ "guided-22-grapheq": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Vertex form uses x-h, so h=-2 gives x+2.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-22-floor1": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "The greatest integer less than or equal to -0.7 is -1.",
+  "optionFeedback": [
+   "Zero is greater than the input; floor is not truncation toward zero.",
+   "Positive one is greater than the input.",
+   "The floor output must be an integer."
+  ],
+  "source": "live-crack"
+ },
+ "guided-22-vlt": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "One x-value would have two different y-values.",
+  "optionFeedback": [
+   "The test does not determine whether the graph is linear.",
+   "The relation has x-values; its failure is uniqueness of output."
+  ],
+  "source": "live-crack"
+ },
+ "guided-22-equation": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Solving for y gives one value for each x.",
+  "optionFeedback": [
+   "The isolated linear rule accepts every real x, not just positive inputs."
+  ],
+  "source": "live-crack"
+ },
+ "guided-23-first": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Domain is the collection of all permitted x-coordinates.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-23-end": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "An open endpoint is excluded; a filled endpoint is included.",
+  "optionFeedback": [
+   "The left endpoint is open, so negative two must be excluded.",
+   "The right endpoint is filled, so four must be included.",
+   "Both endpoint choices are reversed."
+  ],
+  "source": "live-crack"
+ },
+ "guided-23-change": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Net change is f(4)−f(1)=−2−3=−5, a decrease of five output units.",
+  "optionFeedback": [
+   "Adding outputs does not give net change.",
+   "Subtract the actual endpoint outputs: negative two minus three."
+  ],
+  "source": "live-crack"
+ },
+ "guided-23-compare": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Graphical equations are solved using x-coordinates of intersection points.",
+  "optionFeedback": [
+   "Subtracting coordinates does not produce the intersection input."
+  ],
+  "source": "live-crack"
+ },
+ "guided-23-inc": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "A downward trend as x increases means decreasing.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-23-max": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "The value is the output, y=4; the point is (-1,4).",
+  "optionFeedback": [
+   "Negative one is where the maximum occurs, not its value.",
+   "The ordered pair is the maximum point; its value is just the output.",
+   "Adding the coordinates does not define an extreme value."
+  ],
+  "source": "live-crack"
+ },
+ "guided-26-shift": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Inside +4 moves left 4, and outside −1 moves down 1.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-26-map": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "x becomes 4+1/2=4.5; y becomes 3·2−1=5.",
+  "optionFeedback": [
+   "Divide the old input by two before adding four; do not multiply it by two.",
+   "The outside rule is 3y−1, so the new output is five.",
+   "The new input solves X=4+1/2, not four minus one."
+  ],
+  "source": "live-crack"
+ },
+ "guided-26-rule": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Inside +2 gives a horizontal shift left 2.",
+  "optionFeedback": [
+   "Outside plus two shifts vertically up.",
+   "An outside factor stretches the outputs instead of shifting horizontally."
+  ],
+  "source": "live-crack"
+ },
+ "guided-26-even": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "f(−x)=(−x)5+(−x)=−x5−x=−f(x) for every real x, so the function is odd.",
+  "optionFeedback": [
+   "A function on a symmetric domain that is both even and odd must be identically zero; this one is not."
+  ],
+  "source": "live-crack"
+ },
+ "guided-m1": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Both sides approach 5.",
+  "optionFeedback": [
+   "You used the input or the point at the target. A limit follows nearby outputs instead. Trace the line toward x=2.",
+   "Simplify for nearby inputs, then calculate again. The target input itself can remain excluded. Trace the line toward x=2."
+  ],
+  "source": "live-crack"
+ },
+ "guided-d1": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "A limit describes nearby outputs.",
+  "optionFeedback": [
+   "A limit describes nearby outputs; it does not require f(4) to exist or equal 7."
+  ],
+  "source": "live-crack"
+ },
+ "guided-d2": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The inputs approach from both sides.",
+  "optionFeedback": [
+   "The input exactly at 2 does not show nearby behavior. Choose values close to 2 from both sides.",
+   "These inputs move away from 2 and do not bracket it. Choose closer inputs on both sides."
+  ],
+  "source": "live-crack"
+ },
+ "guided-numerical": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Values from both sides are approaching 6. A table gives evidence for an estimate, not proof of all nearby behavior.",
+  "optionFeedback": [
+   "3 is the input target, not the approached output. Follow the numbers in the output column toward a shared value."
+  ],
+  "source": "live-crack"
+ },
+ "guided-a-g2": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The curve approaches the open point at (2,4).",
+  "optionFeedback": [
+   "The filled point gives the function value. Trace the curve toward the open point for the limit. Follow the curve toward x=2."
+  ],
+  "source": "live-crack"
+ },
+ "guided-graphical": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Trace the curve from both sides. Both branches approach the open point at height 4.",
+  "optionFeedback": [
+   "1 is the height of the filled point: it gives f(2). For the limit, trace the nearby curve instead.",
+   "2 is the target on the horizontal axis. Read the height approached on the vertical axis."
+  ],
+  "source": "live-crack"
+ },
+ "guided-d4": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The right branch is at 4.",
+  "optionFeedback": [
+   "1 is the target input. Read the height of the branch for inputs greater than 1.",
+   "The minus sign means inputs less than the target; the plus sign means inputs greater than it. Approach from larger inputs."
+  ],
+  "source": "live-crack"
+ },
+ "guided-one-sided": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The minus sign means approach from inputs less than 1. The left branch approaches 2.",
+  "optionFeedback": [
+   "1 is the target input. Read the output height of the branch to its left."
+  ],
+  "source": "live-crack"
+ },
+ "guided-d5": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The filled point at (2,1) gives f(2)=1; the open point is not included.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-value": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The filled point gives f(2)=1; the nearby curve approaches the open point at height 4.",
+  "optionFeedback": [
+   "The roles are reversed. Use the filled point for the value and trace both branches for the limit."
+  ],
+  "source": "live-crack"
+ },
+ "guided-dne-jump": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "Unequal one-sided limits are never averaged. The two-sided limit does not exist.",
+  "optionFeedback": [
+   "That uses only the left side. The right side approaches 5, so the two sides disagree.",
+   "A limit is not an average of the two sides. Neither side approaches 3.5 here.",
+   "That uses only the right side. The left side approaches 2, so the two sides disagree."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-diagnose": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "0/0 does not determine the limit. Rewrite for nearby inputs, then evaluate the simpler expression.",
+  "optionFeedback": [
+   "A zero numerator alone is not enough when the denominator is also zero.",
+   "Zero divided by zero is not one. Cancellation must be justified by common factors for nearby inputs."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-substitution": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Polynomials are continuous. Substitute x=−2: 3(−2)2−4(−2)+1=12+8+1=21.",
+  "optionFeedback": [
+   "−4(−2)=+8, not −8. Recalculate with the positive product.",
+   "3(−2)2=12 and −4(−2)=8. Include both terms and the constant."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-factoring": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Direct substitution gives 0/0. Factor and cancel x−3 for nearby values, then substitute into x+3.",
+  "optionFeedback": [
+   "0/0 is indeterminate, not zero. Expose the common factor first."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-synthetic": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Synthetic division by 3 gives quotient coefficients 1,3,2 and remainder 0, so the limit is 9+9+2=20.",
+  "optionFeedback": [
+   "The synthetic number is 3, not −3. The coefficient of x in the quotient is positive.",
+   "After adding −7+9, the next quotient coefficient is 2, not −2."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-fractions": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The numerator is −(x−2)/(2x). Dividing by x−2 leaves −1/(2x), whose limit is −1/4.",
+  "optionFeedback": [
+   "The negative sign comes from 2−x=−(x−2); it cannot be dropped."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-conjugate": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Use x+5​+3 so the numerator becomes (x+5)−9=x−4, which cancels the denominator.",
+  "optionFeedback": [
+   "This is the original expression. The conjugate reverses the sign between its two terms."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-fractional-substitution": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "With x=u6 and u→1, x2/3=u4 and x1/2=u3. Factoring the resulting quotient gives the limit 4/3.",
+  "optionFeedback": [
+   "This makes the square root u, but the cube-root power becomes u4/3.",
+   "This makes x2/3=u2, but the square root becomes u3/2.",
+   "Five is not divisible by either 2 or 3, so fractional powers remain."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-piecewise": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The left-hand limit is 2+1=3 and the right-hand limit is 5−2=3. Their equality establishes the two-sided limit 3.",
+  "optionFeedback": [
+   "Two is the input target, not the right-hand output. Evaluate 5−2.",
+   "Two is the input target, not the left-hand output. Evaluate 2+1."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-floor": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The floor is 0 on the left and 1 on the right. The unequal one-sided limits make the two-sided limit DNE.",
+  "optionFeedback": [
+   "The value at the target is 1, but nearby inputs below it have floor 0."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-oscillation": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The outputs stay between −1 and 1, but continue attaining values near both extremes arbitrarily close to zero. They do not settle to one limit.",
+  "optionFeedback": [
+   "The input 1/x is unbounded, but the sine output is always between −1 and 1.",
+   "For every x=0, sin(1/x) is defined. Undefined at the target alone does not decide a limit."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-composite": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The square-root function is continuous at 9. Since the inner values approach positive 9, the composition is defined nearby and its limit is 9​=3.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "l13-guided-trig": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Create the standard form: xsin(5x)​=55xsin(5x)​→5(1)=5.",
+  "optionFeedback": [
+   "Both numerator and denominator approach zero; that does not make their ratio tend to zero.",
+   "The standard ratio with denominator 5x tends to 1, but the required ratio has an extra factor 5."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-identity": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "The quotient becomes 2(sinx/x)2, so its limit is 2(1)2=2.",
+  "optionFeedback": [
+   "The denominator is squared, so the special limit (1−cosu)/u→0 cannot be used without further rewriting.",
+   "The identity leaves a factor 2 outside the squared sine-over-angle ratio.",
+   "Using the identity gives 2sin2x, not 4sin2x."
+  ],
+  "source": "live-crack"
+ },
+ "l13-guided-difference": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The numerator is 2xh+h2=h(2x+h), so the quotient is 2x+h. Only after taking h→0 does it become 2x.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "l13-guided-squeeze": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Both outer functions approach 0. The Squeeze Theorem forces f(x) to approach 0 as well.",
+  "optionFeedback": [
+   "The lower bound is −x2, whose limit is 0, not −1."
+  ],
+  "source": "live-crack"
+ },
+ "continuity-point": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Continuity at a point requires all three conditions.",
+  "optionFeedback": [
+   "A defined value alone says nothing about nearby behavior.",
+   "A limit may exist while the point is missing or misplaced."
+  ],
+  "source": "live-crack"
+ },
+ "continuity-predict-0": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The nearby rule is x+1, whose limit at 1 is 2.",
+  "optionFeedback": [
+   "Zero is not the nearby output: simplify to x+1 for x not equal to one.",
+   "One is the input target, not the approached output."
+  ],
+  "source": "live-crack"
+ },
+ "continuity-discontinuity": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Unequal finite one-sided limits produce a jump discontinuity.",
+  "optionFeedback": [
+   "A removable discontinuity requires equal finite one-sided limits."
+  ],
+  "source": "live-crack"
+ },
+ "continuity-families": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "A rational function is continuous on its domain; exclude the zeros of the denominator.",
+  "optionFeedback": [
+   "At zero the denominator is negative nine, not zero."
+  ],
+  "source": "live-crack"
+ },
+ "continuity-predict-1": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The left limit is 6+m and the right limit and value are 8.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "continuity-piecewise": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The two one-sided limits must agree, and their common value must equal f(c).",
+  "optionFeedback": [
+   "The value alone does not test nearby behavior."
+  ],
+  "source": "live-crack"
+ },
+ "continuity-predict-2": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "Both pieces approach 0, which equals the function value.",
+  "optionFeedback": [
+   "Three is the breaking input, not the output.",
+   "Substitute three into the whole expression: six minus six is zero.",
+   "Both one-sided limits exist and agree because both linear pieces approach zero."
+  ],
+  "source": "live-crack"
+ },
+ "continuity-predict-3": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Both one-sided limits are 0, and the value at zero is 0.",
+  "optionFeedback": [
+   "The factor x tends to zero and removes the jump in this product at zero."
+  ],
+  "source": "live-crack"
+ },
+ "continuity-special": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The greatest integer function jumps at every integer.",
+  "optionFeedback": [
+   "Immediately below n, the floor is n minus one."
+  ],
+  "source": "live-crack"
+ },
+ "continuity-closed": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "At the left endpoint use right-hand continuity.",
+  "optionFeedback": [
+   "The left side lies outside the interval at its left endpoint."
+  ],
+  "source": "live-crack"
+ },
+ "continuity-predict-4": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The polynomial is continuous and its endpoint values straddle zero, so at least one zero lies inside.",
+  "optionFeedback": [
+   "Existence does not imply uniqueness; that needs a separate argument.",
+   "IVT does not locate the zero exactly; the polynomial at one half is negative seven eighths."
+  ],
+  "source": "live-crack"
+ },
+ "continuity-ivt": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "IVT guarantees at least one such value; it does not guarantee uniqueness.",
+  "optionFeedback": [
+   "IVT proves existence, not uniqueness."
+  ],
+  "source": "live-crack"
+ },
+ "continuity-predict-5": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The signs at 1 and 1.5 are opposite, so this is the next bracket.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "continuity-bisection": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Keep the half where the endpoint function values have opposite signs.",
+  "optionFeedback": [
+   "The sign test, not left versus right, decides the retained half.",
+   "The sign test, not left versus right, decides the retained half."
+  ],
+  "source": "live-crack"
+ },
+ "guided-15-direction": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Left: negative divided by a small negative is positive unbounded; right: negative divided by a small positive is negative unbounded.",
+  "optionFeedback": [
+   "You reversed the signs: the numerator is negative, not positive."
+  ],
+  "source": "live-crack"
+ },
+ "guided-15-check-graph": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Opposite unbounded one-sided behavior gives a vertical asymptote; infinity is not a real-number limit.",
+  "optionFeedback": [
+   "Opposite infinities cannot be averaged to zero.",
+   "Unbounded outputs do not approach any real number."
+  ],
+  "source": "live-crack"
+ },
+ "guided-15-candidates": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "At 3 the numerator is 5; at −3 it is −1. Neither cancels, so both are VAs.",
+  "optionFeedback": [
+   "Also inspect the other factor x+3; its numerator is nonzero.",
+   "Also inspect x-3; its numerator is nonzero."
+  ],
+  "source": "live-crack"
+ },
+ "guided-15-classify": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "The factor x−3 cancels completely, leaving a finite limit at 3. At −2, the remaining numerator is −3 and denominator approaches zero.",
+  "optionFeedback": [
+   "The common factor x-3 cancels completely; inspect the reduced expression.",
+   "The factor x+2 does not cancel, so the limit at -2 is unbounded.",
+   "These classifications are reversed: x-3 cancels, x+2 remains."
+  ],
+  "source": "live-crack"
+ },
+ "guided-15-check-factor": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "A cancelled denominator factor indicates a possible hole. A factor that remains in the denominator can create a vertical asymptote.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-15-check-power": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "An even power has the same positive sign on both sides (except at the zero itself).",
+  "optionFeedback": [
+   "An odd power changes sign; an even positive power does not."
+  ],
+  "source": "live-crack"
+ },
+ "guided-15-cot": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "sin(2x)=0 when 2x=nπ, and the numerator is (−1)n=0. Hence every nπ/2 is a VA.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "guided-15-check-trig": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Rewrite tanx=sinx/cosx and inspect zeros of cosx.",
+  "optionFeedback": [
+   "Sine is the numerator for tangent, not its denominator."
+  ],
+  "source": "live-crack"
+ },
+ "guided-15-property": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Tangent tends to +∞ from the left. Multiplication by positive 5 preserves the direction.",
+  "optionFeedback": [
+   "Cosine approaches zero positively from this side, so tangent is positive.",
+   "A numerator near 1 divided by a tiny positive denominator is unbounded."
+  ],
+  "source": "live-crack"
+ },
+ "guided-15-sketch": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "The asymptote is x=-1 and each nearby branch rises without bound. These limits do not specify the value at -1.",
+  "optionFeedback": [
+   "Positive infinity means rising, not falling.",
+   "The plus sign is the output direction on both sides.",
+   "Limits describe nearby behavior and do not specify a point on the asymptote."
+  ],
+  "source": "live-crack"
+ },
+ "c21-guided-slope": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Slope is Δy/Δx, so it is the output difference divided by the input difference.",
+  "optionFeedback": [
+   "This gives only the output change; divide by the input interval too."
+  ],
+  "source": "live-crack"
+ },
+ "c21-guided-secant": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The horizontal change approaches zero; when the finite slope limit exists, it gives the tangent slope.",
+  "optionFeedback": [
+   "A fixed gap of one does not make the two inputs approach each other.",
+   "An increasing gap moves the inputs farther apart, not closer."
+  ],
+  "source": "live-crack"
+ },
+ "c21-guided-definition": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The original rule squares its input, so f(x+h)=(x+h)2.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "c21-guided-cancel": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "For h=0, the quotient is 2x+h. Its limit is 2x; the original quotient need not be defined at h=0.",
+  "optionFeedback": [
+   "Substitution into the unsimplified quotient produces 0/0, not a derivative.",
+   "Factor the entire numerator; each term is divided by h.",
+   "The quotient can be undefined at zero while having a finite limit there."
+  ],
+  "source": "live-crack"
+ },
+ "c21-guided-tangent": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "f(2)=3 and f′(2)=5, so point-slope form is y−3=5(x−2).",
+  "optionFeedback": [
+   "The tangent must pass through (2,3), not automatically through the origin.",
+   "This reverses the function value and derivative: the slope is five."
+  ],
+  "source": "live-crack"
+ },
+ "c21-guided-rate": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "s′(5) is the limit of average velocities over intervals shrinking toward time 5.",
+  "optionFeedback": [
+   "Position is s(5), without the derivative mark."
+  ],
+  "source": "live-crack"
+ },
+ "c21-guided-domain": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "The original function and its derivative are defined for every real x=0, but not at zero.",
+  "optionFeedback": [
+   "The original function is not defined at zero.",
+   "Negative nonzero inputs also belong to the original function domain.",
+   "Positive inputs also belong to the original function domain."
+  ],
+  "source": "live-crack"
+ },
+ "c223-predict-terms": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The derivative of the constant term is zero.",
+  "optionFeedback": [
+   "The unchanged constant is not its derivative."
+  ],
+  "source": "live-crack"
+ },
+ "c223-guided-power": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "f′(x)=7(5x4)=35x4.",
+  "optionFeedback": [
+   "The old exponent five also multiplies the coefficient."
+  ],
+  "source": "live-crack"
+ },
+ "c223-predict-rewrite": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The real square root requires x≥0 and the denominator excludes zero; hence x>0.",
+  "optionFeedback": [
+   "Zero is excluded by the denominator x cubed.",
+   "Negative inputs do not give a real square root."
+  ],
+  "source": "live-crack"
+ },
+ "c223-guided-rewrite": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "For x=0, write x−3, then use the Power Rule. The Quotient Rule is valid but unnecessarily longer here.",
+  "optionFeedback": [
+   "A quotient derivative is not the quotient of the derivatives.",
+   "The Quotient Rule can work, but the requested simplest approach uses a negative power."
+  ],
+  "source": "live-crack"
+ },
+ "c223-guided-trig": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Using (sinx)′=cosx and (cosx)′=−sinx gives 4cosx+3sinx.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "c223-predict-product": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The displayed product is x squared times sine x. Its factors are not their derivatives.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "c223-guided-product": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The Product Rule gives both contributions: 2xsinx+x2cosx.",
+  "optionFeedback": [
+   "Multiplying the two derivatives is not the Product Rule."
+  ],
+  "source": "live-crack"
+ },
+ "c223-predict-quotient": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The denominator is (x+1)2, with x=−1.",
+  "optionFeedback": [
+   "The Quotient Rule requires the square, not the first power."
+  ],
+  "source": "live-crack"
+ },
+ "c223-guided-quotient": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The numerator is (x+1)(1)−(x−1)(1)=2, and the denominator is (x+1)2.",
+  "optionFeedback": [
+   "Reversing the subtraction changes the derivative sign.",
+   "The derivatives of numerator and denominator are both one, but their difference is not the required numerator."
+  ],
+  "source": "live-crack"
+ },
+ "c223-predict-motion": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "v(t)=−1.62t and a(t)=−1.62.",
+  "optionFeedback": [
+   "The time factor disappears when the linear velocity is differentiated.",
+   "Differentiating again does not undo the first derivative."
+  ],
+  "source": "live-crack"
+ },
+ "c223-guided-higher": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Velocity is s′(t) and acceleration is s′′(t).",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "c223-guided-speed": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "speed=∣v∣=∣−6∣=6 m/s. The sign of velocity describes direction.",
+  "optionFeedback": [
+   "Speed cannot be negative; take the absolute value.",
+   "Two is the acceleration, with different units."
+  ],
+  "source": "live-crack"
+ },
+ "chainChecks-identify": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Work from the outside inward. The expression being raised to the fifth power is the inside function.",
+  "optionFeedback": [
+   "This describes the outside function after naming its input u."
+  ],
+  "source": "live-crack"
+ },
+ "chainChecks-order": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Differentiate the outside while keeping the inside, then multiply by the derivative of the inside.",
+  "optionFeedback": [
+   "Composition is not addition; the outside derivative must be evaluated at g(x).",
+   "The inside factor must be its derivative, and the outside must receive g(x)."
+  ],
+  "source": "live-crack"
+ },
+ "chainChecks-power": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The inside derivative is 6x2, so y′=24x2(2x3+1)3.",
+  "optionFeedback": [
+   "The outside factor 4 is already present."
+  ],
+  "source": "live-crack"
+ },
+ "chainChecks-trig": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Outside: sine becomes cosine. Keep 4x, then multiply by its derivative 4.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "chainChecks-mixed": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "The product contributes two terms: 2xsin(3x) and x2[3cos(3x)].",
+  "optionFeedback": [
+   "Multiplying the derivatives omits the two product-rule terms.",
+   "Differentiating both factors at once is not Product Rule.",
+   "This omits the derivative of x2 and the inner factor 3."
+  ],
+  "source": "live-crack"
+ },
+ "implicitChecks-y": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Because y depends on x, use the Chain Rule: differentiate the power of y, then multiply by dy/dx.",
+  "optionFeedback": [
+   "This differentiates with respect to y, not with respect to x."
+  ],
+  "source": "live-crack"
+ },
+ "implicitChecks-collect": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Arrange first: collect the derivative terms, move the other terms, then factor and isolate.",
+  "optionFeedback": [
+   "Substitution into a differentiated relation can find a slope at one point, but the goal here is a general derivative formula, so retain the variables.",
+   "Terms can only be cancelled as valid common factors, not by erasing every y."
+  ],
+  "source": "live-crack"
+ },
+ "implicitChecks-product": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Product Rule gives dxd​(xy)=(1)y+xdxdy​=y+xdxdy​.",
+  "optionFeedback": [
+   "You retained only the term differentiating y; differentiating x contributes y."
+  ],
+  "source": "live-crack"
+ },
+ "implicitChecks-trig": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "d(siny)/dx=cosydy/dx by the Chain Rule.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "implicitChecks-slope": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The point lies on the circle, and dy/dx=−x/y=−3/4 there.",
+  "optionFeedback": [
+   "The derivative is −x/y, not −y/x.",
+   "Moving the 2x term to the other side introduces a minus sign."
+  ],
+  "source": "live-crack"
+ },
+ "ratesChecks-time": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Every changing quantity is a function of time, so the Chain Rule gives its rate.",
+  "optionFeedback": [
+   "The rate of the changing radius is missing.",
+   "Keep the inside r when differentiating its square; it does not become t."
+  ],
+  "source": "live-crack"
+ },
+ "ratesChecks-sign": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Leaking means volume is decreasing, so its rate is negative.",
+  "optionFeedback": [
+   "The given units are volume per time, not height per time."
+  ],
+  "source": "live-crack"
+ },
+ "ratesChecks-substitute": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Keep the variables alive while differentiating. Substitute the instant values afterward.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "ratesChecks-balloon": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "dr/dt=5/[4π(10)2]=1/(80π)cm/min.",
+  "optionFeedback": [
+   "This uses the diameter as if it were the radius.",
+   "A volume rate cannot be copied as a length rate."
+  ],
+  "source": "live-crack"
+ },
+ "ratesChecks-ladder": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "Toward the wall means dx/dt<0. Since x/y>0, the top rate dy/dt is positive.",
+  "optionFeedback": [
+   "The minus sign in the rate equation reverses the negative bottom rate.",
+   "The bottom is moving and both lengths are positive, so the top rate is not zero.",
+   "The given signs and fixed ladder determine the sign."
+  ],
+  "source": "live-crack"
+ },
+ "ratesChecks-cone": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The factor 5/14 is constant, so it remains when differentiating both changing lengths.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "ratesChecks-shadow": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The tip is at distance x+s from the pole, so its rate is dx/dt+ds/dt.",
+  "optionFeedback": [
+   "This measures the change in shadow length relative to the person."
+  ],
+  "source": "live-crack"
+ },
+ "c1-transfer-local": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The two one-sided limits agree at 5, so the limit exists. It differs from f(2)=1, so continuity fails.",
+  "optionFeedback": [
+   "The isolated value does not determine nearby behavior."
+  ],
+  "source": "live-crack"
+ },
+ "c2-transfer-definition": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The definition is limh→0​[f(3+h)−f(3)]/h. Simplifying for h=0 gives 6+h, so the derivative is 6.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "p1-guided-point": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "(−1)3−4(−1)=−1+4=3, so (−1,3) satisfies the equation.",
+  "optionFeedback": [
+   "Keep the subtraction sign: subtracting 4(−1) adds 4."
+  ],
+  "source": "live-crack"
+ },
+ "p1-predict-intercepts": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "x3−4x=x(x−2)(x+2) has three distinct zeros.",
+  "optionFeedback": [
+   "Do not stop at the factor x; solve the other two factors.",
+   "The zero from the factor x also counts."
+  ],
+  "source": "live-crack"
+ },
+ "p1-guided-intercept": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "The y-intercept lies on the y-axis, where x=0. Substitute x=0 and solve for y.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "p1-guided-symmetry": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "−y=(−x)3−4(−x)=−x3+4x, so multiplying by −1 recovers y=x3−4x.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "p1-predict-intersections": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Equating the two outputs gives x2−3=x−1.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "p1-guided-intersection": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "Substitution gives (−1,−2) and (2,1); each pair satisfies both equations.",
+  "optionFeedback": [
+   "The solved values are horizontal coordinates, not vertical coordinates.",
+   "The question asks for points, so include both coordinates."
+  ],
+  "source": "live-crack"
+ },
+ "p1-guided-model": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "V(t)=0 gives 120−6t=0, so t=20 minutes. This is when the tank is empty within the stated model.",
+  "optionFeedback": [
+   "The initial volume is V(0)=120 litres."
+  ],
+  "source": "live-crack"
+ },
+ "p3-guided-relation": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Each input in the second set has exactly one output. The other sets assign more than one output to a single input.",
+  "optionFeedback": [
+   "Input 1 has outputs 2 and 4, so the rule is not a function."
+  ],
+  "source": "live-crack"
+ },
+ "p3-predict-quotient": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "f(x+Δx)=(x+Δx)2=x2+2xΔx+(Δx)2.",
+  "optionFeedback": [
+   "The middle product term is missing."
+  ],
+  "source": "live-crack"
+ },
+ "p3-guided-evaluate": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "f(−1)=(−1)2+2(−1)−3=1−2−3=−4.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "p3-guided-domain": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "6x≥0 gives x≥0, so the domain is [0,∞).",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "p3-predict-composition": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "f(g(x))=f(x−1)=(x−1)2.",
+  "optionFeedback": [
+   "This is g(f(x)), the reverse order.",
+   "Composition is substitution, not multiplication."
+  ],
+  "source": "live-crack"
+ },
+ "p3-guided-composite-domain": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The composition is x−1​. Require x−1≥0, so x≥1.",
+  "optionFeedback": [
+   "Although g accepts every real input, its output must be nonnegative for f.",
+   "The outer function receives x−1, not x."
+  ],
+  "source": "live-crack"
+ },
+ "p3-guided-evenodd": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "f(−x)=(−x)3−4(−x)=−x3+4x=−(x3−4x)=−f(x) for all real x, so f is odd.",
+  "optionFeedback": [
+   "The calculation gives −f(x), not f(x)."
+  ],
+  "source": "live-crack"
+ },
+ "p3-guided-absolute": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "Since 0<1, use −(x−1), giving −(0−1)=1.",
+  "optionFeedback": [
+   "That branch is for x≥1, which does not include zero."
+  ],
+  "source": "live-crack"
+ },
+ "pw-guided-continuity": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Differentiability requires continuity. If the function is not continuous at c, stop: it is not differentiable there.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "pw-guided-slopes": {
+  "correctIndex": 0,
+  "hint": null,
+  "explanation": "Both finite one-sided derivatives must agree; their common value is the derivative at the join.",
+  "optionFeedback": null,
+  "source": "live-crack"
+ },
+ "pw-guided-stop": {
+  "correctIndex": 1,
+  "hint": null,
+  "explanation": "The left limit is 0, but the right limit and r(0) are 1. The jump prevents differentiability even though the separate formulas have equal slopes.",
+  "optionFeedback": [
+   "Equal derivative formulas do not overcome a jump at the join."
+  ],
+  "source": "live-crack"
+ },
+ "pw-guided-parameters": {
+  "correctIndex": 3,
+  "hint": null,
+  "explanation": "Matching derivatives gives a=2. Substituting into a+b=2 gives b=0.",
+  "optionFeedback": [
+   "This meets the continuity equation but gives left slope one, not two.",
+   "This meets the continuity equation but gives left slope zero, not two.",
+   "The slopes agree, but the left limit is four while the right limit is two."
+  ],
+  "source": "live-crack"
+ },
+ "pw-guided-corner": {
+  "correctIndex": 2,
+  "hint": null,
+  "explanation": "The finite one-sided derivatives disagree, so the ordinary derivative does not exist at c.",
+  "optionFeedback": [
+   "Adding slopes does not produce a derivative at a corner.",
+   "Multiplying slopes does not produce a derivative at a corner."
+  ],
+  "source": "live-crack"
+ }
+}

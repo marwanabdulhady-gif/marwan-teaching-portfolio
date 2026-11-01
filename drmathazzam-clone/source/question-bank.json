@@ -1,0 +1,3154 @@
+{
+ "c1-transfer-local": {
+  "id": "c1-transfer-local",
+  "question": "Suppose $\\lim_{x\\to2^-}f(x)=\\lim_{x\\to2^+}f(x)=5$ but $f(2)=1$. Which conclusion is justified?",
+  "options": [
+   "The limit is $1$",
+   "The limit is $5$, but $f$ is not continuous at $2$",
+   "The limit does not exist",
+   "The function is continuous because both sides agree"
+  ],
+  "correctIndex": 1,
+  "hint": "Check the two-sided limit first, then compare it with the actual value.",
+  "explanation": "The two one-sided limits agree at 5, so the limit exists. It differs from f(2)=1, so continuity fails.",
+  "optionFeedback": [
+   "The isolated value does not determine nearby behavior.",
+   null,
+   "Unequal function value does not destroy an existing limit.",
+   "Agreement of the sides gives a limit, but continuity also requires agreement with the value."
+  ]
+ },
+ "c2-transfer-definition": {
+  "id": "c2-transfer-definition",
+  "question": "For $f(x)=x^2$, which limit computes $f'(3)$ by definition?",
+  "options": [
+   "$\\lim_{h\\to0}[(3+h)^2-9]/h$",
+   "$\\lim_{h\\to0}[(3+h)^2-3]/h$",
+   "$\\lim_{h\\to0}(3+h)^2/h$",
+   "$\\lim_{h\\to0}(h^2-9)/h$"
+  ],
+  "correctIndex": 0,
+  "hint": "Subtract the output at the target from the output at the nearby input.",
+  "explanation": "The definition is limh→0​[f(3+h)−f(3)]/h. Simplifying for h=0 gives 6+h, so the derivative is 6.",
+  "optionFeedback": [
+   null,
+   "Subtract f(3)=9, not the input three.",
+   "The original output must be subtracted.",
+   "The nearby input is 3+h, not just h."
+  ]
+ },
+ "c21-guided-cancel": {
+  "id": "c21-guided-cancel",
+  "question": "For $f(x)=x^2$, the difference quotient is $\\frac{2xh+h^2}{h}$ for $h\\ne0$. What is the correct next step?",
+  "options": [
+   "Set $h=0$ immediately",
+   "Cancel only one $h$ and keep $2xh+h$",
+   "Conclude the derivative is undefined",
+   "Factor $h$, cancel it, then take $h\\to0$"
+  ],
+  "correctIndex": 3,
+  "hint": "Every term in the numerator contains a common factor h.",
+  "explanation": "For h=0, the quotient is 2x+h. Its limit is 2x; the original quotient need not be defined at h=0.",
+  "optionFeedback": [
+   "Substitution into the unsimplified quotient produces 0/0, not a derivative.",
+   "Factor the entire numerator; each term is divided by h.",
+   "The quotient can be undefined at zero while having a finite limit there.",
+   null
+  ],
+  "cta": {
+   "href": "#examples",
+   "text": "Next section"
+  }
+ },
+ "c21-guided-definition": {
+  "id": "c21-guided-definition",
+  "question": "For $f(x)=x^2$, what should you write first when using the $h$-definition?",
+  "options": [
+   "$f(x+h)=(x+h)^2$",
+   "$f(x+h)=x^2+h$",
+   "$f(x+h)=2x+h$"
+  ],
+  "correctIndex": 0,
+  "hint": "Replace the entire input x by x+h before expanding.",
+  "explanation": "The original rule squares its input, so f(x+h)=(x+h)2.",
+  "optionFeedback": [
+   null,
+   "Adding h to the output is not the same as replacing the input.",
+   "This is the simplified difference quotient, not the shifted function."
+  ],
+  "cta": {
+   "href": "#routine",
+   "text": "Next section"
+  }
+ },
+ "c21-guided-domain": {
+  "id": "c21-guided-domain",
+  "question": "The definition gives $f'(x)=-2/x^3$ for $f(x)=1/x^2$. Where does this derivative apply?",
+  "options": [
+   "All real $x$",
+   "Only $x>0$",
+   "Only $x<0$",
+   "All real $x\\ne0$"
+  ],
+  "correctIndex": 3,
+  "hint": "A derivative can only be taken at an input where the original function is defined in the required neighborhood.",
+  "explanation": "The original function and its derivative are defined for every real x=0, but not at zero.",
+  "optionFeedback": [
+   "The original function is not defined at zero.",
+   "Negative nonzero inputs also belong to the original function domain.",
+   "Positive inputs also belong to the original function domain.",
+   null
+  ],
+  "cta": {
+   "href": "/courses/grade-12-calculus/practice/2-1",
+   "text": "Continue to Practice"
+  }
+ },
+ "c21-guided-rate": {
+  "id": "c21-guided-rate",
+  "question": "If $s(t)$ is position, what does $s'(5)$ represent?",
+  "options": [
+   "Position at $t=5$",
+   "Instantaneous velocity at $t=5$",
+   "Average velocity from $0$ to $5$"
+  ],
+  "correctIndex": 1,
+  "hint": "Position has units of distance; its time derivative has units of distance per time.",
+  "explanation": "s′(5) is the limit of average velocities over intervals shrinking toward time 5.",
+  "optionFeedback": [
+   "Position is s(5), without the derivative mark.",
+   null,
+   "Average velocity requires a difference of positions divided by a nonzero interval."
+  ],
+  "cta": {
+   "href": "#strategy",
+   "text": "Next section"
+  }
+ },
+ "c21-guided-secant": {
+  "id": "c21-guided-secant",
+  "question": "As the second point on a secant approaches the point of tangency, what happens to $\\Delta x$?",
+  "options": [
+   "$\\Delta x=1$",
+   "$\\Delta x\\to\\infty$",
+   "$\\Delta x\\to0$"
+  ],
+  "correctIndex": 2,
+  "hint": "Think of the horizontal distance between the two approaching inputs.",
+  "explanation": "The horizontal change approaches zero; when the finite slope limit exists, it gives the tangent slope.",
+  "optionFeedback": [
+   "A fixed gap of one does not make the two inputs approach each other.",
+   "An increasing gap moves the inputs farther apart, not closer.",
+   null
+  ],
+  "cta": {
+   "href": "#definition",
+   "text": "Next section"
+  }
+ },
+ "c21-guided-slope": {
+  "id": "c21-guided-slope",
+  "question": "Which expression gives the average rate of change of $f$ from $x_1$ to $x_2$, where $x_1\\ne x_2$?",
+  "options": [
+   "$f(x_2)-f(x_1)$",
+   "$\\frac{f(x_2)-f(x_1)}{x_2-x_1}$",
+   "$\\frac{x_2-x_1}{f(x_2)-f(x_1)}$"
+  ],
+  "correctIndex": 1,
+  "hint": "Identify the change in output and divide by the nonzero change in input.",
+  "explanation": "Slope is Δy/Δx, so it is the output difference divided by the input difference.",
+  "optionFeedback": [
+   "This gives only the output change; divide by the input interval too.",
+   null,
+   "This reverses rise and run; it measures the reciprocal rate instead."
+  ],
+  "cta": {
+   "href": "#secant",
+   "text": "Next section"
+  }
+ },
+ "c21-guided-tangent": {
+  "id": "c21-guided-tangent",
+  "question": "For $f(x)=x^2+x-3$, which is the tangent line at $x=2$?",
+  "options": [
+   "$y=5x$",
+   "$y-5=3(x-2)$",
+   "$y-3=5(x-2)$",
+   "$y=3$"
+  ],
+  "correctIndex": 2,
+  "hint": "Find both f(2) and f′(2); one supplies the point, the other the slope.",
+  "explanation": "f(2)=3 and f′(2)=5, so point-slope form is y−3=5(x−2).",
+  "optionFeedback": [
+   "The tangent must pass through (2,3), not automatically through the origin.",
+   "This reverses the function value and derivative: the slope is five.",
+   null,
+   "A horizontal line has slope zero, but the derivative here is five."
+  ],
+  "cta": {
+   "href": "#rates",
+   "text": "Next section"
+  }
+ },
+ "c223-guided-higher": {
+  "id": "c223-guided-higher",
+  "question": "If $s(t)$ is position, what does $s''(t)$ represent?",
+  "options": [
+   "Acceleration",
+   "Velocity",
+   "Position"
+  ],
+  "correctIndex": 0,
+  "hint": "Follow position to its first time derivative, then differentiate once more.",
+  "explanation": "Velocity is s′(t) and acceleration is s′′(t).",
+  "optionFeedback": [
+   null,
+   "Velocity is the first derivative, not the second.",
+   "Position is the original function, before either derivative."
+  ],
+  "cta": {
+   "href": "#rates",
+   "text": "Next section"
+  }
+ },
+ "c223-guided-power": {
+  "id": "c223-guided-power",
+  "question": "Differentiate $f(x)=7x^5$.",
+  "options": [
+   "$7x^4$",
+   "$35x^4$",
+   "$35x^5$"
+  ],
+  "correctIndex": 1,
+  "hint": "Multiply by the old exponent, then reduce that exponent by one.",
+  "explanation": "f′(x)=7(5x4)=35x4.",
+  "optionFeedback": [
+   "The old exponent five also multiplies the coefficient.",
+   null,
+   "The exponent decreases from five to four after differentiation."
+  ],
+  "cta": {
+   "href": "#rewrite",
+   "text": "Next section"
+  }
+ },
+ "c223-guided-product": {
+  "id": "c223-guided-product",
+  "question": "Which setup is correct for $y=x^2\\sin x$?",
+  "options": [
+   "$y'=2x\\cos x$",
+   "$y'=2x\\sin x+x^2\\cos x$",
+   "$y'=x^2\\cos x$"
+  ],
+  "correctIndex": 1,
+  "hint": "Differentiate one factor at a time while keeping the other factor unchanged.",
+  "explanation": "The Product Rule gives both contributions: 2xsinx+x2cosx.",
+  "optionFeedback": [
+   "Multiplying the two derivatives is not the Product Rule.",
+   null,
+   "This omits the term obtained by differentiating x squared."
+  ],
+  "cta": {
+   "href": "#quotient",
+   "text": "Next section"
+  }
+ },
+ "c223-guided-quotient": {
+  "id": "c223-guided-quotient",
+  "question": "For $y=\\frac{x-1}{x+1}$, which numerator appears after the Quotient Rule?",
+  "options": [
+   "$(x-1)-(x+1)$",
+   "$1$",
+   "$(x+1)-(x-1)$"
+  ],
+  "correctIndex": 2,
+  "hint": "Keep denominator times derivative of numerator first, then subtract the other product.",
+  "explanation": "The numerator is (x+1)(1)−(x−1)(1)=2, and the denominator is (x+1)2.",
+  "optionFeedback": [
+   "Reversing the subtraction changes the derivative sign.",
+   "The derivatives of numerator and denominator are both one, but their difference is not the required numerator.",
+   null
+  ],
+  "cta": {
+   "href": "#higher",
+   "text": "Next section"
+  }
+ },
+ "c223-guided-rewrite": {
+  "id": "c223-guided-rewrite",
+  "question": "Which is the simplest rewrite-first approach to differentiating $1/x^3$?",
+  "options": [
+   "Differentiate numerator and denominator separately",
+   "Use the Quotient Rule without simplifying",
+   "Rewrite it as $x^{-3}$"
+  ],
+  "correctIndex": 2,
+  "hint": "A reciprocal power can be written with a negative exponent.",
+  "explanation": "For x=0, write x−3, then use the Power Rule. The Quotient Rule is valid but unnecessarily longer here.",
+  "optionFeedback": [
+   "A quotient derivative is not the quotient of the derivatives.",
+   "The Quotient Rule can work, but the requested simplest approach uses a negative power.",
+   null
+  ],
+  "cta": {
+   "href": "#trig",
+   "text": "Next section"
+  }
+ },
+ "c223-guided-speed": {
+  "id": "c223-guided-speed",
+  "question": "At one instant, $v=-6$ m/s and $a=2$ m/s$^2$. What is the speed?",
+  "options": [
+   "$-6$ m/s",
+   "$2$ m/s",
+   "$6$ m/s",
+   "$-12$ m/s"
+  ],
+  "correctIndex": 2,
+  "hint": "Speed is the magnitude of velocity, not acceleration.",
+  "explanation": "speed=∣v∣=∣−6∣=6 m/s. The sign of velocity describes direction.",
+  "optionFeedback": [
+   "Speed cannot be negative; take the absolute value.",
+   "Two is the acceleration, with different units.",
+   null,
+   "There is no multiplication of velocity by acceleration in the speed definition."
+  ],
+  "cta": {
+   "href": "#strategy",
+   "text": "Next: exam strategy"
+  }
+ },
+ "c223-guided-trig": {
+  "id": "c223-guided-trig",
+  "question": "Find $\\frac{d}{dx}(4\\sin x-3\\cos x)$, with angles in radians.",
+  "options": [
+   "$4\\cos x+3\\sin x$",
+   "$4\\cos x-3\\sin x$",
+   "$4\\sin x+3\\cos x$"
+  ],
+  "correctIndex": 0,
+  "hint": "The derivative of cosine contributes a negative sign.",
+  "explanation": "Using (sinx)′=cosx and (cosx)′=−sinx gives 4cosx+3sinx.",
+  "optionFeedback": [
+   null,
+   "The cosine derivative is negative; the original minus sign reverses it.",
+   "The sine term must become cosine, and the cosine term must become negative sine."
+  ],
+  "cta": {
+   "href": "#product",
+   "text": "Next section"
+  }
+ },
+ "c223-predict-motion": {
+  "id": "c223-predict-motion",
+  "question": "For $s(t)=-0.81t^2+2$, what happens after differentiating the velocity once more?",
+  "options": [
+   "Keep $-1.62t$",
+   "Return to $-0.81t^2+2$",
+   "Obtain the constant acceleration $-1.62$"
+  ],
+  "correctIndex": 2,
+  "hint": "First velocity is linear in time; its derivative is its constant slope.",
+  "explanation": "v(t)=−1.62t and a(t)=−1.62.",
+  "optionFeedback": [
+   "The time factor disappears when the linear velocity is differentiated.",
+   "Differentiating again does not undo the first derivative.",
+   null
+  ]
+ },
+ "c223-predict-product": {
+  "id": "c223-predict-product",
+  "question": "For $y=x^2\\sin x$, which pair identifies the two factors?",
+  "options": [
+   "$x^2$ and $\\sin x$",
+   "$2x$ and $\\cos x$",
+   "$x^2$ and $\\cos x$"
+  ],
+  "correctIndex": 0,
+  "hint": "Label the original factors before taking their derivatives.",
+  "explanation": "The displayed product is x squared times sine x. Its factors are not their derivatives.",
+  "optionFeedback": [
+   null,
+   "These are their derivatives, not the original factors.",
+   "The second factor in the original expression is sine, not cosine."
+  ]
+ },
+ "c223-predict-quotient": {
+  "id": "c223-predict-quotient",
+  "question": "For $g(x)=(x-1)/(x+1)$, what denominator must the unsimplified Quotient Rule derivative have?",
+  "options": [
+   "$x+1$",
+   "$(x+1)^2$",
+   "$(x-1)^2$"
+  ],
+  "correctIndex": 1,
+  "hint": "The Quotient Rule squares the original denominator.",
+  "explanation": "The denominator is (x+1)2, with x=−1.",
+  "optionFeedback": [
+   "The Quotient Rule requires the square, not the first power.",
+   null,
+   "This squares the numerator instead of the denominator."
+  ]
+ },
+ "c223-predict-rewrite": {
+  "id": "c223-predict-rewrite",
+  "question": "For $4/x^3+6\\sqrt{x}$, where is the real derivative formula valid?",
+  "options": [
+   "$x\\ge0$",
+   "All real $x$",
+   "$x>0$"
+  ],
+  "correctIndex": 2,
+  "hint": "Combine the real square-root restriction with the nonzero denominator.",
+  "explanation": "The real square root requires x≥0 and the denominator excludes zero; hence x>0.",
+  "optionFeedback": [
+   "Zero is excluded by the denominator x cubed.",
+   "Negative inputs do not give a real square root.",
+   null
+  ]
+ },
+ "c223-predict-terms": {
+  "id": "c223-predict-terms",
+  "question": "For $f(x)=5x^4-3x^2+7x-9$, what does the constant term contribute to $f'(x)$?",
+  "options": [
+   "$-9$",
+   "$0$",
+   "$-9x$"
+  ],
+  "correctIndex": 1,
+  "hint": "A constant does not change as the input changes.",
+  "explanation": "The derivative of the constant term is zero.",
+  "optionFeedback": [
+   "The unchanged constant is not its derivative.",
+   null,
+   "Differentiation does not turn a constant into a linear term."
+  ]
+ },
+ "chainChecks-identify": {
+  "correctIndex": 1,
+  "explanation": "Work from the outside inward. The expression being raised to the fifth power is the inside function.",
+  "hint": "Name the complete expression receiving the outermost operation.",
+  "optionFeedback": [
+   "This describes the outside function after naming its input u.",
+   null,
+   "This is part of a derivative, not the original inside function."
+  ],
+  "cta": {
+   "href": "#rule",
+   "text": "Next section"
+  },
+  "id": "chainChecks-identify"
+ },
+ "chainChecks-mixed": {
+  "id": "chainChecks-mixed",
+  "question": "For $y=x^2\\sin(3x)$, which derivative uses both required rules?",
+  "options": [
+   "$6x\\cos(3x)$",
+   "$2x\\cos(3x)$",
+   "$x^2\\cos(3x)$",
+   "$2x\\sin(3x)+3x^2\\cos(3x)$"
+  ],
+  "correctIndex": 3,
+  "hint": "Apply Product Rule to the whole expression and Chain Rule inside the sine factor.",
+  "explanation": "The product contributes two terms: 2xsin(3x) and x2[3cos(3x)].",
+  "optionFeedback": [
+   "Multiplying the derivatives omits the two product-rule terms.",
+   "Differentiating both factors at once is not Product Rule.",
+   "This omits the derivative of x2 and the inner factor 3.",
+   null
+  ],
+  "cta": {
+   "href": "/courses/grade-12-calculus/practice/2-4",
+   "text": "Continue to Practice"
+  }
+ },
+ "chainChecks-order": {
+  "correctIndex": 2,
+  "explanation": "Differentiate the outside while keeping the inside, then multiply by the derivative of the inside.",
+  "hint": "Differentiate each layer and multiply their derivatives.",
+  "optionFeedback": [
+   "Composition is not addition; the outside derivative must be evaluated at g(x).",
+   "The inside factor must be its derivative, and the outside must receive g(x).",
+   null
+  ],
+  "cta": {
+   "href": "#methods",
+   "text": "Next section"
+  },
+  "id": "chainChecks-order"
+ },
+ "chainChecks-power": {
+  "id": "chainChecks-power",
+  "question": "For $y=(2x^3+1)^4$, which factor is lost in the incorrect derivative $4(2x^3+1)^3$?",
+  "options": [
+   "$4$",
+   "$6x^2$",
+   "$2x^3+1$",
+   "$3$"
+  ],
+  "correctIndex": 1,
+  "hint": "Differentiate the whole inside polynomial separately.",
+  "explanation": "The inside derivative is 6x2, so y′=24x2(2x3+1)3.",
+  "optionFeedback": [
+   "The outside factor 4 is already present.",
+   null,
+   "This is the inside itself, which is already kept inside the power.",
+   "The exponent falls to three, but this is not the inner derivative."
+  ]
+ },
+ "chainChecks-trig": {
+  "correctIndex": 0,
+  "explanation": "Outside: sine becomes cosine. Keep 4x, then multiply by its derivative 4.",
+  "hint": "Sine changes to cosine; the inner derivative supplies another factor.",
+  "optionFeedback": [
+   null,
+   "The derivative of sine is cosine, not sine.",
+   "You differentiated the outside but lost the inner derivative 4."
+  ],
+  "cta": {
+   "href": "#mixed",
+   "text": "Next section"
+  },
+  "id": "chainChecks-trig"
+ },
+ "continuity-bisection": {
+  "id": "continuity-bisection",
+  "question": "After evaluating a midpoint in the bisection method, which half-interval should be kept?",
+  "options": [
+   "Always the left half",
+   "Always the right half",
+   "The half whose endpoint values have opposite signs",
+   "The half with the larger function values"
+  ],
+  "correctIndex": 2,
+  "hint": "First check whether the midpoint itself is a zero; otherwise retain opposite signs.",
+  "explanation": "Keep the half where the endpoint function values have opposite signs.",
+  "optionFeedback": [
+   "The sign test, not left versus right, decides the retained half.",
+   "The sign test, not left versus right, decides the retained half.",
+   null,
+   "Larger outputs do not identify which half contains the sign change."
+  ],
+  "cta": {
+   "href": "/courses/grade-12-calculus/practice/1-4",
+   "text": "Continue to Practice"
+  }
+ },
+ "continuity-closed": {
+  "id": "continuity-closed",
+  "question": "To be continuous on $[a,b]$, what is required at $a$?",
+  "options": [
+   "$\\lim_{x\\to a^-}f(x)=f(a)$",
+   "$\\lim_{x\\to a^+}f(x)=f(a)$",
+   "$f(a)=0$",
+   "No endpoint condition"
+  ],
+  "correctIndex": 1,
+  "hint": "At the left endpoint, approach through points inside the interval.",
+  "explanation": "At the left endpoint use right-hand continuity.",
+  "optionFeedback": [
+   "The left side lies outside the interval at its left endpoint.",
+   null,
+   "The endpoint value can be any finite number; it must match the appropriate limit.",
+   "Both endpoint values must agree with their interior one-sided limits."
+  ],
+  "cta": {
+   "href": "#continuity-scene-07",
+   "text": "Next section"
+  }
+ },
+ "continuity-discontinuity": {
+  "id": "continuity-discontinuity",
+  "question": "If $\\lim_{x\\to a^-}f(x)$ and $\\lim_{x\\to a^+}f(x)$ are finite but unequal, what type of discontinuity occurs at $x=a$?",
+  "options": [
+   "Removable",
+   "Jump",
+   "Continuous",
+   "A hole only"
+  ],
+  "correctIndex": 1,
+  "hint": "Compare the two finite one-sided limits.",
+  "explanation": "Unequal finite one-sided limits produce a jump discontinuity.",
+  "optionFeedback": [
+   "A removable discontinuity requires equal finite one-sided limits.",
+   null,
+   "Continuity requires the one-sided limits to agree.",
+   "A hole alone has a shared nearby destination, unlike a jump."
+  ],
+  "cta": {
+   "href": "#continuity-scene-03",
+   "text": "Next section"
+  }
+ },
+ "continuity-families": {
+  "id": "continuity-families",
+  "question": "Where can $f(x)=\\dfrac{x+1}{x^2-9}$ fail to be continuous?",
+  "options": [
+   "Only at $x=0$",
+   "$x=\\pm3$",
+   "Everywhere",
+   "Nowhere"
+  ],
+  "correctIndex": 1,
+  "hint": "Solve the denominator equation before deciding the domain.",
+  "explanation": "A rational function is continuous on its domain; exclude the zeros of the denominator.",
+  "optionFeedback": [
+   "At zero the denominator is negative nine, not zero.",
+   null,
+   "Away from denominator zeros, a rational function is continuous.",
+   "Check the denominator: it has two real zeros."
+  ],
+  "cta": {
+   "href": "#continuity-scene-04",
+   "text": "Next section"
+  }
+ },
+ "continuity-ivt": {
+  "id": "continuity-ivt",
+  "question": "If $f$ is continuous on $[a,b]$ and $K$ lies between $f(a)$ and $f(b)$, IVT guarantees:",
+  "options": [
+   "Exactly one $c$",
+   "$f(c)=K$ for at least one $c\\in[a,b]$",
+   "$f(c)=0$ always",
+   "$f$ is linear"
+  ],
+  "correctIndex": 1,
+  "hint": "Separate the hypotheses from the existence conclusion.",
+  "explanation": "IVT guarantees at least one such value; it does not guarantee uniqueness.",
+  "optionFeedback": [
+   "IVT proves existence, not uniqueness.",
+   null,
+   "The target is K, which need not be zero.",
+   "IVT applies to continuous nonlinear functions too."
+  ],
+  "cta": {
+   "href": "#continuity-scene-08",
+   "text": "Next section"
+  }
+ },
+ "continuity-piecewise": {
+  "id": "continuity-piecewise",
+  "question": "At a breaking point $x=c$ of a piecewise function, what should you compare?",
+  "options": [
+   "Only $f(c)$",
+   "Left limit, right limit, and $f(c)$",
+   "Only the slopes",
+   "Only the domain"
+  ],
+  "correctIndex": 1,
+  "hint": "Evaluate each rule on its own side of the break.",
+  "explanation": "The two one-sided limits must agree, and their common value must equal f(c).",
+  "optionFeedback": [
+   "The value alone does not test nearby behavior.",
+   null,
+   "Equal slopes are not the definition of continuity.",
+   "The domain alone does not show whether the pieces meet."
+  ],
+  "cta": {
+   "href": "#continuity-scene-05",
+   "text": "Next section"
+  }
+ },
+ "continuity-point": {
+  "id": "continuity-point",
+  "question": "For $f$ to be continuous at $x=c$, which statement must be true?",
+  "options": [
+   "Only $f(c)$ exists",
+   "Only the limit exists",
+   "$f(c)$ exists, the limit exists, and $\\lim_{x\\to c}f(x)=f(c)$",
+   "The graph must be a line"
+  ],
+  "correctIndex": 2,
+  "hint": "Test the value, the two-sided limit, and whether they agree.",
+  "explanation": "Continuity at a point requires all three conditions.",
+  "optionFeedback": [
+   "A defined value alone says nothing about nearby behavior.",
+   "A limit may exist while the point is missing or misplaced.",
+   null,
+   "Curved graphs can be continuous; being a line is not required."
+  ],
+  "cta": {
+   "href": "#continuity-scene-02",
+   "text": "Next section"
+  }
+ },
+ "continuity-predict-0": {
+  "id": "continuity-predict-0",
+  "question": "What value repairs the missing point at $x=1$?",
+  "options": [
+   "$0$",
+   "$1$",
+   "$2$",
+   "No value can repair it"
+  ],
+  "correctIndex": 2,
+  "hint": "Cancel the common factor only for nearby inputs.",
+  "explanation": "The nearby rule is x+1, whose limit at 1 is 2.",
+  "optionFeedback": [
+   "Zero is not the nearby output: simplify to x+1 for x not equal to one.",
+   "One is the input target, not the approached output.",
+   null,
+   "The two-sided limit is finite, so defining the missing point to equal it repairs continuity."
+  ]
+ },
+ "continuity-predict-1": {
+  "id": "continuity-predict-1",
+  "question": "Which continuity equation determines $m$?",
+  "options": [
+   "$6+m=8$",
+   "$m=8$",
+   "$6=m$",
+   "$6+m=9$"
+  ],
+  "correctIndex": 0,
+  "hint": "Substitute the breaking input into each rule.",
+  "explanation": "The left limit is 6+m and the right limit and value are 8.",
+  "optionFeedback": [
+   null,
+   "The left rule contributes six as well as m; do not drop that term.",
+   "Equate the whole left expression to the right limit, not one term to the parameter.",
+   "The right rule is x squared minus one, so its output at three is eight, not nine."
+  ]
+ },
+ "continuity-predict-2": {
+  "id": "continuity-predict-2",
+  "question": "At $x=3$, what is the common limit and value of $|2x-6|$?",
+  "options": [
+   "$3$",
+   "$6$",
+   "DNE",
+   "$0$"
+  ],
+  "correctIndex": 3,
+  "hint": "Evaluate both pieces at their shared boundary.",
+  "explanation": "Both pieces approach 0, which equals the function value.",
+  "optionFeedback": [
+   "Three is the breaking input, not the output.",
+   "Substitute three into the whole expression: six minus six is zero.",
+   "Both one-sided limits exist and agree because both linear pieces approach zero.",
+   null
+  ]
+ },
+ "continuity-predict-3": {
+  "id": "continuity-predict-3",
+  "question": "Is $x\\lfloor x\\rfloor$ continuous at $0$?",
+  "options": [
+   "No, because floor always forces a jump",
+   "Yes: both limits and the value are $0$",
+   "Only from the left",
+   "Only from the right"
+  ],
+  "correctIndex": 1,
+  "hint": "Near zero, the product is −x on the left and 0 on the right.",
+  "explanation": "Both one-sided limits are 0, and the value at zero is 0.",
+  "optionFeedback": [
+   "The factor x tends to zero and removes the jump in this product at zero.",
+   null,
+   "The right-hand limit also equals zero; continuity holds from both sides.",
+   "The left-hand rule is minus x, whose limit is also zero."
+  ]
+ },
+ "continuity-predict-4": {
+  "id": "continuity-predict-4",
+  "question": "What does IVT alone prove for this polynomial on $[0,1]$?",
+  "options": [
+   "Exactly one zero",
+   "The zero equals $1/2$",
+   "At least one zero in $(0,1)$",
+   "No zero"
+  ],
+  "correctIndex": 2,
+  "hint": "Check continuity and the signs of the endpoint outputs.",
+  "explanation": "The polynomial is continuous and its endpoint values straddle zero, so at least one zero lies inside.",
+  "optionFeedback": [
+   "Existence does not imply uniqueness; that needs a separate argument.",
+   "IVT does not locate the zero exactly; the polynomial at one half is negative seven eighths.",
+   null,
+   "The endpoint signs differ and the polynomial is continuous, so IVT guarantees a zero."
+  ]
+ },
+ "continuity-predict-5": {
+  "id": "continuity-predict-5",
+  "question": "After the first midpoint test, which interval retains the sign change?",
+  "options": [
+   "$[1,1.5]$",
+   "$[1.5,2]$",
+   "$[1,1.25]$",
+   "$[0,1]$"
+  ],
+  "correctIndex": 0,
+  "hint": "Compare the negative value at one with the positive value at one and a half.",
+  "explanation": "The signs at 1 and 1.5 are opposite, so this is the next bracket.",
+  "optionFeedback": [
+   null,
+   "Both endpoint outputs on this half are positive, so it loses the sign-change bracket.",
+   "The first midpoint is one and a half; one and a quarter is a later midpoint.",
+   "Zero to one is not a half of the current interval one to two."
+  ]
+ },
+ "continuity-special": {
+  "id": "continuity-special",
+  "question": "For $f(x)=\\lfloor x\\rfloor$, compare the one-sided limits at an integer $n$.",
+  "options": [
+   "Both equal $n$",
+   "$\\lim_{x\\to n^-}f(x)=n-1$ and $\\lim_{x\\to n^+}f(x)=n$",
+   "Both equal $n-1$",
+   "Both do not exist"
+  ],
+  "correctIndex": 1,
+  "hint": "Just below an integer, the floor is the preceding integer.",
+  "explanation": "The greatest integer function jumps at every integer.",
+  "optionFeedback": [
+   "Immediately below n, the floor is n minus one.",
+   null,
+   "Immediately above n, the floor is n.",
+   "Each one-sided limit exists; it is the two-sided limit that fails."
+  ],
+  "cta": {
+   "href": "#continuity-scene-06",
+   "text": "Next section"
+  }
+ },
+ "guided-15-candidates": {
+  "id": "guided-15-candidates",
+  "question": "For $(x+2)/(x^2-9)$, which excluded values remain vertical asymptotes?",
+  "options": [
+   "$3$ only",
+   "$-3$ only",
+   "$-3$ and $3$",
+   "Neither"
+  ],
+  "correctIndex": 2,
+  "hint": "Factor x2−9 and evaluate the numerator at each zero.",
+  "explanation": "At 3 the numerator is 5; at −3 it is −1. Neither cancels, so both are VAs.",
+  "optionFeedback": [
+   "Also inspect the other factor x+3; its numerator is nonzero.",
+   "Also inspect x-3; its numerator is nonzero.",
+   null,
+   "The numerator x+2 cancels neither x-3 nor x+3."
+  ]
+ },
+ "guided-15-check-factor": {
+  "correctIndex": 0,
+  "explanation": "A cancelled denominator factor indicates a possible hole. A factor that remains in the denominator can create a vertical asymptote.",
+  "hint": "Check the reduced denominator at the excluded value.",
+  "optionFeedback": [
+   null,
+   "A completely removed denominator zero need not create unbounded behavior.",
+   "The original expression is still undefined at its excluded input.",
+   "A horizontal asymptote concerns behavior far away, not an excluded finite input."
+  ],
+  "cta": {
+   "href": "#infinite-05",
+   "text": "Continue to the next idea"
+  },
+  "id": "guided-15-check-factor"
+ },
+ "guided-15-check-graph": {
+  "correctIndex": 2,
+  "explanation": "Opposite unbounded one-sided behavior gives a vertical asymptote; infinity is not a real-number limit.",
+  "hint": "Compare the two sides; do not average infinity.",
+  "optionFeedback": [
+   "Opposite infinities cannot be averaged to zero.",
+   "Unbounded outputs do not approach any real number.",
+   null,
+   "Continuity requires a finite function value and matching limit."
+  ],
+  "cta": {
+   "href": "#infinite-03",
+   "text": "Continue to the next idea"
+  },
+  "id": "guided-15-check-graph"
+ },
+ "guided-15-check-power": {
+  "correctIndex": 1,
+  "explanation": "An even power has the same positive sign on both sides (except at the zero itself).",
+  "hint": "Test an even power at small positive and negative inputs.",
+  "optionFeedback": [
+   "An odd power changes sign; an even positive power does not.",
+   null,
+   "An even power of a negative number is positive too.",
+   "The power is zero only at c, not throughout a neighborhood."
+  ],
+  "cta": {
+   "href": "#infinite-06",
+   "text": "Continue to the next idea"
+  },
+  "id": "guided-15-check-power"
+ },
+ "guided-15-check-trig": {
+  "correctIndex": 1,
+  "explanation": "Rewrite tanx=sinx/cosx and inspect zeros of cosx.",
+  "hint": "Rewrite tangent as sine divided by cosine.",
+  "optionFeedback": [
+   "Sine is the numerator for tangent, not its denominator.",
+   null,
+   "Tangent is not a rational function with denominator x.",
+   "The denominator in the sine/cosine representation is cosine."
+  ],
+  "cta": {
+   "href": "#infinite-07",
+   "text": "Continue to the next idea"
+  },
+  "id": "guided-15-check-trig"
+ },
+ "guided-15-classify": {
+  "id": "guided-15-classify",
+  "question": "For $(x^2-4x+3)/(x^2-x-6)$, classify $3$ and $-2$.",
+  "options": [
+   "VA at both",
+   "Hole at both",
+   "VA at 3; hole at -2",
+   "Hole at 3; VA at -2"
+  ],
+  "correctIndex": 3,
+  "hint": "Factor as (x−1)(x−3)/[(x−3)(x+2)].",
+  "explanation": "The factor x−3 cancels completely, leaving a finite limit at 3. At −2, the remaining numerator is −3 and denominator approaches zero.",
+  "optionFeedback": [
+   "The common factor x-3 cancels completely; inspect the reduced expression.",
+   "The factor x+2 does not cancel, so the limit at -2 is unbounded.",
+   "These classifications are reversed: x-3 cancels, x+2 remains.",
+   null
+  ]
+ },
+ "guided-15-cot": {
+  "id": "guided-15-cot",
+  "question": "Where are all vertical asymptotes of $\\cot(2x)$?",
+  "options": [
+   "$x=n\\pi/2,\\ n\\in\\mathbb Z$",
+   "$x=\\pi/4+n\\pi/2,\\ n\\in\\mathbb Z$",
+   "$x=n\\pi,\\ n\\in\\mathbb Z$ only",
+   "None"
+  ],
+  "correctIndex": 0,
+  "hint": "Use cot(2x)=cos(2x)/sin(2x).",
+  "explanation": "sin(2x)=0 when 2x=nπ, and the numerator is (−1)n=0. Hence every nπ/2 is a VA.",
+  "optionFeedback": [
+   null,
+   "Those are cosine zeros, which give zeros of cotangent rather than VAs.",
+   "This misses odd multiples of pi/2; solve for x after setting 2x=n pi.",
+   "Sine has zeros where the cosine numerator remains nonzero."
+  ]
+ },
+ "guided-15-direction": {
+  "id": "guided-15-direction",
+  "question": "For $-2/(x-4)$, predict the left and right limits at $4$, respectively.",
+  "options": [
+   "$-\\infty,+\\infty$",
+   "$+\\infty,-\\infty$",
+   "$+\\infty,+\\infty$",
+   "$0,0$"
+  ],
+  "correctIndex": 1,
+  "hint": "Check the sign of the denominator separately on each side.",
+  "explanation": "Left: negative divided by a small negative is positive unbounded; right: negative divided by a small positive is negative unbounded.",
+  "optionFeedback": [
+   "You reversed the signs: the numerator is negative, not positive.",
+   null,
+   "The denominator changes sign across 4, so the branches have opposite directions.",
+   "A nonzero numerator divided by a quantity approaching zero does not approach zero."
+  ]
+ },
+ "guided-15-property": {
+  "id": "guided-15-property",
+  "question": "Predict $\\lim_{x\\to(\\pi/2)^-}5\\tan x$.",
+  "options": [
+   "$-\\infty$",
+   "$0$",
+   "$+\\infty$",
+   "$5$"
+  ],
+  "correctIndex": 2,
+  "hint": "From the left, sinx→1 and cosx→0+.",
+  "explanation": "Tangent tends to +∞ from the left. Multiplication by positive 5 preserves the direction.",
+  "optionFeedback": [
+   "Cosine approaches zero positively from this side, so tangent is positive.",
+   "A numerator near 1 divided by a tiny positive denominator is unbounded.",
+   null,
+   "The constant does not replace tangent; it multiplies its unbounded behavior."
+  ]
+ },
+ "guided-15-sketch": {
+  "id": "guided-15-sketch",
+  "question": "Both one-sided limits at $-1$ are $+\\infty$. What must the nearby sketch show?",
+  "options": [
+   "Both branches fall",
+   "Left rises; right falls",
+   "The point (-1,0)",
+   "Both branches rise toward x=-1"
+  ],
+  "correctIndex": 3,
+  "hint": "Separate input direction (left/right) from output direction (up/down).",
+  "explanation": "The asymptote is x=-1 and each nearby branch rises without bound. These limits do not specify the value at -1.",
+  "optionFeedback": [
+   "Positive infinity means rising, not falling.",
+   "The plus sign is the output direction on both sides.",
+   "Limits describe nearby behavior and do not specify a point on the asymptote.",
+   null
+  ]
+ },
+ "guided-22-abs": {
+  "id": "guided-22-abs",
+  "question": "What is the first algebraic step for $|3x+6|$?",
+  "options": [
+   "Differentiate",
+   "Solve $3x+6=0$",
+   "Square the expression",
+   "Set x=0 only"
+  ],
+  "correctIndex": 1,
+  "hint": "Locate where the expression inside the absolute value changes sign.",
+  "explanation": "The zero of the inside expression is the breaking point.",
+  "optionFeedback": [
+   "Differentiation is unnecessary; the sign of the inside determines the rewrite.",
+   null,
+   "Squaring would change the function instead of identifying its two rules.",
+   "Zero is not necessarily the breaking input; solve for the inside to vanish."
+  ],
+  "cta": {
+   "href": "#pc-2-2-scene-05",
+   "text": "Continue to the next section"
+  }
+ },
+ "guided-22-equation": {
+  "id": "guided-22-equation",
+  "question": "Does $3x-y=5$ define y as a function of x?",
+  "options": [
+   "Only when x>0",
+   "Yes, $y=3x-5$",
+   "No, because x and y are both present",
+   "No, because it is linear"
+  ],
+  "correctIndex": 1,
+  "hint": "Isolate y and count its outputs for a chosen x.",
+  "explanation": "Solving for y gives one value for each x.",
+  "optionFeedback": [
+   "The isolated linear rule accepts every real x, not just positive inputs.",
+   null,
+   "Having both variables in an equation does not prevent it defining a function.",
+   "A nonvertical line is a function of x."
+  ],
+  "cta": {
+   "href": "#pc-2-2-scene-09",
+   "text": "Continue to the next section"
+  }
+ },
+ "guided-22-family": {
+  "id": "guided-22-family",
+  "question": "What is the first feature to read from $y=|x-4|+1$?",
+  "options": [
+   "Vertex $(4,1)$",
+   "Slope 4",
+   "x-intercept 1",
+   "A circle center"
+  ],
+  "correctIndex": 0,
+  "hint": "Read the horizontal and vertical shifts in absolute-value vertex form.",
+  "explanation": "Absolute-value vertex form reveals the vertex immediately.",
+  "optionFeedback": [
+   null,
+   "The number four is a horizontal shift, not a slope.",
+   "The outside one gives the vertex height, not an x-intercept.",
+   "An absolute-value graph is V-shaped, not circular."
+  ],
+  "cta": {
+   "href": "#pc-2-2-scene-02",
+   "text": "Continue to the next section"
+  }
+ },
+ "guided-22-floor1": {
+  "id": "guided-22-floor1",
+  "question": "What is $\\lfloor-0.7\\rfloor$?",
+  "options": [
+   "$0$",
+   "$1$",
+   "$-0.7$",
+   "$-1$"
+  ],
+  "correctIndex": 3,
+  "hint": "Choose the greatest integer not exceeding negative seven tenths.",
+  "explanation": "The greatest integer less than or equal to -0.7 is -1.",
+  "optionFeedback": [
+   "Zero is greater than the input; floor is not truncation toward zero.",
+   "Positive one is greater than the input.",
+   "The floor output must be an integer.",
+   null
+  ]
+ },
+ "guided-22-grapheq": {
+  "id": "guided-22-grapheq",
+  "question": "A V-graph has vertex $(-2,3)$. Which skeleton is correct?",
+  "options": [
+   "$y=a|x+2|+3$",
+   "$y=a|x-2|+3$",
+   "$y=a|x+3|-2$",
+   "$y=ax^2+2$"
+  ],
+  "correctIndex": 0,
+  "hint": "Use y=a∣x−h∣+k and substitute the vertex coordinates.",
+  "explanation": "Vertex form uses x-h, so h=-2 gives x+2.",
+  "optionFeedback": [
+   null,
+   "This puts the vertex at positive two instead of negative two.",
+   "The horizontal and vertical coordinates have been swapped.",
+   "A quadratic skeleton gives a parabola rather than a V."
+  ],
+  "cta": {
+   "href": "#pc-2-2-scene-06",
+   "text": "Continue to the next section"
+  }
+ },
+ "guided-22-piece": {
+  "id": "guided-22-piece",
+  "question": "At $x=3$, which condition owns the point: $0<x\\le3$ or $x>3$?",
+  "options": [
+   "Both",
+   "Neither",
+   "$0<x\\le3$",
+   "$x>3$"
+  ],
+  "correctIndex": 2,
+  "hint": "Equality decides which interval contains the boundary.",
+  "explanation": "The condition 0<x≤3 includes 3 because of the equality; x>3 excludes it.",
+  "optionFeedback": [
+   "The two conditions cannot both contain three because one is strict.",
+   "The condition with the equality does contain three.",
+   null,
+   "The strict inequality excludes three."
+  ],
+  "cta": {
+   "href": "#pc-2-2-scene-04",
+   "text": "Continue to the next section"
+  }
+ },
+ "guided-22-power1": {
+  "id": "guided-22-power1",
+  "question": "Which statement is true for $y=x^7$?",
+  "options": [
+   "It is y-axis symmetric",
+   "Both ends rise",
+   "It is a step function",
+   "It has odd-power behavior"
+  ],
+  "correctIndex": 3,
+  "hint": "Test (−x)7 and compare with x7.",
+  "explanation": "7 is odd, so the graph has the general odd-power shape.",
+  "optionFeedback": [
+   "An odd power changes sign, so it has origin rather than y-axis symmetry.",
+   "For this odd power, negative inputs give negative outputs and positive inputs positive outputs.",
+   "A positive-integer power is continuous, not a staircase.",
+   null
+  ]
+ },
+ "guided-22-vlt": {
+  "id": "guided-22-vlt",
+  "question": "A vertical line crosses a graph at two points. What can you conclude?",
+  "options": [
+   "It must be linear",
+   "It has no domain",
+   "The graph is not y as a function of x",
+   "It is always a function"
+  ],
+  "correctIndex": 2,
+  "hint": "The vertical line fixes one input and tests how many outputs it has.",
+  "explanation": "One x-value would have two different y-values.",
+  "optionFeedback": [
+   "The test does not determine whether the graph is linear.",
+   "The relation has x-values; its failure is uniqueness of output.",
+   null,
+   "Two distinct crossings assign two outputs to one input."
+  ],
+  "cta": {
+   "href": "#pc-2-2-scene-08",
+   "text": "Continue to the next section"
+  }
+ },
+ "guided-23-change": {
+  "correctIndex": 2,
+  "explanation": "Net change is f(4)−f(1)=−2−3=−5, a decrease of five output units.",
+  "hint": "Net change is final output minus initial output.",
+  "optionFeedback": [
+   "Adding outputs does not give net change.",
+   "Subtract the actual endpoint outputs: negative two minus three.",
+   null,
+   "This reverses the subtraction or takes the absolute value."
+  ],
+  "cta": {
+   "href": "#pc-2-3-scene-04",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-23-change"
+ },
+ "guided-23-compare": {
+  "correctIndex": 1,
+  "explanation": "Graphical equations are solved using x-coordinates of intersection points.",
+  "hint": "An equation in x is solved by the horizontal coordinate of a crossing.",
+  "optionFeedback": [
+   "Subtracting coordinates does not produce the intersection input.",
+   null,
+   "Five is the shared output, not the input solving the equation.",
+   "Adding the coordinates has no role in solving the intersection equation."
+  ],
+  "cta": {
+   "href": "#pc-2-3-scene-05",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-23-compare"
+ },
+ "guided-23-end": {
+  "correctIndex": 3,
+  "explanation": "An open endpoint is excluded; a filled endpoint is included.",
+  "hint": "Parentheses exclude an endpoint; brackets include it.",
+  "optionFeedback": [
+   "The left endpoint is open, so negative two must be excluded.",
+   "The right endpoint is filled, so four must be included.",
+   "Both endpoint choices are reversed.",
+   null
+  ],
+  "cta": {
+   "href": "#pc-2-3-scene-03",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-23-end"
+ },
+ "guided-23-first": {
+  "correctIndex": 0,
+  "explanation": "Domain is the collection of all permitted x-coordinates.",
+  "hint": "Domain records which inputs are represented.",
+  "optionFeedback": [
+   null,
+   "The vertical axis gives output values and therefore range.",
+   "Domain uses input coordinates only; the other axis gives range.",
+   "Every graph point has an input coordinate to project."
+  ],
+  "cta": {
+   "href": "#pc-2-3-scene-02",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-23-first"
+ },
+ "guided-23-inc": {
+  "correctIndex": 0,
+  "explanation": "A downward trend as x increases means decreasing.",
+  "hint": "Follow the curve as input increases, regardless of the sign of the output.",
+  "optionFeedback": [
+   null,
+   "Increasing means rising as x increases, the opposite of the description.",
+   "A constant function would stay at the same height.",
+   "A decreasing curve still has defined outputs on the interval."
+  ],
+  "cta": {
+   "href": "#pc-2-3-scene-06",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-23-inc"
+ },
+ "guided-23-max": {
+  "correctIndex": 3,
+  "explanation": "The value is the output, y=4; the point is (-1,4).",
+  "hint": "Distinguish the input location, the point, and the output value.",
+  "optionFeedback": [
+   "Negative one is where the maximum occurs, not its value.",
+   "The ordered pair is the maximum point; its value is just the output.",
+   "Adding the coordinates does not define an extreme value.",
+   null
+  ],
+  "cta": {
+   "href": "#pc-2-3-scene-07",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-23-max"
+ },
+ "guided-26-even": {
+  "correctIndex": 1,
+  "explanation": "f(−x)=(−x)5+(−x)=−x5−x=−f(x) for every real x, so the function is odd.",
+  "hint": "Compute f(−x) and prove equality with f(x) or −f(x).",
+  "optionFeedback": [
+   "A function on a symmetric domain that is both even and odd must be identically zero; this one is not.",
+   null,
+   "Both terms change sign, so f(−x)=−f(x) rather than f(x).",
+   "Both terms have odd powers, and their sum satisfies the odd identity."
+  ],
+  "id": "guided-26-even"
+ },
+ "guided-26-map": {
+  "correctIndex": 3,
+  "explanation": "x becomes 4+1/2=4.5; y becomes 3·2−1=5.",
+  "hint": "Solve 2(X−4)=1 for the new input, then transform the output.",
+  "optionFeedback": [
+   "Divide the old input by two before adding four; do not multiply it by two.",
+   "The outside rule is 3y−1, so the new output is five.",
+   "The new input solves X=4+1/2, not four minus one.",
+   null
+  ],
+  "id": "guided-26-map"
+ },
+ "guided-26-rule": {
+  "correctIndex": 2,
+  "explanation": "Inside +2 gives a horizontal shift left 2.",
+  "hint": "For a left shift, the inside input reaches each old value sooner.",
+  "optionFeedback": [
+   "Outside plus two shifts vertically up.",
+   "An outside factor stretches the outputs instead of shifting horizontally.",
+   null,
+   "Inside minus two shifts the graph right."
+  ],
+  "id": "guided-26-rule"
+ },
+ "guided-26-shift": {
+  "correctIndex": 0,
+  "explanation": "Inside +4 moves left 4, and outside −1 moves down 1.",
+  "hint": "Inside operations act inversely on the input; outside operations act directly on the output.",
+  "optionFeedback": [
+   null,
+   "Inside plus four moves the point left, not right.",
+   "Outside minus one moves the output down, not up.",
+   "Both the horizontal and vertical directions are reversed."
+  ],
+  "id": "guided-26-shift"
+ },
+ "guided-a-g2": {
+  "correctIndex": 1,
+  "explanation": "The curve approaches the open point at (2,4).",
+  "hint": "Follow the curve toward x=2.",
+  "optionFeedback": [
+   "The filled point gives the function value. Trace the curve toward the open point for the limit. Follow the curve toward x=2.",
+   null,
+   "The vertical axis is a scale, not the destination. Trace both branches toward the target and read their shared height.",
+   "The title does not determine a limit. Follow the curve toward x=2 from both sides."
+  ],
+  "id": "guided-a-g2"
+ },
+ "guided-compound": {
+  "id": "guided-compound",
+  "question": "What is the preferred first move for a compound fraction?",
+  "options": [
+   "Simplify the top only",
+   "Flip the whole fraction",
+   "Cross multiply",
+   "Find one LCD for all small denominators"
+  ],
+  "correctIndex": 3,
+  "hint": "One common multiplier must clear every small denominator in both large parts.",
+  "explanation": "One LCD clears all small fractions efficiently.",
+  "optionFeedback": [
+   "Simplifying the numerator alone can be valid, but leaves the denominator fractions unresolved; one LCD clears both large parts efficiently.",
+   "Taking the reciprocal changes the value unless that operation is explicitly required.",
+   "This is one expression, not an equation with two ratios to cross multiply.",
+   null
+  ],
+  "cta": {
+   "href": "#rational-scene-5",
+   "text": "Continue learning"
+  }
+ },
+ "guided-d1": {
+  "correctIndex": 1,
+  "explanation": "A limit describes nearby outputs.",
+  "hint": "Focus on nearby inputs.",
+  "optionFeedback": [
+   "A limit describes nearby outputs; it does not require f(4) to exist or equal 7.",
+   null,
+   "The notation says the input approaches 4. It is the nearby outputs, not the inputs, that approach 7.",
+   "A limit is a statement about nearby behavior, not a point the graph must cross. Here inputs approach 4 and outputs approach 7."
+  ],
+  "cta": {
+   "href": "#numerical",
+   "text": "Next: numerical limits"
+  },
+  "id": "guided-d1"
+ },
+ "guided-d2": {
+  "correctIndex": 2,
+  "explanation": "The inputs approach from both sides.",
+  "hint": "Bracket the target.",
+  "optionFeedback": [
+   "The input exactly at 2 does not show nearby behavior. Choose values close to 2 from both sides.",
+   "These inputs move away from 2 and do not bracket it. Choose closer inputs on both sides.",
+   null,
+   "Values above 2 show only the right-hand behavior. Include nearby inputs below 2 as well."
+  ],
+  "id": "guided-d2"
+ },
+ "guided-d4": {
+  "correctIndex": 2,
+  "explanation": "The right branch is at 4.",
+  "hint": "Approach from larger inputs.",
+  "optionFeedback": [
+   "1 is the target input. Read the height of the branch for inputs greater than 1.",
+   "The minus sign means inputs less than the target; the plus sign means inputs greater than it. Approach from larger inputs.",
+   null,
+   "The two-sided limit fails, but the right-hand limit exists: follow only inputs greater than 1."
+  ],
+  "id": "guided-d4"
+ },
+ "guided-d5": {
+  "correctIndex": 0,
+  "explanation": "The filled point at (2,1) gives f(2)=1; the open point is not included.",
+  "hint": "Use the filled point.",
+  "optionFeedback": [
+   null,
+   "You used the input or the point at the target. A limit follows nearby outputs instead. Use the filled point.",
+   "An open point is not included. Use the filled point to find the function value. Use the filled point.",
+   "An open point is not included. Use the filled point to find the function value. Use the filled point."
+  ],
+  "id": "guided-d5"
+ },
+ "guided-division": {
+  "id": "guided-division",
+  "question": "What comes immediately after changing division to multiplication?",
+  "options": [
+   "Expand first",
+   "Use the reciprocal, then factor and cancel",
+   "Add denominators",
+   "Cross multiply"
+  ],
+  "correctIndex": 1,
+  "hint": "Division by a nonzero expression means multiplication by its reciprocal.",
+  "explanation": "Division becomes multiplication by the reciprocal before simplification.",
+  "optionFeedback": [
+   "Expansion usually hides factors that could cancel; use the reciprocal first.",
+   null,
+   "Adding denominators is not a rule for division.",
+   "Cross multiplication is an equation-solving operation, not the division rule here."
+  ],
+  "cta": {
+   "href": "#rational-scene-3",
+   "text": "Continue learning"
+  }
+ },
+ "guided-dne-jump": {
+  "id": "guided-dne-jump",
+  "question": "If $\\lim_{x\\to a^-}f(x)=2$ and $\\lim_{x\\to a^+}f(x)=5$, what is $\\lim_{x\\to a}f(x)$?",
+  "options": [
+   "$2$",
+   "$3.5$",
+   "$5$",
+   "DNE"
+  ],
+  "correctIndex": 3,
+  "hint": "A two-sided limit must agree with both one-sided limits. Compare 2 and 5; do not average them.",
+  "explanation": "Unequal one-sided limits are never averaged. The two-sided limit does not exist.",
+  "optionFeedback": [
+   "That uses only the left side. The right side approaches 5, so the two sides disagree.",
+   "A limit is not an average of the two sides. Neither side approaches 3.5 here.",
+   "That uses only the right side. The left side approaches 2, so the two sides disagree.",
+   null
+  ]
+ },
+ "guided-factor-completely": {
+  "id": "guided-factor-completely",
+  "question": "What should you ask next? $$4x(x^2-16)$$",
+  "options": [
+   "$\\text{Can I cancel }x?$",
+   "$\\text{Can I factor again?}$",
+   "$\\text{Can I add terms?}$"
+  ],
+  "correctIndex": 1,
+  "hint": "Inspect the remaining parenthesis: are both terms squares with subtraction between them?",
+  "explanation": "x2−16 is still a difference of squares.",
+  "optionFeedback": [
+   "There is no denominator here, so there is no factor to cancel against.",
+   null,
+   "The two terms inside are not like terms and cannot be added together."
+  ],
+  "cta": {
+   "href": "#advanced-factoring",
+   "text": "Continue learning"
+  }
+ },
+ "guided-gcf-check": {
+  "id": "guided-gcf-check",
+  "question": "What is the FIRST step? $$18x^4y^2-24x^3y^5$$",
+  "options": [
+   "$\\text{Use grouping}$",
+   "$\\text{Use difference of squares}$",
+   "$\\text{Find the GCF}$"
+  ],
+  "correctIndex": 2,
+  "hint": "Look for the largest shared integer factor and the smallest exponent of each shared variable.",
+  "explanation": "Always check the GCF first.",
+  "optionFeedback": [
+   "There are only two terms here; first remove their shared factor.",
+   "A shared factor is present and must be removed before considering special products.",
+   null
+  ],
+  "cta": {
+   "href": "#advanced-factoring",
+   "text": "Continue learning"
+  }
+ },
+ "guided-graphical": {
+  "id": "guided-graphical",
+  "question": "On the hole graph above, what is $\\lim_{x\\to2}f(x)$?",
+  "options": [
+   "$1$",
+   "$2$",
+   "$4$",
+   "DNE"
+  ],
+  "correctIndex": 2,
+  "hint": "Cover the filled point. Trace the nearby curve toward x=2 from both sides and read the height.",
+  "explanation": "Trace the curve from both sides. Both branches approach the open point at height 4.",
+  "optionFeedback": [
+   "1 is the height of the filled point: it gives f(2). For the limit, trace the nearby curve instead.",
+   "2 is the target on the horizontal axis. Read the height approached on the vertical axis.",
+   null,
+   "A hole alone does not prevent a limit. Check whether the branches approach the same height."
+  ],
+  "cta": {
+   "href": "#one-sided",
+   "text": "Next: one-sided limits"
+  }
+ },
+ "guided-identity-method": {
+  "id": "guided-identity-method",
+  "question": "What is a valid way to prove an identity?",
+  "options": [
+   "Transform one side algebraically until it becomes the other side.",
+   "Assume both sides are equal and stop.",
+   "Check only one numerical value."
+  ],
+  "correctIndex": 0,
+  "hint": "An identity must hold for every allowed input, not just a selected example.",
+  "explanation": "An identity proof shows an algebraic transformation.",
+  "optionFeedback": [
+   null,
+   "Assuming the conclusion gives no proof.",
+   "One numerical check cannot establish an identity for all inputs."
+  ],
+  "cta": {
+   "href": "#mastery",
+   "text": "Continue learning"
+  }
+ },
+ "guided-inequality-absolute": {
+  "id": "guided-inequality-absolute",
+  "question": "Solve $|2x-3|\\le5$.",
+  "options": [
+   "$[-1,4]$",
+   "$x\\le-1\\ \\text{or}\\ x\\ge4$",
+   "$(-1,4)$",
+   "$[-4,1]$"
+  ],
+  "correctIndex": 0,
+  "hint": "A distance at most five gives an AND inequality with both endpoints included.",
+  "explanation": "−5≤2x−3≤5 gives −2≤2x≤8, hence −1≤x≤4.",
+  "optionFeedback": [
+   null,
+   "This outside region corresponds to a greater-than type inequality.",
+   "Equality is allowed, so both endpoints are included.",
+   "Adding three before dividing gives boundaries negative one and four."
+  ],
+  "cta": {
+   "href": "#inequality-scene-6",
+   "text": "Continue learning"
+  }
+ },
+ "guided-inequality-negative": {
+  "id": "guided-inequality-negative",
+  "question": "Solve $-3x+2\\le11$.",
+  "options": [
+   "$x\\le-3$",
+   "$x\\ge-3$",
+   "$x\\ge3$",
+   "$x\\le3$"
+  ],
+  "correctIndex": 1,
+  "hint": "Subtract two first, then divide by a negative number.",
+  "explanation": "−3x≤9 gives x≥−3 because division by −3 reverses the sign.",
+  "optionFeedback": [
+   "The inequality must reverse when dividing by a negative number.",
+   null,
+   "Nine divided by negative three is negative three.",
+   "Both the boundary sign and inequality direction are incorrect."
+  ],
+  "cta": {
+   "href": "#inequality-scene-2",
+   "text": "Continue learning"
+  }
+ },
+ "guided-inequality-rational": {
+  "id": "guided-inequality-rational",
+  "question": "Which solution solves $\\frac{x-1}{x+2}\\ge0$?",
+  "options": [
+   "$(-\\infty,-2)\\cup[1,\\infty)$",
+   "$(-\\infty,-2]\\cup[1,\\infty)$",
+   "$[-2,1]$",
+   "$(-2,1]$"
+  ],
+  "correctIndex": 0,
+  "hint": "Split the number line at the numerator zero and the denominator zero, then test signs.",
+  "explanation": "The quotient is positive for x<−2 or x>1, equals zero at 1, and is undefined at −2.",
+  "optionFeedback": [
+   null,
+   "Negative two makes the denominator zero and can never be included.",
+   "The denominator zero cannot be included, and the middle interval has negative sign.",
+   "The quotient is negative between the two critical numbers."
+  ],
+  "cta": {
+   "href": "#inequality-scene-5",
+   "text": "Continue learning"
+  }
+ },
+ "guided-inequality-repeated": {
+  "id": "guided-inequality-repeated",
+  "question": "For $(x-4)(x+2)^2<0$, which solution set correctly treats the repeated zero?",
+  "options": [
+   "$(-\\infty,-2)\\cup(-2,4)$",
+   "$(-2,4]$",
+   "$(4,\\infty)$",
+   "$(-\\infty,4)$"
+  ],
+  "correctIndex": 0,
+  "hint": "The squared factor is positive away from its zero; strict inequality excludes every zero.",
+  "explanation": "Away from −2, the sign is the sign of x−4. Thus x<4, but both zeros −2 and 4 are excluded.",
+  "optionFeedback": [
+   null,
+   "Values below negative two also work, and four must be excluded.",
+   "Above four, both factors are positive.",
+   "At negative two the product is zero, not strictly negative."
+  ],
+  "cta": {
+   "href": "#inequality-scene-4",
+   "text": "Continue learning"
+  }
+ },
+ "guided-lcd": {
+  "id": "guided-lcd",
+  "question": "What determines the LCD?",
+  "options": [
+   "All required factors from the factored denominators",
+   "The largest numerator",
+   "Only common factors",
+   "The first denominator only"
+  ],
+  "correctIndex": 0,
+  "hint": "Factor each denominator and keep every distinct factor with its greatest required power.",
+  "explanation": "Include each denominator factor to the greatest power needed.",
+  "optionFeedback": [
+   null,
+   "Numerators do not determine a common denominator.",
+   "Common factors alone can miss factors needed by one denominator.",
+   "The first denominator may not contain factors required by the other fractions."
+  ],
+  "cta": {
+   "href": "#rational-scene-4",
+   "text": "Continue learning"
+  }
+ },
+ "guided-m1": {
+  "correctIndex": 2,
+  "explanation": "Both sides approach 5.",
+  "hint": "Trace the line toward x=2.",
+  "optionFeedback": [
+   "You used the input or the point at the target. A limit follows nearby outputs instead. Trace the line toward x=2.",
+   "Simplify for nearby inputs, then calculate again. The target input itself can remain excluded. Trace the line toward x=2.",
+   null,
+   "A two-sided limit needs evidence from inputs below and above the target. Trace the line toward x=2."
+  ],
+  "id": "guided-m1"
+ },
+ "guided-neg-exp": {
+  "id": "guided-neg-exp",
+  "question": "Rewrite using positive exponents. $$x^{-5/3}$$",
+  "options": [
+   "$x^{3/5}$",
+   "$\\frac{1}{x^{5/3}}$",
+   "$-x^{5/3}$"
+  ],
+  "correctIndex": 1,
+  "hint": "A negative exponent means reciprocal, not a negative coefficient; the base must be nonzero.",
+  "explanation": "A negative exponent means reciprocal; it does not make the expression negative.",
+  "optionFeedback": [
+   "Taking a reciprocal does not invert the exponent fraction.",
+   null,
+   "A minus sign on the exponent does not negate the value."
+  ],
+  "cta": {
+   "href": "#add-subtract",
+   "text": "Continue learning"
+  }
+ },
+ "guided-numerical": {
+  "id": "guided-numerical",
+  "question": "A table near $x=3$ shows outputs $5.9,5.99,6.01,6.1$ as inputs close in from both sides. What is the best estimate of $\\lim_{x\\to3}f(x)$?",
+  "options": [
+   "$3$",
+   "$6$",
+   "$9$",
+   "DNE"
+  ],
+  "correctIndex": 1,
+  "hint": "Compare 5.9,5.99 with 6.1,6.01. Which output do both groups get closer to?",
+  "explanation": "Values from both sides are approaching 6. A table gives evidence for an estimate, not proof of all nearby behavior.",
+  "optionFeedback": [
+   "3 is the input target, not the approached output. Follow the numbers in the output column toward a shared value.",
+   null,
+   "Do not add the input target to the output. Compare the outputs just below and just above 6.",
+   "An output need not equal the limit exactly. These outputs get closer to one shared number from both sides."
+  ],
+  "cta": {
+   "href": "#graphical",
+   "text": "Next: graphical limits"
+  }
+ },
+ "guided-one-sided": {
+  "id": "guided-one-sided",
+  "question": "On the jump graph, what is $\\lim_{x\\to1^-}f(x)$?",
+  "options": [
+   "$1$",
+   "$2$",
+   "$4$",
+   "DNE"
+  ],
+  "correctIndex": 1,
+  "hint": "The minus sign means inputs less than 1. Follow only the branch to the left of the target.",
+  "explanation": "The minus sign means approach from inputs less than 1. The left branch approaches 2.",
+  "optionFeedback": [
+   "1 is the target input. Read the output height of the branch to its left.",
+   null,
+   "4 is the right-hand height. The minus sign asks you to use inputs less than 1.",
+   "The two-sided limit fails here, but this question asks for only the left-hand limit. That branch has a definite height."
+  ],
+  "cta": {
+   "href": "#value",
+   "text": "Next: limit vs. value"
+  }
+ },
+ "guided-pc19-v2-center": {
+  "correctIndex": 2,
+  "explanation": "Reverse the signs for the center and take the square root of 36.",
+  "hint": "Match (x−h)2+(y−k)2=r2.",
+  "optionFeedback": [
+   "The right side is r2=36, not r=36.",
+   "The expression x+5 means x−(−5), so the horizontal center is negative five.",
+   null,
+   "Reverse the signs inside both parentheses, and take the square root for the radius."
+  ],
+  "cta": {
+   "href": "#pc-1-9-scene-04",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-pc19-v2-center"
+ },
+ "guided-pc19-v2-diameter": {
+  "correctIndex": 0,
+  "explanation": "The midpoint identifies the center.",
+  "hint": "The center is halfway between the two endpoints.",
+  "optionFeedback": [
+   null,
+   "Slope gives a direction, not the center.",
+   "Circumference requires the radius, which has not been found yet.",
+   "An intercept does not determine the center of a general circle."
+  ],
+  "cta": {
+   "href": "#pc-1-9-scene-06",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-pc19-v2-diameter"
+ },
+ "guided-pc19-v2-distance": {
+  "correctIndex": 0,
+  "explanation": "The changes are 3 and 4, so the distance is 5.",
+  "hint": "Use the horizontal and vertical changes as perpendicular legs.",
+  "optionFeedback": [
+   null,
+   "Adding the coordinate changes gives a path along two legs, not the straight-line distance.",
+   "Square each change before adding inside the square root.",
+   "The sum of squares is the squared distance; take its square root."
+  ],
+  "cta": {
+   "href": "#pc-1-9-scene-02",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-pc19-v2-distance"
+ },
+ "guided-pc19-v2-graph": {
+  "correctIndex": 1,
+  "explanation": "The center signs appear oppositely inside the parentheses; the right side is r².",
+  "hint": "Use the new center, but keep the original squared radius.",
+  "optionFeedback": [
+   "This equation leaves the center at the origin.",
+   null,
+   "These signs move the center to (−3,2) instead.",
+   "The vertical center sign is wrong and the radius must be squared."
+  ],
+  "cta": {
+   "href": "#pc-1-9-scene-09",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-pc19-v2-graph"
+ },
+ "guided-pc19-v2-midpoint": {
+  "correctIndex": 3,
+  "explanation": "Average the corresponding coordinates.",
+  "hint": "Average each coordinate separately.",
+  "optionFeedback": [
+   "You added coordinates but did not divide each sum by two.",
+   "These are half the coordinate differences, not the averages.",
+   "The vertical sum is −3+5=2, so its average is positive one.",
+   null
+  ],
+  "cta": {
+   "href": "#pc-1-9-scene-03",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-pc19-v2-midpoint"
+ },
+ "guided-pc19-v2-normalize": {
+  "correctIndex": 2,
+  "explanation": "Normalize the squared coefficients before completing the square.",
+  "hint": "Make both squared coefficients equal to one using an equivalent equation.",
+  "optionFeedback": [
+   "Normalize first to use the monic completing-square routine correctly.",
+   "Moving one linear term does not normalize the squared coefficients.",
+   null,
+   "Dividing only some terms changes the equation and the circle."
+  ],
+  "cta": {
+   "href": "#pc-1-9-scene-08",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-pc19-v2-normalize"
+ },
+ "guided-pc19-v2-square": {
+  "correctIndex": 3,
+  "explanation": "Keep the x-work and y-work separated before completing both squares.",
+  "hint": "Complete one square in x and another in y.",
+  "optionFeedback": [
+   "The expression is already expanded; separate the two variables before making squares.",
+   "Midpoint belongs to coordinate pairs, not this algebraic conversion.",
+   "A square root cannot separate this sum into two completed squares.",
+   null
+  ],
+  "cta": {
+   "href": "#pc-1-9-scene-07",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-pc19-v2-square"
+ },
+ "guided-pc19-v2-tangent": {
+  "correctIndex": 0,
+  "explanation": "Distance to the x-axis is the absolute value of the y-coordinate.",
+  "hint": "Distance to the horizontal axis uses the vertical coordinate.",
+  "optionFeedback": [
+   null,
+   "Two is the distance to the y-axis, not the x-axis.",
+   "Do not add horizontal and vertical distances; only perpendicular distance matters.",
+   "Subtracting the coordinate magnitudes does not give distance to an axis."
+  ],
+  "cta": {
+   "href": "#pc-1-9-scene-10",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-pc19-v2-tangent"
+ },
+ "guided-pc19-v2-write": {
+  "correctIndex": 1,
+  "explanation": "Use opposite signs inside the parentheses and square the radius.",
+  "hint": "Substitute the center into the standard form and square the radius.",
+  "optionFeedback": [
+   "The horizontal center is positive one, requiring x−1.",
+   null,
+   "These signs describe the opposite center (−1,3).",
+   "Both the vertical center sign and the squared-radius value need correction."
+  ],
+  "cta": {
+   "href": "#pc-1-9-scene-05",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-pc19-v2-write"
+ },
+ "guided-pc21-common-mistake": {
+  "correctIndex": 2,
+  "explanation": "Different inputs may share the same output. A relation fails to be a function when one input is assigned more than one output.",
+  "hint": "A function restricts outputs per input, not inputs per output.",
+  "optionFeedback": [
+   "Unique outputs are required for an inverse function to be a function, not for every function itself.",
+   "Inputs matter: each one must still have exactly one assigned output.",
+   null,
+   "Several inputs may share the same output."
+  ],
+  "id": "guided-pc21-common-mistake"
+ },
+ "guided-pc21-domain-rule": {
+  "correctIndex": 3,
+  "explanation": "An even root is defined when its radicand is nonnegative.",
+  "hint": "A real even root allows a zero radicand unless another restriction excludes it.",
+  "optionFeedback": [
+   "Strict positivity is needed for an even root in a denominator, not from the numerator root alone.",
+   "A denominator must be nonzero, not equal to zero.",
+   "A negative radicand has no real even root.",
+   null
+  ],
+  "id": "guided-pc21-domain-rule"
+ },
+ "guided-pc21-dq": {
+  "correctIndex": 0,
+  "explanation": "Find f(a+h) and f(a) separately before subtracting. Parentheses help prevent sign errors.",
+  "hint": "Build both outputs before subtracting the whole second expression.",
+  "optionFeedback": [
+   null,
+   "Domain restrictions matter but do not construct the numerator.",
+   "Range does not supply the two outputs needed in the numerator.",
+   "A graph is optional; the algebraic quotient uses two substitutions."
+  ],
+  "id": "guided-pc21-dq"
+ },
+ "guided-pc21-eval": {
+  "correctIndex": 2,
+  "explanation": "Replace every x with the complete input (-a) before simplifying.",
+  "hint": "Replace x by the entire input (−a) before squaring.",
+  "optionFeedback": [
+   "This drops both the negative input and the square.",
+   "The substitution must retain the square on the whole input.",
+   null,
+   "The square applies to −a together; it does not make the coefficient negative."
+  ],
+  "cta": {
+   "href": "#pc-2-1-scene-05",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-pc21-eval"
+ },
+ "guided-pc21-function": {
+  "correctIndex": 0,
+  "explanation": "A function assigns exactly one output to each input. Different inputs may share the same output.",
+  "hint": "For each permitted input, count how many outputs are assigned.",
+  "optionFeedback": [
+   null,
+   "A function may send several different inputs to the same output.",
+   "A repeated input-output pair is harmless; conflicting outputs for one input are not.",
+   "Repeated outputs are allowed for different inputs."
+  ],
+  "cta": {
+   "href": "#pc-2-1-scene-02",
+   "text": "Continue to the next section"
+  },
+  "id": "guided-pc21-function"
+ },
+ "guided-pc21-piece": {
+  "correctIndex": 1,
+  "explanation": "Since -3 is less than -2, use the left-region rule x + 3.",
+  "hint": "Compare −3 with the three displayed interval conditions.",
+  "optionFeedback": [
+   "Exactly the condition containing the input selects the rule.",
+   null,
+   "The middle interval starts at negative two, so it does not contain negative three.",
+   "The right interval contains inputs greater than two only."
+  ],
+  "id": "guided-pc21-piece"
+ },
+ "guided-pc21-representations": {
+  "correctIndex": 3,
+  "explanation": "A table gives numerical input-output pairs.",
+  "hint": "A table records numerical pairs.",
+  "optionFeedback": [
+   "A verbal representation describes the rule in words.",
+   "An algebraic representation is a formula or equation.",
+   "A graphical representation plots coordinates on axes.",
+   null
+  ],
+  "id": "guided-pc21-representations"
+ },
+ "guided-rational-cancel-domain": {
+  "id": "guided-rational-cancel-domain",
+  "question": "Simplify $\\frac{x^2-9}{x^2+x-6}$ while preserving the original domain.",
+  "options": [
+   "$\\frac{x+3}{x+2}$",
+   "All real inputs are allowed",
+   "$\\frac{x-3}{x-2},\\ x\\ne2$",
+   "$\\frac{x-3}{x-2},\\ x\\ne-3,2$"
+  ],
+  "correctIndex": 3,
+  "hint": "Factor both polynomials, then record the zeros of the original denominator.",
+  "explanation": "Factoring gives (x+3)(x−2)(x−3)(x+3)​. Cancel x+3, but retain x=−3,2.",
+  "optionFeedback": [
+   "The numerator and denominator were factored incorrectly.",
+   "The original denominator has two real zeros, so its domain is not all real numbers.",
+   "The removed factor still excludes negative three.",
+   null
+  ],
+  "cta": {
+   "href": "#rational-scene-2",
+   "text": "Continue learning"
+  }
+ },
+ "guided-rational-root-domain": {
+  "id": "guided-rational-root-domain",
+  "question": "After simplifying $\\frac{x^{3/2}+2x^{1/2}}{x^{1/2}}$ to $x+2$, which real inputs remain allowed?",
+  "options": [
+   "All real inputs",
+   "$x\\ge0$",
+   "$x\\ne0$",
+   "$x>0$"
+  ],
+  "correctIndex": 3,
+  "hint": "The square root must be real and the original denominator must be nonzero.",
+  "explanation": "The square root requires x≥0, while the denominator excludes zero; together, x>0.",
+  "optionFeedback": [
+   "Simplification cannot remove the original domain restrictions.",
+   "Zero makes the original denominator zero.",
+   "This includes negative inputs where the square root is not real.",
+   null
+  ],
+  "cta": {
+   "href": "#rational-scene-6",
+   "text": "Continue learning"
+  }
+ },
+ "guided-restriction": {
+  "id": "guided-restriction",
+  "question": "What must you do before cancelling a common factor?",
+  "options": [
+   "Cross multiply",
+   "Change division to multiplication",
+   "State restrictions from the original denominator",
+   "Expand everything"
+  ],
+  "correctIndex": 2,
+  "hint": "Look at where the original denominator becomes zero, before simplifying.",
+  "explanation": "Restrictions come from the original denominator, even when a factor later cancels.",
+  "optionFeedback": [
+   "Cross multiplication is not the first step in simplifying one rational expression.",
+   "There may be no division operation between two fractions; inspect the original denominator first.",
+   null,
+   "Expansion hides factors and does not replace checking the original domain."
+  ],
+  "cta": {
+   "href": "#rational-scene-2",
+   "text": "Continue learning"
+  }
+ },
+ "guided-square-sum-check": {
+  "id": "guided-square-sum-check",
+  "question": "Find only the middle term. $$(2x+3y)^2$$",
+  "options": [
+   "$12xy$",
+   "$6xy$",
+   "$9xy$"
+  ],
+  "correctIndex": 0,
+  "hint": "Identify A and B, then calculate twice their product.",
+  "explanation": "The middle term is 2AB.",
+  "optionFeedback": [
+   null,
+   "This is AB; the middle term is twice that product.",
+   "Nine comes from squaring three, not calculating twice the product."
+  ],
+  "cta": {
+   "href": "#factoring",
+   "text": "Continue learning"
+  }
+ },
+ "guided-v2-absolute": {
+  "id": "guided-v2-absolute",
+  "question": "Given $a<b$, simplify. $$a+b+|a-b|$$",
+  "options": [
+   "$2a$",
+   "$2b$",
+   "$a+b$",
+   "$b-a$"
+  ],
+  "correctIndex": 1,
+  "hint": "Since a is smaller than b, decide the sign of a minus b before removing the bars.",
+  "explanation": "Since a<b, ∣a−b∣=b−a. Therefore a+b+b−a=2b.",
+  "optionFeedback": [
+   "This would use ∣a−b∣=a−b, but the inside is negative here.",
+   null,
+   "The absolute-value term must still be added.",
+   "This is only the absolute-value term; add the original a+b too."
+  ],
+  "cta": {
+   "href": "#strategy",
+   "text": "Continue learning"
+  }
+ },
+ "guided-v2-builder": {
+  "id": "guided-v2-builder",
+  "question": "Which roster form matches the set? $$B=\\{x\\in\\mathbb Z\\mid -2<x\\le2\\}$$",
+  "options": [
+   "$\\{-1,0,1,2\\}$",
+   "$\\{-1,0,1\\}$",
+   "$\\{0,1,2\\}$",
+   "$\\{-2,-1,0,1,2\\}$"
+  ],
+  "correctIndex": 0,
+  "hint": "Check each endpoint separately and remember that only integers are allowed.",
+  "explanation": "The strict inequality excludes −2 while x≤2 includes 2.",
+  "optionFeedback": [
+   null,
+   "Equality at the upper boundary includes two.",
+   "Negative one also satisfies both inequalities.",
+   "The strict lower inequality excludes negative two."
+  ],
+  "cta": {
+   "href": "#operations",
+   "text": "Continue learning"
+  }
+ },
+ "guided-v2-intersection": {
+  "id": "guided-v2-intersection",
+  "question": "Find the intersection. $$A=\\{1,3,5,7\\},\\quad B=\\{3,4,5,8\\}$$",
+  "options": [
+   "$\\{1,7\\}$",
+   "$\\varnothing$",
+   "$\\{3,5\\}$",
+   "$\\{1,3,4,5,7,8\\}$"
+  ],
+  "correctIndex": 2,
+  "hint": "Keep an element only if you can find it in each set.",
+  "explanation": "Intersection keeps only the elements occurring in both sets.",
+  "optionFeedback": [
+   "One and seven are in A but not in B.",
+   "The sets do share elements: inspect three and five.",
+   null,
+   "This is the union: it includes elements found in only one set."
+  ],
+  "cta": {
+   "href": "#intervals",
+   "text": "Continue learning"
+  }
+ },
+ "guided-v2-interval": {
+  "id": "guided-v2-interval",
+  "question": "Convert the inequality to interval notation. $$-2<x\\le1$$",
+  "options": [
+   "$(-2,1)$",
+   "$[-2,1]$",
+   "$(-2,1]$",
+   "$[-2,1)$"
+  ],
+  "correctIndex": 2,
+  "hint": "Translate a strict sign into an open endpoint, and a sign with equality into a closed endpoint.",
+  "explanation": "Strict inequality gives an open endpoint at −2; equality includes 1.",
+  "optionFeedback": [
+   "The right endpoint must be included because equality is allowed.",
+   "A bracket at negative two incorrectly includes that excluded endpoint.",
+   null,
+   "Both endpoint choices are reversed."
+  ],
+  "cta": {
+   "href": "#absolute",
+   "text": "Continue learning"
+  }
+ },
+ "guided-v2-type": {
+  "id": "guided-v2-type",
+  "question": "Which number is irrational?",
+  "options": [
+   "$0.125$",
+   "$\\sqrt{11}$",
+   "$\\frac37$",
+   "$2.\\overline6$"
+  ],
+  "correctIndex": 1,
+  "hint": "A square root of a positive integer is rational only when that integer is a perfect square.",
+  "explanation": "11​ is nonterminating and nonrepeating.",
+  "optionFeedback": [
+   "A terminating decimal is rational: 0.125=1/8.",
+   null,
+   "A ratio of integers with nonzero denominator is rational.",
+   "A repeating decimal is rational, even when it never terminates."
+  ],
+  "cta": {
+   "href": "#sets",
+   "text": "Continue learning"
+  }
+ },
+ "guided-value": {
+  "id": "guided-value",
+  "question": "On the hole graph, which statement is correct?",
+  "options": [
+   "$f(2)=4$ and the limit is $1$",
+   "$f(2)=1$ and the limit is $4$",
+   "Both equal $4$",
+   "Both are undefined"
+  ],
+  "correctIndex": 1,
+  "hint": "Read two things separately: the filled point for f(2), and both nearby branches for the limit.",
+  "explanation": "The filled point gives f(2)=1; the nearby curve approaches the open point at height 4.",
+  "optionFeedback": [
+   "The roles are reversed. Use the filled point for the value and trace both branches for the limit.",
+   null,
+   "The open point at height 4 is not the function value. Find the filled point with input 2.",
+   "A filled point defines f(2), and the nearby branches agree. Read their two heights separately."
+  ],
+  "cta": {
+   "href": "#dne",
+   "text": "Next: when limits fail"
+  }
+ },
+ "implicitChecks-collect": {
+  "correctIndex": 2,
+  "explanation": "Arrange first: collect the derivative terms, move the other terms, then factor and isolate.",
+  "hint": "Treat dy/dx as the common unknown to isolate.",
+  "optionFeedback": [
+   "Substitution into a differentiated relation can find a slope at one point, but the goal here is a general derivative formula, so retain the variables.",
+   "Terms can only be cancelled as valid common factors, not by erasing every y.",
+   null
+  ],
+  "cta": {
+   "href": "#examples",
+   "text": "Next section"
+  },
+  "id": "implicitChecks-collect"
+ },
+ "implicitChecks-product": {
+  "correctIndex": 1,
+  "explanation": "Product Rule gives dxd​(xy)=(1)y+xdxdy​=y+xdxdy​.",
+  "hint": "Both x and y(x) are changing factors.",
+  "optionFeedback": [
+   "You retained only the term differentiating y; differentiating x contributes y.",
+   null,
+   "The derivative of a product is not the product of the derivatives."
+  ],
+  "cta": {
+   "href": "#trig",
+   "text": "Next section"
+  },
+  "id": "implicitChecks-product"
+ },
+ "implicitChecks-slope": {
+  "id": "implicitChecks-slope",
+  "question": "For $x^2+y^2=25$, what is the tangent slope at $(3,4)$?",
+  "options": [
+   "$-\\frac43$",
+   "$\\frac34$",
+   "$-\\frac34$",
+   "Undefined"
+  ],
+  "correctIndex": 2,
+  "hint": "Differentiate first to get 2x+2ydy/dx=0, then use the point.",
+  "explanation": "The point lies on the circle, and dy/dx=−x/y=−3/4 there.",
+  "optionFeedback": [
+   "The derivative is −x/y, not −y/x.",
+   "Moving the 2x term to the other side introduces a minus sign.",
+   null,
+   "Here y=4 is nonzero, so the slope is finite."
+  ]
+ },
+ "implicitChecks-trig": {
+  "id": "implicitChecks-trig",
+  "question": "Differentiate $\\sin y$ with respect to $x$, where $y=y(x)$.",
+  "options": [
+   "$\\cos y\\,\\frac{dy}{dx}$",
+   "$\\cos y$",
+   "$-\\sin y\\,\\frac{dy}{dx}$",
+   "$\\cos x\\,\\frac{dy}{dx}$"
+  ],
+  "correctIndex": 0,
+  "hint": "Differentiate sine while retaining its input, then differentiate that input.",
+  "explanation": "d(siny)/dx=cosydy/dx by the Chain Rule.",
+  "optionFeedback": [
+   null,
+   "The inner derivative of y(x) is missing.",
+   "The derivative of sine is cosine, not negative sine.",
+   "The input remains y, not x."
+  ],
+  "cta": {
+   "href": "#slope",
+   "text": "Next section"
+  }
+ },
+ "implicitChecks-y": {
+  "correctIndex": 1,
+  "explanation": "Because y depends on x, use the Chain Rule: differentiate the power of y, then multiply by dy/dx.",
+  "hint": "The input of the fourth power is itself the function y(x).",
+  "optionFeedback": [
+   "This differentiates with respect to y, not with respect to x.",
+   null,
+   "The original power is a power of y, not a power of x."
+  ],
+  "cta": {
+   "href": "#routine",
+   "text": "Next section"
+  },
+  "id": "implicitChecks-y"
+ },
+ "l13-guided-composite": {
+  "id": "l13-guided-composite",
+  "question": "If $g(x)\\to9$ as $x\\to2$, which fact justifies $\\sqrt{g(x)}\\to3$?",
+  "options": [
+   "The square root is continuous at $9$",
+   "$g(2)$ must equal $9$",
+   "Every outer function preserves every limit",
+   "The input target is positive"
+  ],
+  "correctIndex": 0,
+  "hint": "The condition concerns the outer function at the inner limiting value.",
+  "explanation": "The square-root function is continuous at 9. Since the inner values approach positive 9, the composition is defined nearby and its limit is 9​=3.",
+  "optionFeedback": [
+   null,
+   "The nearby limit of g need not equal its value at the target, or even require that value to exist.",
+   "A discontinuous outer function can fail to preserve the inner limit. Continuity is the sufficient condition here.",
+   "The relevant outer input is the inner limit 9, not the original target 2."
+  ],
+  "cta": {
+   "href": "#trigonometric",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-conjugate": {
+  "id": "l13-guided-conjugate",
+  "question": "For $\\displaystyle \\lim_{x\\to4}\\frac{\\sqrt{x+5}-3}{x-4}$, which conjugate should be used?",
+  "options": [
+   "$\\sqrt{x+5}-3$",
+   "$\\sqrt{x+5}+3$",
+   "$x+4$",
+   "$\\sqrt{x-5}+3$"
+  ],
+  "correctIndex": 1,
+  "hint": "Keep both terms unchanged and reverse only the sign between them.",
+  "explanation": "Use x+5​+3 so the numerator becomes (x+5)−9=x−4, which cancels the denominator.",
+  "optionFeedback": [
+   "This is the original expression. The conjugate reverses the sign between its two terms.",
+   null,
+   "The conjugate must retain the radical term and the constant 3.",
+   "Do not change the expression inside the square root; change only the sign before 3."
+  ],
+  "cta": {
+   "href": "#radical-extensions",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-diagnose": {
+  "id": "l13-guided-diagnose",
+  "question": "Direct substitution in a rational expression gives $0/0$. What does this tell you?",
+  "options": [
+   "The limit is zero",
+   "The limit is one",
+   "Rewrite before deciding",
+   "The limit must not exist"
+  ],
+  "correctIndex": 2,
+  "hint": "Distinguish an indeterminate form from a value or a conclusion.",
+  "explanation": "0/0 does not determine the limit. Rewrite for nearby inputs, then evaluate the simpler expression.",
+  "optionFeedback": [
+   "A zero numerator alone is not enough when the denominator is also zero.",
+   "Zero divided by zero is not one. Cancellation must be justified by common factors for nearby inputs.",
+   null,
+   "A removable hole can have a finite limit. The form alone does not imply DNE."
+  ],
+  "cta": {
+   "href": "#substitution",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-difference": {
+  "id": "l13-guided-difference",
+  "question": "For fixed $x$, simplify $\\displaystyle\\frac{(x+h)^2-x^2}{h}$ when $h\\ne0$.",
+  "options": [
+   "$2x+h$",
+   "$2x$",
+   "$h$",
+   "$2xh+h^2$"
+  ],
+  "correctIndex": 0,
+  "hint": "Expand the square, subtract x2, then divide every remaining term by h.",
+  "explanation": "The numerator is 2xh+h2=h(2x+h), so the quotient is 2x+h. Only after taking h→0 does it become 2x.",
+  "optionFeedback": [
+   null,
+   "2x is the limiting value, not the exact simplified expression for nonzero h.",
+   "The cross term 2xh must be included when expanding (x+h)2.",
+   "This is the expanded numerator; it still needs to be divided by h."
+  ],
+  "cta": {
+   "href": "#squeeze",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-factoring": {
+  "id": "l13-guided-factoring",
+  "question": "What is the first useful rewriting step for $\\displaystyle \\lim_{x\\to3}\\frac{x^2-9}{x-3}$?",
+  "options": [
+   "Conclude the limit is $0$",
+   "Factor $x^2-9=(x-3)(x+3)$",
+   "Use the conjugate",
+   "Cancel the $x$ terms without factoring"
+  ],
+  "correctIndex": 1,
+  "hint": "Recognize x2−9 as a difference of squares.",
+  "explanation": "Direct substitution gives 0/0. Factor and cancel x−3 for nearby values, then substitute into x+3.",
+  "optionFeedback": [
+   "0/0 is indeterminate, not zero. Expose the common factor first.",
+   null,
+   "There is no radical difference here. The difference-of-squares factorization directly exposes the common factor.",
+   "Cancellation applies to factors of a product, not separate terms in sums or differences."
+  ],
+  "cta": {
+   "href": "#division",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-floor": {
+  "id": "l13-guided-floor",
+  "question": "For $\\displaystyle\\lim_{x\\to-2}\\lfloor x+3\\rfloor$, what happens on the two sides?",
+  "options": [
+   "Both approach $1$",
+   "Left approaches $0$, right approaches $1$",
+   "Left approaches $-1$, right approaches $0$",
+   "Both approach $0$"
+  ],
+  "correctIndex": 1,
+  "hint": "Just below −2, the inside is just below 1; just above −2, it is just above 1.",
+  "explanation": "The floor is 0 on the left and 1 on the right. The unequal one-sided limits make the two-sided limit DNE.",
+  "optionFeedback": [
+   "The value at the target is 1, but nearby inputs below it have floor 0.",
+   null,
+   "Apply the shift +3 before taking the floor; the relevant integer is 1, not 0.",
+   "Inputs on the right have 1<x+3<2, so their floor is 1."
+  ],
+  "cta": {
+   "href": "#domain-oscillation",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-fractional-substitution": {
+  "id": "l13-guided-fractional-substitution",
+  "question": "For $\\displaystyle\\lim_{x\\to1}\\frac{x^{2/3}-1}{x^{1/2}-1}$, which substitution converts both powers to integer powers?",
+  "options": [
+   "$x=u^2$",
+   "$x=u^3$",
+   "$x=u^5$",
+   "$x=u^6$"
+  ],
+  "correctIndex": 3,
+  "hint": "Use a common multiple of the denominators 3 and 2.",
+  "explanation": "With x=u6 and u→1, x2/3=u4 and x1/2=u3. Factoring the resulting quotient gives the limit 4/3.",
+  "optionFeedback": [
+   "This makes the square root u, but the cube-root power becomes u4/3.",
+   "This makes x2/3=u2, but the square root becomes u3/2.",
+   "Five is not divisible by either 2 or 3, so fractional powers remain.",
+   null
+  ]
+ },
+ "l13-guided-fractions": {
+  "id": "l13-guided-fractions",
+  "question": "For $\\displaystyle\\lim_{x\\to2}\\frac{\\frac1x-\\frac12}{x-2}$, which simplified expression agrees for nearby $x\\ne2$?",
+  "options": [
+   "$\\frac1{2x}$",
+   "$-\\frac1{2x}$",
+   "$-\\frac1x$",
+   "$\\frac1{x-2}$"
+  ],
+  "correctIndex": 1,
+  "hint": "Combine the numerator as (2−x)/(2x) and use 2−x=−(x−2).",
+  "explanation": "The numerator is −(x−2)/(2x). Dividing by x−2 leaves −1/(2x), whose limit is −1/4.",
+  "optionFeedback": [
+   "The negative sign comes from 2−x=−(x−2); it cannot be dropped.",
+   null,
+   "The common denominator of 1/x and 1/2 is 2x, so the factor 2 remains.",
+   "Combining the small fractions exposes a cancellable factor; the outer denominator does not remain alone."
+  ],
+  "cta": {
+   "href": "#rationalizing",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-identity": {
+  "id": "l13-guided-identity",
+  "question": "Evaluate $\\displaystyle\\lim_{x\\to0}\\frac{1-\\cos(2x)}{x^2}$ in radians.",
+  "options": [
+   "$0$",
+   "$1$",
+   "$4$",
+   "$2$"
+  ],
+  "correctIndex": 3,
+  "hint": "Use 1−cos(2x)=2sin2x before applying a special limit.",
+  "explanation": "The quotient becomes 2(sinx/x)2, so its limit is 2(1)2=2.",
+  "optionFeedback": [
+   "The denominator is squared, so the special limit (1−cosu)/u→0 cannot be used without further rewriting.",
+   "The identity leaves a factor 2 outside the squared sine-over-angle ratio.",
+   "Using the identity gives 2sin2x, not 4sin2x.",
+   null
+  ],
+  "cta": {
+   "href": "#parameter",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-oscillation": {
+  "id": "l13-guided-oscillation",
+  "question": "Why does $\\displaystyle\\lim_{x\\to0}\\sin(1/x)$ fail to exist?",
+  "options": [
+   "Its outputs grow without bound",
+   "The sine function is undefined near zero",
+   "Its outputs keep oscillating without approaching one value",
+   "Its outputs are always zero"
+  ],
+  "correctIndex": 2,
+  "hint": "Distinguish an unbounded inside expression from the bounded sine output.",
+  "explanation": "The outputs stay between −1 and 1, but continue attaining values near both extremes arbitrarily close to zero. They do not settle to one limit.",
+  "optionFeedback": [
+   "The input 1/x is unbounded, but the sine output is always between −1 and 1.",
+   "For every x=0, sin(1/x) is defined. Undefined at the target alone does not decide a limit.",
+   null,
+   "Some inputs give zero, but other inputs arbitrarily close to zero give 1 or −1."
+  ],
+  "cta": {
+   "href": "#composite-limits",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-piecewise": {
+  "id": "l13-guided-piecewise",
+  "question": "For $f(x)=\\begin{cases}x+1,&x<2\\\\5-x,&x\\ge2\\end{cases}$, which pair establishes the limit at $2$?",
+  "options": [
+   "Left $3$, right $2$",
+   "Left $2$, right $3$",
+   "Left $3$, right $3$",
+   "Left $3$, right $5$"
+  ],
+  "correctIndex": 2,
+  "hint": "Use x+1 on the left and 5−x on the right; let x approach 2 in each.",
+  "explanation": "The left-hand limit is 2+1=3 and the right-hand limit is 5−2=3. Their equality establishes the two-sided limit 3.",
+  "optionFeedback": [
+   "Two is the input target, not the right-hand output. Evaluate 5−2.",
+   "Two is the input target, not the left-hand output. Evaluate 2+1.",
+   null,
+   "The right expression is 5−x, not the constant 5."
+  ],
+  "cta": {
+   "href": "#special-piecewise",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-squeeze": {
+  "id": "l13-guided-squeeze",
+  "question": "If $-x^2\\le f(x)\\le x^2$ near $x=0$, what is $\\displaystyle \\lim_{x\\to0}f(x)$?",
+  "options": [
+   "$-1$",
+   "$0$",
+   "$1$",
+   "Cannot be determined"
+  ],
+  "correctIndex": 1,
+  "hint": "Evaluate the limits of the two bounding functions, not just their signs.",
+  "explanation": "Both outer functions approach 0. The Squeeze Theorem forces f(x) to approach 0 as well.",
+  "optionFeedback": [
+   "The lower bound is −x2, whose limit is 0, not −1.",
+   null,
+   "The upper bound is x2, whose limit is 0, not 1.",
+   "The bounds are sufficient because their limits are equal. No explicit formula for f is needed."
+  ],
+  "cta": {
+   "href": "#resources",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-substitution": {
+  "id": "l13-guided-substitution",
+  "question": "Evaluate $\\displaystyle \\lim_{x\\to -2}(3x^2-4x+1)$.",
+  "options": [
+   "$5$",
+   "$13$",
+   "$21$",
+   "DNE"
+  ],
+  "correctIndex": 2,
+  "hint": "Square −2 first, then handle the sign in −4(−2).",
+  "explanation": "Polynomials are continuous. Substitute x=−2: 3(−2)2−4(−2)+1=12+8+1=21.",
+  "optionFeedback": [
+   "−4(−2)=+8, not −8. Recalculate with the positive product.",
+   "3(−2)2=12 and −4(−2)=8. Include both terms and the constant.",
+   null,
+   "A polynomial is continuous at −2, so direct substitution gives a finite limit."
+  ],
+  "cta": {
+   "href": "#factoring",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-synthetic": {
+  "id": "l13-guided-synthetic",
+  "question": "For $\\displaystyle\\lim_{x\\to3}\\frac{x^3-7x-6}{x-3}$, what quotient remains after exact polynomial division?",
+  "options": [
+   "$x^2-3x+2$",
+   "$x^2+3x-2$",
+   "$x^2+3x+2$",
+   "$x^2+2$"
+  ],
+  "correctIndex": 2,
+  "hint": "Include the missing x2 coefficient: divide coefficients 1,0,−7,−6 by x−3.",
+  "explanation": "Synthetic division by 3 gives quotient coefficients 1,3,2 and remainder 0, so the limit is 9+9+2=20.",
+  "optionFeedback": [
+   "The synthetic number is 3, not −3. The coefficient of x in the quotient is positive.",
+   "After adding −7+9, the next quotient coefficient is 2, not −2.",
+   null,
+   "The zero coefficient of x2 in the dividend must still be included; division produces a 3x term."
+  ],
+  "cta": {
+   "href": "#complex-rational",
+   "text": "Continue to the next section"
+  }
+ },
+ "l13-guided-trig": {
+  "id": "l13-guided-trig",
+  "question": "Evaluate $\\displaystyle \\lim_{x\\to0}\\frac{\\sin(5x)}{x}$ in radians.",
+  "options": [
+   "$0$",
+   "$1$",
+   "$5$",
+   "DNE"
+  ],
+  "correctIndex": 2,
+  "hint": "Match the denominator to the angle 5x, then compensate with a constant.",
+  "explanation": "Create the standard form: xsin(5x)​=55xsin(5x)​→5(1)=5.",
+  "optionFeedback": [
+   "Both numerator and denominator approach zero; that does not make their ratio tend to zero.",
+   "The standard ratio with denominator 5x tends to 1, but the required ratio has an extra factor 5.",
+   null,
+   "The indeterminate form can be rewritten as a known special limit, so the limit exists."
+  ],
+  "cta": {
+   "href": "#trig-extensions",
+   "text": "Continue to the next section"
+  }
+ },
+ "p1-guided-intercept": {
+  "id": "p1-guided-intercept",
+  "question": "To find the $y$-intercept of a graph, which variable do you set to zero?",
+  "options": [
+   "Set $x=0$",
+   "Set $y=0$"
+  ],
+  "correctIndex": 0,
+  "hint": "Points on the vertical axis have zero horizontal coordinate.",
+  "explanation": "The y-intercept lies on the y-axis, where x=0. Substitute x=0 and solve for y.",
+  "optionFeedback": [
+   null,
+   "Setting y=0 finds x-intercepts instead."
+  ],
+  "cta": {
+   "href": "#symmetry",
+   "text": "Next section"
+  }
+ },
+ "p1-guided-intersection": {
+  "id": "p1-guided-intersection",
+  "question": "You found $x=-1$ or $x=2$ where $y=x^2-3$ and $y=x-1$ meet. What must you do next?",
+  "options": [
+   "Use these as y-coordinates",
+   "Report only the x-values",
+   "Find each y-value using either equation",
+   "Set both x-values to zero"
+  ],
+  "correctIndex": 2,
+  "hint": "An intersection is an ordered pair satisfying both equations.",
+  "explanation": "Substitution gives (−1,−2) and (2,1); each pair satisfies both equations.",
+  "optionFeedback": [
+   "The solved values are horizontal coordinates, not vertical coordinates.",
+   "The question asks for points, so include both coordinates.",
+   null,
+   "Replacing a solution input by zero changes the point."
+  ],
+  "cta": {
+   "href": "#models",
+   "text": "Next section"
+  }
+ },
+ "p1-guided-model": {
+  "id": "p1-guided-model",
+  "question": "A tank model is $V(t)=120-6t$ litres for $0\\le t\\le20$ minutes. What does the t-intercept represent?",
+  "options": [
+   "The initial volume is 20 litres",
+   "The tank is empty after 20 minutes",
+   "The volume increases by 6 litres each minute",
+   "The model predicts negative volume after 20 minutes"
+  ],
+  "correctIndex": 1,
+  "hint": "At an intercept on the horizontal time axis, the volume equals zero.",
+  "explanation": "V(t)=0 gives 120−6t=0, so t=20 minutes. This is when the tank is empty within the stated model.",
+  "optionFeedback": [
+   "The initial volume is V(0)=120 litres.",
+   null,
+   "The coefficient is negative, so volume decreases.",
+   "The stated model is restricted to 0≤t≤20; extrapolating past that range is not justified."
+  ],
+  "cta": {
+   "href": "/courses/grade-12-calculus/practice/p1",
+   "text": "Continue to Practice"
+  }
+ },
+ "p1-guided-point": {
+  "id": "p1-guided-point",
+  "question": "Which point lies on $y=x^3-4x$?",
+  "options": [
+   "$(-1,-3)$",
+   "$(-1,3)$",
+   "$(1,3)$",
+   "$(2,2)$"
+  ],
+  "correctIndex": 1,
+  "hint": "Substitute the x-coordinate and compare the output with the proposed y-coordinate.",
+  "explanation": "(−1)3−4(−1)=−1+4=3, so (−1,3) satisfies the equation.",
+  "optionFeedback": [
+   "Keep the subtraction sign: subtracting 4(−1) adds 4.",
+   null,
+   "At x=1, the output is 1−4=−3, not 3.",
+   "At x=2, the output is 8−8=0, not 2."
+  ],
+  "cta": {
+   "href": "#intercepts",
+   "text": "Next section"
+  }
+ },
+ "p1-guided-symmetry": {
+  "id": "p1-guided-symmetry",
+  "question": "Is $y=x^3-4x$ symmetric about the origin?",
+  "options": [
+   "Yes",
+   "No"
+  ],
+  "correctIndex": 0,
+  "hint": "Replace both x and y by their negatives and simplify.",
+  "explanation": "−y=(−x)3−4(−x)=−x3+4x, so multiplying by −1 recovers y=x3−4x.",
+  "optionFeedback": [
+   null,
+   "Do not replace only x: origin symmetry replaces both coordinates."
+  ],
+  "cta": {
+   "href": "#intersections",
+   "text": "Next section"
+  }
+ },
+ "p1-predict-intercepts": {
+  "id": "p1-predict-intercepts",
+  "question": "How many distinct x-intercepts does $y=x^3-4x$ have?",
+  "options": [
+   "One",
+   "Two",
+   "Three",
+   "Four"
+  ],
+  "correctIndex": 2,
+  "hint": "Factor out x, then use the difference of squares.",
+  "explanation": "x3−4x=x(x−2)(x+2) has three distinct zeros.",
+  "optionFeedback": [
+   "Do not stop at the factor x; solve the other two factors.",
+   "The zero from the factor x also counts.",
+   null,
+   "A nonzero cubic has at most three distinct real zeros."
+  ]
+ },
+ "p1-predict-intersections": {
+  "id": "p1-predict-intersections",
+  "question": "Which equation determines the intersection inputs?",
+  "options": [
+   "$x^2-3=x-1$",
+   "$x^2-3=0$",
+   "$x-1=0$",
+   "$x^2+x-4=0$"
+  ],
+  "correctIndex": 0,
+  "hint": "At a common point, both formulas give the same output.",
+  "explanation": "Equating the two outputs gives x2−3=x−1.",
+  "optionFeedback": [
+   null,
+   "This finds the parabola's x-intercepts, not necessarily intersections with the line.",
+   "This finds the line's x-intercept only.",
+   "You added the outputs; intersections require equal outputs."
+  ]
+ },
+ "p3-guided-absolute": {
+  "id": "p3-guided-absolute",
+  "question": "Using the piecewise rule for $|x-1|$, which expression applies at $x=0$?",
+  "options": [
+   "$x-1=-1$",
+   "$-(x-1)=1$",
+   "Both give -1",
+   "Neither rule applies"
+  ],
+  "correctIndex": 1,
+  "hint": "Choose the condition first: is 0 less than 1?",
+  "explanation": "Since 0<1, use −(x−1), giving −(0−1)=1.",
+  "optionFeedback": [
+   "That branch is for x≥1, which does not include zero.",
+   null,
+   "The valid branch gives positive one, as an absolute value must.",
+   "The condition x<1 includes zero."
+  ]
+ },
+ "p3-guided-composite-domain": {
+  "id": "p3-guided-composite-domain",
+  "question": "Let $f(u)=\\sqrt{u}$ and $g(x)=x-1$. What is the domain of $(f\\circ g)(x)$?",
+  "options": [
+   "All real numbers",
+   "$[0,\\infty)$",
+   "$[1,\\infty)$",
+   "$(-\\infty,1]$"
+  ],
+  "correctIndex": 2,
+  "hint": "The output of the inner function must be allowed as the input of the outer function.",
+  "explanation": "The composition is x−1​. Require x−1≥0, so x≥1.",
+  "optionFeedback": [
+   "Although g accepts every real input, its output must be nonnegative for f.",
+   "The outer function receives x−1, not x.",
+   null,
+   "Solving x−1≥0 gives x≥1, not the opposite inequality."
+  ],
+  "cta": {
+   "href": "#evenodd",
+   "text": "Next section"
+  }
+ },
+ "p3-guided-domain": {
+  "id": "p3-guided-domain",
+  "question": "What is the domain of $g(x)=\\sqrt{6x}$?",
+  "options": [
+   "$[0,\\infty)$",
+   "$(-\\infty,0]$",
+   "All real numbers"
+  ],
+  "correctIndex": 0,
+  "hint": "Require the radicand to be nonnegative for a real square root.",
+  "explanation": "6x≥0 gives x≥0, so the domain is [0,∞).",
+  "optionFeedback": [
+   null,
+   "Dividing by positive 6 does not reverse the inequality.",
+   "Negative inputs give a negative radicand, outside the real domain."
+  ],
+  "cta": {
+   "href": "#combining",
+   "text": "Next section"
+  }
+ },
+ "p3-guided-evaluate": {
+  "id": "p3-guided-evaluate",
+  "question": "For $f(x)=x^2+2x-3$, what is $f(-1)$?",
+  "options": [
+   "$-4$",
+   "$0$",
+   "$-6$",
+   "$4$"
+  ],
+  "correctIndex": 0,
+  "hint": "Put parentheses around the negative input before squaring.",
+  "explanation": "f(−1)=(−1)2+2(−1)−3=1−2−3=−4.",
+  "optionFeedback": [
+   null,
+   "The three terms do not cancel: 1−2−3=−4.",
+   "Remember (−1)2=1, not −1.",
+   "Keep the negative signs in the linear and constant terms."
+  ]
+ },
+ "p3-guided-evenodd": {
+  "id": "p3-guided-evenodd",
+  "question": "Is $f(x)=x^3-4x$ even, odd, or neither?",
+  "options": [
+   "Even",
+   "Odd",
+   "Neither"
+  ],
+  "correctIndex": 1,
+  "hint": "Compute f(−x) and compare it algebraically with f(x) and −f(x).",
+  "explanation": "f(−x)=(−x)3−4(−x)=−x3+4x=−(x3−4x)=−f(x) for all real x, so f is odd.",
+  "optionFeedback": [
+   "The calculation gives −f(x), not f(x).",
+   null,
+   "Both terms change sign, so the result is exactly −f(x)."
+  ],
+  "cta": {
+   "href": "#piecewise",
+   "text": "Next section"
+  }
+ },
+ "p3-guided-relation": {
+  "id": "p3-guided-relation",
+  "question": "Which set of ordered pairs represents a function?",
+  "options": [
+   "$\\{(1,2),(1,4),(2,6)\\}$",
+   "$\\{(1,2),(2,3),(4,7)\\}$",
+   "$\\{(0,1),(0,2),(0,3)\\}$"
+  ],
+  "correctIndex": 1,
+  "hint": "Inspect repeated inputs, not repeated outputs.",
+  "explanation": "Each input in the second set has exactly one output. The other sets assign more than one output to a single input.",
+  "optionFeedback": [
+   "Input 1 has outputs 2 and 4, so the rule is not a function.",
+   null,
+   "Input 0 has three different outputs."
+  ],
+  "cta": {
+   "href": "#notation",
+   "text": "Next section"
+  }
+ },
+ "p3-predict-composition": {
+  "id": "p3-predict-composition",
+  "question": "Which expression is $(f\\circ g)(x)$?",
+  "options": [
+   "$x^2-1$",
+   "$x^2(x-1)$",
+   "$(x-1)^2$",
+   "$x^2-x+1$"
+  ],
+  "correctIndex": 2,
+  "hint": "Apply g first, then feed its entire output into f.",
+  "explanation": "f(g(x))=f(x−1)=(x−1)2.",
+  "optionFeedback": [
+   "This is g(f(x)), the reverse order.",
+   "Composition is substitution, not multiplication.",
+   null,
+   "The outer function squares x−1; substitute before expanding."
+  ]
+ },
+ "p3-predict-quotient": {
+  "id": "p3-predict-quotient",
+  "question": "What is $f(x+\\Delta x)$ for $f(x)=x^2$?",
+  "options": [
+   "$x^2+(\\Delta x)^2$",
+   "$x^2+2x\\Delta x+(\\Delta x)^2$",
+   "$2x+\\Delta x$",
+   "$x^2+\\Delta x$"
+  ],
+  "correctIndex": 1,
+  "hint": "Square the whole input, using (a+b)2=a2+2ab+b2.",
+  "explanation": "f(x+Δx)=(x+Δx)2=x2+2xΔx+(Δx)2.",
+  "optionFeedback": [
+   "The middle product term is missing.",
+   null,
+   "That is the simplified difference quotient, not the substituted output.",
+   "The whole input is squared; this is not an additive shift of the output."
+  ]
+ },
+ "pw-guided-continuity": {
+  "id": "pw-guided-continuity",
+  "question": "Before checking the derivatives at a breaking point $x=c$, what should you check first?",
+  "options": [
+   "Continuity at $x=c$",
+   "The second derivative",
+   "The $y$-intercept"
+  ],
+  "correctIndex": 0,
+  "hint": "Compare the actual value with both one-sided limits.",
+  "explanation": "Differentiability requires continuity. If the function is not continuous at c, stop: it is not differentiable there.",
+  "optionFeedback": [
+   null,
+   "The first derivative cannot exist at a discontinuity, regardless of the second derivative.",
+   "The intercept concerns x=0 and does not test an arbitrary join x=c."
+  ]
+ },
+ "pw-guided-corner": {
+  "id": "pw-guided-corner",
+  "question": "A continuous graph has finite one-sided derivatives $-2$ and $5$ at $c$. What is $f'(c)$?",
+  "options": [
+   "$3$",
+   "$-10$",
+   "It does not exist",
+   "$3/2$"
+  ],
+  "correctIndex": 2,
+  "hint": "There must be one shared slope; do not combine different slopes arithmetically.",
+  "explanation": "The finite one-sided derivatives disagree, so the ordinary derivative does not exist at c.",
+  "optionFeedback": [
+   "Adding slopes does not produce a derivative at a corner.",
+   "Multiplying slopes does not produce a derivative at a corner.",
+   null,
+   "Averaging slopes does not repair their disagreement."
+  ]
+ },
+ "pw-guided-parameters": {
+  "id": "pw-guided-parameters",
+  "question": "In Example 4, $p(x)=\\begin{cases}ax+b,&x<1\\\\x^2+1,&x\\ge1\\end{cases}$. Which pair makes $p$ differentiable at $1$?",
+  "options": [
+   "$a=1,\\ b=1$",
+   "$a=0,\\ b=2$",
+   "$a=2,\\ b=2$",
+   "$a=2,\\ b=0$"
+  ],
+  "correctIndex": 3,
+  "hint": "Use both equations: a+b=2 for continuity and a=2 for matching slopes.",
+  "explanation": "Matching derivatives gives a=2. Substituting into a+b=2 gives b=0.",
+  "optionFeedback": [
+   "This meets the continuity equation but gives left slope one, not two.",
+   "This meets the continuity equation but gives left slope zero, not two.",
+   "The slopes agree, but the left limit is four while the right limit is two.",
+   null
+  ]
+ },
+ "pw-guided-slopes": {
+  "id": "pw-guided-slopes",
+  "question": "At $x=c$, which condition confirms differentiability after continuity is established and both one-sided derivatives are finite?",
+  "options": [
+   "$f'_{-}(c)=f'_+(c)$",
+   "$f(c)=0$",
+   "$f'_{-}(c)=-f'_+(c)$"
+  ],
+  "correctIndex": 0,
+  "hint": "One derivative at the join must give the same finite slope from either direction.",
+  "explanation": "Both finite one-sided derivatives must agree; their common value is the derivative at the join.",
+  "optionFeedback": [
+   null,
+   "The height of the join can be any value; differentiability compares rates of change.",
+   "Opposite nonzero slopes form a corner, not one shared slope."
+  ],
+  "cta": {
+   "href": "#routine",
+   "text": "Next: apply the routine"
+  }
+ },
+ "pw-guided-stop": {
+  "id": "pw-guided-stop",
+  "question": "For $r(x)=\\begin{cases}x,&x<0\\\\x+1,&x\\ge0\\end{cases}$, both separate formulas have derivative $1$. Is $r$ differentiable at $0$?",
+  "options": [
+   "Yes, because both formulas have slope $1$",
+   "No, because the pieces do not meet",
+   "Yes, because $r(0)$ exists",
+   "No, because the slopes of the formulas are unequal"
+  ],
+  "correctIndex": 1,
+  "hint": "Check the left limit and the value at zero before comparing formulas.",
+  "explanation": "The left limit is 0, but the right limit and r(0) are 1. The jump prevents differentiability even though the separate formulas have equal slopes.",
+  "optionFeedback": [
+   "Equal derivative formulas do not overcome a jump at the join.",
+   null,
+   "An existing function value does not guarantee continuity.",
+   "The separate formula slopes are equal; the failure here is continuity, not unequal formula slopes."
+  ],
+  "cta": {
+   "href": "#worked-examples",
+   "text": "Next: worked examples"
+  }
+ },
+ "ratesChecks-balloon": {
+  "id": "ratesChecks-balloon",
+  "question": "Air enters a sphere at $5\\,\\mathrm{cm}^3/\\mathrm{min}$. At diameter $20\\,\\mathrm{cm}$, what is $dr/dt$?",
+  "options": [
+   "$\\frac1{320\\pi}\\,\\mathrm{cm/min}$",
+   "$5\\,\\mathrm{cm/min}$",
+   "$\\frac1{80\\pi}\\,\\mathrm{cm/min}$",
+   "$80\\pi\\,\\mathrm{cm/min}$"
+  ],
+  "correctIndex": 2,
+  "hint": "Use r=10 and dV/dt=4πr2dr/dt.",
+  "explanation": "dr/dt=5/[4π(10)2]=1/(80π)cm/min.",
+  "optionFeedback": [
+   "This uses the diameter as if it were the radius.",
+   "A volume rate cannot be copied as a length rate.",
+   null,
+   "Solving for the rate requires division by 4πr2, not its reciprocal reversal."
+  ],
+  "cta": {
+   "href": "#ladder",
+   "text": "Next section"
+  }
+ },
+ "ratesChecks-cone": {
+  "id": "ratesChecks-cone",
+  "question": "For a similar water cone with $r=\\frac5{14}h$, how are the length rates related?",
+  "options": [
+   "$\\frac{dr}{dt}=\\frac5{14}\\frac{dh}{dt}$",
+   "$\\frac{dr}{dt}=\\frac{14}5\\frac{dh}{dt}$",
+   "$\\frac{dr}{dt}=\\frac{dh}{dt}$",
+   "$\\frac{dr}{dt}=-2$"
+  ],
+  "correctIndex": 0,
+  "hint": "Differentiate the similarity relation with respect to the same time variable.",
+  "explanation": "The factor 5/14 is constant, so it remains when differentiating both changing lengths.",
+  "optionFeedback": [
+   null,
+   "The original relation gives radius from height, not height from radius.",
+   "The cone is not a one-to-one radius-height ratio.",
+   "A volume rate cannot be used directly as a length rate; differentiate the similarity relation to connect the length rates."
+  ],
+  "cta": {
+   "href": "#shadow",
+   "text": "Next section"
+  }
+ },
+ "ratesChecks-ladder": {
+  "id": "ratesChecks-ladder",
+  "question": "A fixed ladder satisfies $x^2+y^2=L^2$, with $x,y>0$. If its bottom moves toward the wall, what is the sign of $dy/dt$?",
+  "options": [
+   "Negative",
+   "Zero",
+   "Cannot determine",
+   "Positive"
+  ],
+  "correctIndex": 3,
+  "hint": "Use dy/dt=−(x/y)dx/dt and the signed horizontal rate.",
+  "explanation": "Toward the wall means dx/dt<0. Since x/y>0, the top rate dy/dt is positive.",
+  "optionFeedback": [
+   "The minus sign in the rate equation reverses the negative bottom rate.",
+   "The bottom is moving and both lengths are positive, so the top rate is not zero.",
+   "The given signs and fixed ladder determine the sign.",
+   null
+  ],
+  "cta": {
+   "href": "#cone",
+   "text": "Next section"
+  }
+ },
+ "ratesChecks-shadow": {
+  "id": "ratesChecks-shadow",
+  "question": "If $x$ is the person's distance from the pole and $s$ the shadow length, which rate measures the shadow tip moving away from the pole?",
+  "options": [
+   "$ds/dt$",
+   "$dx/dt+ds/dt$",
+   "$dx/dt-ds/dt$",
+   "$dx/dt$"
+  ],
+  "correctIndex": 1,
+  "hint": "Write the total distance from the pole to the tip before differentiating.",
+  "explanation": "The tip is at distance x+s from the pole, so its rate is dx/dt+ds/dt.",
+  "optionFeedback": [
+   "This measures the change in shadow length relative to the person.",
+   null,
+   "The two distances add along the same direction from the pole.",
+   "The tip also moves as the shadow length changes."
+  ],
+  "cta": {
+   "href": "#mixed",
+   "text": "Next section"
+  }
+ },
+ "ratesChecks-sign": {
+  "correctIndex": 1,
+  "explanation": "Leaking means volume is decreasing, so its rate is negative.",
+  "hint": "Identify the changing quantity and whether it increases or decreases.",
+  "optionFeedback": [
+   "The given units are volume per time, not height per time.",
+   null,
+   "Positive volume rate would mean volume is increasing."
+  ],
+  "cta": {
+   "href": "#geometry",
+   "text": "Next section"
+  },
+  "id": "ratesChecks-sign"
+ },
+ "ratesChecks-substitute": {
+  "correctIndex": 0,
+  "explanation": "Keep the variables alive while differentiating. Substitute the instant values afterward.",
+  "hint": "Instantaneous values describe one instant, not constants for all time.",
+  "optionFeedback": [
+   null,
+   "Substituting changing lengths too early turns them into constants and loses their rates.",
+   "A model relating the quantities is needed before inserting the instant data."
+  ],
+  "cta": {
+   "href": "#balloon",
+   "text": "Next section"
+  },
+  "id": "ratesChecks-substitute"
+ },
+ "ratesChecks-time": {
+  "correctIndex": 2,
+  "explanation": "Every changing quantity is a function of time, so the Chain Rule gives its rate.",
+  "hint": "Differentiate the outer power, then multiply by the rate of its inside.",
+  "optionFeedback": [
+   "The rate of the changing radius is missing.",
+   "Keep the inside r when differentiating its square; it does not become t.",
+   null
+  ],
+  "cta": {
+   "href": "#routine",
+   "text": "Next section"
+  },
+  "id": "ratesChecks-time"
+ }
+}

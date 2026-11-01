@@ -1,0 +1,620 @@
+{
+ "guided-v2-type": {
+  "href": "#sets",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-v2-builder": {
+  "href": "#operations",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-v2-intersection": {
+  "href": "#intervals",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-v2-interval": {
+  "href": "#absolute",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-v2-absolute": {
+  "href": "#strategy",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-neg-exp": {
+  "href": "#add-subtract",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-square-sum-check": {
+  "href": "#factoring",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-gcf-check": {
+  "href": "#advanced-factoring",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-factor-completely": {
+  "href": "#advanced-factoring",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-identity-method": {
+  "href": "#mastery",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-restriction": {
+  "href": "#rational-scene-2",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-rational-cancel-domain": {
+  "href": "#rational-scene-2",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-division": {
+  "href": "#rational-scene-3",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-lcd": {
+  "href": "#rational-scene-4",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-compound": {
+  "href": "#rational-scene-5",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-rational-root-domain": {
+  "href": "#rational-scene-6",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-inequality-negative": {
+  "href": "#inequality-scene-2",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-inequality-repeated": {
+  "href": "#inequality-scene-4",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-inequality-rational": {
+  "href": "#inequality-scene-5",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-inequality-absolute": {
+  "href": "#inequality-scene-6",
+  "text": "Continue learning",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-pc19-v2-distance": {
+  "href": "#pc-1-9-scene-02",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-pc19-v2-midpoint": {
+  "href": "#pc-1-9-scene-03",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-pc19-v2-center": {
+  "href": "#pc-1-9-scene-04",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-pc19-v2-write": {
+  "href": "#pc-1-9-scene-05",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-pc19-v2-diameter": {
+  "href": "#pc-1-9-scene-06",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-pc19-v2-square": {
+  "href": "#pc-1-9-scene-07",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-pc19-v2-normalize": {
+  "href": "#pc-1-9-scene-08",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-pc19-v2-graph": {
+  "href": "#pc-1-9-scene-09",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-pc19-v2-tangent": {
+  "href": "#pc-1-9-scene-10",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-pc21-function": {
+  "href": "#pc-2-1-scene-02",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-pc21-representations": null,
+ "guided-pc21-eval": {
+  "href": "#pc-2-1-scene-05",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-pc21-piece": null,
+ "guided-pc21-dq": null,
+ "guided-pc21-domain-rule": null,
+ "guided-pc21-common-mistake": null,
+ "guided-22-family": {
+  "href": "#pc-2-2-scene-02",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-22-power1": null,
+ "guided-22-piece": {
+  "href": "#pc-2-2-scene-04",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-22-abs": {
+  "href": "#pc-2-2-scene-05",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-22-grapheq": {
+  "href": "#pc-2-2-scene-06",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-22-floor1": null,
+ "guided-22-vlt": {
+  "href": "#pc-2-2-scene-08",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-22-equation": {
+  "href": "#pc-2-2-scene-09",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-23-first": {
+  "href": "#pc-2-3-scene-02",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-23-end": {
+  "href": "#pc-2-3-scene-03",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-23-change": {
+  "href": "#pc-2-3-scene-04",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-23-compare": {
+  "href": "#pc-2-3-scene-05",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-23-inc": {
+  "href": "#pc-2-3-scene-06",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-23-max": {
+  "href": "#pc-2-3-scene-07",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-26-shift": null,
+ "guided-26-map": null,
+ "guided-26-rule": null,
+ "guided-26-even": null,
+ "guided-m1": null,
+ "guided-d1": {
+  "href": "#numerical",
+  "text": "Next: numerical limits",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-d2": null,
+ "guided-numerical": {
+  "href": "#graphical",
+  "text": "Next: graphical limits",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-a-g2": null,
+ "guided-graphical": {
+  "href": "#one-sided",
+  "text": "Next: one-sided limits",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-d4": null,
+ "guided-one-sided": {
+  "href": "#value",
+  "text": "Next: limit vs. value",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-d5": null,
+ "guided-value": {
+  "href": "#dne",
+  "text": "Next: when limits fail",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-dne-jump": null,
+ "l13-guided-diagnose": {
+  "href": "#substitution",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-substitution": {
+  "href": "#factoring",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-factoring": {
+  "href": "#division",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-synthetic": {
+  "href": "#complex-rational",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-fractions": {
+  "href": "#rationalizing",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-conjugate": {
+  "href": "#radical-extensions",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-fractional-substitution": null,
+ "l13-guided-piecewise": {
+  "href": "#special-piecewise",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-floor": {
+  "href": "#domain-oscillation",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-oscillation": {
+  "href": "#composite-limits",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-composite": {
+  "href": "#trigonometric",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-trig": {
+  "href": "#trig-extensions",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-identity": {
+  "href": "#parameter",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-difference": {
+  "href": "#squeeze",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "l13-guided-squeeze": {
+  "href": "#resources",
+  "text": "Continue to the next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "continuity-point": {
+  "href": "#continuity-scene-02",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "continuity-predict-0": null,
+ "continuity-discontinuity": {
+  "href": "#continuity-scene-03",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "continuity-families": {
+  "href": "#continuity-scene-04",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "continuity-predict-1": null,
+ "continuity-piecewise": {
+  "href": "#continuity-scene-05",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "continuity-predict-2": null,
+ "continuity-predict-3": null,
+ "continuity-special": {
+  "href": "#continuity-scene-06",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "continuity-closed": {
+  "href": "#continuity-scene-07",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "continuity-predict-4": null,
+ "continuity-ivt": {
+  "href": "#continuity-scene-08",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "continuity-predict-5": null,
+ "continuity-bisection": {
+  "href": "/courses/grade-12-calculus/practice/1-4",
+  "text": "Continue to Practice",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-15-direction": null,
+ "guided-15-check-graph": {
+  "href": "#infinite-03",
+  "text": "Continue to the next idea",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-15-candidates": null,
+ "guided-15-classify": null,
+ "guided-15-check-factor": {
+  "href": "#infinite-05",
+  "text": "Continue to the next idea",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-15-check-power": {
+  "href": "#infinite-06",
+  "text": "Continue to the next idea",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-15-cot": null,
+ "guided-15-check-trig": {
+  "href": "#infinite-07",
+  "text": "Continue to the next idea",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "guided-15-property": null,
+ "guided-15-sketch": null,
+ "c21-guided-slope": {
+  "href": "#secant",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c21-guided-secant": {
+  "href": "#definition",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c21-guided-definition": {
+  "href": "#routine",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c21-guided-cancel": {
+  "href": "#examples",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c21-guided-tangent": {
+  "href": "#rates",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c21-guided-rate": {
+  "href": "#strategy",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c21-guided-domain": {
+  "href": "/courses/grade-12-calculus/practice/2-1",
+  "text": "Continue to Practice",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c223-predict-terms": null,
+ "c223-guided-power": {
+  "href": "#rewrite",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c223-predict-rewrite": null,
+ "c223-guided-rewrite": {
+  "href": "#trig",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c223-guided-trig": {
+  "href": "#product",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c223-predict-product": null,
+ "c223-guided-product": {
+  "href": "#quotient",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c223-predict-quotient": null,
+ "c223-guided-quotient": {
+  "href": "#higher",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c223-predict-motion": null,
+ "c223-guided-higher": {
+  "href": "#rates",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c223-guided-speed": {
+  "href": "#strategy",
+  "text": "Next: exam strategy",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "chainChecks-identify": {
+  "href": "#rule",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "chainChecks-order": {
+  "href": "#methods",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "chainChecks-power": null,
+ "chainChecks-trig": {
+  "href": "#mixed",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "chainChecks-mixed": {
+  "href": "/courses/grade-12-calculus/practice/2-4",
+  "text": "Continue to Practice",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "implicitChecks-y": {
+  "href": "#routine",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "implicitChecks-collect": {
+  "href": "#examples",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "implicitChecks-product": {
+  "href": "#trig",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "implicitChecks-trig": {
+  "href": "#slope",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "implicitChecks-slope": null,
+ "ratesChecks-time": {
+  "href": "#routine",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "ratesChecks-sign": {
+  "href": "#geometry",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "ratesChecks-substitute": {
+  "href": "#balloon",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "ratesChecks-balloon": {
+  "href": "#ladder",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "ratesChecks-ladder": {
+  "href": "#cone",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "ratesChecks-cone": {
+  "href": "#shadow",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "ratesChecks-shadow": {
+  "href": "#mixed",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "c1-transfer-local": null,
+ "c2-transfer-definition": null,
+ "p1-guided-point": {
+  "href": "#intercepts",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "p1-predict-intercepts": null,
+ "p1-guided-intercept": {
+  "href": "#symmetry",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "p1-guided-symmetry": {
+  "href": "#intersections",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "p1-predict-intersections": null,
+ "p1-guided-intersection": {
+  "href": "#models",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "p1-guided-model": {
+  "href": "/courses/grade-12-calculus/practice/p1",
+  "text": "Continue to Practice",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "p3-guided-relation": {
+  "href": "#notation",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "p3-predict-quotient": null,
+ "p3-guided-evaluate": null,
+ "p3-guided-domain": {
+  "href": "#combining",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "p3-predict-composition": null,
+ "p3-guided-composite-domain": {
+  "href": "#evenodd",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "p3-guided-evenodd": {
+  "href": "#piecewise",
+  "text": "Next section",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "p3-guided-absolute": null,
+ "pw-guided-continuity": null,
+ "pw-guided-slopes": {
+  "href": "#routine",
+  "text": "Next: apply the routine",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "pw-guided-stop": {
+  "href": "#worked-examples",
+  "text": "Next: worked examples",
+  "cls": "inline-flex min-h-11 items-center justify-center gap-2 round"
+ },
+ "pw-guided-parameters": null,
+ "pw-guided-corner": null
+}
