@@ -59,13 +59,11 @@ export const BRAND = {
    ------------------------------------------------------------------------- */
 
 export const NAV_ITEMS: { id: string; label: Bi }[] = [
-  { id: 'about', label: { en: 'About', ar: 'نبذة' } },
-  { id: 'experience', label: { en: 'Experience', ar: 'الخبرة' } },
-  { id: 'designs', label: { en: 'Designs', ar: 'التصاميم' } },
-  { id: 'resources', label: { en: 'Courses & Labs', ar: 'الدورات والمختبرات' } },
-  { id: 'studio', label: { en: 'AI Studio', ar: 'استوديو الذكاء' } },
+  { id: 'about', label: { en: 'Profile', ar: 'الملف المهني' } },
+  { id: 'resources', label: { en: 'Academy & Labs', ar: 'الأكاديمية والمختبرات' } },
   { id: 'lab', label: { en: 'Math Arcade', ar: 'صالة الألعاب' } },
-  { id: 'gallery', label: { en: 'Gallery', ar: 'المعرض' } },
+  { id: 'designs', label: { en: 'EdTech Designs', ar: 'التصاميم' } },
+  { id: 'studio', label: { en: 'AI Studio', ar: 'استوديو الذكاء' } },
 ];
 
 /* -------------------------------------------------------------------------

@@ -81,7 +81,12 @@ export default function TeachFooter() {
               {isRtl ? FOOTER.exploreTitle.ar : FOOTER.exploreTitle.en}
             </p>
             <ul className="space-y-3 list-none">
-              {NAV_ITEMS.map((item) => (
+              {[
+                ...NAV_ITEMS,
+                { id: 'experience', label: { en: 'School Track Record', ar: 'المسيرة المدرسية' } },
+                { id: 'visual-math', label: { en: 'Visual Math Models', ar: 'النماذج البصرية' } },
+                { id: 'work', label: { en: 'Work With Me', ar: 'تواصل معي' } },
+              ].map((item) => (
                 <li key={item.id}>
                   <button
                     onClick={() => goTo(item.id)}

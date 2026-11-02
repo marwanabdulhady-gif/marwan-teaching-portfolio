@@ -383,6 +383,7 @@ export default function ResourceLibrary() {
 
   const [activeUrl, setActiveUrl] = useState<string | null>(null);
   const [activeTitle, setActiveTitle] = useState('');
+  const [sectionView, setSectionView] = useState<'courses' | 'sampler' | 'media'>('courses');
   const [courseTab, setCourseTab] = useState<'grade-12-calculus' | 'grade-11-precalculus'>('grade-12-calculus');
   const workspaceRef = useRef<HTMLDivElement>(null);
 
@@ -571,171 +572,216 @@ export default function ResourceLibrary() {
           )}
         </AnimatePresence>
 
-        {/* Native React Guided Lesson Sampler */}
-        <GuidedLessonSampler onOpenLesson={launchWorkspace} />
-
-        {/* Interactive 23-Lesson Directory + GMAT Quick Strip */}
-        <div className="space-y-5">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => setCourseTab('grade-12-calculus')}
-                aria-pressed={courseTab === 'grade-12-calculus'}
-                className={`px-4 py-2 rounded-full text-xs font-bold cursor-pointer transition-all border ${
-                  courseTab === 'grade-12-calculus'
-                    ? 'border-[var(--t-accent)] bg-[var(--t-accent)] text-[#fff]'
-                    : 'border-[color-mix(in_srgb,var(--t-ink)_18%,transparent)] bg-transparent text-[var(--t-ink)] hover:border-[var(--t-accent)]'
-                }`}
-              >
-                {isRtl ? 'تفاضل الصف ١٢ (١٤ درساً)' : 'Grade 12 Calculus (14 lessons)'}
-              </button>
-              <button
-                type="button"
-                onClick={() => setCourseTab('grade-11-precalculus')}
-                aria-pressed={courseTab === 'grade-11-precalculus'}
-                className={`px-4 py-2 rounded-full text-xs font-bold cursor-pointer transition-all border ${
-                  courseTab === 'grade-11-precalculus'
-                    ? 'border-[var(--t-accent)] bg-[var(--t-accent)] text-[#fff]'
-                    : 'border-[color-mix(in_srgb,var(--t-ink)_18%,transparent)] bg-transparent text-[var(--t-ink)] hover:border-[var(--t-accent)]'
-                }`}
-              >
-                {isRtl ? 'ما قبل التفاضل · الصف ١١ (٩ دروس)' : 'Grade 11 Precalculus (9 lessons)'}
-              </button>
-              <button
-                type="button"
-                onClick={() =>
-                  launchWorkspace(
-                    '/academy/courses/gmat-preparation/index.html',
-                    isRtl ? 'مركز تحضير GMAT (٣٨ موضوعاً)' : 'GMAT Quant & Data Insights (38 topics)',
-                  )
-                }
-                className="px-4 py-2 rounded-full text-xs font-bold cursor-pointer transition-all border border-[color-mix(in_srgb,var(--t-sky)_40%,transparent)] bg-[color-mix(in_srgb,var(--t-sky)_10%,transparent)] text-[var(--t-ink)] hover:border-[var(--t-sky)]"
-              >
-                {isRtl ? 'تحضير GMAT الكمي والبيانات (٣٨ موضوعاً) →' : 'GMAT Quant & Data Insights (38 topics) →'}
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-            {filteredLessons.map((lesson, i) => (
-              <Reveal key={lesson.id} delay={0.025 * i}>
-                <button
-                  type="button"
-                  onClick={() => launchWorkspace(lesson.href, L(lesson.title))}
-                  className="teach-card w-full h-full p-4 flex items-center justify-between gap-3 text-start cursor-pointer bg-transparent"
-                >
-                  <span className="flex items-center gap-3 min-w-0">
-                    <span
-                      dir="ltr"
-                      className="px-2.5 py-1.5 rounded-xl bg-[color-mix(in_srgb,var(--t-accent)_12%,transparent)] text-[var(--t-accent-deep)] font-mono text-xs font-black shrink-0"
-                    >
-                      {lesson.code}
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block text-sm font-bold text-[var(--t-ink)] leading-snug truncate">
-                        {L(lesson.title)}
-                      </span>
-                      {lesson.hasLab && (
-                        <span className="inline-block mt-1 text-[0.62rem] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[color-mix(in_srgb,var(--t-sun)_28%,transparent)] text-[var(--t-ink)]">
-                          {isRtl ? '+ مختبر تفاعلي' : '+ Interactive Lab'}
-                        </span>
-                      )}
-                    </span>
-                  </span>
-                  <ArrowRight className={`w-4 h-4 shrink-0 text-[var(--t-accent)] ${isRtl ? 'rotate-180' : ''}`} />
-                </button>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-
-        {/* YouTube channel */}
-        <Reveal>
-          <a
-            href={LINKS.youtube}
-            target="_blank"
-            rel="noreferrer"
-            data-theme="dark"
-            className="teach-card chalk group flex flex-col sm:flex-row items-start sm:items-center gap-5 p-7 sm:p-9 !rounded-3xl text-start"
-          >
-            <span className="w-16 h-16 rounded-2xl bg-[#ff0033] text-[#fff] flex items-center justify-center shrink-0 shadow-lg shadow-black/40">
-              <Youtube className="w-8 h-8" />
-            </span>
-            <span className="flex-1 space-y-1.5">
-              <span
-                className="block text-2xl sm:text-3xl font-black"
-                style={{ fontFamily: 'var(--teach-font-display)' }}
-              >
-                {L(RESOURCES.youtube.title)}
-              </span>
-              <span className="block text-[0.92rem] leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)]">
-                {L(RESOURCES.youtube.desc)}
-              </span>
-            </span>
-            <span className="teach-btn teach-btn-primary shrink-0">
-              {L(RESOURCES.youtube.cta)} <ArrowUpRight className="w-4 h-4" />
-            </span>
-          </a>
-        </Reveal>
-
-        {/* Featured YouTube lessons (shown once video ids are listed) */}
-        {VIDEOS.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {VIDEOS.map((v, i) => (
-              <Reveal key={v.id} delay={0.05 * i}>
-                <VideoCard id={v.id} title={L(v.title)} topic={L(v.topic)} />
-              </Reveal>
-            ))}
-          </div>
-        )}
-
-        {/* Worksheets + TPT store */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {extras.map(({ key, icon: Icon, data, href }, i) => {
-            const body = (
-              <>
-                <span className="teach-icon-chip !w-12 !h-12 shrink-0">
-                  <Icon className="w-5 h-5" />
-                </span>
-                <span className="flex-1 space-y-1.5 text-start">
-                  <span className="flex flex-wrap items-center gap-2">
-                    <span
-                      className="text-xl font-black text-[var(--t-ink)]"
-                      style={{ fontFamily: 'var(--teach-font-display)' }}
-                    >
-                      {L(data.title)}
-                    </span>
-                    {!href && (
-                      <span className="text-[0.65rem] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-[color-mix(in_srgb,var(--t-sun)_25%,transparent)] text-[var(--t-ink)]">
-                        {L(RESOURCES.soon)}
-                      </span>
-                    )}
-                  </span>
-                  <span className="block text-[0.88rem] leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_68%,transparent)]">
-                    {L(data.desc)}
-                  </span>
-                  {href && (
-                    <span className="inline-flex items-center gap-1 pt-1 text-sm font-bold text-[var(--t-accent-deep)]">
-                      {L(data.cta)} <ArrowUpRight className="w-4 h-4" />
-                    </span>
-                  )}
-                </span>
-              </>
-            );
+        {/* Segmented Sub-Navigation: Courses | Guided Sampler | Videos & Store */}
+        <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl bg-[color-mix(in_srgb,var(--t-bg-2)_65%,transparent)] border border-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] w-fit mx-auto">
+          {[
+            {
+              id: 'courses' as const,
+              icon: BookOpen,
+              label: { en: 'Courses & 23 Lessons', ar: 'الدورات والـ ٢٣ درساً' },
+            },
+            {
+              id: 'sampler' as const,
+              icon: Sparkles,
+              label: { en: 'Interactive Lesson Sampler', ar: 'معاينة درس تفاعلي' },
+            },
+            {
+              id: 'media' as const,
+              icon: Youtube,
+              label: { en: 'YouTube & Printable Store', ar: 'يوتيوب وأوراق العمل' },
+            },
+          ].map((tab) => {
+            const TabIcon = tab.icon;
+            const on = sectionView === tab.id;
             return (
-              <Reveal key={key} delay={0.08 * i}>
-                {href ? (
-                  <a href={href} target="_blank" rel="noreferrer" className="teach-card h-full flex items-start gap-4 p-6 sm:p-7">
-                    {body}
-                  </a>
-                ) : (
-                  <div className="teach-card h-full flex items-start gap-4 p-6 sm:p-7">{body}</div>
-                )}
-              </Reveal>
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setSectionView(tab.id)}
+                aria-pressed={on}
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer transition-all border-0 ${
+                  on
+                    ? 'bg-[var(--t-accent)] text-[#fff] shadow-md'
+                    : 'bg-transparent text-[color-mix(in_srgb,var(--t-ink)_72%,transparent)] hover:text-[var(--t-ink)]'
+                }`}
+              >
+                <TabIcon className="w-4 h-4" />
+                {L(tab.label)}
+              </button>
             );
           })}
         </div>
+
+        {/* TAB 2: Native React Guided Lesson Sampler */}
+        {sectionView === 'sampler' && <GuidedLessonSampler onOpenLesson={launchWorkspace} />}
+
+        {/* TAB 1: Interactive 23-Lesson Directory + GMAT Quick Strip */}
+        {sectionView === 'courses' && (
+          <div className="space-y-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => setCourseTab('grade-12-calculus')}
+                  aria-pressed={courseTab === 'grade-12-calculus'}
+                  className={`px-4 py-2 rounded-full text-xs font-bold cursor-pointer transition-all border ${
+                    courseTab === 'grade-12-calculus'
+                      ? 'border-[var(--t-accent)] bg-[var(--t-accent)] text-[#fff]'
+                      : 'border-[color-mix(in_srgb,var(--t-ink)_18%,transparent)] bg-transparent text-[var(--t-ink)] hover:border-[var(--t-accent)]'
+                  }`}
+                >
+                  {isRtl ? 'تفاضل الصف ١٢ (١٤ درساً)' : 'Grade 12 Calculus (14 lessons)'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCourseTab('grade-11-precalculus')}
+                  aria-pressed={courseTab === 'grade-11-precalculus'}
+                  aria-label="Grade 11 Precalculus"
+                  className={`px-4 py-2 rounded-full text-xs font-bold cursor-pointer transition-all border ${
+                    courseTab === 'grade-11-precalculus'
+                      ? 'border-[var(--t-accent)] bg-[var(--t-accent)] text-[#fff]'
+                      : 'border-[color-mix(in_srgb,var(--t-ink)_18%,transparent)] bg-transparent text-[var(--t-ink)] hover:border-[var(--t-accent)]'
+                  }`}
+                >
+                  {isRtl ? 'ما قبل التفاضل · الصف ١١ (٩ دروس)' : 'Grade 11 Precalculus (9 lessons)'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    launchWorkspace(
+                      '/academy/courses/gmat-preparation/index.html',
+                      isRtl ? 'مركز تحضير GMAT (٣٨ موضوعاً)' : 'GMAT Quant & Data Insights (38 topics)',
+                    )
+                  }
+                  className="px-4 py-2 rounded-full text-xs font-bold cursor-pointer transition-all border border-[color-mix(in_srgb,var(--t-sky)_40%,transparent)] bg-[color-mix(in_srgb,var(--t-sky)_10%,transparent)] text-[var(--t-ink)] hover:border-[var(--t-sky)]"
+                >
+                  {isRtl ? 'تحضير GMAT الكمي والبيانات (٣٨ موضوعاً) →' : 'GMAT Quant & Data Insights (38 topics) →'}
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              {filteredLessons.map((lesson, i) => (
+                <Reveal key={lesson.id} delay={0.02 * i}>
+                  <button
+                    type="button"
+                    onClick={() => launchWorkspace(lesson.href, L(lesson.title))}
+                    className="teach-card w-full h-full p-4 flex items-center justify-between gap-3 text-start cursor-pointer bg-transparent"
+                  >
+                    <span className="flex items-center gap-3 min-w-0">
+                      <span
+                        dir="ltr"
+                        className="px-2.5 py-1.5 rounded-xl bg-[color-mix(in_srgb,var(--t-accent)_12%,transparent)] text-[var(--t-accent-deep)] font-mono text-xs font-black shrink-0"
+                      >
+                        {lesson.code}
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-sm font-bold text-[var(--t-ink)] leading-snug truncate">
+                          {L(lesson.title)}
+                        </span>
+                        {lesson.hasLab && (
+                          <span className="inline-block mt-1 text-[0.62rem] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[color-mix(in_srgb,var(--t-sun)_28%,transparent)] text-[var(--t-ink)]">
+                            {isRtl ? '+ مختبر تفاعلي' : '+ Interactive Lab'}
+                          </span>
+                        )}
+                      </span>
+                    </span>
+                    <ArrowRight className={`w-4 h-4 shrink-0 text-[var(--t-accent)] ${isRtl ? 'rotate-180' : ''}`} />
+                  </button>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 3: YouTube Channel + Worksheets + TPT Store */}
+        {sectionView === 'media' && (
+          <div className="space-y-6">
+            <Reveal>
+              <a
+                href={LINKS.youtube}
+                target="_blank"
+                rel="noreferrer"
+                data-theme="dark"
+                className="teach-card chalk group flex flex-col sm:flex-row items-start sm:items-center gap-5 p-7 sm:p-9 !rounded-3xl text-start"
+              >
+                <span className="w-16 h-16 rounded-2xl bg-[#ff0033] text-[#fff] flex items-center justify-center shrink-0 shadow-lg shadow-black/40">
+                  <Youtube className="w-8 h-8" />
+                </span>
+                <span className="flex-1 space-y-1.5">
+                  <span
+                    className="block text-2xl sm:text-3xl font-black"
+                    style={{ fontFamily: 'var(--teach-font-display)' }}
+                  >
+                    {L(RESOURCES.youtube.title)}
+                  </span>
+                  <span className="block text-[0.92rem] leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)]">
+                    {L(RESOURCES.youtube.desc)}
+                  </span>
+                </span>
+                <span className="teach-btn teach-btn-primary shrink-0">
+                  {L(RESOURCES.youtube.cta)} <ArrowUpRight className="w-4 h-4" />
+                </span>
+              </a>
+            </Reveal>
+
+            {VIDEOS.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {VIDEOS.map((v, i) => (
+                  <Reveal key={v.id} delay={0.05 * i}>
+                    <VideoCard id={v.id} title={L(v.title)} topic={L(v.topic)} />
+                  </Reveal>
+                ))}
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {extras.map(({ key, icon: Icon, data, href }, i) => {
+                const body = (
+                  <>
+                    <span className="teach-icon-chip !w-12 !h-12 shrink-0">
+                      <Icon className="w-5 h-5" />
+                    </span>
+                    <span className="flex-1 space-y-1.5 text-start">
+                      <span className="flex flex-wrap items-center gap-2">
+                        <span
+                          className="text-xl font-black text-[var(--t-ink)]"
+                          style={{ fontFamily: 'var(--teach-font-display)' }}
+                        >
+                          {L(data.title)}
+                        </span>
+                        {!href && (
+                          <span className="text-[0.65rem] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-[color-mix(in_srgb,var(--t-sun)_25%,transparent)] text-[var(--t-ink)]">
+                            {L(RESOURCES.soon)}
+                          </span>
+                        )}
+                      </span>
+                      <span className="block text-[0.88rem] leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_68%,transparent)]">
+                        {L(data.desc)}
+                      </span>
+                      {href && (
+                        <span className="inline-flex items-center gap-1 pt-1 text-sm font-bold text-[var(--t-accent-deep)]">
+                          {L(data.cta)} <ArrowUpRight className="w-4 h-4" />
+                        </span>
+                      )}
+                    </span>
+                  </>
+                );
+                return (
+                  <Reveal key={key} delay={0.08 * i}>
+                    {href ? (
+                      <a href={href} target="_blank" rel="noreferrer" className="teach-card h-full flex items-start gap-4 p-6 sm:p-7">
+                        {body}
+                      </a>
+                    ) : (
+                      <div className="teach-card h-full flex items-start gap-4 p-6 sm:p-7">{body}</div>
+                    )}
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

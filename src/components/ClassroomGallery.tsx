@@ -4,71 +4,64 @@ import { Motif } from './MathArt';
 import Reveal from './Reveal';
 
 /**
- * Classroom Universe — the template's character gallery.
- *
- * The originals were AI portraits of another teacher; they are replaced here by
- * six generated mathematical motifs, one per facet of the practice.
+ * Six Facets of Practice — organized as a balanced 3×2 architectural grid
+ * inside Chapter 01 (Profile & Track Record) so visitors see all six roles
+ * immediately without needing to drag a horizontal carousel.
  */
 export default function ClassroomGallery() {
   const { isRtl } = useLocale();
+  const L = (o: { en: string; ar: string }) => (isRtl ? o.ar : o.en);
 
   return (
-    <section id="gallery" className="relative py-24 md:py-32 px-5 lg:px-8 overflow-hidden">
-      <div className="absolute bottom-1/4 start-1/3 w-[420px] h-[420px] rounded-full bg-amber-400/[0.05] blur-[140px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto relative space-y-12">
-        <Reveal className="text-center space-y-4">
-          <p className="teach-eyebrow">{isRtl ? GALLERY.tag.ar : GALLERY.tag.en}</p>
-          <h2 className="teach-section-title">
-            {isRtl ? GALLERY.titlePrefix.ar : GALLERY.titlePrefix.en}{' '}
-            <em>{isRtl ? GALLERY.titleAccent.ar : GALLERY.titleAccent.en}</em>
+    <section
+      id="gallery"
+      className="relative py-16 md:py-20 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_26%,transparent)]"
+    >
+      <div className="max-w-7xl mx-auto relative space-y-10">
+        <Reveal className="text-center space-y-3">
+          <p className="teach-eyebrow">{L(GALLERY.tag)}</p>
+          <h2 className="teach-section-title !text-[clamp(1.7rem,3.6vw,2.6rem)]">
+            {L(GALLERY.titlePrefix)} <em>{L(GALLERY.titleAccent)}</em>
           </h2>
           <div className="teach-divider" />
-          <p className="teach-section-desc">{isRtl ? GALLERY.desc.ar : GALLERY.desc.en}</p>
+          <p className="teach-section-desc">{L(GALLERY.desc)}</p>
         </Reveal>
 
-        {/* Horizontal scroll rail — direction-agnostic under RTL */}
-        <Reveal delay={0.1}>
-          <div className="teach-scroll-rail -mx-5 px-5 lg:-mx-8 lg:px-8">
-            {GALLERY.roles.map((role) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {GALLERY.roles.map((role, idx) => (
+            <Reveal key={role.id} delay={0.04 * idx}>
               <div
-                key={role.id}
                 data-theme="dark"
-                className="teach-card chalk w-[260px] sm:w-[300px] overflow-hidden group"
+                className="teach-card chalk h-full flex items-center gap-4 p-4 sm:p-5 group"
               >
                 <div
-                  className="relative aspect-[4/3] flex items-center justify-center"
+                  className="relative w-24 h-24 sm:w-28 sm:h-24 rounded-2xl shrink-0 flex items-center justify-center overflow-hidden border border-white/10"
                   style={{ background: role.gradient }}
                 >
                   <div className="teach-grid-bg absolute inset-0 opacity-30" />
-                  <div className="relative w-[72%] transition-transform duration-700 group-hover:scale-[1.06]">
+                  <div className="relative w-[76%] transition-transform duration-500 group-hover:scale-110">
                     <Motif name={role.art} className="w-full h-auto" />
                   </div>
                   <span
-                    className="absolute top-3 start-3 w-9 h-9 rounded-xl bg-black/35 backdrop-blur-md border border-white/15 flex items-center justify-center text-base"
+                    className="absolute top-1.5 start-1.5 w-6 h-6 rounded-lg bg-black/45 backdrop-blur-md border border-white/15 flex items-center justify-center text-xs"
                     aria-hidden="true"
                   >
                     {role.icon}
                   </span>
                 </div>
-                <div className="p-5 text-start">
-                  <p className="text-[0.92rem] font-bold text-white leading-snug">
-                    {isRtl ? role.label.ar : role.label.en}
+
+                <div className="min-w-0 text-start space-y-1.5">
+                  <p className="text-sm sm:text-base font-bold text-white leading-snug">
+                    {L(role.label)}
                   </p>
-                  <p className="text-[0.7rem] text-cyan-300/80 mt-1.5 leading-snug">
-                    {isRtl ? role.note.ar : role.note.en}
+                  <p className="text-xs text-cyan-300/85 leading-relaxed">
+                    {L(role.note)}
                   </p>
                 </div>
               </div>
-            ))}
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.2} className="text-center">
-          <p className="text-[0.7rem] font-mono uppercase tracking-[0.2em] text-[color-mix(in_srgb,var(--t-ink)_32%,transparent)]">
-            {isRtl ? 'اسحب لاستعراض المزيد' : 'Drag to explore'}
-          </p>
-        </Reveal>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
