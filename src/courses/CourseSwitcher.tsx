@@ -61,7 +61,7 @@ export default function CourseSwitcher({ value, onChange }: CourseSwitcherProps)
             onKeyDown={(event) => onKeyDown(event, index)}
             className={`flex min-w-[8.5rem] flex-1 shrink-0 items-center gap-2.5 rounded-xl px-3 py-2.5 cursor-pointer border-0 transition-colors ${
               active
-                ? 'bg-[var(--t-accent)] text-white shadow-md'
+                ? 'bg-[var(--t-accent)] text-[var(--t-on-accent)] shadow-md'
                 : 'bg-transparent text-[var(--t-ink)] hover:bg-[color-mix(in_srgb,var(--t-ink)_6%,transparent)]'
             }`}
           >
@@ -81,7 +81,7 @@ export default function CourseSwitcher({ value, onChange }: CourseSwitcherProps)
             </svg>
             <span className="min-w-0 text-start">
               <span className="block text-xs font-black leading-tight truncate">{pick(course.short, isRtl)}</span>
-              <span className={`block text-[0.65rem] font-semibold ${active ? 'text-white/80' : 'text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]'}`}>
+              <span className={`block text-[0.65rem] font-semibold ${active ? 'text-[color-mix(in_srgb,var(--t-on-accent)_80%,var(--t-accent))]' : 'text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]'}`}>
                 {course.count}{' '}
                 {course.id === 'gmat' ? (isRtl ? 'موضوعاً' : 'topics') : isRtl ? 'درساً' : 'lessons'} · {percent}%
               </span>

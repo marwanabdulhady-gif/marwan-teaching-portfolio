@@ -100,7 +100,8 @@ script). UI strings outside `src/courses` are not covered.
 ## Status
 
 - `npm run lint`, `npm run build`, `npm run qa:data`, `npm run qa:progress`,
-  `npm run qa:practice`, `npm run qa:search` and `npm run qa:render`: passing. The last one renders all 111 labs and the course map server-side, so a
+  `npm run qa:practice`, `npm run qa:search`, `npm run qa:theme` and
+  `npm run qa:render`: passing. The last one renders all 111 labs and the course map server-side, so a
   lab that throws — or draws outside its plot — is caught without a browser.
 - Every explorer chunk is 1.3–2.3 KB gzip (budget was 15 KB).
 - **Not yet run:** `scripts/qa-courses.cjs` — no browser is available in the build
@@ -152,6 +153,35 @@ process is what a reload looks like):
 | `legacy-seeded` | old sampler mastery migrates onto its lesson, legacy key untouched |
 | `corrupt` | an unreadable payload starts clean and then records normally |
 | `second-tab` | a `storage` event replaces the state, unrelated keys are ignored, unsubscribe stops it |
+
+### Appearance themes (`npm run qa:theme`)
+
+Every course colour is a `--t-*` token, and there are nine appearances (paper,
+soft, dark, blue, rose, lavender, mint, contrast, chalkboard). A token that
+reads fine on paper can disappear on the chalkboard, so the script parses
+`src/index.css` and computes WCAG contrast for each theme:
+
+| pair | minimum |
+| --- | --- |
+| `--t-ink` on `--t-bg` / `--t-bg-2` | 4.5:1 |
+| `--t-accent-deep` on `--t-bg` / `--t-bg-2` | 4.5:1 |
+| `--t-on-accent` / `--t-on-sky` / `--t-on-sun` on their fill | 4.5:1 |
+| `--t-ok` and `--t-danger` on the page and on a card | 4.5:1 |
+| `--t-accent` on `--t-bg` (progress ring, focus outline) | 3:1 |
+
+It also fails any raw hex colour in `src/courses` (105 files), so a component
+cannot quietly hard-code paper-and-coral.
+
+What it found and the fixes: white text sat on `--t-accent` at 3.62:1 (paper) and
+3.76:1 on `--t-sky`, so each theme now names its own `--t-on-accent` /
+`--t-on-sky` / `--t-on-sun`; the "correct" green was 4.0:1, so the status colours
+became `--t-ok` / `--t-danger` with dark-theme variants; `--t-accent-deep` links
+were 4.31:1 on a card, so three themes were deepened; the high-contrast theme's
+sunflower was 1.43:1 on white, so it is now amber.
+
+A sunflower fill on cream is still only 1.7:1, which is why every filled mark
+(map node, legend swatch, badge) also carries an ink edge — the ink pairs above
+hold that edge to 4.5:1.
 
 ### Search (`npm run qa:search`)
 

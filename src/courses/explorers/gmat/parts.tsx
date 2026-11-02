@@ -58,7 +58,7 @@ export function Cell({ label, value, ok }: { label: ReactNode; value: ReactNode;
     <div
       className={`rounded-lg border px-2.5 py-1.5 ${
         ok
-          ? 'border-[color-mix(in_srgb,var(--t-ok,#2a8a57)_55%,transparent)] bg-[color-mix(in_srgb,var(--t-ok,#2a8a57)_10%,transparent)]'
+          ? 'border-[color-mix(in_srgb,var(--t-ok)_55%,transparent)] bg-[color-mix(in_srgb,var(--t-ok)_10%,transparent)]'
           : 'border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)]'
       }`}
     >
@@ -73,7 +73,7 @@ export function Cell({ label, value, ok }: { label: ReactNode; value: ReactNode;
 /** Green tick / red cross line for a yes-no check. */
 export function Verdict({ ok, children }: { ok: boolean; children: ReactNode }) {
   return (
-    <p className={`flex items-start gap-1.5 text-xs leading-relaxed ${ok ? 'text-[#2a8a57]' : 'text-[#b5481f]'}`}>
+    <p className={`flex items-start gap-1.5 text-xs leading-relaxed ${ok ? 'text-[var(--t-ok)]' : 'text-[var(--t-danger)]'}`}>
       <span aria-hidden className="font-black">
         {ok ? '✓' : '✗'}
       </span>

@@ -178,9 +178,9 @@ export default function PracticeMini({ lesson, onComplete }: PracticeMiniProps) 
               ? 'border-[var(--t-accent)] bg-[color-mix(in_srgb,var(--t-accent)_10%,transparent)]'
               : 'border-[color-mix(in_srgb,var(--t-ink)_14%,transparent)]'
             : position === question.correctIndex
-              ? 'border-[var(--t-ok,#2a8a57)] bg-[color-mix(in_srgb,var(--t-ok,#2a8a57)_12%,transparent)]'
+              ? 'border-[var(--t-ok)] bg-[color-mix(in_srgb,var(--t-ok)_12%,transparent)]'
               : chosen
-                ? 'border-[var(--t-warn,#b5481f)] bg-[color-mix(in_srgb,var(--t-warn,#b5481f)_10%,transparent)]'
+                ? 'border-[var(--t-danger)] bg-[color-mix(in_srgb,var(--t-danger)_10%,transparent)]'
                 : 'border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)] opacity-70';
           return (
             <button
@@ -220,7 +220,7 @@ export default function PracticeMini({ lesson, onComplete }: PracticeMiniProps) 
 
       {checked && (
         <div className="space-y-2 rounded-xl border border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)] px-3 py-2.5">
-          <p className={`text-xs font-black ${isCorrect ? 'text-[#2a8a57]' : 'text-[#b5481f]'}`}>
+          <p className={`text-xs font-black ${isCorrect ? 'text-[var(--t-ok)]' : 'text-[var(--t-danger)]'}`}>
             {pick(isCorrect ? strings.correct : strings.wrong, isRtl)}
           </p>
           {feedback && <p className="text-xs leading-relaxed text-[var(--t-ink)]">{feedback}</p>}

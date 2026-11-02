@@ -168,7 +168,7 @@ export default function RealNumbers({ onInteract }: ExplorerProps) {
           {pick(strings.apply, isRtl)}
         </button>
       </form>
-      {bad && <p className="text-[0.7rem] text-[#b5481f]">{pick(strings.invalid, isRtl)}</p>}
+      {bad && <p className="text-[0.7rem] text-[var(--t-danger)]">{pick(strings.invalid, isRtl)}</p>}
       {!touched && (
         <p className="text-[0.7rem] text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]">
           {isRtl ? 'اسحب النقطة على الخط لتبدأ.' : 'Drag the point on the line to start.'}

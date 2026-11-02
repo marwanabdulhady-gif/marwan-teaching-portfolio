@@ -83,7 +83,7 @@ export default function StudySnapshot({ onReview }: StudySnapshotProps) {
           {missed > 0 ? (
             <>
               <span className="flex items-baseline gap-1.5 text-[0.72rem] text-[color-mix(in_srgb,var(--t-ink)_66%,transparent)]">
-                <span dir="ltr" className="font-mono text-sm font-black text-[#b5481f]">
+                <span dir="ltr" className="font-mono text-sm font-black text-[var(--t-danger)]">
                   {missed}
                 </span>
                 {pick(strings.review, isRtl)}
@@ -94,7 +94,7 @@ export default function StudySnapshot({ onReview }: StudySnapshotProps) {
             </>
           ) : (
             <span className="flex items-center gap-1.5 text-[0.72rem] text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]">
-              <span aria-hidden className="text-[#2a8a57]">
+              <span aria-hidden className="text-[var(--t-ok)]">
                 ✓
               </span>
               {pick(strings.clear, isRtl)}

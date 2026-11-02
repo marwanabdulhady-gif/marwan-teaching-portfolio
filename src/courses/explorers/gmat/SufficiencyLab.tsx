@@ -188,10 +188,10 @@ export default function SufficiencyLab({ onInteract }: ExplorerProps) {
             <span className="font-bold text-[var(--t-ink)]">
               {fmt(n, 1)} → {question.ask(n)}
             </span>
-            <span className={question.holds1(n) ? 'text-[#2a8a57]' : 'text-[#b5481f]'}>
+            <span className={question.holds1(n) ? 'text-[var(--t-ok)]' : 'text-[var(--t-danger)]'}>
               {pick(question.holds1(n) ? strings.accepted : strings.rejected, isRtl)}
             </span>
-            <span className={question.holds2(n) ? 'text-[#2a8a57]' : 'text-[#b5481f]'}>
+            <span className={question.holds2(n) ? 'text-[var(--t-ok)]' : 'text-[var(--t-danger)]'}>
               {pick(question.holds2(n) ? strings.accepted : strings.rejected, isRtl)}
             </span>
           </div>
@@ -210,7 +210,7 @@ export default function SufficiencyLab({ onInteract }: ExplorerProps) {
       </div>
 
       {revealed ? (
-        <div className="space-y-1.5 rounded-xl border border-[color-mix(in_srgb,var(--t-ok,#2a8a57)_45%,transparent)] bg-[color-mix(in_srgb,var(--t-ok,#2a8a57)_7%,transparent)] px-3 py-2">
+        <div className="space-y-1.5 rounded-xl border border-[color-mix(in_srgb,var(--t-ok)_45%,transparent)] bg-[color-mix(in_srgb,var(--t-ok)_7%,transparent)] px-3 py-2">
           <p className="text-[0.62rem] font-bold uppercase tracking-wider text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)]">
             {pick(strings.choice, isRtl)}
           </p>

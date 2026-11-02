@@ -111,7 +111,7 @@ export default function ScatterLab({ lesson, onInteract }: ExplorerProps) {
         <MathPlot xDomain={[0, 8]} yDomain={[0, 12]} ariaLabel={pick(strings.fit, isRtl)}>
           {POINTS.map(([x, y]) => (
             <g key={`${x}-${y}`}>
-              <Segment x1={x} y1={y} x2={x} y2={m * x + b} color="#b5481f" width={1.5} opacity={0.55} />
+              <Segment x1={x} y1={y} x2={x} y2={m * x + b} color="var(--t-danger)" width={1.5} opacity={0.55} />
               <Point x={x} y={y} r={5} color="var(--t-accent)" />
             </g>
           ))}

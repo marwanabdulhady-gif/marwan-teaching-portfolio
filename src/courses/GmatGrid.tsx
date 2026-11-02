@@ -106,7 +106,7 @@ export default function GmatGrid({ onOpenTopic, onOpenPage }: GmatGridProps) {
               onClick={() => setFilter(id)}
               className={`px-3 py-2 rounded-full text-[0.7rem] font-bold cursor-pointer border transition-colors ${
                 filter === id
-                  ? 'border-[var(--t-accent)] bg-[var(--t-accent)] text-white'
+                  ? 'border-[var(--t-accent)] bg-[var(--t-accent)] text-[var(--t-on-accent)]'
                   : 'border-[color-mix(in_srgb,var(--t-ink)_16%,transparent)] bg-transparent text-[var(--t-ink)]'
               }`}
             >

@@ -29,13 +29,6 @@ const shapeClass: Record<LessonNode['shape'], string> = {
   hexagon: 'rounded-[12px]',
 };
 
-const ringColour: Record<NodeState, string> = {
-  new: 'transparent',
-  started: 'var(--t-accent)',
-  done: 'var(--t-sky)',
-  confident: 'var(--t-sun)',
-};
-
 function MapNode({
   lesson,
   state,
@@ -51,7 +44,18 @@ function MapNode({
   const size = SIZE[variant];
   const filled = state === 'done' || state === 'confident';
   const fill = state === 'confident' ? 'var(--t-sun)' : state === 'done' ? 'var(--t-sky)' : 'transparent';
-  const textColour = filled ? '#fff' : 'var(--t-ink)';
+  // White on a light theme's sky/sun fill is under 4.5:1, so the theme supplies
+  // the text colour for its own fills (`--t-on-sky`, `--t-on-sun`).
+  const textColour =
+    state === 'confident' ? 'var(--t-on-sun)' : state === 'done' ? 'var(--t-on-sky)' : 'var(--t-ink)';
+  // A sunflower fill on cream paper is only 1.7:1 against the page, so every
+  // filled node also gets an ink edge — that edge is what makes it visible.
+  const edgeColour =
+    state === 'new'
+      ? 'color-mix(in srgb, var(--t-ink) 25%, transparent)'
+      : filled
+        ? 'color-mix(in srgb, var(--t-ink) 45%, transparent)'
+        : 'var(--t-accent)';
   const strokeDash = 2 * Math.PI * (size / 2 + 4);
 
   const content = (
@@ -92,7 +96,7 @@ function MapNode({
           width: size,
           height: size,
           background: fill,
-          border: `2px solid ${state === 'new' ? 'color-mix(in srgb, var(--t-ink) 25%, transparent)' : ringColour[state]}`,
+          border: `2px solid ${edgeColour}`,
         }}
       >
         <span
@@ -105,7 +109,7 @@ function MapNode({
       </span>
       {state === 'confident' && (
         <span
-          className="absolute -top-1 -end-1 h-5 w-5 rounded-full bg-[var(--t-sun)] text-[#3a2a00] text-[0.65rem] font-black flex items-center justify-center"
+          className="absolute -top-1 -end-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--t-sun)] text-[0.65rem] font-black text-[var(--t-on-sun)] ring-1 ring-[color-mix(in_srgb,var(--t-ink)_45%,transparent)]"
           aria-hidden
         >
           ✓

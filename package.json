@@ -12,7 +12,8 @@
     "qa:render": "node scripts/render-check.cjs",
     "qa:practice": "node scripts/check-practice.cjs",
     "qa:progress": "node scripts/check-progress.cjs",
-    "qa:search": "node scripts/check-search.cjs"
+    "qa:search": "node scripts/check-search.cjs",
+    "qa:theme": "node scripts/check-theme.cjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",

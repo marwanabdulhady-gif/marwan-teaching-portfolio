@@ -94,10 +94,12 @@ export default function CourseMap({ course, currentKey, onOpen, onPractise }: Co
           <li className="teach-eyebrow !text-[0.6rem]">{pick(strings.legend, isRtl)}</li>
           {(
             [
+              // The done/confident fills are pale against paper, so their
+              // swatch carries the same ink edge as the map node itself.
               ['new', 'border-[color-mix(in_srgb,var(--t-ink)_25%,transparent)] bg-transparent'],
               ['started', 'border-[var(--t-accent)] bg-[color-mix(in_srgb,var(--t-accent)_14%,transparent)]'],
-              ['done', 'border-[var(--t-sky)] bg-[var(--t-sky)]'],
-              ['confident', 'border-[var(--t-sun)] bg-[var(--t-sun)]'],
+              ['done', 'border-[color-mix(in_srgb,var(--t-ink)_45%,transparent)] bg-[var(--t-sky)]'],
+              ['confident', 'border-[color-mix(in_srgb,var(--t-ink)_45%,transparent)] bg-[var(--t-sun)]'],
             ] as const
           ).map(([state, classes]) => (
             <li key={state} className="flex items-center gap-1.5">

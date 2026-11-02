@@ -188,7 +188,7 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
                 onClick={() => changeView(option)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer border-0 transition-colors ${
                   active
-                    ? 'bg-[var(--t-accent)] text-white'
+                    ? 'bg-[var(--t-accent)] text-[var(--t-on-accent)]'
                     : 'bg-transparent text-[var(--t-ink)] hover:bg-[color-mix(in_srgb,var(--t-ink)_6%,transparent)]'
                 }`}
               >

@@ -87,13 +87,13 @@ export default function VerticalLineTest({ onInteract }: ExplorerProps) {
             y1={-5}
             x2={c}
             y2={5}
-            color={isFunction ? '#2a8a57' : '#b5481f'}
+            color={isFunction ? 'var(--t-ok)' : 'var(--t-danger)'}
             width={2}
             dash="6 4"
             opacity={1}
           />
           {hits.map((y, index) => (
-            <Point key={index} x={c} y={y} color={isFunction ? '#2a8a57' : '#b5481f'} r={5} />
+            <Point key={index} x={c} y={y} color={isFunction ? 'var(--t-ok)' : 'var(--t-danger)'} r={5} />
           ))}
           <DragHandle x={c} onChange={(value) => set('c', value)} min={-5} max={5} step={0.1} ariaLabel={pick(strings.line, isRtl)} py={20} />
         </MathPlot>

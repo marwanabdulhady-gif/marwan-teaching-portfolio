@@ -107,9 +107,9 @@ export default function MatchGame({ pairs, prompt, onInteract }: MatchGameProps)
               }}
               className={`flex items-center gap-2 rounded-xl border p-2 text-start transition-colors ${
                 isMatched
-                  ? 'border-[color-mix(in_srgb,var(--t-ok,#2a8a57)_55%,transparent)] bg-[color-mix(in_srgb,var(--t-ok,#2a8a57)_8%,transparent)]'
+                  ? 'border-[color-mix(in_srgb,var(--t-ok)_55%,transparent)] bg-[color-mix(in_srgb,var(--t-ok)_8%,transparent)]'
                   : isWrong
-                    ? 'border-[#b5481f]'
+                    ? 'border-[var(--t-danger)]'
                     : isSelected
                       ? 'border-[var(--t-accent)] bg-[color-mix(in_srgb,var(--t-accent)_8%,transparent)]'
                       : 'border-[color-mix(in_srgb,var(--t-ink)_14%,transparent)]'
@@ -148,7 +148,7 @@ export default function MatchGame({ pairs, prompt, onInteract }: MatchGameProps)
                   isMatched
                     ? 'border-transparent bg-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] text-[color-mix(in_srgb,var(--t-ink)_40%,transparent)] line-through'
                     : wrongChip === pair.id
-                      ? 'border-[#b5481f] text-[#b5481f]'
+                      ? 'border-[var(--t-danger)] text-[var(--t-danger)]'
                       : 'border-[color-mix(in_srgb,var(--t-ink)_20%,transparent)] text-[var(--t-ink)] cursor-pointer'
                 }`}
               >
@@ -166,7 +166,7 @@ export default function MatchGame({ pairs, prompt, onInteract }: MatchGameProps)
       )}
 
       {done && (
-        <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-[color-mix(in_srgb,var(--t-ok,#2a8a57)_10%,transparent)] px-3 py-2">
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-[color-mix(in_srgb,var(--t-ok)_10%,transparent)] px-3 py-2">
           <p className="text-xs font-bold text-[var(--t-ink)]">{pick(strings.done, isRtl)}</p>
           <button
             type="button"

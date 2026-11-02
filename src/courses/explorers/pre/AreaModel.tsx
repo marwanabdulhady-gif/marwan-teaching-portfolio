@@ -65,7 +65,7 @@ export default function AreaModel({ onInteract }: ExplorerProps) {
         >
           <defs>
             <pattern id="area-hatch" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-              <line x1="0" y1="0" x2="0" y2="6" stroke="#b5481f" strokeWidth="2" strokeOpacity="0.55" />
+              <line x1="0" y1="0" x2="0" y2="6" stroke="var(--t-danger)" strokeWidth="2" strokeOpacity="0.55" />
             </pattern>
           </defs>
           {tiles.map((tile) => {

@@ -125,13 +125,13 @@ export default function BalanceLab({ lesson, onInteract }: ExplorerProps) {
           {Array.from({ length: Math.min(6, Math.abs(a)) }, (_, index) => (
             <g key={`ax-${index}`}>
               <rect x={48 + index * 16} y={12} width={12} height={12} rx={2} fill="var(--t-accent)" />
-              <text x={54 + index * 16} y={22} textAnchor="middle" fontSize={8} fill="#fff" fontFamily="ui-monospace, monospace">
+              <text x={54 + index * 16} y={22} textAnchor="middle" fontSize={8} fill="var(--t-on-accent)" fontFamily="ui-monospace, monospace">
                 x
               </text>
             </g>
           ))}
           {Array.from({ length: Math.abs(b) }, (_, index) => (
-            <circle key={`b-${index}`} cx={150 + index * 10} cy={20} r={4} fill={b < 0 ? '#b5481f' : 'var(--t-sky)'} />
+            <circle key={`b-${index}`} cx={150 + index * 10} cy={20} r={4} fill={b < 0 ? 'var(--t-danger)' : 'var(--t-sky)'} />
           ))}
           {Array.from({ length: weight }, (_, index) => (
             <circle key={`c-${index}`} cx={214 + index * 10} cy={20} r={4.5} fill="var(--t-sun)" />
