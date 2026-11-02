@@ -143,9 +143,18 @@ export default function NumberLineLab({ lesson, onInteract }: ExplorerProps) {
           <line x1={0} y1={0} x2={400} y2={0} stroke="transparent" />
           <PointHandle x={a} y={0} xDomain={DOMAIN} yDomain={[-30, 30]} step={1} ariaLabel={pick(strings.pointA, isRtl)} onChange={(x) => set('a', x)} />
           <PointHandle x={b} y={0} xDomain={DOMAIN} yDomain={[-30, 30]} step={1} ariaLabel={pick(strings.pointB, isRtl)} color="var(--t-accent)" onChange={(x) => set('b', x)} />
-          {/* the tolerance ring: |x − a| < r */}
-          <circle cx={((a - DOMAIN[0]) / (DOMAIN[1] - DOMAIN[0])) * 400} cy={-40} r={(r / (DOMAIN[1] - DOMAIN[0])) * 400} fill="var(--t-sun)" fillOpacity={0.18} stroke="var(--t-sun)" strokeWidth={2} />
-          <circle cx={((a - DOMAIN[0]) / (DOMAIN[1] - DOMAIN[0])) * 400} cy={-40} r={3.5} fill="var(--t-ink)" />
+          {/* |x − a| < r drawn as a visible band around a on the axis */}
+          <line
+            x1={((a - r - DOMAIN[0]) / (DOMAIN[1] - DOMAIN[0])) * 400}
+            y1={200}
+            x2={((a + r - DOMAIN[0]) / (DOMAIN[1] - DOMAIN[0])) * 400}
+            y2={200}
+            stroke="var(--t-sun)"
+            strokeWidth={14}
+            strokeOpacity={0.35}
+            strokeLinecap="round"
+          />
+          <line x1={0} y1={200} x2={400} y2={200} stroke="var(--t-ink)" strokeOpacity={0.5} strokeWidth={1.5} />
         </MathPlot>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">

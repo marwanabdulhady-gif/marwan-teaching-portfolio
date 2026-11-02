@@ -63,6 +63,15 @@ their checks are data-level plus the panel checks above:
 3. The “Page ▸” link on a tile skips the panel and opens the iframe directly.
 4. Arabic: tiles show the Arabic title, search matches both languages.
 
+## Labs gallery
+
+1. Switch the view to **Labs**: every lesson in the current course that has a lab
+   appears once, grouped by chapter, with its code and first topic.
+2. The header reads `n/n — all lessons have a lab` for Algebra 1, Algebra 2,
+   Geometry and GMAT.
+3. Clicking a card opens the same lesson panel as the map node.
+4. The choice of view survives a reload (`localStorage['marwan:courses:view']`).
+
 ## Status
 
 - `npm run lint`, `npm run build`, `npm run qa:data` and `npm run qa:render`:

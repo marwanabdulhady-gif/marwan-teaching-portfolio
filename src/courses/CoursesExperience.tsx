@@ -12,6 +12,7 @@ import { useLocale } from '../LocaleContext';
 import ContinueStrip from './ContinueStrip';
 import CourseMap from './CourseMap';
 import CourseSwitcher from './CourseSwitcher';
+import ExplorerGallery from './ExplorerGallery';
 import GmatGrid from './GmatGrid';
 import LessonPanel from './LessonPanel';
 import MixedPractice from './MixedPractice';
@@ -23,6 +24,7 @@ const VIEW_KEY = 'marwan:courses:view';
 
 const strings = {
   map: { en: 'Map', ar: 'الخريطة' },
+  labs: { en: 'Labs', ar: 'المختبرات' },
   list: { en: 'List', ar: 'القائمة' },
   viewLabel: { en: 'Choose a view', ar: 'اختر العرض' },
   mapTitle: { en: 'Your path through the course', ar: 'مسارك في الدورة' },
@@ -55,10 +57,11 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
     const lesson = params.get('lesson');
     return lesson && LESSONS[lesson] ? lesson : null;
   });
-  const [view, setView] = useState<'map' | 'list'>(() => {
+  const [view, setView] = useState<'map' | 'labs' | 'list'>(() => {
     if (legacy) return 'list';
     try {
-      return localStorage.getItem(VIEW_KEY) === 'list' ? 'list' : 'map';
+      const saved = localStorage.getItem(VIEW_KEY);
+      return saved === 'list' || saved === 'labs' ? saved : 'map';
     } catch {
       return 'map';
     }
@@ -133,7 +136,7 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
     syncUrl({ course, lesson: null, mode: 'replace' });
   };
 
-  const changeView = (next: 'map' | 'list') => {
+  const changeView = (next: 'map' | 'labs' | 'list') => {
     setView(next);
     try {
       localStorage.setItem(VIEW_KEY, next);
@@ -155,7 +158,7 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
           aria-label={pick(strings.viewLabel, isRtl)}
           className="inline-flex shrink-0 gap-1 self-start rounded-xl border border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)] p-1 lg:self-auto"
         >
-          {(['map', 'list'] as const).map((option) => {
+          {(['map', 'labs', 'list'] as const).map((option) => {
             const active = view === option;
             return (
               <button
@@ -176,7 +179,9 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
         </div>
       </div>
 
-      {view === 'list' ? (
+      {view === 'labs' ? (
+        <ExplorerGallery course={course} onOpen={openLesson} />
+      ) : view === 'list' ? (
         <div className="space-y-4">
           <div className="teach-card flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_65%,transparent)]">

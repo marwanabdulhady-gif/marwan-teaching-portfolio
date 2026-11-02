@@ -47,7 +47,7 @@ export default function TableLab({ lesson, onInteract }: ExplorerProps) {
   const { isRtl } = useLocale();
   const derived = lesson.id === 'table-derived';
   const twoPart = lesson.id === 'two-part-analysis' || lesson.id === 'two-part-constraints' || lesson.id === 'two-part-tables';
-  const [values, set] = useExplorerState({ a1: 24, a2: 18, b1: 16, b2: 22, target: 25, mode: 0, pickA: 10 }, onInteract);
+  const [values, set] = useExplorerState({ a1: 24, a2: 18, b1: 16, b2: 22, target: 25, mode: 0, pickA: 10, pickB: 15 }, onInteract);
 
   const a1 = Math.round(values.a1);
   const a2 = Math.round(values.a2);
@@ -64,7 +64,7 @@ export default function TableLab({ lesson, onInteract }: ExplorerProps) {
   const mode: Mode = derived ? 'rate' : twoPart ? 'pair' : (['missing', 'rate', 'pair'] as const)[Math.round(values.mode)] ?? 'missing';
   const target = Math.round(values.target);
   const pickedA = Math.min(total, Math.max(0, Math.round(values.pickA)));
-  const pickedB = total - pickedA;
+  const pickedB = Math.min(total, Math.max(0, Math.round(values.pickB)));
 
   return (
     <div className="space-y-3">
@@ -112,13 +112,16 @@ export default function TableLab({ lesson, onInteract }: ExplorerProps) {
       </div>
 
       {mode === 'pair' && (
-        <>
+        <div className="space-y-2 rounded-xl border border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)] px-3 py-2">
           <Slider label={strings.pick} value={pickedA} min={0} max={total} step={1} onChange={(value) => set('pickA', value)} format={(value) => fmt(value, 0)} />
-          <Verdict ok={pickedA + pickedB === total}>
-            {pick(strings.check, isRtl)}: {pickedA} + {pickedB} = {pickedA + pickedB}, {isRtl ? 'الهدف' : 'target'} {target}{' '}
-            {pickedA + pickedB === target ? `— ${pick(strings.yes, isRtl)}` : `— ${pick(strings.no, isRtl)}`}
+          <Slider label={{ en: 'and this many from B', ar: 'وهذا العدد من B' }} value={pickedB} min={0} max={total} step={1} onChange={(value) => set('pickB', value)} format={(value) => fmt(value, 0)} />
+          <Slider label={strings.target} value={target} min={1} max={total} step={1} onChange={(value) => set('target', value)} format={(value) => fmt(value, 0)} />
+          <Verdict ok={pickedA + pickedB === target && pickedA <= rowA && pickedB <= rowB}>
+            {pickedA} + {pickedB} = {pickedA + pickedB}, {isRtl ? 'الهدف' : 'target'} {target}
+            {pickedA + pickedB === target ? ` — ${pick(strings.yes, isRtl)}` : ` — ${pick(strings.no, isRtl)}`}
+            {pickedA > rowA || pickedB > rowB ? (isRtl ? ' (يتجاوز حجم المجموعة)' : ' (exceeds a group size)') : ''}
           </Verdict>
-        </>
+        </div>
       )}
 
       <div className="grid gap-3 sm:grid-cols-2">

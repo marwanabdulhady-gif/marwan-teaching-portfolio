@@ -155,3 +155,17 @@ console.log(`  questions — ${questionIds.length} (${perLesson} per lesson)`);
 console.log(`  gmat — ${gmatSlugs.length} topics, all with content`);
 console.log(`  academy — ${academyKeys.length} static lessons`);
 console.log(`  explorers — ${registered.size} keys across ${registryFiles.length} registries`);
+
+// Coverage per course: every lesson in the school courses and every GMAT topic
+// must have a lab, so the Labs gallery never shows an empty card.
+const courses = ['algebra-1', 'algebra-2', 'geometry', 'gmat'];
+const uncovered = courses.flatMap((slug) => {
+  const lessons =
+    slug === 'gmat' ? gmatSlugs.map((topic) => `gmat/${topic}`) : allLessons.filter((key) => key.startsWith(`${slug}/`));
+  return lessons.filter((key) => !registered.has(key));
+});
+if (uncovered.length) {
+  console.error(`✗ ${uncovered.length} lesson(s) without a lab: ${uncovered.join(', ')}`);
+  process.exit(1);
+}
+console.log('  coverage — every authored lesson and GMAT topic has a lab');

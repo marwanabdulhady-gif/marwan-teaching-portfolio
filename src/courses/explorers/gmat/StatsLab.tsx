@@ -110,6 +110,8 @@ export default function StatsLab({ lesson, onInteract }: ExplorerProps) {
   }
   const max = Math.max(...data);
   const binCounts = Array.from({ length: max + 2 }, (_, value) => data.filter((item) => item === value).length);
+  // 22 possible values across a 300 px chart.
+  const unit = 300 / 22;
 
   return (
     <div className="space-y-3">
@@ -121,7 +123,7 @@ export default function StatsLab({ lesson, onInteract }: ExplorerProps) {
             Array.from({ length: count }, (_, level) => (
               <circle
                 key={`${value}-${level}`}
-                cx={16 + value * 20}
+                cx={14 + value * unit}
                 cy={96 - level * 13}
                 r={5}
                 fill={value === Math.round(outlier) ? 'var(--t-sun)' : 'var(--t-accent)'}
@@ -129,13 +131,13 @@ export default function StatsLab({ lesson, onInteract }: ExplorerProps) {
             )),
           )}
           {/* mean marker */}
-          <line x1={16 + mean * 20} y1={8} x2={16 + mean * 20} y2={100} stroke="var(--t-ink)" strokeWidth={1.5} strokeDasharray="4 3" />
-          <text x={16 + mean * 20} y={8} textAnchor="middle" fontSize={9} fill="var(--t-ink)" fontFamily="ui-monospace, monospace">
+          <line x1={14 + mean * unit} y1={8} x2={14 + mean * unit} y2={100} stroke="var(--t-ink)" strokeWidth={1.5} strokeDasharray="4 3" />
+          <text x={14 + mean * unit} y={8} textAnchor="middle" fontSize={9} fill="var(--t-ink)" fontFamily="ui-monospace, monospace">
             mean
           </text>
           {/* median marker */}
-          <line x1={16 + median * 20} y1={14} x2={16 + median * 20} y2={100} stroke="var(--t-regal, var(--t-ink))" strokeOpacity={0.5} strokeWidth={1.5} />
-          <text x={16 + median * 20} y={104} textAnchor="middle" fontSize={9} fill="var(--t-ink)" fillOpacity={0.7} fontFamily="ui-monospace, monospace">
+          <line x1={14 + median * unit} y1={14} x2={14 + median * unit} y2={100} stroke="var(--t-regal, var(--t-ink))" strokeOpacity={0.5} strokeWidth={1.5} />
+          <text x={14 + median * unit} y={104} textAnchor="middle" fontSize={9} fill="var(--t-ink)" fillOpacity={0.7} fontFamily="ui-monospace, monospace">
             {fmt(median, 1)}
           </text>
         </svg>

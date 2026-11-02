@@ -50,6 +50,16 @@ so nothing depends on `public/academy/**`.
 | Algebra 2 | `ParabolaLab` 2.1, 2.2, 2.4 · `ComplexLab` 2.3 · `AbsoluteLab` 1.3 · `PolyDivisionLab` 3.2 · `SequenceLab` 4.3 (plus `Transformations`, `InverseCheck`, `PiecewiseBuilder`, `ParentFamilies`, `RationalAsymptotes`, `RationalHole`, `GrowthDecay`, `ExpLogWorld`) |
 | Geometry | `PointsLab` 1.1–1.3 · `AngleLab` 1.2 · `TransformLab` 1.4, 4.2 · `TriangleLab` 2.1–2.4 · `CircleLab` 3.1, 3.3 · `MeasureLab` 3.2, 3.4, 4.3 (plus `SolveTriangle` 2.5, `CircleBuilder` 4.1) |
 
+## Labs gallery (all six courses)
+
+`ExplorerGallery.tsx` is the third view — **Map · Labs · List**. It lists every
+lab in the selected course by chapter, with the lesson code, title, first topic
+and a completion bar, and opens the lesson panel on click. The header states the
+coverage (`19/19 all lessons have a lab`), so a gap would be visible immediately.
+`courseGraph` now builds GMAT lessons too, so the gallery covers all 111 labs
+across the six courses. `npm run qa:render` renders the gallery for every course
+and fails if any of them comes back empty.
+
 ## GMAT visual layer
 
 The exam course used to be a grid of tiles pointing at iframes. It is now a

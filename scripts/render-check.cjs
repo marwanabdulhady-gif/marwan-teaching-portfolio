@@ -82,11 +82,25 @@ try {
     const label = course.short.en;
     if (!map.includes(label)) failures.push('map is missing ' + label);
   }
-  for (const label of ['Mixed practice', 'Hands-on lab', 'Not started']) {
+  for (const label of ['Mixed practice', 'Hands-on lab', 'Not started', 'Labs']) {
     if (!map.includes(label)) failures.push('map is missing "' + label + '"');
   }
 } catch (error) {
   failures.push('courses map: ' + error.message);
+}
+
+// The Labs gallery must be able to draw every course.
+try {
+  const { default: ExplorerGallery } = await import('${root}/src/courses/ExplorerGallery');
+  for (const course of COURSES) {
+    const gallery = renderToStaticMarkup(
+      React.createElement(LocaleProvider, null, React.createElement(ExplorerGallery, { course: course.id, onOpen: () => {} })),
+    );
+    if (gallery.length < 200) failures.push('labs gallery is empty for ' + course.id);
+    if (gallery.includes('This course has no labs yet')) failures.push('labs gallery has no labs for ' + course.id);
+  }
+} catch (error) {
+  failures.push('labs gallery: ' + error.message);
 }
 
 console.log('rendered ' + rendered + '/' + EXPLORER_KEYS.length + ' explorers + the course map');
