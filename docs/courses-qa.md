@@ -194,7 +194,8 @@ other pages:
 - `?course=geometry&lesson=geometry/2-2` opens the map **and** that panel (title,
   lab, practice) — not the list view;
 - `?course=gmat&lesson=gmat/absolute-value` does the same for a GMAT topic;
-- `?legacy=1` renders the old lesson grid instead of the map.
+- `?legacy=1` renders the old lesson grid instead of the map;
+- each of the six courses opens its own first lesson's panel with its lab.
 
 ### Plot maths
 

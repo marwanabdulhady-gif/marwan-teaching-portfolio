@@ -130,6 +130,17 @@ try {
   if (!legacy.includes('LIST-VIEW-MARKER')) failures.push('legacy=1: list view did not render');
   const gmat = renderMap('?course=gmat&lesson=gmat/absolute-value');
   if (!gmat.includes(LESSONS['gmat/absolute-value'].title.en)) failures.push('deep link: GMAT panel did not open');
+  // Every course must be able to open its first lesson's panel.
+  for (const course of COURSES) {
+    const first = Object.values(LESSONS).find((lesson) => lesson.course === course.id);
+    if (!first) {
+      failures.push('deep link: ' + course.id + ' has no lessons');
+      continue;
+    }
+    const panel = renderMap('?course=' + course.id + '&lesson=' + first.key);
+    if (!panel.includes(first.title.en)) failures.push('deep link: panel did not open for ' + first.key);
+    if (!panel.includes('Hands-on lab')) failures.push('deep link: ' + first.key + ' panel is missing its lab');
+  }
   window.location.search = '';
 } catch (error) {
   failures.push('URL contract: ' + error.message);
