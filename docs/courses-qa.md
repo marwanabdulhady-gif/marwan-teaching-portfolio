@@ -128,6 +128,16 @@ node -e "const {offPlot}=require('./scripts/plot-bounds.cjs');
   console.log(offPlot('<svg viewBox=\"0 0 400 125\"><circle cx=\"200\" cy=\"250\" r=\"6\"/></svg>'));"
 ```
 
+### URL contract (`npm run qa:render`)
+
+Three cold loads are rendered too, because these are promises to links from
+other pages:
+
+- `?course=geometry&lesson=geometry/2-2` opens the map **and** that panel (title,
+  lab, practice) — not the list view;
+- `?course=gmat&lesson=gmat/absolute-value` does the same for a GMAT topic;
+- `?legacy=1` renders the old lesson grid instead of the map.
+
 ### Plot maths
 
 `MathPlot` is 400 px wide and its height follows `aspect`, so nothing in a lab

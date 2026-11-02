@@ -105,6 +105,35 @@ try {
   failures.push('courses map: ' + error.message);
 }
 
+// URL contract: ?lesson= opens that panel on a cold load, ?legacy=1 forces the
+// old list view. Both are promises the page makes to links from elsewhere.
+const renderMap = (search) => {
+  window.location.search = search;
+  return renderToStaticMarkup(
+    React.createElement(
+      LocaleProvider,
+      null,
+      React.createElement(CoursesExperience, {
+        launchWorkspace: () => {},
+        listView: React.createElement('div', null, 'LIST-VIEW-MARKER'),
+      }),
+    ),
+  );
+};
+try {
+  const deep = renderMap('?course=geometry&lesson=geometry/2-2');
+  if (!deep.includes(LESSONS['geometry/2-2'].title.en)) failures.push('deep link: panel did not open for geometry/2-2');
+  if (!deep.includes('Hands-on lab')) failures.push('deep link: panel is missing its lab');
+  if (deep.includes('LIST-VIEW-MARKER')) failures.push('deep link: list view rendered instead of the map');
+  const legacy = renderMap('?legacy=1');
+  if (!legacy.includes('LIST-VIEW-MARKER')) failures.push('legacy=1: list view did not render');
+  const gmat = renderMap('?course=gmat&lesson=gmat/absolute-value');
+  if (!gmat.includes(LESSONS['gmat/absolute-value'].title.en)) failures.push('deep link: GMAT panel did not open');
+  window.location.search = '';
+} catch (error) {
+  failures.push('URL contract: ' + error.message);
+}
+
 // The Labs gallery must be able to draw every course.
 try {
   const { default: ExplorerGallery } = await import('${root}/src/courses/ExplorerGallery');
