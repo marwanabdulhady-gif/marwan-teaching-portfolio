@@ -120,6 +120,25 @@ function audit(html, { where = '' } = {}) {
     if (!(attributes['aria-label'] ?? '').trim() && !('aria-labelledby' in attributes)) add('slider without a name');
   }
 
+  // ---- heading order -----------------------------------------------------
+  // A screen-reader user walks the headings, so a jump from h2 to h4 hides a
+  // level. The fragment is rendered on its own, so its first heading may sit at
+  // any of h1–h3 (the host page supplies the level above it).
+  const headings = [...html.matchAll(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/g)].map((match) => ({
+    level: Number(match[1]),
+    text: textOf(match[2]).slice(0, 40),
+  }));
+  headings.forEach((heading, index) => {
+    if (index === 0) {
+      if (heading.level > 3) add(`first heading is h${heading.level} (“${heading.text}”) — start at h1–h3`);
+      return;
+    }
+    const previous = headings[index - 1].level;
+    if (heading.level > previous + 1) {
+      add(`heading “${heading.text}” is h${heading.level} right after h${previous}`);
+    }
+  });
+
   // ---- ids and references ------------------------------------------------
   const ids = new Map();
   for (const match of html.matchAll(/\sid="([^"]+)"/g)) {

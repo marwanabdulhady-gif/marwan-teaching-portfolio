@@ -139,9 +139,9 @@ export default function CourseMap({ course, currentKey, onOpen, onPractise }: Co
         {definition.chapters.map((chapter) => (
           <section key={chapter.id} className="space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-              <h4 className="text-[0.74rem] font-black uppercase tracking-[0.14em] text-[color-mix(in_srgb,var(--t-ink)_62%,transparent)]">
+              <h3 className="text-[0.74rem] font-black uppercase tracking-[0.14em] text-[color-mix(in_srgb,var(--t-ink)_62%,transparent)]">
                 {pick(chapter.title, isRtl)}
-              </h4>
+              </h3>
               {chapter.lessons.length > 0 && (
                 <span className="flex items-center gap-2">
                   <span

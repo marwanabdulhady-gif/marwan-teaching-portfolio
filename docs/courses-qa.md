@@ -169,6 +169,8 @@ process is what a reload looks like):
   with two sliders called “a”, “b” or “x” — the label focused the wrong input);
 - `aria-describedby` / `aria-labelledby` pointing at an id that is not in the
   render. (`aria-controls` may name a popup that only exists once opened.)
+- a heading outline that skips a level: chapters and GMAT groups used to be
+  `h4` straight after the section's `h2`, so they are `h3` now.
 
 The helpers have their own cases (13 of them) so the audit itself is known to
 fire.

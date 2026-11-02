@@ -131,12 +131,12 @@ export default function GmatGrid({ onOpenTopic, onOpenPage }: GmatGridProps) {
         if (!topics.length) return null;
         return (
           <section key={group} className="space-y-3">
-            <h4 className="flex items-baseline gap-2 text-[0.74rem] font-black uppercase tracking-[0.14em] text-[color-mix(in_srgb,var(--t-ink)_62%,transparent)]">
+            <h3 className="flex items-baseline gap-2 text-[0.74rem] font-black uppercase tracking-[0.14em] text-[color-mix(in_srgb,var(--t-ink)_62%,transparent)]">
               {pick(group === 'quant' ? strings.quant : strings.di, isRtl)}
               <span className="font-mono text-[0.65rem] font-bold normal-case tracking-normal">
                 {group === 'quant' ? GMAT_COUNT.quant : GMAT_COUNT.di} {pick(strings.count, isRtl)}
               </span>
-            </h4>
+            </h3>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {topics.map((topic) => {
                 const key = `gmat/${topic.slug}`;
