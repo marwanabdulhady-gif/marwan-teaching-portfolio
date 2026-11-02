@@ -46,7 +46,10 @@ export default function LessonSearch({ onOpen }: LessonSearchProps) {
           aria-hidden
           className="pointer-events-none absolute inset-y-0 start-3 flex items-center text-[color-mix(in_srgb,var(--t-ink)_40%,transparent)]"
         >
-          ⌕
+          <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" aria-hidden focusable="false">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.6-3.6" />
+          </svg>
         </span>
         <input
           ref={inputRef}
