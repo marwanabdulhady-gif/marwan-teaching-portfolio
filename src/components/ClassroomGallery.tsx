@@ -15,7 +15,7 @@ export default function ClassroomGallery() {
   return (
     <section
       id="gallery"
-      className="relative py-16 md:py-20 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_26%,transparent)]"
+      className="relative py-14 md:py-20 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_26%,transparent)]"
     >
       <div className="max-w-7xl mx-auto relative space-y-10">
         <Reveal className="text-center space-y-3">

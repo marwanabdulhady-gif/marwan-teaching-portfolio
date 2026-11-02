@@ -170,7 +170,7 @@ export default function AiTeacherStudio() {
   };
 
   return (
-    <section id="studio" className="relative py-24 md:py-32 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_28%,transparent)]">
+    <section id="studio" className="relative py-14 md:py-20 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_28%,transparent)]">
       <div className="max-w-7xl mx-auto space-y-14">
         {/* Section Header */}
         <Reveal className="text-center space-y-4">

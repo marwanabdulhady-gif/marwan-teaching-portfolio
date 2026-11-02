@@ -415,7 +415,7 @@ export default function ResourceLibrary() {
   ];
 
   return (
-    <section id="resources" className="relative py-24 md:py-32 px-5 lg:px-8 overflow-hidden">
+    <section id="resources" className="relative py-14 md:py-20 px-5 lg:px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto relative space-y-14">
         <Reveal className="text-center space-y-4">
           <p className="teach-eyebrow">{L(ACADEMY_WORKSPACE_UI.eyebrow)}</p>

@@ -56,7 +56,7 @@ export default function MathLab() {
   return (
     <section
       id="lab"
-      className="relative py-16 md:py-24 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_45%,transparent)]"
+      className="relative py-14 md:py-20 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_45%,transparent)]"
     >
       <div className="absolute -top-24 start-1/4 w-[460px] h-[460px] rounded-full bg-cyan-500/[0.08] blur-[140px] pointer-events-none" />
 

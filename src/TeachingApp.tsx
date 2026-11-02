@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
-import { LocaleProvider } from './LocaleContext';
+import { ArrowUp } from 'lucide-react';
+import { LocaleProvider, useLocale } from './LocaleContext';
 import TeachNav from './components/TeachNav';
 import TeachHero from './components/TeachHero';
 import CredentialsBar from './components/CredentialsBar';
@@ -36,7 +37,16 @@ const SECTION_ORDER: { id: string; navId: string }[] = [
 ];
 
 function TeachingPage() {
+  const { isRtl } = useLocale();
   const [active, setActive] = useState('hero');
+  const [showTop, setShowTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 900);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Smooth scrolling via Lenis, synced to window.__lenis for anchor buttons.
   useEffect(() => {
@@ -165,6 +175,23 @@ function TeachingPage() {
         <WorkWithMe />
       </main>
       <TeachFooter />
+
+      {/* Back to top: the page is long, so offer a way home from anywhere */}
+      <button
+        type="button"
+        onClick={() => {
+          const lenis = (window as any).__lenis;
+          if (lenis) lenis.scrollTo(0);
+          else window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        aria-label={isRtl ? 'العودة للأعلى' : 'Back to top'}
+        tabIndex={showTop ? 0 : -1}
+        className={`fixed bottom-6 end-6 z-[900] w-11 h-11 rounded-full flex items-center justify-center cursor-pointer text-white bg-[var(--t-accent)] shadow-xl transition-all duration-300 hover:scale-105 ${
+          showTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 pointer-events-none'
+        }`}
+      >
+        <ArrowUp className="w-4 h-4" />
+      </button>
     </div>
   );
 }

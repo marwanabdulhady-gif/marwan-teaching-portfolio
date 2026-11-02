@@ -563,7 +563,7 @@ export default function VisualMathShowcase() {
   return (
     <section
       id="visual-math"
-      className="relative py-20 md:py-28 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_32%,transparent)]"
+      className="relative py-14 md:py-20 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_32%,transparent)]"
     >
       <div className="max-w-7xl mx-auto space-y-12">
         <Reveal className="text-center space-y-4">

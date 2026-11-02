@@ -30,7 +30,7 @@ export default function LearningDesigns() {
   };
 
   return (
-    <section id="designs" className="relative py-16 md:py-24 px-5 lg:px-8 overflow-hidden">
+    <section id="designs" className="relative py-14 md:py-20 px-5 lg:px-8 overflow-hidden">
       <div className="absolute -bottom-24 start-1/3 w-[520px] h-[520px] rounded-full bg-indigo-500/[0.06] blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative space-y-10">

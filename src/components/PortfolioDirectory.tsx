@@ -165,7 +165,7 @@ export function ChapterBanner({ num, label, subtitle, links = [] }: ChapterBanne
   const L = (o: Bi) => (isRtl ? o.ar : o.en);
 
   return (
-    <div className="px-5 lg:px-8 pt-14 md:pt-20">
+    <div className="px-5 lg:px-8 pt-10 md:pt-14">
       <div className="max-w-7xl mx-auto">
         <div className="rounded-2xl px-5 py-4 bg-[color-mix(in_srgb,var(--t-bg-2)_55%,transparent)] border border-[color-mix(in_srgb,var(--t-accent)_18%,transparent)] flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-3 text-start">

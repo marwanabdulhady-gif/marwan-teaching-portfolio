@@ -40,7 +40,7 @@ export default function TeachAbout() {
   const L = (o: { en: string; ar: string }) => (isRtl ? o.ar : o.en);
 
   return (
-    <section id="about" className="relative py-16 md:py-24 px-5 lg:px-8 overflow-hidden">
+    <section id="about" className="relative py-14 md:py-20 px-5 lg:px-8 overflow-hidden">
       <div className="absolute top-1/4 start-0 w-[420px] h-[420px] rounded-full bg-cyan-500/[0.07] blur-[130px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative">

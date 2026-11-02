@@ -58,7 +58,7 @@ export default function TeachNav({ activeSection }: TeachNavProps) {
           : 'bg-[color-mix(in_srgb,var(--t-bg)_55%,transparent)] backdrop-blur-md border-b border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-5 lg:px-8 h-[72px] flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 h-[72px] flex items-center justify-between gap-2 sm:gap-4">
         {/* Brand */}
         <a
           href="#hero"
@@ -68,12 +68,12 @@ export default function TeachNav({ activeSection }: TeachNavProps) {
           }}
           className="flex items-center gap-2 sm:gap-3 min-w-0 group"
         >
-          <div className="w-9 h-9 shrink-0">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 shrink-0">
             <MathMark className="w-full h-full transition-transform duration-500 group-hover:rotate-90" />
           </div>
           <div className="leading-none min-w-0">
             <div
-              className="font-bold text-[0.95rem] sm:text-[1.05rem] tracking-tight whitespace-nowrap bg-gradient-to-br from-cyan-400 to-[var(--t-ink)] bg-clip-text text-transparent"
+              className="font-bold text-[0.8rem] min-[400px]:text-[0.95rem] sm:text-[1.05rem] tracking-tight whitespace-nowrap bg-gradient-to-br from-cyan-400 to-[var(--t-ink)] bg-clip-text text-transparent"
               style={{ fontFamily: 'var(--teach-font-display)' }}
             >
               {isRtl ? BRAND.wordmarkAr : BRAND.wordmark}
@@ -110,7 +110,7 @@ export default function TeachNav({ activeSection }: TeachNavProps) {
         </ul>
 
         {/* Controls */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <div className="flex items-center gap-1 sm:gap-2.5 shrink-0">
           <SearchPalette />
           <AppearanceMenu />
 
@@ -157,7 +157,7 @@ export default function TeachNav({ activeSection }: TeachNavProps) {
           {/* Mobile menu toggle */}
           <button
             onClick={() => setMenuOpen((v) => !v)}
-            className="lg:hidden p-2 rounded-lg text-cyan-300 hover:bg-white/10 transition-colors cursor-pointer bg-transparent border border-[color-mix(in_srgb,var(--t-accent)_25%,transparent)]"
+            className="lg:hidden p-1.5 sm:p-2 rounded-lg text-cyan-300 hover:bg-white/10 transition-colors cursor-pointer bg-transparent border border-[color-mix(in_srgb,var(--t-accent)_25%,transparent)]"
             aria-label={t('nav.menu')}
             aria-expanded={menuOpen}
           >
