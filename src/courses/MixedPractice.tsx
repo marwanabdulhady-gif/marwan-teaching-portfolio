@@ -45,12 +45,14 @@ type Mode = 'mixed' | 'review';
 
 interface MixedPracticeProps {
   onOpenLesson: (key: LessonKey) => void;
+  /** Controlled by the study snapshot, so “review them” can open the queue. */
+  mode: Mode;
+  onModeChange: (mode: Mode) => void;
 }
 
-export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
+export default function MixedPractice({ onOpenLesson, mode, onModeChange }: MixedPracticeProps) {
   const { isRtl, locale } = useLocale();
   const progress = useProgress();
-  const [mode, setMode] = useState<Mode>('mixed');
   const [bank, setBank] = useState<Record<string, Question> | null>(null);
   const [error, setError] = useState(false);
   const [round, setRound] = useState(0);
@@ -163,7 +165,7 @@ export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
 
   const changeMode = (next: Mode) => {
     if (next === mode) return;
-    setMode(next);
+    onModeChange(next);
     setIndex(0);
     setSelected(null);
     setChecked(false);
@@ -174,7 +176,7 @@ export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
 
   /** The card frame, so the section is identifiable before the bank arrives. */
   const shell = (body: ReactNode) => (
-    <div className="teach-card p-4 sm:p-5">
+    <div id="mixed-practice" className="teach-card scroll-mt-24 p-4 sm:p-5">
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
         <div className="inline-flex gap-1 rounded-full border border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)] p-0.5" role="group" aria-label={pick(strings.eyebrow, isRtl)}>
           {(

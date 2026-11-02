@@ -72,6 +72,22 @@ their checks are data-level plus the panel checks above:
 3. Clicking a card opens the same lesson panel as the map node.
 4. The choice of view survives a reload (`localStorage['marwan:courses:view']`).
 
+## Practice
+
+1. **Mixed** (default): four questions from four different courses; the lessons
+   already opened are sampled first.
+2. **My mistakes**: a queue of every question answered wrong, with the count on
+   the tab. Answering correctly clears it; the card says so when the queue is
+   empty.
+3. The study snapshot above the map reports lessons opened, labs used, accuracy,
+   and a **Review them** button that switches the practice card to the queue.
+
+## Bilingual
+
+`npm run qa:data` checks all 222 `en`/`ar` pairs in the authored courses and the
+GMAT content: an empty Arabic string, or Arabic left as English, fails the
+script. UI strings are not covered by that check.
+
 ## Status
 
 - `npm run lint`, `npm run build`, `npm run qa:data` and `npm run qa:render`:

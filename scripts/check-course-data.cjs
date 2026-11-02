@@ -109,6 +109,26 @@ for (const block of academyBlocks) {
 }
 if (academyLessons.length === 0) note('academyData: no lessons found');
 
+// ------------------------------------------------------ bilingual coverage
+// A missing Arabic string silently falls back to English in the UI, which looks
+// like a half-translated page. Catch it in the data instead.
+const bilingualFiles = [
+  'src/courses/data/authored.algebra1.ts',
+  'src/courses/data/authored.algebra2.ts',
+  'src/courses/data/authored.geometry.ts',
+  'src/courses/gmatContent.ts',
+];
+let pairs = 0;
+for (const file of bilingualFiles) {
+  const source = read(file);
+  for (const match of source.matchAll(/en: '([^']*)', ar: '([^']*)'/g)) {
+    pairs += 1;
+    const [, en, ar] = match;
+    if (!ar.trim()) note(`${file}: empty Arabic for “${en}”`);
+    else if (ar === en && /[a-z]{3}/i.test(en)) note(`${file}: Arabic left as English for “${en}”`);
+  }
+}
+
 // -------------------------------------------------------------- explorers
 const registryFiles = fs
   .readdirSync(path.join(root, 'src/courses/explorers'))
@@ -169,3 +189,4 @@ if (uncovered.length) {
   process.exit(1);
 }
 console.log('  coverage — every authored lesson and GMAT topic has a lab');
+console.log(`  bilingual — ${pairs} en/ar pairs checked`);

@@ -40,7 +40,9 @@ so nothing depends on `public/academy/**`.
   question count lives; the practice card and the completion score both read it.
 - Mixed practice (`src/courses/MixedPractice.tsx`) pulls four questions from four
   *different* courses — lessons already opened first, so interleaving stays
-  relevant rather than random.
+  relevant rather than random. It has a second mode, **My mistakes**, built from
+  the questions recorded as wrong across every lesson; the mode is owned by
+  `CoursesExperience` so the study snapshot (`StudySnapshot.tsx`) can open it.
 
 ## Explorer catalogue — authored courses
 

@@ -16,6 +16,7 @@ import ExplorerGallery from './ExplorerGallery';
 import GmatGrid from './GmatGrid';
 import LessonPanel from './LessonPanel';
 import MixedPractice from './MixedPractice';
+import StudySnapshot from './StudySnapshot';
 import { COURSES, LESSONS, isCourseId, type CourseId, type LessonKey } from './courseGraph';
 import { OPEN_LESSON_EVENT, takePendingLesson } from './openLesson';
 import { pick } from './viz/controls';
@@ -66,6 +67,7 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
       return 'map';
     }
   });
+  const [practiceMode, setPracticeMode] = useState<'mixed' | 'review'>('mixed');
   const pushedRef = useRef(false);
 
   /** Write course/lesson/view to the URL without reloading. */
@@ -148,6 +150,14 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
   return (
     <div className="space-y-5 text-start">
       {view === 'map' && <ContinueStrip onOpen={openLesson} />}
+      {view === 'map' && (
+        <StudySnapshot
+          onReview={() => {
+            setPracticeMode('review');
+            document.getElementById('mixed-practice')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }}
+        />
+      )}
 
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div className="lg:flex-1">
@@ -213,7 +223,7 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
             <p className="teach-eyebrow mb-4 !text-[0.6rem]">{pick(strings.mapTitle, isRtl)}</p>
             <CourseMap course={course} currentKey={openKey} onOpen={openLesson} />
           </div>
-          <MixedPractice onOpenLesson={openLesson} />
+          <MixedPractice onOpenLesson={openLesson} mode={practiceMode} onModeChange={setPracticeMode} />
         </>
       )}
 
