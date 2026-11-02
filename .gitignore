@@ -13,3 +13,4 @@ qa/
 # QA scratch dirs (scripts/render-check.cjs, scripts/check-practice.cjs)
 .render-check/
 .qa-practice/
+.qa-progress/

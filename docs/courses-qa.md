@@ -99,8 +99,8 @@ script). UI strings outside `src/courses` are not covered.
 
 ## Status
 
-- `npm run lint`, `npm run build`, `npm run qa:data`, `npm run qa:practice` and
-  `npm run qa:render`: passing. The last one renders all 111 labs and the course map server-side, so a
+- `npm run lint`, `npm run build`, `npm run qa:data`, `npm run qa:progress`,
+  `npm run qa:practice` and `npm run qa:render`: passing. The last one renders all 111 labs and the course map server-side, so a
   lab that throws — or draws outside its plot — is caught without a browser.
 - Every explorer chunk is 1.3–2.3 KB gzip (budget was 15 KB).
 - **Not yet run:** `scripts/qa-courses.cjs` — no browser is available in the build
@@ -137,6 +137,21 @@ range inputs, so their own value announcements are unchanged.
 node -e "const {offPlot}=require('./scripts/plot-bounds.cjs');
   console.log(offPlot('<svg viewBox=\"0 0 400 125\"><circle cx=\"200\" cy=\"250\" r=\"6\"/></svg>'));"
 ```
+
+### Progress store (`npm run qa:progress`)
+
+`src/courses/progress.ts` drives every ring on the map, so it is checked in six
+fresh Node processes (the store reads `localStorage` once at import, so a new
+process is what a reload looks like):
+
+| scenario | what it proves |
+| --- | --- |
+| `basic` | open 20 → lab 20 → 20 per right answer → 100; wrong answers earn nothing; mastery outranks “done”; reset clears lessons and the GMAT ring and writes the empty state |
+| `blocked` | a browser that throws on storage (private mode) still tracks the session |
+| `seeded` | a reload lands on the same ring (opened + lab + one right answer) |
+| `legacy-seeded` | old sampler mastery migrates onto its lesson, legacy key untouched |
+| `corrupt` | an unreadable payload starts clean and then records normally |
+| `second-tab` | a `storage` event replaces the state, unrelated keys are ignored, unsubscribe stops it |
 
 ### Practice queue (`npm run qa:practice`)
 

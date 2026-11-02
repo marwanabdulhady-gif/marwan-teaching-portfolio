@@ -116,7 +116,8 @@ function commit(next: ProgressV1) {
   emit();
 }
 
-function subscribe(listener: () => void) {
+/** Register a change listener. Used by `useProgress` and by the QA script. */
+export function subscribeToProgress(listener: () => void) {
   listeners.add(listener);
   const onStorage = (event: StorageEvent) => {
     if (event.key === PROGRESS_KEY) {
@@ -214,7 +215,7 @@ const api = {
 export type ProgressApi = typeof api;
 
 export function useProgress(): ProgressApi & { state: ProgressV1 } {
-  useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+  useSyncExternalStore(subscribeToProgress, getSnapshot, getSnapshot);
   return api as ProgressApi & { state: ProgressV1 };
 }
 

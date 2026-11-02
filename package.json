@@ -10,7 +10,8 @@
     "lint": "tsc --noEmit",
     "qa:data": "node scripts/check-course-data.cjs",
     "qa:render": "node scripts/render-check.cjs",
-    "qa:practice": "node scripts/check-practice.cjs"
+    "qa:practice": "node scripts/check-practice.cjs",
+    "qa:progress": "node scripts/check-progress.cjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",
