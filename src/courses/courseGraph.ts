@@ -21,7 +21,7 @@ import { GEOMETRY } from './data/authored.geometry';
 import type { AuthoredCourse } from './data/authored.algebra1';
 import { EXPLORER_KEYS as EXPLORER_LESSON_KEYS } from './explorers';
 import { GMAT_TOPICS } from './gmatTopics';
-import { GMAT_CONTENT } from './gmatContent';
+import { GMAT_CONTENT, GMAT_QUESTIONS_PER_TOPIC } from './gmatContent';
 
 export type CourseId = 'algebra1' | 'algebra2' | 'geometry' | 'precalculus' | 'calculus' | 'gmat';
 export type CourseSlug = 'grade-12-calculus' | 'grade-11-precalculus' | string;
@@ -228,9 +228,9 @@ addAuthored(GEOMETRY);
 /* ------------------------------------------------------------------ GMAT */
 /**
  * GMAT topics are lessons too: they have a page (the iframe lesson), a lab, and
- * the two ideas the lab teaches. They carry no question set of their own — the
- * practice lives inside the page — so `questionIds` stays empty and the panel
- * shows the “practice is in the full lesson” note instead of a quiz.
+ * the two ideas the lab teaches, and two practice questions of their own. Their
+ * `href` still opens the original iframe lesson, which is where the long-form
+ * practice lives.
  */
 function addGmat() {
   const groups: { id: string; title: Bi; topics: typeof GMAT_TOPICS }[] = [
@@ -266,7 +266,10 @@ function addGmat() {
         order: order++,
         href: topic.href,
         hasPage: true,
-        questionIds: [],
+        questionIds: Array.from(
+          { length: GMAT_QUESTIONS_PER_TOPIC },
+          (_, index) => `gmat/${topic.slug}::q${index + 1}`,
+        ),
         hasExplorer: EXPLORER_KEYS.has(key),
       };
       keys.push(key);

@@ -62,6 +62,9 @@ their checks are data-level plus the panel checks above:
    full lesson”, then **Open full lesson** loads the iframe.
 3. The “Page ▸” link on a tile skips the panel and opens the iframe directly.
 4. Arabic: tiles show the Arabic title, search matches both languages.
+5. `npm run qa:data` confirms 2 questions for each of the 38 topics, each with
+   four options (five for Data Sufficiency), an in-range answer, a hint and an
+   explanation; mixed practice now draws GMAT questions too.
 
 ## Labs gallery
 

@@ -82,6 +82,7 @@ if (gmatSlugs.length !== 38) note(`gmatTopics: expected 38 topics, found ${gmatS
 for (const slug of gmatSlugs) allLessons.push(`gmat/${slug}`);
 
 const gmatContent = read('src/courses/gmatContent.ts');
+const gmatQuestionCount = new Map();
 // Keys appear both quoted ('absolute-value') and bare (averages, quadratics).
 const contentSlugs = [...gmatContent.matchAll(/^ {2}'?([a-z0-9-]+)'?: \{\n?\s*lab:/gm)].map((match) => match[1]);
 for (const slug of gmatSlugs) {
@@ -89,6 +90,37 @@ for (const slug of gmatSlugs) {
 }
 for (const slug of contentSlugs) {
   if (!gmatSlugs.includes(slug)) note(`gmatContent: unknown topic ${slug}`);
+}
+
+// ------------------------------------------------------- GMAT question bank
+for (const file of ['src/courses/data/gmatQuestions.quant.ts', 'src/courses/data/gmatQuestions.di.ts']) {
+  const source = read(file);
+  // `item(slug, n, question, options, correctIndex, hint, explanation)` — options
+  // are either an inline array or the shared DS_OPTIONS list.
+  const itemPattern =
+    /item\('([a-z0-9-]+)', (\d), '((?:[^'\\]|\\.)*)', (\[[\s\S]*?\]|DS_OPTIONS), (\d), '((?:[^'\\]|\\.)*)', '((?:[^'\\]|\\.)*)'\)/g;
+  for (const match of source.matchAll(itemPattern)) {
+    const [, slug, n, question, optionsBlock, correctIndex, hint, explanation] = match;
+    const where = `${file} ${slug}::q${n}`;
+    if (!gmatSlugs.includes(slug)) note(`${where}: unknown topic`);
+    const optionCount = optionsBlock === 'DS_OPTIONS' ? 5 : (optionsBlock.match(/'(?:[^'\\]|\\.)*'/g) ?? []).length;
+    if (optionsBlock !== 'DS_OPTIONS' && optionCount !== 4) note(`${where}: ${optionCount} options, expected 4`);
+    if (Number(correctIndex) >= optionCount) note(`${where}: correctIndex ${correctIndex} is out of range`);
+    if (optionsBlock !== 'DS_OPTIONS') {
+      const options = optionsBlock.match(/'(?:[^'\\]|\\.)*'/g) ?? [];
+      if (new Set(options).size !== options.length) note(`${where}: duplicate option text`);
+    }
+    if (!question.trim()) note(`${where}: empty question`);
+    if (!hint.trim() || !explanation.trim()) note(`${where}: missing hint or explanation`);
+    gmatQuestionCount.set(slug, (gmatQuestionCount.get(slug) ?? 0) + 1);
+  }
+}
+
+const perTopic = Number((gmatContent.match(/GMAT_QUESTIONS_PER_TOPIC = (\d+)/) ?? [])[1] ?? 0);
+if (perTopic < 2) note(`gmatContent: GMAT_QUESTIONS_PER_TOPIC should be at least 2, found ${perTopic}`);
+for (const slug of gmatSlugs) {
+  const count = gmatQuestionCount.get(slug) ?? 0;
+  if (count !== perTopic) note(`gmat/${slug}: ${count} practice questions, expected ${perTopic}`);
 }
 
 // ------------------------------------------------- academy (iframe) lessons
@@ -172,7 +204,8 @@ const totals = [...lessonsOf.entries()].map(([slug, ids]) => `${slug}: ${ids.len
 console.log('✓ course data is consistent');
 console.log(`  lessons — ${totals} (${allLessons.length} total)`);
 console.log(`  questions — ${questionIds.length} (${perLesson} per lesson)`);
-console.log(`  gmat — ${gmatSlugs.length} topics, all with content`);
+const gmatQuestions = [...gmatQuestionCount.values()].reduce((total, count) => total + count, 0);
+console.log(`  gmat — ${gmatSlugs.length} topics, all with content and ${gmatQuestions} practice questions`);
 console.log(`  academy — ${academyKeys.length} static lessons`);
 console.log(`  explorers — ${registered.size} keys across ${registryFiles.length} registries`);
 

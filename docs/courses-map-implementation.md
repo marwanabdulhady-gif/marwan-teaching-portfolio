@@ -69,9 +69,11 @@ proper lesson set too:
 
 - Each of the 38 topics is a `LessonNode` (`gmat/<slug>`, course `gmat`), with
   a code (`Q1`…`Q24`, `D1`…`D14`), a bilingual title (Arabic added in
-  `gmatTopics.ts`), its iframe `href`, two key ideas from `gmatContent.ts` and a
-  lab. `questionIds` stays empty — practice lives inside the page — so the panel
-  offers “Open the lesson to practise” instead of an empty quiz.
+  `gmatTopics.ts`), its iframe `href`, two key ideas from `gmatContent.ts`, a lab
+  and two practice questions of its own (`data/gmatQuestions.*.ts`, 76 items in
+  a lazy 7 KB gz chunk). `GMAT_QUESTIONS_PER_TOPIC` in `gmatContent.ts` is the
+  single number `courseGraph` uses to build the ids, so the bank stays out of the
+  main bundle; `npm run qa:data` fails if the two drift apart.
 - Ten new labs built for the exam patterns: `PercentLab` (percent, fractions,
   mixtures), `RateLab` (work and motion), `SetsLab` (Venn + probability),
   `NumberLineLab` (distance, integers, parity), `RemainderLab` (remainders and

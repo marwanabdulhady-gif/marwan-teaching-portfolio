@@ -20,9 +20,9 @@ const normalise = (data: Bank | Question[]): Bank =>
   Array.isArray(data) ? Object.fromEntries(data.map((question) => [question.id, question])) : data;
 
 /**
- * Load every question: the academy bank (static file) plus the authored
- * courses (their own chunk). If the network fails the authored set still
- * works, so practice never turns into an error screen.
+ * Load every question: the academy bank (static file), the authored courses and
+ * the GMAT bank (each its own chunk). If the network fails the two local sets
+ * still work, so practice never turns into an error screen.
  */
 export function loadQuestions(): Promise<Bank> {
   if (!pending) {
@@ -31,7 +31,12 @@ export function loadQuestions(): Promise<Bank> {
       .then(normalise)
       .catch(() => ({}) as Bank);
     const authored = import('./data/authoredQuestions').then((module) => module.AUTHORED_BANK);
-    pending = Promise.all([remote, authored]).then(([bank, extra]) => ({ ...bank, ...extra }));
+    const gmat = import('./data/gmatQuestions').then((module) => module.GMAT_BANK);
+    pending = Promise.all([remote, authored, gmat]).then(([bank, extra, exam]) => ({
+      ...bank,
+      ...extra,
+      ...exam,
+    }));
   }
   return pending;
 }

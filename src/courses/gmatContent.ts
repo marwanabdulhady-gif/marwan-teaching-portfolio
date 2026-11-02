@@ -577,3 +577,12 @@ export const GMAT_CONTENT: Record<string, GmatTopicContent> = {
 
 /** Topics that have a lab, in syllabus order (all 38). */
 export const GMAT_LAB_COUNT = Object.keys(GMAT_CONTENT).length;
+
+/**
+ * Practice questions per GMAT topic. `courseGraph` builds each lesson's ids from
+ * this number, so it must stay in step with the bank in
+ * `data/gmatQuestions.{quant,di}.ts` — `npm run qa:data` checks that it does.
+ * Kept here (and not imported from the bank) so the bank stays in its own lazy
+ * chunk instead of the main bundle.
+ */
+export const GMAT_QUESTIONS_PER_TOPIC = 2;
