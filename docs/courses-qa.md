@@ -99,8 +99,8 @@ script). UI strings outside `src/courses` are not covered.
 
 ## Status
 
-- `npm run lint`, `npm run build`, `npm run qa:data` and `npm run qa:render`:
-  passing. The last one renders all 111 labs and the course map server-side, so a
+- `npm run lint`, `npm run build`, `npm run qa:data`, `npm run qa:practice` and
+  `npm run qa:render`: passing. The last one renders all 111 labs and the course map server-side, so a
   lab that throws — or draws outside its plot — is caught without a browser.
 - Every explorer chunk is 1.3–2.3 KB gzip (budget was 15 KB).
 - **Not yet run:** `scripts/qa-courses.cjs` — no browser is available in the build
@@ -137,6 +137,21 @@ range inputs, so their own value announcements are unchanged.
 node -e "const {offPlot}=require('./scripts/plot-bounds.cjs');
   console.log(offPlot('<svg viewBox=\"0 0 400 125\"><circle cx=\"200\" cy=\"250\" r=\"6\"/></svg>'));"
 ```
+
+### Practice queue (`npm run qa:practice`)
+
+`pickPracticeQuestions` (in `src/courses/practiceQueue.ts`) decides what the
+practice card shows, and its promises break quietly — a set that drifts to one
+course, a review queue holding a question the bank no longer has, a “New set”
+button that redraws the same four. The logic is pure, so the script bundles it
+with esbuild and runs it against the real lesson graph (388 questions, 111
+lessons):
+
+- mixed: four questions, four different courses, four different lessons;
+- mixed with opened lessons: stays inside them;
+- review: empty with no misses, capped at four, dedupes, ignores right answers,
+  unknown lessons and ids the bank dropped;
+- a new round changes the lead question; an empty bank returns an empty set.
 
 ### URL contract (`npm run qa:render`)
 

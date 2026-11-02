@@ -13,6 +13,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useLocale } from '../LocaleContext';
 import { COURSES, LESSONS, QUESTION_OWNER, type LessonKey } from './courseGraph';
 import { useProgress } from './progress';
+import { PRACTICE_SET_SIZE, pickPracticeQuestions, missedQuestionIds } from './practiceQueue';
 import { loadQuestions, mathRuns, type Question } from './questions';
 import { pick } from './viz/controls';
 
@@ -39,7 +40,7 @@ const strings = {
   queued: { en: 'in the queue', ar: 'في القائمة' },
 };
 
-const SET_SIZE = 4;
+const SET_SIZE = PRACTICE_SET_SIZE;
 
 type Mode = 'mixed' | 'review';
 
@@ -72,59 +73,15 @@ export default function MixedPractice({ onOpenLesson, mode, onModeChange }: Mixe
     };
   }, []);
 
-  /** Every question this learner got wrong, with the lesson it belongs to. */
-  const missedIds = useMemo(() => {
-    const ids: string[] = [];
-    for (const [key, entry] of Object.entries(progress.state.lessons)) {
-      if (!LESSONS[key]) continue;
-      for (const [id, verdict] of Object.entries(entry?.checks ?? {})) {
-        if (verdict === 'wrong') ids.push(id);
-      }
-    }
-    return ids;
-  }, [progress.state.lessons]);
+  const questions = useMemo(
+    () =>
+      bank
+        ? pickPracticeQuestions({ bank, lessons: progress.state.lessons, round, mode })
+        : ([] as Question[]),
+    [bank, progress.state.lessons, round, mode],
+  );
 
-  const questions = useMemo(() => {
-    if (!bank) return [] as Question[];
-
-    if (mode === 'review') {
-      // Shuffle the queue so the same pair never leads twice in a row.
-      return [...missedIds]
-        .filter((id, position) => bank[id] && missedIds.indexOf(id) === position)
-        .sort((a, b) => ((a.charCodeAt(0) * 31 + round) % 97) - ((b.charCodeAt(0) * 31 + round) % 97))
-        .slice(0, SET_SIZE)
-        .map((id) => bank[id]);
-    }
-
-    const opened = Object.keys(progress.state.lessons).filter((key) => LESSONS[key]);
-    // Warm up on lessons already visited; otherwise sample the whole map.
-    const pool = (opened.length ? opened : Object.keys(LESSONS)).flatMap((key) =>
-      LESSONS[key].questionIds.filter((id) => bank[id]).map((id) => ({ key, id })),
-    );
-    if (!pool.length) return [];
-    // Deterministic shuffle so the set is stable across re-renders, fresh per round.
-    const ordered = [...pool]
-      .map((item, position) => ({ item, sort: ((position + 1) * 2654435761 + round * 40503) % 104729 }))
-      .sort((a, b) => a.sort - b.sort)
-      .map((entry) => entry.item);
-    const chosen = new Map<string, Question>();
-    const lessons = new Set<string>();
-    const courses = new Set<string>();
-    // Pass 1: a different course per question. Pass 2: relax that, keep lessons distinct.
-    for (const strict of [true, false]) {
-      for (const candidate of ordered) {
-        if (chosen.size >= SET_SIZE) break;
-        const { course } = LESSONS[candidate.key];
-        if (lessons.has(candidate.key) || chosen.has(candidate.id)) continue;
-        if (strict && courses.has(course)) continue;
-        lessons.add(candidate.key);
-        courses.add(course);
-        chosen.set(candidate.id, bank[candidate.id]);
-      }
-      if (chosen.size >= SET_SIZE) break;
-    }
-    return [...chosen.values()];
-  }, [bank, progress.state.lessons, round, mode, missedIds]);
+  const missedCount = useMemo(() => missedQuestionIds(progress.state.lessons).length, [progress.state.lessons]);
 
   const question = questions[index];
   const owner = question ? QUESTION_OWNER[question.id] : undefined;
@@ -161,7 +118,7 @@ export default function MixedPractice({ onOpenLesson, mode, onModeChange }: Mixe
     setRound((current) => current + 1);
   };
 
-  const reviewCount = missedIds.length;
+  const reviewCount = missedCount;
 
   const changeMode = (next: Mode) => {
     if (next === mode) return;

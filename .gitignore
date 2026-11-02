@@ -10,5 +10,6 @@ coverage/
 # local QA screenshots
 qa/
 
-# render-check scratch dir (scripts/render-check.cjs)
+# QA scratch dirs (scripts/render-check.cjs, scripts/check-practice.cjs)
 .render-check/
+.qa-practice/
