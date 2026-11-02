@@ -15,11 +15,13 @@ export type PracticeMode = 'mixed' | 'review';
 /** Four is the point where a card still feels like one sitting. */
 export const PRACTICE_SET_SIZE = 4;
 
-/** Every question the learner has got wrong, in no particular order. */
-export function missedQuestionIds(lessons: ProgressV1['lessons']): string[] {
+/** Every question the learner has got wrong, optionally within one course. */
+export function missedQuestionIds(lessons: ProgressV1['lessons'], course?: string): string[] {
   const ids: string[] = [];
   for (const [key, entry] of Object.entries(lessons)) {
-    if (!LESSONS[key as LessonKey]) continue;
+    const lesson = LESSONS[key as LessonKey];
+    if (!lesson) continue;
+    if (course && lesson.course !== course) continue;
     for (const [id, verdict] of Object.entries(entry?.checks ?? {})) {
       if (verdict === 'wrong') ids.push(id);
     }
@@ -39,11 +41,13 @@ export interface PracticeQueueArgs {
   round: number;
   mode: PracticeMode;
   size?: number;
+  /** Restrict the draw to one course (used by the per-course “practise” link). */
+  course?: string;
 }
 
-export function pickPracticeQuestions({ bank, lessons, round, mode, size = PRACTICE_SET_SIZE }: PracticeQueueArgs): Question[] {
+export function pickPracticeQuestions({ bank, lessons, round, mode, size = PRACTICE_SET_SIZE, course }: PracticeQueueArgs): Question[] {
   if (mode === 'review') {
-    const missed = missedQuestionIds(lessons);
+    const missed = missedQuestionIds(lessons, course);
     // Shuffle the queue so the same pair never leads twice in a row.
     return [...missed]
       .filter((id, position) => bank[id] && missed.indexOf(id) === position)
@@ -52,9 +56,10 @@ export function pickPracticeQuestions({ bank, lessons, round, mode, size = PRACT
       .map((id) => bank[id]);
   }
 
-  const opened = openedLessonKeys(lessons);
+  const inCourse = (key: LessonKey) => !course || LESSONS[key].course === course;
+  const opened = openedLessonKeys(lessons).filter(inCourse);
   // Warm up on lessons already visited; otherwise sample the whole map.
-  const pool = (opened.length ? opened : (Object.keys(LESSONS) as LessonKey[])).flatMap((key) =>
+  const pool = (opened.length ? opened : (Object.keys(LESSONS) as LessonKey[]).filter(inCourse)).flatMap((key) =>
     LESSONS[key].questionIds.filter((id) => bank[id]).map((id) => ({ key, id })),
   );
   if (!pool.length) return [];

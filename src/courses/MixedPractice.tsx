@@ -11,7 +11,7 @@
  */
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useLocale } from '../LocaleContext';
-import { COURSES, LESSONS, QUESTION_OWNER, type LessonKey } from './courseGraph';
+import { COURSES, LESSONS, QUESTION_OWNER, type CourseId, type LessonKey } from './courseGraph';
 import { useProgress } from './progress';
 import { PRACTICE_SET_SIZE, pickPracticeQuestions, missedQuestionIds } from './practiceQueue';
 import { loadQuestions, mathRuns, type Question } from './questions';
@@ -49,9 +49,12 @@ interface MixedPracticeProps {
   /** Controlled by the study snapshot, so “review them” can open the queue. */
   mode: Mode;
   onModeChange: (mode: Mode) => void;
+  /** Set by “Practise this course” on the map; null means the whole map. */
+  course?: CourseId | null;
+  onClearCourse?: () => void;
 }
 
-export default function MixedPractice({ onOpenLesson, mode, onModeChange }: MixedPracticeProps) {
+export default function MixedPractice({ onOpenLesson, mode, onModeChange, course = null, onClearCourse }: MixedPracticeProps) {
   const { isRtl, locale } = useLocale();
   const progress = useProgress();
   const [bank, setBank] = useState<Record<string, Question> | null>(null);
@@ -76,17 +79,21 @@ export default function MixedPractice({ onOpenLesson, mode, onModeChange }: Mixe
   const questions = useMemo(
     () =>
       bank
-        ? pickPracticeQuestions({ bank, lessons: progress.state.lessons, round, mode })
+        ? pickPracticeQuestions({ bank, lessons: progress.state.lessons, round, mode, course: course ?? undefined })
         : ([] as Question[]),
-    [bank, progress.state.lessons, round, mode],
+    [bank, progress.state.lessons, round, mode, course],
   );
 
-  const missedCount = useMemo(() => missedQuestionIds(progress.state.lessons).length, [progress.state.lessons]);
+  const missedCount = useMemo(
+    () => missedQuestionIds(progress.state.lessons, course ?? undefined).length,
+    [progress.state.lessons, course],
+  );
 
   const question = questions[index];
   const owner = question ? QUESTION_OWNER[question.id] : undefined;
   const ownerLesson = owner ? LESSONS[owner] : undefined;
-  const courseTitle = ownerLesson ? COURSES.find((course) => course.id === ownerLesson.course)?.short : undefined;
+  const courseTitle = ownerLesson ? COURSES.find((item) => item.id === ownerLesson.course)?.short : undefined;
+  const filterTitle = course ? COURSES.find((item) => item.id === course)?.short : undefined;
   const finished = questions.length > 0 && index >= questions.length;
 
   const answer = (option: number) => {
@@ -184,8 +191,23 @@ export default function MixedPractice({ onOpenLesson, mode, onModeChange }: Mixe
           </span>
         )}
       </div>
-      <p className="mb-2 text-[0.72rem] text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]">
-        {pick(mode === 'review' ? strings.reviewTitle : strings.title, isRtl)}
+      <p className="mb-2 flex flex-wrap items-center gap-2 text-[0.72rem] text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]">
+        <span>{pick(mode === 'review' ? strings.reviewTitle : strings.title, isRtl)}</span>
+        {filterTitle && (
+          <span className="inline-flex items-center gap-1 rounded-full border border-[color-mix(in_srgb,var(--t-accent)_40%,transparent)] px-2 py-0.5 font-bold text-[var(--t-accent-deep)]">
+            {filterTitle[locale]}
+            {onClearCourse && (
+              <button
+                type="button"
+                onClick={onClearCourse}
+                aria-label={isRtl ? 'أزل تصفية الدورة' : 'Clear the course filter'}
+                className="cursor-pointer border-0 bg-transparent p-0 text-[0.7rem] leading-none"
+              >
+                ×
+              </button>
+            )}
+          </span>
+        )}
       </p>
       {body}
     </div>

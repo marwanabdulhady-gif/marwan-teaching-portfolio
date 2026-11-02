@@ -100,7 +100,7 @@ script). UI strings outside `src/courses` are not covered.
 ## Status
 
 - `npm run lint`, `npm run build`, `npm run qa:data`, `npm run qa:progress`,
-  `npm run qa:practice` and `npm run qa:render`: passing. The last one renders all 111 labs and the course map server-side, so a
+  `npm run qa:practice`, `npm run qa:search` and `npm run qa:render`: passing. The last one renders all 111 labs and the course map server-side, so a
   lab that throws — or draws outside its plot — is caught without a browser.
 - Every explorer chunk is 1.3–2.3 KB gzip (budget was 15 KB).
 - **Not yet run:** `scripts/qa-courses.cjs` — no browser is available in the build
@@ -153,6 +153,16 @@ process is what a reload looks like):
 | `corrupt` | an unreadable payload starts clean and then records normally |
 | `second-tab` | a `storage` event replaces the state, unrelated keys are ignored, unsubscribe stops it |
 
+### Search (`npm run qa:search`)
+
+The map's search box is the only way to reach a lesson whose lane you cannot
+find, so its ranking is pinned down against the real graph: a lesson number
+finds that lesson (codes repeat across courses, so the promise is “first, and
+only code matches lead”), a title word and a full title both find it, Arabic
+matches the Arabic title with alef variants and diacritics folded, Arabic-Indic
+digits work, one-letter queries return nothing, and the list is capped without
+repeats.
+
 ### Practice queue (`npm run qa:practice`)
 
 `pickPracticeQuestions` (in `src/courses/practiceQueue.ts`) decides what the
@@ -164,9 +174,17 @@ lessons):
 
 - mixed: four questions, four different courses, four different lessons;
 - mixed with opened lessons: stays inside them;
+- the per-course filter (`Practise this course` on the map) narrows both modes;
 - review: empty with no misses, capped at four, dedupes, ignores right answers,
   unknown lessons and ids the bank dropped;
 - a new round changes the lead question; an empty bank returns an empty set.
+
+### Manual checks for the map
+
+- **Practise this course** (above the map legend) filters the practice card to
+  that course and scrolls to it; the chip beside the card title clears it.
+- The search box opens the panel from the keyboard: ↑/↓ move, Enter opens, Esc
+  clears.
 
 ### URL contract (`npm run qa:render`)
 

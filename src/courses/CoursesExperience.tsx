@@ -17,6 +17,7 @@ import GmatGrid from './GmatGrid';
 import LessonPanel from './LessonPanel';
 import MixedPractice from './MixedPractice';
 import StudySnapshot from './StudySnapshot';
+import LessonSearch from './LessonSearch';
 import { COURSES, LESSONS, isCourseId, type CourseId, type LessonKey } from './courseGraph';
 import { OPEN_LESSON_EVENT, takePendingLesson } from './openLesson';
 import { pick } from './viz/controls';
@@ -68,6 +69,8 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
     }
   });
   const [practiceMode, setPracticeMode] = useState<'mixed' | 'review'>('mixed');
+  /** Set by “Practise this course”; null means practice across the whole map. */
+  const [practiceCourse, setPracticeCourse] = useState<CourseId | null>(null);
   const pushedRef = useRef(false);
 
   /** Write course/lesson/view to the URL without reloading. */
@@ -159,6 +162,12 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
         />
       )}
 
+      {view === 'map' && (
+        <div className="max-w-2xl">
+          <LessonSearch onOpen={openLesson} />
+        </div>
+      )}
+
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div className="lg:flex-1">
           <CourseSwitcher value={course} onChange={changeCourse} />
@@ -221,9 +230,24 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
         <>
           <div className="teach-card p-4 sm:p-6">
             <p className="teach-eyebrow mb-4 !text-[0.6rem]">{pick(strings.mapTitle, isRtl)}</p>
-            <CourseMap course={course} currentKey={openKey} onOpen={openLesson} />
+            <CourseMap
+              course={course}
+              currentKey={openKey}
+              onOpen={openLesson}
+              onPractise={() => {
+                setPracticeCourse(course);
+                setPracticeMode('mixed');
+                document.getElementById('mixed-practice')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }}
+            />
           </div>
-          <MixedPractice onOpenLesson={openLesson} mode={practiceMode} onModeChange={setPracticeMode} />
+          <MixedPractice
+            onOpenLesson={openLesson}
+            mode={practiceMode}
+            onModeChange={setPracticeMode}
+            course={practiceCourse}
+            onClearCourse={() => setPracticeCourse(null)}
+          />
         </>
       )}
 

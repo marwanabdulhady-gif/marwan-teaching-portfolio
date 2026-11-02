@@ -26,15 +26,18 @@ const strings = {
   lab: { en: 'Hands-on lab', ar: 'مختبر تفاعلي' },
   doneCount: { en: 'done', ar: 'مكتمل' },
   mapLabel: { en: 'Course map', ar: 'خريطة الدورة' },
+  practise: { en: 'Practise this course', ar: 'تدرّب على هذه الدورة' },
 };
 
 interface CourseMapProps {
   course: Exclude<CourseId, 'gmat'>;
   currentKey: LessonKey | null;
   onOpen: (key: LessonKey) => void;
+  /** Hands the practice card a course filter and scrolls to it. */
+  onPractise: () => void;
 }
 
-export default function CourseMap({ course, currentKey, onOpen }: CourseMapProps) {
+export default function CourseMap({ course, currentKey, onOpen, onPractise }: CourseMapProps) {
   const { isRtl } = useLocale();
   const progress = useProgress();
   const wide = useIsWide();
@@ -112,13 +115,22 @@ export default function CourseMap({ course, currentKey, onOpen }: CourseMapProps
             {pick(strings.lab, isRtl)}
           </li>
         </ul>
-        <button
-          type="button"
-          onClick={onReset}
-          className="text-[0.68rem] font-bold uppercase tracking-wider text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)] hover:text-[var(--t-accent-deep)] cursor-pointer bg-transparent border-0 underline underline-offset-4"
-        >
-          {pick(strings.reset, isRtl)}
-        </button>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={onPractise}
+            className="rounded-full border border-[color-mix(in_srgb,var(--t-accent)_45%,transparent)] bg-[color-mix(in_srgb,var(--t-accent)_10%,transparent)] px-3 py-1 text-[0.68rem] font-bold text-[var(--t-accent-deep)] cursor-pointer hover:bg-[color-mix(in_srgb,var(--t-accent)_18%,transparent)]"
+          >
+            {pick(strings.practise, isRtl)}
+          </button>
+          <button
+            type="button"
+            onClick={onReset}
+            className="text-[0.68rem] font-bold uppercase tracking-wider text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)] hover:text-[var(--t-accent-deep)] cursor-pointer bg-transparent border-0 underline underline-offset-4"
+          >
+            {pick(strings.reset, isRtl)}
+          </button>
+        </div>
       </div>
 
       <div aria-label={pick(strings.mapLabel, isRtl)} className="space-y-6">

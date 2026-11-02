@@ -98,6 +98,7 @@ try {
     const label = course.short.en;
     if (!map.includes(label)) failures.push('map is missing ' + label);
   }
+  if (!map.includes('Search lessons, numbers or ideas')) failures.push('map is missing the lesson search');
   for (const label of ['Mixed practice', 'Hands-on lab', 'Not started', 'Labs', 'My mistakes']) {
     if (!map.includes(label)) failures.push('map is missing "' + label + '"');
   }

@@ -105,7 +105,26 @@ for (let round = 0; round < 6; round += 1) {
 }
 check('mixed: a new round changes the lead question', firsts.size > 1, [...firsts].join(', '));
 
-// 7. An empty bank never throws.
+// 7. The per-course filter narrows both modes.
+const gmatCourse = pickPracticeQuestions({ bank, lessons: empty, round: 0, mode: 'mixed', course: 'gmat' });
+check('course filter: size', gmatCourse.length === PRACTICE_SET_SIZE, gmatCourse.length);
+check(
+  'course filter: only that course',
+  gmatCourse.every((q) => LESSONS[owner[q.id]].course === 'gmat'),
+  gmatCourse.map((q) => LESSONS[owner[q.id]].course).join(', '),
+);
+const missedSomewhere = pickPracticeQuestions({ bank, lessons: missed, round: 0, mode: 'review', course: 'gmat' });
+check(
+  'course filter: review too',
+  missedSomewhere.length === 0 || missedSomewhere.every((q) => LESSONS[owner[q.id]].course === 'gmat'),
+  missedSomewhere.map((q) => LESSONS[owner[q.id]].course).join(', '),
+);
+const missedInCourse = Object.fromEntries(
+  Object.entries(missed).filter(([key]) => LESSONS[key].course === 'gmat'),
+);
+check('course filter: review count matches', missedQuestionIds(missedInCourse, 'gmat').length === missedQuestionIds(missedInCourse).length);
+
+// 8. An empty bank never throws.
 check('empty bank: mixed', pickPracticeQuestions({ bank: {}, lessons: empty, round: 0, mode: 'mixed' }).length === 0);
 
 console.log(JSON.stringify({ total, lessons: Object.keys(LESSONS).length, failures }));
@@ -135,7 +154,7 @@ async function main() {
   } else {
     console.log('✓ practice queue behaves');
     console.log(`  bank — ${total} questions across ${lessons} lessons`);
-    console.log('  checked — set size, course spread, opened-lesson focus, review cap, dedupe, stale ids, redraw');
+    console.log('  checked — set size, course spread, opened-lesson focus, review cap, dedupe, stale ids, redraw, course filter');
   }
 }
 
