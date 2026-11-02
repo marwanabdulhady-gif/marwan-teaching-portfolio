@@ -1,0 +1,54 @@
+name: Checks
+
+# The browser-free QA in docs/courses-qa.md only protects anything if it runs on
+# every change. Each step is one command a person can run locally too.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Types
+        run: npm run lint
+
+      - name: Course data — bilingual pairs, lesson graph, labs
+        run: npm run qa:data
+
+      - name: Practice — question banks and the practice queue
+        run: npm run qa:practice
+
+      - name: Search
+        run: npm run qa:search
+
+      - name: Progress store
+        run: npm run qa:progress
+
+      - name: Theme contrast and colour tokens
+        run: npm run qa:theme
+
+      - name: Rendered markup — every lab, the map, the URL contract
+        run: npm run qa:render
+
+      - name: Bundle — first paint and lazy chunk ceilings
+        run: npm run qa:bundle

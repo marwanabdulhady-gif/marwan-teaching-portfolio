@@ -5,10 +5,16 @@ Run before merging anything that touches `src/courses/**`.
 ## Automated
 
 ```bash
-npm run lint && npm run build      # types + production build
+npm run qa                          # everything below, in one go (~15 s)
+npm run lint && npm run build       # types + production build
 npm run dev &
 BASE_URL=http://127.0.0.1:3000 node scripts/qa-courses.cjs   # needs Playwright, see the script header
 ```
+
+`npm run qa` runs the type check, the data/practice/search/progress/theme/render
+checks and the bundle budget; `.github/workflows/qa.yml` runs the same commands on
+every pull request, so a change that breaks one cannot be merged unnoticed. The
+`qa:*` scripts need no browser — Playwright is only used by the sweep below.
 
 The script sweeps 360×800, 768×1024 and 1440×900 in English and Arabic and checks:
 no console errors, no horizontal overflow, arrow-key movement between nodes,
