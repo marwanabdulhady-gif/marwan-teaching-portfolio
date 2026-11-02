@@ -16,20 +16,22 @@ type Bank = Record<string, Question>;
 
 let pending: Promise<Bank> | null = null;
 
+const normalise = (data: Bank | Question[]): Bank =>
+  Array.isArray(data) ? Object.fromEntries(data.map((question) => [question.id, question])) : data;
+
+/**
+ * Load every question: the academy bank (static file) plus the authored
+ * courses (their own chunk). If the network fails the authored set still
+ * works, so practice never turns into an error screen.
+ */
 export function loadQuestions(): Promise<Bank> {
   if (!pending) {
-    pending = fetch('/courses/questions.json')
-      .then((response) => (response.ok ? response.json() : Promise.reject(new Error(`questions.json ${response.status}`))))
-      .then((data: Bank | Question[]) => {
-        if (Array.isArray(data)) {
-          return Object.fromEntries(data.map((question) => [question.id, question]));
-        }
-        return data;
-      })
-      .catch((error) => {
-        pending = null;
-        throw error;
-      });
+    const remote = fetch('/courses/questions.json')
+      .then((response) => (response.ok ? response.json() : {}))
+      .then(normalise)
+      .catch(() => ({}) as Bank);
+    const authored = import('./data/authoredQuestions').then((module) => module.AUTHORED_BANK);
+    pending = Promise.all([remote, authored]).then(([bank, extra]) => ({ ...bank, ...extra }));
   }
   return pending;
 }

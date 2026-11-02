@@ -4,7 +4,7 @@
  */
 import { useRef } from 'react';
 import { useLocale } from '../LocaleContext';
-import { COURSES, lessonsOf, type CourseId } from './courseGraph';
+import { COURSES, getCourse, lessonsOf, type CourseId } from './courseGraph';
 import { useProgress } from './progress';
 import { pick } from './viz/controls';
 
@@ -21,7 +21,7 @@ export default function CourseSwitcher({ value, onChange }: CourseSwitcherProps)
   const percentOf = (course: CourseId) => {
     if (course === 'gmat') {
       const opened = Object.keys(progress.state.gmat).length;
-      return Math.round((opened / COURSES[2].count) * 100);
+      return Math.round((opened / getCourse('gmat').count) * 100);
     }
     const keys = lessonsOf(course);
     if (!keys.length) return 0;
@@ -42,7 +42,7 @@ export default function CourseSwitcher({ value, onChange }: CourseSwitcherProps)
     <div
       role="tablist"
       aria-label={isRtl ? 'اختر الدورة' : 'Choose a course'}
-      className="flex flex-wrap gap-2 p-1.5 rounded-2xl border border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)] bg-[color-mix(in_srgb,var(--t-bg-2)_40%,transparent)]"
+      className="teach-scroll-rail flex gap-2 overflow-x-auto p-1.5 rounded-2xl border border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)] bg-[color-mix(in_srgb,var(--t-bg-2)_40%,transparent)]"
     >
       {COURSES.map((course, index) => {
         const active = course.id === value;
@@ -59,7 +59,7 @@ export default function CourseSwitcher({ value, onChange }: CourseSwitcherProps)
             tabIndex={active ? 0 : -1}
             onClick={() => onChange(course.id)}
             onKeyDown={(event) => onKeyDown(event, index)}
-            className={`flex flex-1 min-w-[9rem] items-center gap-2.5 rounded-xl px-3 py-2.5 cursor-pointer border-0 transition-colors ${
+            className={`flex min-w-[8.5rem] flex-1 shrink-0 items-center gap-2.5 rounded-xl px-3 py-2.5 cursor-pointer border-0 transition-colors ${
               active
                 ? 'bg-[var(--t-accent)] text-white shadow-md'
                 : 'bg-transparent text-[var(--t-ink)] hover:bg-[color-mix(in_srgb,var(--t-ink)_6%,transparent)]'
@@ -82,7 +82,8 @@ export default function CourseSwitcher({ value, onChange }: CourseSwitcherProps)
             <span className="min-w-0 text-start">
               <span className="block text-xs font-black leading-tight truncate">{pick(course.short, isRtl)}</span>
               <span className={`block text-[0.65rem] font-semibold ${active ? 'text-white/80' : 'text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]'}`}>
-                {course.count} {isRtl ? 'درساً' : 'lessons'} · {percent}%
+                {course.count}{' '}
+                {course.id === 'gmat' ? (isRtl ? 'موضوعاً' : 'topics') : isRtl ? 'درساً' : 'lessons'} · {percent}%
               </span>
             </span>
           </button>

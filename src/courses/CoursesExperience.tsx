@@ -14,7 +14,8 @@ import CourseMap from './CourseMap';
 import CourseSwitcher from './CourseSwitcher';
 import GmatGrid from './GmatGrid';
 import LessonPanel from './LessonPanel';
-import { LESSONS, type CourseId, type LessonKey } from './courseGraph';
+import MixedPractice from './MixedPractice';
+import { COURSES, LESSONS, isCourseId, type CourseId, type LessonKey } from './courseGraph';
 import { OPEN_LESSON_EVENT, takePendingLesson } from './openLesson';
 import { pick } from './viz/controls';
 
@@ -26,9 +27,6 @@ const strings = {
   viewLabel: { en: 'Choose a view', ar: 'اختر العرض' },
   mapTitle: { en: 'Your path through the course', ar: 'مسارك في الدورة' },
 };
-
-const isCourseId = (value: string | null): value is CourseId =>
-  value === 'calculus' || value === 'precalculus' || value === 'gmat';
 
 interface CoursesExperienceProps {
   /** Opens the existing iframe workspace. */
@@ -47,7 +45,7 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
     if (isCourseId(value)) return value;
     const lesson = params.get('lesson');
     if (lesson && LESSONS[lesson]) return LESSONS[lesson].course;
-    return 'calculus';
+    return COURSES[0].id;
   });
   const [openKey, setOpenKey] = useState<LessonKey | null>(() => {
     const lesson = params.get('lesson');
@@ -179,10 +177,13 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
       ) : course === 'gmat' ? (
         <GmatGrid onOpen={launchWorkspace} />
       ) : (
-        <div className="teach-card p-4 sm:p-6">
-          <p className="teach-eyebrow mb-4 !text-[0.6rem]">{pick(strings.mapTitle, isRtl)}</p>
-          <CourseMap course={course} currentKey={openKey} onOpen={openLesson} />
-        </div>
+        <>
+          <div className="teach-card p-4 sm:p-6">
+            <p className="teach-eyebrow mb-4 !text-[0.6rem]">{pick(strings.mapTitle, isRtl)}</p>
+            <CourseMap course={course} currentKey={openKey} onOpen={openLesson} />
+          </div>
+          <MixedPractice onOpenLesson={openLesson} />
+        </>
       )}
 
       <LessonPanel

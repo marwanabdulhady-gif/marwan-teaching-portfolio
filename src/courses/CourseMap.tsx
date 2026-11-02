@@ -23,6 +23,8 @@ const strings = {
     ar: 'هل تريد مسح كل ما حُفظ من فتح وإجابات وتقييم ثقة على هذا الجهاز؟',
   },
   empty: { en: 'No lessons in this chapter.', ar: 'لا دروس في هذا الفصل.' },
+  lab: { en: 'Hands-on lab', ar: 'مختبر تفاعلي' },
+  doneCount: { en: 'done', ar: 'مكتمل' },
   mapLabel: { en: 'Course map', ar: 'خريطة الدورة' },
 };
 
@@ -74,6 +76,12 @@ export default function CourseMap({ course, currentKey, onOpen }: CourseMapProps
     if (window.confirm(pick(strings.resetConfirm, isRtl))) progress.reset();
   };
 
+  const chapterDone = (keys: LessonKey[]) => keys.filter((key) => progress.completion(key) >= 100).length;
+  const chapterPercent = (keys: LessonKey[]) => {
+    const raw = keys.reduce((total, key) => total + progress.completion(key), 0) / keys.length;
+    return Math.max(2, Math.round(raw));
+  };
+
   let runningIndex = -1;
 
   return (
@@ -94,6 +102,15 @@ export default function CourseMap({ course, currentKey, onOpen }: CourseMapProps
               {pick(strings[state], isRtl)}
             </li>
           ))}
+          <li className="flex items-center gap-1.5">
+            <span
+              className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--t-accent)_18%,var(--t-bg))] text-[0.55rem]"
+              aria-hidden
+            >
+              ⚗
+            </span>
+            {pick(strings.lab, isRtl)}
+          </li>
         </ul>
         <button
           type="button"
@@ -107,9 +124,27 @@ export default function CourseMap({ course, currentKey, onOpen }: CourseMapProps
       <div aria-label={pick(strings.mapLabel, isRtl)} className="space-y-6">
         {definition.chapters.map((chapter) => (
           <section key={chapter.id} className="space-y-3">
-            <h4 className="text-[0.74rem] font-black uppercase tracking-[0.14em] text-[color-mix(in_srgb,var(--t-ink)_62%,transparent)]">
-              {pick(chapter.title, isRtl)}
-            </h4>
+            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+              <h4 className="text-[0.74rem] font-black uppercase tracking-[0.14em] text-[color-mix(in_srgb,var(--t-ink)_62%,transparent)]">
+                {pick(chapter.title, isRtl)}
+              </h4>
+              {chapter.lessons.length > 0 && (
+                <span className="flex items-center gap-2">
+                  <span
+                    className="h-1 w-16 overflow-hidden rounded-full bg-[color-mix(in_srgb,var(--t-ink)_12%,transparent)]"
+                    aria-hidden
+                  >
+                    <span
+                      className="block h-full rounded-full bg-[var(--t-accent)]"
+                      style={{ width: `${chapterPercent(chapter.lessons)}%` }}
+                    />
+                  </span>
+                  <span className="font-mono text-[0.62rem] font-bold text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]">
+                    {chapterDone(chapter.lessons)}/{chapter.lessons.length} {pick(strings.doneCount, isRtl)}
+                  </span>
+                </span>
+              )}
+            </div>
             {chapter.lessons.length === 0 && (
               <p className="text-xs text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)]">{pick(strings.empty, isRtl)}</p>
             )}

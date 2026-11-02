@@ -21,6 +21,35 @@ catalogue, GMAT, integration and QA.
 | WP8 · integration | `ResourceLibrary.tsx`, `CoursesExperience.tsx`, `VisualMathShowcase.tsx`, `openLesson.ts` | Map is the default view; **List keeps the old grid unchanged**; `?legacy=1` forces it. `?course=`/`?lesson=` deep links; opening a lesson pushes history so Back closes the panel. Search results for a lesson open the panel; the five visual models get "Used in" chips that open the matching lesson. |
 | WP9 · QA | `docs/courses-qa.md`, `scripts/qa-courses.cjs` | Opt-in Playwright sweep (360/768/1440 × en/ar): overflow, keyboard, focus return, progress persistence, console. Not yet run — no browser in the build environment. |
 
+## Authored courses (Algebra 1, Algebra 2, Geometry)
+
+These three courses have **no static page**: the lesson panel *is* the lesson,
+so nothing depends on `public/academy/**`.
+
+| Course | Slug | Chapters | Lessons | Content file |
+| --- | --- | --- | --- | --- |
+| Algebra 1 | `algebra-1` | 5 | 19 | `src/courses/data/authored.algebra1.ts` |
+| Algebra 2 | `algebra-2` | 4 | 15 | `src/courses/data/authored.algebra2.ts` |
+| Geometry | `geometry` | 4 | 16 | `src/courses/data/authored.geometry.ts` |
+
+- Every lesson carries three questions with ids `<lessonKey>::q<n>`
+  (`src/courses/data/authoredQuestions.ts`, 150 in total) and a hands-on lab.
+- `LessonNode.hasPage` is `false` for them, so the panel hides “Open full lesson”
+  and shows “Guided here — no separate page” instead.
+- `AUTHORED_QUESTIONS_PER_LESSON` in `courseGraph.ts` is the single place the
+  question count lives; the practice card and the completion score both read it.
+- Mixed practice (`src/courses/MixedPractice.tsx`) pulls four questions from four
+  *different* courses — lessons already opened first, so interleaving stays
+  relevant rather than random.
+
+## Explorer catalogue — authored courses
+
+| Course | Labs |
+| --- | --- |
+| Algebra 1 | `ExpressionLab` 1.1–1.2 · `BalanceLab` 1.3, 1.4, 3.2 · `LineLab` 2.1–2.4 · `SystemLab` 3.1, 3.3 · `FunctionLab` 3.4 · `ExponentLab` 4.1 · `FactorLab` 4.3–4.4 · `ScatterLab` 5.1–5.2 (plus `InequalityLine` 2.5, `AreaModel` 4.2) |
+| Algebra 2 | `ParabolaLab` 2.1, 2.2, 2.4 · `ComplexLab` 2.3 · `AbsoluteLab` 1.3 · `PolyDivisionLab` 3.2 · `SequenceLab` 4.3 (plus `Transformations`, `InverseCheck`, `PiecewiseBuilder`, `ParentFamilies`, `RationalAsymptotes`, `RationalHole`, `GrowthDecay`, `ExpLogWorld`) |
+| Geometry | `PointsLab` 1.1–1.3 · `AngleLab` 1.2 · `TransformLab` 1.4, 4.2 · `TriangleLab` 2.1–2.4 · `CircleLab` 3.1, 3.3 · `MeasureLab` 3.2, 3.4, 4.3 (plus `SolveTriangle` 2.5, `CircleBuilder` 4.1) |
+
 ## Explorer catalogue (23)
 
 | Course | Lessons with an explorer |
@@ -44,6 +73,19 @@ Every explorer follows the contract in §7.2: keyboard operable, live readout
 - **GMAT records only "opened"** (there is no per-topic question set to score),
   so the GMAT ring is opened ÷ 38.
 - **Progress stays local.** No accounts, no server, no analytics.
+
+## Data QA (no browser needed)
+
+`npm run qa:data` (`scripts/check-course-data.cjs`) reads the source files and
+checks every invariant the UI assumes: each authored lesson has a lab and exactly
+three questions, no orphan question or explorer key points at a missing lesson,
+every registry entry resolves to a file on disk, and each registry is wired into
+`explorers/index.ts`. It exits non-zero, so it can gate a commit.
+
+A bug it caught immediately: the static precalculus pages number their lessons
+`pc-1-1`, while the generated topic/question indexes use `1-1`. `courseGraph`
+now strips that prefix, which re-attaches the whole precalculus course to its
+questions and explorers.
 
 ## Known follow-ups
 

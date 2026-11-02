@@ -1,22 +1,29 @@
 /**
  * The course graph: the single description of what the /courses learning map
- * draws. Built from the lessons the academy app already ships, so titles and
- * order never drift away from `src/academyData.ts`.
+ * draws.
  *
- * Generated data (do not edit by hand — run `python3 scripts/build-course-index.py`):
- *   data/questionIndex.json  lesson key -> question ids
- *   data/lessonTopics.json   lesson key -> English topics
+ * Two sources feed it:
+ *   1. The lessons the academy app ships (Calculus, Precalculus). Titles come
+ *      from `src/academyData.ts`; topics and question ids come from the
+ *      generated files in `./data` (see `scripts/build-course-index.py`).
+ *   2. The authored courses (Algebra 1, Algebra 2, Geometry), which have no
+ *      static page: the lesson panel is the lesson. Each carries exactly
+ *      `AUTHORED_QUESTIONS_PER_LESSON` questions with ids `<lessonKey>::q<n>`.
  */
 import { ACADEMY_LESSONS } from '../academyData';
 import type { Bi } from '../teachingData';
 import questionIndex from './data/questionIndex.json';
 import lessonTopics from './data/lessonTopics.json';
 import topicsAr from './data/topics.ar.json';
+import { ALGEBRA_1 } from './data/authored.algebra1';
+import { ALGEBRA_2 } from './data/authored.algebra2';
+import { GEOMETRY } from './data/authored.geometry';
+import type { AuthoredCourse } from './data/authored.algebra1';
 import { EXPLORER_KEYS as EXPLORER_LESSON_KEYS } from './explorers';
 
-export type CourseId = 'calculus' | 'precalculus' | 'gmat';
-export type CourseSlug = 'grade-12-calculus' | 'grade-11-precalculus';
-/** `${courseSlug}/${lessonId}`, e.g. `grade-12-calculus/2-4`. */
+export type CourseId = 'algebra1' | 'algebra2' | 'geometry' | 'precalculus' | 'calculus' | 'gmat';
+export type CourseSlug = 'grade-12-calculus' | 'grade-11-precalculus' | string;
+/** `${courseSlug}/${lessonId}`, e.g. `grade-12-calculus/2-4` or `algebra-1/2-3`. */
 export type LessonKey = string;
 export type NodeShape = 'circle' | 'diamond' | 'hexagon';
 
@@ -32,7 +39,9 @@ export interface LessonNode {
   chapterId: string;
   /** Position inside the whole course (0-based). */
   order: number;
+  /** Static lesson page, or '' for authored lessons (panel-only). */
   href: string;
+  hasPage: boolean;
   questionIds: string[];
   hasExplorer: boolean;
 }
@@ -51,12 +60,17 @@ export interface Course {
   chapters: Chapter[];
   /** Total lessons (or topics, for GMAT). */
   count: number;
+  /** Authored courses have no static pages; their ring counts done lessons. */
+  authored?: boolean;
 }
+
+/** Every authored lesson carries this many questions. */
+export const AUTHORED_QUESTIONS_PER_LESSON = 3;
 
 const CALCULUS: CourseSlug = 'grade-12-calculus';
 const PRECALCULUS: CourseSlug = 'grade-11-precalculus';
 
-/** Chapter layout. Lesson ids match `ACADEMY_LESSONS[].id`. */
+/** Chapter layout for the academy-shipped courses. */
 const CHAPTER_LAYOUT: { slug: CourseSlug; chapters: { id: string; title: Bi; lessonIds: string[] }[] }[] = [
   {
     slug: CALCULUS,
@@ -105,13 +119,12 @@ function shapeFor(id: string): NodeShape {
 const QUESTIONS = questionIndex as Record<string, string[]>;
 const TOPICS_EN = lessonTopics as Record<string, string[]>;
 const TOPICS_AR = topicsAr as Record<string, string[]>;
-
-/** Lessons that have a hands-on explorer (kept in sync with the registry). */
 const EXPLORER_KEYS = new Set<string>(EXPLORER_LESSON_KEYS);
 
 const LESSONS: Record<LessonKey, LessonNode> = {};
-const COURSES: Course[] = [];
+const BY_ID: Record<string, Course> = {};
 
+/* ---------------------------------------------------------------- academy */
 for (const layout of CHAPTER_LAYOUT) {
   const courseId: CourseId = layout.slug === CALCULUS ? 'calculus' : 'precalculus';
   const academyCourse = ACADEMY_LESSONS.find((lesson) => lesson.courseSlug === layout.slug);
@@ -124,25 +137,28 @@ for (const layout of CHAPTER_LAYOUT) {
       const academy = ACADEMY_LESSONS.find(
         (lesson) => lesson.courseSlug === layout.slug && lesson.id === lessonId,
       );
-      if (!academy) {
-        if (import.meta.env.DEV) console.warn(`courseGraph: unknown lesson ${layout.slug}/${lessonId}`);
-        continue;
-      }
-      const key = `${layout.slug}/${academy.id}`;
+      if (!academy) continue;
+      // Static pages number their lessons `pc-1-1`; the generated topic and
+      // question indexes (and the explorers) use the bare `1-1`, so the key
+      // strips the course prefix. Getting this wrong silently detaches a whole
+      // course from its questions.
+      const id = academy.id.replace(/^pc-/, '');
+      const key = `${layout.slug}/${id}`;
       const en = TOPICS_EN[key] ?? [];
       const ar = TOPICS_AR[key] ?? [];
       LESSONS[key] = {
         key,
         course: courseId,
         courseSlug: layout.slug,
-        id: academy.id,
+        id,
         code: academy.code,
         title: academy.title,
-        topics: en.map((topic, i) => ({ en: topic, ar: ar[i] ?? topic })),
-        shape: shapeFor(academy.id),
+        topics: en.map((topic, index) => ({ en: topic, ar: ar[index] ?? topic })),
+        shape: shapeFor(id),
         chapterId: chapter.id,
         order: order++,
         href: academy.href,
+        hasPage: true,
         questionIds: QUESTIONS[key] ?? [],
         hasExplorer: EXPLORER_KEYS.has(key),
       };
@@ -151,40 +167,98 @@ for (const layout of CHAPTER_LAYOUT) {
     chapters.push({ id: chapter.id, title: chapter.title, lessons: keys });
   }
 
-  COURSES.push({
+  BY_ID[courseId] = {
     id: courseId,
     title: academyCourse?.courseTitle ?? { en: 'Calculus', ar: 'التفاضل والتكامل' },
     short: courseId === 'calculus' ? { en: 'Calculus', ar: 'التفاضل' } : { en: 'Precalculus', ar: 'ما قبل التفاضل' },
     chapters,
     count: chapters.reduce((total, chapter) => total + chapter.lessons.length, 0),
-  });
+  };
 }
 
-COURSES.push({
+/* --------------------------------------------------------------- authored */
+function addAuthored(course: AuthoredCourse) {
+  const chapters: Chapter[] = [];
+  let order = 0;
+
+  for (const chapter of course.chapters) {
+    const keys: LessonKey[] = [];
+    for (const lesson of chapter.lessons) {
+      const key = `${course.slug}/${lesson.id}`;
+      LESSONS[key] = {
+        key,
+        course: course.id,
+        courseSlug: course.slug,
+        id: lesson.id,
+        code: lesson.code,
+        title: lesson.title,
+        topics: lesson.topics,
+        shape: 'circle',
+        chapterId: chapter.id,
+        order: order++,
+        href: '',
+        hasPage: false,
+        questionIds: Array.from(
+          { length: AUTHORED_QUESTIONS_PER_LESSON },
+          (_, index) => `${key}::q${index + 1}`,
+        ),
+        hasExplorer: EXPLORER_KEYS.has(key),
+      };
+      keys.push(key);
+    }
+    chapters.push({ id: chapter.id, title: chapter.title, lessons: keys });
+  }
+
+  BY_ID[course.id] = {
+    id: course.id,
+    title: course.title,
+    short: course.short,
+    chapters,
+    count: chapters.reduce((total, chapter) => total + chapter.lessons.length, 0),
+    authored: true,
+  };
+}
+
+addAuthored(ALGEBRA_1);
+addAuthored(ALGEBRA_2);
+addAuthored(GEOMETRY);
+
+BY_ID.gmat = {
   id: 'gmat',
   title: { en: 'GMAT Quantitative & Data Insights', ar: 'GMAT الكمي وتحليل البيانات' },
   short: { en: 'GMAT', ar: 'GMAT' },
   chapters: [],
   count: 38,
-});
-
-export { COURSES, LESSONS };
-
-/** Lessons inside one course, in map order. */
-export const COURSE_LESSONS: Record<'calculus' | 'precalculus', LessonKey[]> = {
-  calculus: COURSES[0].chapters.flatMap((chapter) => chapter.lessons),
-  precalculus: COURSES[1].chapters.flatMap((chapter) => chapter.lessons),
 };
+
+/** Display order: school courses by grade, then the exam course. */
+export const COURSES: Course[] = [
+  BY_ID.algebra1,
+  BY_ID.algebra2,
+  BY_ID.geometry,
+  BY_ID.precalculus,
+  BY_ID.calculus,
+  BY_ID.gmat,
+];
+
+export { LESSONS };
+
+export const getCourse = (id: CourseId): Course => BY_ID[id] ?? BY_ID.calculus;
+
+export const lessonsOf = (course: CourseId): LessonKey[] =>
+  getCourse(course).chapters.flatMap((chapter) => chapter.lessons);
+
+/** Lessons inside each course, in map order. */
+export const COURSE_LESSONS: Record<string, LessonKey[]> = Object.fromEntries(
+  COURSES.map((course) => [course.id, lessonsOf(course.id)]),
+);
 
 export const lessonKeyOf = (courseSlug: string, id: string): LessonKey => `${courseSlug}/${id}`;
 
 export const getLesson = (key: LessonKey | null | undefined): LessonNode | null =>
   key && LESSONS[key] ? LESSONS[key] : null;
 
-export const lessonsOf = (course: CourseId): LessonKey[] =>
-  course === 'gmat' ? [] : COURSE_LESSONS[course];
-
-/** Which visual model on the page belongs to which lessons (§3.5). */
+/** Which visual models on the page belong to which lessons (§3.5). */
 export const MODEL_LESSONS: Record<string, LessonKey[]> = {
   'visual-calculus': ['grade-12-calculus/2-1', 'grade-12-calculus/1-2'],
   'visual-precalculus': ['grade-11-precalculus/2-6'],
@@ -216,7 +290,23 @@ const pathOf = (href: string): string => {
 export function lessonKeyFromHref(href: string): LessonKey | null {
   const wanted = pathOf(href);
   for (const lesson of Object.values(LESSONS)) {
-    if (pathOf(lesson.href) === wanted) return lesson.key;
+    if (lesson.hasPage && pathOf(lesson.href) === wanted) return lesson.key;
   }
   return null;
 }
+
+/** Every lesson in the app (used by mixed practice and the QA scripts). */
+export const ALL_LESSON_KEYS = Object.keys(LESSONS);
+
+export const COURSE_IDS = COURSES.map((course) => course.id);
+
+export const isCourseId = (value: string | null): value is CourseId =>
+  Boolean(value && (COURSE_IDS as string[]).includes(value));
+
+/** Which lesson each question belongs to — the index mixed practice needs. */
+export const QUESTION_OWNER: Record<string, LessonKey> = Object.fromEntries(
+  Object.values(LESSONS).flatMap((lesson) => lesson.questionIds.map((id) => [id, lesson.key])),
+);
+
+/** The lesson a first-time visitor should start with. */
+export const FIRST_LESSON: LessonKey = lessonsOf('algebra1')[0] ?? 'grade-12-calculus/p1';

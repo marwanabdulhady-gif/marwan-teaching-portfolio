@@ -10,6 +10,8 @@ import {
   SEARCH_UI,
 } from '../academyData';
 import { afterPageMount, scrollToSection } from '../router';
+import { COURSES, LESSONS } from '../courses/courseGraph';
+import { openLessonEverywhere } from '../courses/openLesson';
 
 interface SearchResultItem {
   id: string;
@@ -17,8 +19,10 @@ interface SearchResultItem {
   badge: { en: string; ar: string };
   title: { en: string; ar: string };
   searchText: string;
-  kind: 'academy' | 'studio' | 'arcade';
+  kind: 'academy' | 'studio' | 'arcade' | 'lesson';
   href?: string;
+  /** Map lesson (Algebra 1/2, Geometry) — opens the panel, not an iframe. */
+  lessonKey?: string;
   studioTool?: string;
   arcadeId?: string;
 }
@@ -66,6 +70,31 @@ export default function SearchPalette() {
       href: l.href,
     }));
 
+    // Authored courses live only in the learning map, so they need their own
+    // entries; the academy lessons above already cover the iframe courses.
+    const mapLessons: SearchResultItem[] = Object.values(LESSONS)
+      .filter((lesson) => !lesson.hasPage)
+      .map((lesson) => {
+        const course = COURSES.find((entry) => entry.id === lesson.course);
+        const badge = {
+          en: `${course?.title.en ?? ''} · ${lesson.code}`,
+          ar: `${course?.title.ar ?? ''} · ${lesson.code}`,
+        };
+        return {
+          id: `map-${lesson.key}`,
+          code: lesson.code,
+          badge,
+          title: lesson.title,
+          searchText: normalise(
+            `${lesson.key} ${lesson.code} ${badge.en} ${badge.ar} ${lesson.title.en} ${lesson.title.ar} ${lesson.topics
+              .map((topic) => `${topic.en} ${topic.ar}`)
+              .join(' ')}`,
+          ),
+          kind: 'lesson' as const,
+          lessonKey: lesson.key,
+        };
+      });
+
     const extras: SearchResultItem[] = EXTRA_SEARCH_ENTRIES.map((e) => ({
       id: `extra-${e.id}`,
       code: e.code,
@@ -88,7 +117,7 @@ export default function SearchPalette() {
       arcadeId: g.id,
     }));
 
-    return [...lessons, ...extras, ...games];
+    return [...lessons, ...mapLessons, ...extras, ...games];
   }, []);
 
   const results = useMemo(() => {
@@ -158,6 +187,8 @@ export default function SearchPalette() {
     setOpen(false);
     if (item.kind === 'academy' && item.href) {
       openAcademyWorkspace(item.href, L(item.title));
+    } else if (item.kind === 'lesson' && item.lessonKey) {
+      openLessonEverywhere(item.lessonKey);
     } else if (item.kind === 'studio') {
       scrollToSection('studio');
     } else if (item.kind === 'arcade' && item.arcadeId) {

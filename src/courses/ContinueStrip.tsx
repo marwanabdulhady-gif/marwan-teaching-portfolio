@@ -3,7 +3,7 @@
  * starting point for a first visit.
  */
 import { useLocale } from '../LocaleContext';
-import { LESSONS, type LessonKey } from './courseGraph';
+import { COURSES, FIRST_LESSON, LESSONS, getCourse, type LessonKey } from './courseGraph';
 import { useProgress } from './progress';
 import { pick } from './viz/controls';
 
@@ -13,8 +13,8 @@ const strings = {
   resume: { en: 'Resume', ar: 'استأنف' },
   start: { en: 'Start', ar: 'ابدأ' },
   firstLessonHint: {
-    en: 'The map below shows all 23 lessons. Progress is saved on this device.',
-    ar: 'تعرض الخريطة أدناه الدروس الـ ٢٣. يُحفظ تقدمك على هذا الجهاز.',
+    en: `${COURSES.length} courses, ${COURSES.reduce((total, course) => total + course.count, 0)} lessons. Progress is saved on this device.`,
+    ar: `${COURSES.length} دورات، ${COURSES.reduce((total, course) => total + course.count, 0)} درساً. يُحفظ تقدمك على هذا الجهاز.`,
   },
 };
 
@@ -26,7 +26,7 @@ export default function ContinueStrip({ onOpen }: ContinueStripProps) {
   const { isRtl } = useLocale();
   const progress = useProgress();
   const last = progress.state.last?.key;
-  const lesson = last && LESSONS[last] ? LESSONS[last] : LESSONS['grade-12-calculus/p1'];
+  const lesson = last && LESSONS[last] ? LESSONS[last] : LESSONS[FIRST_LESSON];
   if (!lesson) return null;
 
   const resuming = Boolean(last);
@@ -38,7 +38,10 @@ export default function ContinueStrip({ onOpen }: ContinueStripProps) {
         ▶
       </span>
       <div className="min-w-0 flex-1 space-y-1.5">
-        <p className="teach-eyebrow !text-[0.6rem]">{pick(resuming ? strings.continue : strings.startHere, isRtl)}</p>
+        <p className="teach-eyebrow !text-[0.6rem]">
+          {pick(resuming ? strings.continue : strings.startHere, isRtl)} ·{' '}
+          {pick(getCourse(lesson.course).short, isRtl)}
+        </p>
         <p className="text-sm sm:text-base font-bold text-[var(--t-ink)] truncate">
           <span dir="ltr" className="font-mono text-[var(--t-accent-deep)] me-2">{lesson.code}</span>
           {pick(lesson.title, isRtl)}

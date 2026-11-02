@@ -42,6 +42,19 @@ to `qa/` (git-ignored).
     opens the panel; search → the GMAT hub still opens the iframe; `?legacy=1`
     shows the old grid.
 
+## Authored-course checks
+
+Algebra 1 (19 lessons), Algebra 2 (15) and Geometry (16) have no static page, so
+their checks are data-level plus the panel checks above:
+
+1. `npm run qa:data` — 50 lessons × 3 questions, one lab per lesson, no orphans.
+2. Open any of their lessons: the panel shows the lab, three questions, prev/next
+   and the “Guided here — no separate page” note instead of “Open full lesson”.
+3. Search for “Pythagoras” or “vertex”: the result opens the panel (not an
+   iframe), switching the course switcher to the right course.
+4. Mixed practice under the map draws four questions from four different courses.
+5. Chapter headers show a progress bar and `done/total` counts.
+
 ## Status
 
 - `npm run lint` and `npm run build`: passing.

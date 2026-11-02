@@ -21,6 +21,7 @@ const strings = {
   practice: { en: 'Practice', ar: 'تدريب' },
   confident: { en: 'Confident', ar: 'متقن' },
   openFull: { en: 'Open full lesson', ar: 'افتح الدرس كاملاً' },
+  panelOnly: { en: 'Guided here — no separate page', ar: 'درس موجّه هنا — دون صفحة منفصلة' },
   close: { en: 'Close lesson panel', ar: 'إغلاق لوحة الدرس' },
   prev: { en: 'Previous lesson', ar: 'الدرس السابق' },
   next: { en: 'Next lesson', ar: 'الدرس التالي' },
@@ -240,13 +241,19 @@ export default function LessonPanel({ lessonKey, onClose, onOpenFull, onNavigate
                 >
                   <span dir="ltr">{loaders.prev ? `◀ ${loaders.prev.code}` : '◀'}</span>
                 </button>
-                <button
-                  type="button"
-                  onClick={() => onOpenFull(lesson.href, pick(lesson.title, isRtl))}
-                  className="teach-btn teach-btn-primary border-0 flex-1 justify-center"
-                >
-                  {pick(strings.openFull, isRtl)} <span aria-hidden>▸</span>
-                </button>
+                {lesson.hasPage ? (
+                  <button
+                    type="button"
+                    onClick={() => onOpenFull(lesson.href, pick(lesson.title, isRtl))}
+                    className="teach-btn teach-btn-primary border-0 flex-1 justify-center"
+                  >
+                    {pick(strings.openFull, isRtl)} <span aria-hidden>▸</span>
+                  </button>
+                ) : (
+                  <p className="flex-1 text-center text-[0.68rem] leading-tight text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)]">
+                    {pick(strings.panelOnly, isRtl)}
+                  </p>
+                )}
                 <button
                   type="button"
                   onClick={() => loaders.next && onNavigate(loaders.next.key)}
