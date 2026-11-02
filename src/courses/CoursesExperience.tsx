@@ -117,6 +117,7 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
 
   const changeCourse = (next: CourseId) => {
     setCourse(next);
+    setPracticeCourse(null);
     syncUrl({ course: next, lesson: null, mode: 'replace' });
     setOpenKey(null);
   };

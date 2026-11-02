@@ -20,6 +20,7 @@ import { pick } from './viz/controls';
 const strings = {
   eyebrow: { en: 'Mixed practice', ar: 'تدريب متنوّع' },
   title: { en: 'Four questions, four corners of the map.', ar: 'أربعة أسئلة من أربع زوايا مختلفة من الخريطة.' },
+  titleCourse: { en: 'Four questions from this course.', ar: 'أربعة أسئلة من هذه الدورة.' },
   loading: { en: 'Loading questions…', ar: 'جارٍ تحميل الأسئلة…' },
   failed: { en: 'The question bank could not load right now.', ar: 'تعذّر تحميل بنك الأسئلة الآن.' },
   check: { en: 'Check', ar: 'تحقّق' },
@@ -192,7 +193,7 @@ export default function MixedPractice({ onOpenLesson, mode, onModeChange, course
         )}
       </div>
       <p className="mb-2 flex flex-wrap items-center gap-2 text-[0.72rem] text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]">
-        <span>{pick(mode === 'review' ? strings.reviewTitle : strings.title, isRtl)}</span>
+        <span>{pick(mode === 'review' ? strings.reviewTitle : filterTitle ? strings.titleCourse : strings.title, isRtl)}</span>
         {filterTitle && (
           <span className="inline-flex items-center gap-1 rounded-full border border-[color-mix(in_srgb,var(--t-accent)_40%,transparent)] px-2 py-0.5 font-bold text-[var(--t-accent-deep)]">
             {filterTitle[locale]}
