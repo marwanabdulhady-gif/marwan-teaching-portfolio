@@ -72,10 +72,8 @@ export default function GmatGrid({ onOpenTopic, onOpenPage }: GmatGridProps) {
     };
   }, [filter, query, progress.state.gmat]);
 
-  const openTopic = (topic: GmatTopic) => {
-    progress.markGmat(topic.slug);
-    onOpenTopic(`gmat/${topic.slug}`);
-  };
+  // Opening the panel records the open (progress mirrors it into the GMAT ring).
+  const openTopic = (topic: GmatTopic) => onOpenTopic(`gmat/${topic.slug}`);
 
   const total = groups.quant.length + groups.di.length;
   const labCount = GMAT_TOPICS.filter((topic) => hasExplorer(`gmat/${topic.slug}`)).length;

@@ -178,13 +178,17 @@ const api = {
   nodeState: (key: LessonKey) => nodeStateOf(state, key),
   reached: (key: LessonKey) => Boolean(state.lessons[key]?.opened),
   markOpened(key: LessonKey) {
-    if (!LESSONS[key]) return;
+    const lesson = LESSONS[key];
+    if (!lesson) return;
+    // A GMAT topic is opened through the map, the gallery or a tile; all three
+    // routes must move the same ring, so the open is mirrored into `gmat`.
+    const gmat = lesson.course === 'gmat' && !state.gmat[lesson.id] ? { ...state.gmat, [lesson.id]: { opened: Date.now() } } : state.gmat;
     const current = state.lessons[key];
     if (current?.opened) {
-      commit({ ...state, last: { key, ts: Date.now() } });
+      commit({ ...state, gmat, last: { key, ts: Date.now() } });
       return;
     }
-    commit({ ...touch(state, key, { opened: Date.now() }), last: { key, ts: Date.now() } });
+    commit({ ...touch(state, key, { opened: Date.now() }), gmat, last: { key, ts: Date.now() } });
   },
   markExplorer(key: LessonKey) {
     if (state.lessons[key]?.explorer) return;
