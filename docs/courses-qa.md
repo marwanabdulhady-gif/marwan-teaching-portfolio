@@ -225,6 +225,44 @@ A sunflower fill on cream is still only 1.7:1, which is why every filled mark
 (map node, legend swatch, badge) also carries an ink edge — the ink pairs above
 hold that edge to 4.5:1.
 
+### Bundle budget (`npm run qa:bundle`)
+
+The plan asks that the courses work add no more than 40 KB gzip and keep
+Lighthouse at 85 or better. Lighthouse needs a browser, so the part that can be
+measured here is measured: `scripts/check-bundle.cjs` builds if `dist/` is stale,
+then reads the real output.
+
+| what | measured |
+| --- | --- |
+| first paint (`index.html` + its static imports) | **248 KB gzip** — one 225 KB script, one 23 KB stylesheet |
+| largest lazy chunk | 57.7 KB gzip — the Supabase client, only fetched when a live room opens |
+| largest lab chunk | 10.2 KB gzip (authored question bank); every lab is 1–3 KB |
+| all JavaScript, if a visitor opened everything | 400 KB gzip |
+
+The script fails on three things:
+
+- **growth** — first paint more than 40 KB above the committed baseline
+  (`scripts/bundle-budget.json`) has to be a deliberate re-baseline;
+- **a lab or data file becoming eager** — it follows the *static* import graph
+  from `index.html`, and fails if the Supabase client or a question bank shows up
+  there, or if a registry entry stops being `() => import(...)`. A rewrite to
+  `import Lab from './Lab'` would fold that one lab into the first paint, which
+  the coarse byte budget alone would not notice;
+- **a lazy chunk over 15 KB gzip** — the ceiling the plan set for a lab.
+
+Each of the three was proved by breaking it: a registry entry rewritten as a
+constant import fails the check, a fake "must stay lazy" marker fails it, and a
+lowered baseline fails on growth.
+
+**What is still worth doing (not done, needs a browser to judge).** All three
+pages are defined in `src/TeachingApp.tsx` and imported statically, so `/courses`
+downloads the home page and the games page with it. Measured by building with one
+page at a time: courses alone is 216.4 KB gzip, games alone 192.8 KB, the current
+all-in shell 248 KB. Splitting the three pages behind `lazy()` would cut about
+32 KB gzip from the first visit to `/courses`, at the cost of one extra request
+before the home page paints. That is a routing change rather than a courses
+change, so it is left as a decision rather than done quietly.
+
 ### Search (`npm run qa:search`)
 
 The map's search box is the only way to reach a lesson whose lane you cannot
