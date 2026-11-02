@@ -57,7 +57,9 @@ their checks are data-level plus the panel checks above:
 
 ## Status
 
-- `npm run lint` and `npm run build`: passing.
+- `npm run lint`, `npm run build`, `npm run qa:data` and `npm run qa:render`:
+  passing. The last one renders all 73 labs and the course map server-side, so a
+  lab that throws is caught without a browser.
 - Every explorer chunk is 1.3–2.3 KB gzip (budget was 15 KB).
 - **Not yet run:** `scripts/qa-courses.cjs` — no browser is available in the build
   environment, so the visual and keyboard checks above still need a human or a CI
