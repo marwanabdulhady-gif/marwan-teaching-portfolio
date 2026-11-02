@@ -89,13 +89,16 @@ their checks are data-level plus the panel checks above:
 
 `npm run qa:data` checks all 222 `en`/`ar` pairs in the authored courses and the
 GMAT content: an empty Arabic string, or Arabic left as English, fails the
-script. UI strings are not covered by that check.
+script. It also counts `en`/`ar` fields in **every** file under `src/courses`
+(1201 pairs, `title` counted as the English side for the generated topic list),
+so a string added without its translation fails even when it is not one of the
+hand-written course files. UI strings outside `src/courses` are not covered.
 
 ## Status
 
 - `npm run lint`, `npm run build`, `npm run qa:data` and `npm run qa:render`:
-  passing. The last one renders all 73 labs and the course map server-side, so a
-  lab that throws is caught without a browser.
+  passing. The last one renders all 111 labs and the course map server-side, so a
+  lab that throws — or draws outside its plot — is caught without a browser.
 - Every explorer chunk is 1.3–2.3 KB gzip (budget was 15 KB).
 - **Not yet run:** `scripts/qa-courses.cjs` — no browser is available in the build
   environment, so the visual and keyboard checks above still need a human or a CI

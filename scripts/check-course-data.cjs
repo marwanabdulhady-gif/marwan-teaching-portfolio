@@ -161,6 +161,30 @@ for (const file of bilingualFiles) {
   }
 }
 
+// ---------------------------------------------- bilingual fields everywhere
+// Every `Bi` string in the course code needs both languages. Counting per file
+// catches the common slip (an `en:` added without its `ar:`), including files
+// that were never part of the authored-course scan above.
+const courseSourceFiles = [];
+(function walk(dir) {
+  for (const entry of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
+    const next = `${dir}/${entry.name}`;
+    if (entry.isDirectory()) walk(next);
+    else if (/\.tsx?$/.test(entry.name) && !entry.name.endsWith('.d.ts')) courseSourceFiles.push(next);
+  }
+})('src/courses');
+
+let bilingualFields = 0;
+let arabicFields = 0;
+for (const file of courseSourceFiles) {
+  const source = read(file);
+  const english = (source.match(/(?<![\w'])en:\s*['"]/g) ?? []).length + (source.match(/(?<![\w'])title:\s*['"]/g) ?? []).length;
+  const arabic = (source.match(/(?<![\w'])ar:\s*['"]/g) ?? []).length;
+  bilingualFields += english;
+  arabicFields += arabic;
+  if (english !== arabic) note(`${file}: ${english} English field(s) but ${arabic} Arabic`);
+}
+
 // -------------------------------------------------------------- explorers
 const registryFiles = fs
   .readdirSync(path.join(root, 'src/courses/explorers'))
@@ -222,4 +246,4 @@ if (uncovered.length) {
   process.exit(1);
 }
 console.log('  coverage — every authored lesson and GMAT topic has a lab');
-console.log(`  bilingual — ${pairs} en/ar pairs checked`);
+console.log(`  bilingual — ${pairs} en/ar pairs checked by hand, ${bilingualFields} fields paired across ${courseSourceFiles.length} course files`);
