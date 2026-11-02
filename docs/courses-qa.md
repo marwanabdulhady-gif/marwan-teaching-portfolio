@@ -191,8 +191,9 @@ lessons):
 Three cold loads are rendered too, because these are promises to links from
 other pages:
 
-- `?course=geometry&lesson=geometry/2-2` opens the map **and** that panel (title,
-  lab, practice) — not the list view;
+- `?course=geometry&lesson=geometry/2-2` opens the map **and** that panel — the
+  check looks for the modal dialog and its confidence row, because the map lists
+  every lesson title anyway and a title match alone proves nothing;
 - `?course=gmat&lesson=gmat/absolute-value` does the same for a GMAT topic;
 - `?legacy=1` renders the old lesson grid instead of the map;
 - each of the six courses opens its own first lesson's panel with its lab.

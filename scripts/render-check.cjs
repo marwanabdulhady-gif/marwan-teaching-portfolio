@@ -122,14 +122,19 @@ const renderMap = (search) => {
   );
 };
 try {
+  // The map itself lists every lesson title, so "the title is in the HTML" proves
+  // nothing. The panel is the only thing that renders a modal dialog and the
+  // "How confident are you?" row.
+  const panelOpen = (html) => html.includes('aria-modal="true"') && html.includes('How confident are you?');
   const deep = renderMap('?course=geometry&lesson=geometry/2-2');
   if (!deep.includes(LESSONS['geometry/2-2'].title.en)) failures.push('deep link: panel did not open for geometry/2-2');
-  if (!deep.includes('Hands-on lab')) failures.push('deep link: panel is missing its lab');
+  if (!panelOpen(deep)) failures.push('deep link: geometry/2-2 did not open a panel');
   if (deep.includes('LIST-VIEW-MARKER')) failures.push('deep link: list view rendered instead of the map');
   const legacy = renderMap('?legacy=1');
   if (!legacy.includes('LIST-VIEW-MARKER')) failures.push('legacy=1: list view did not render');
   const gmat = renderMap('?course=gmat&lesson=gmat/absolute-value');
   if (!gmat.includes(LESSONS['gmat/absolute-value'].title.en)) failures.push('deep link: GMAT panel did not open');
+  if (!panelOpen(gmat)) failures.push('deep link: GMAT topic did not open a panel');
   // Every course must be able to open its first lesson's panel.
   for (const course of COURSES) {
     const first = Object.values(LESSONS).find((lesson) => lesson.course === course.id);
@@ -139,7 +144,7 @@ try {
     }
     const panel = renderMap('?course=' + course.id + '&lesson=' + first.key);
     if (!panel.includes(first.title.en)) failures.push('deep link: panel did not open for ' + first.key);
-    if (!panel.includes('Hands-on lab')) failures.push('deep link: ' + first.key + ' panel is missing its lab');
+    if (!panelOpen(panel)) failures.push('deep link: ' + first.key + ' did not open a panel');
   }
   window.location.search = '';
 } catch (error) {
