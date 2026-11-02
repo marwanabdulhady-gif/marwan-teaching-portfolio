@@ -200,7 +200,9 @@ process is what a reload looks like):
   `h4` straight after the section's `h2`, so they are `h3` now.
 
 The helpers have their own cases (13 of them) so the audit itself is known to
-fire.
+fire. The dialog itself is audited too — the six panels opened by the URL
+contract are read the same way, which is how a dangling `aria-labelledby` on the
+drawer would be caught.
 
 ### Appearance themes (`npm run qa:theme`)
 

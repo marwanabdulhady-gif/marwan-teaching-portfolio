@@ -193,6 +193,9 @@ try {
     const panel = renderMap('?course=' + course.id + '&lesson=' + first.key);
     if (!panel.includes(first.title.en)) failures.push('deep link: panel did not open for ' + first.key);
     if (!panelOpen(panel)) failures.push('deep link: ' + first.key + ' did not open a panel');
+    // The panel is a dialog over the map: its chrome is audited too, so a
+    // nameless icon button or a heading jump inside the drawer cannot slip past.
+    for (const problem of audit(panel, { where: 'panel for ' + first.key })) failures.push(problem);
   }
   window.location.search = '';
 } catch (error) {
