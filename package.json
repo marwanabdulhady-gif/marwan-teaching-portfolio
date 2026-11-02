@@ -7,7 +7,15 @@
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "qa:data": "node scripts/check-course-data.cjs",
+    "qa:render": "node scripts/render-check.cjs",
+    "qa:practice": "node scripts/check-practice.cjs",
+    "qa:progress": "node scripts/check-progress.cjs",
+    "qa:search": "node scripts/check-search.cjs",
+    "qa:theme": "node scripts/check-theme.cjs",
+    "qa:bundle": "node scripts/check-bundle.cjs",
+    "qa": "npm run lint && npm run qa:data && npm run qa:practice && npm run qa:search && npm run qa:progress && npm run qa:theme && npm run qa:render && npm run qa:bundle"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",

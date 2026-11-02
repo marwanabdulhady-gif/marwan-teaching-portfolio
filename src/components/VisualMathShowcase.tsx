@@ -3,6 +3,8 @@ import { ArrowRight, Pause, Play } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
 import { VISUAL_MATH_UI } from '../academyData';
 import { openAcademyWorkspace } from './SearchPalette';
+import { COURSES, MODEL_LESSONS, LESSONS, lessonsOf } from '../courses/courseGraph';
+import { openLessonEverywhere } from '../courses/openLesson';
 import Reveal from './Reveal';
 
 /**
@@ -789,10 +791,81 @@ export default function VisualMathShowcase() {
                         {L(card.cta)}
                         <ArrowRight className={`w-3.5 h-3.5 ${isRtl ? 'rotate-180' : ''}`} />
                       </button>
+
+                      {/* This model is not decorative: it is the picture behind these lessons. */}
+                      {(MODEL_LESSONS[`visual-${card.id}`] ?? []).length > 0 && (
+                        <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+                          <span className="text-[0.6rem] font-bold uppercase tracking-wider text-[color-mix(in_srgb,var(--t-ink)_52%,transparent)]">
+                            {isRtl ? 'يُستخدم في' : 'Used in'}
+                          </span>
+                          {(MODEL_LESSONS[`visual-${card.id}`] ?? []).map((lessonKey) => {
+                            const lesson = LESSONS[lessonKey];
+                            if (!lesson) return null;
+                            return (
+                              <button
+                                key={lessonKey}
+                                type="button"
+                                dir="ltr"
+                                onClick={() => openLessonEverywhere(lessonKey)}
+                                className="rounded-full border border-[color-mix(in_srgb,var(--t-accent)_40%,transparent)] px-2 py-0.5 font-mono text-[0.65rem] font-bold text-[var(--t-accent-deep)] cursor-pointer hover:bg-[color-mix(in_srgb,var(--t-accent)_10%,transparent)]"
+                                aria-label={isRtl ? `افتح الدرس ${lesson.code} ${lesson.title.ar}` : `Open lesson ${lesson.code} ${lesson.title.en}`}
+                              >
+                                {lesson.code}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
               </Reveal>
+            );
+          })}
+        </div>
+
+        {/* The three authored courses: every lesson has a hands-on lab. */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {COURSES.filter((course) => course.authored).map((course) => {
+            const keys = lessonsOf(course.id);
+            const first = keys[0];
+            return (
+              <div key={course.id} className="teach-card flex h-full flex-col gap-2 p-5 text-start">
+                <p className="teach-eyebrow !text-[0.6rem]">{isRtl ? 'دورة جديدة' : 'New course'}</p>
+                <h3 className="text-lg font-bold text-[var(--t-ink)]" style={{ fontFamily: 'var(--teach-font-display)' }}>
+                  {L(course.title)}
+                </h3>
+                <p className="text-xs leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_66%,transparent)]">
+                  {isRtl
+                    ? `${course.count} درساً، كل درس بمختبر تفاعلي وثلاثة أسئلة تدريب.`
+                    : `${course.count} lessons, each with a hands-on lab and three practice questions.`}
+                </p>
+                <div className="mt-1 flex flex-wrap gap-1.5" dir="ltr">
+                  {keys.slice(0, 6).map((key) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => openLessonEverywhere(key)}
+                      className="rounded-full border border-[color-mix(in_srgb,var(--t-accent)_40%,transparent)] px-2 py-0.5 font-mono text-[0.65rem] font-bold text-[var(--t-accent-deep)] cursor-pointer hover:bg-[color-mix(in_srgb,var(--t-accent)_10%,transparent)]"
+                    >
+                      {LESSONS[key]?.code}
+                    </button>
+                  ))}
+                  {keys.length > 6 && (
+                    <span className="px-1 py-0.5 font-mono text-[0.65rem] text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)]">
+                      +{keys.length - 6}
+                    </span>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => first && openLessonEverywhere(first)}
+                  className="mt-auto inline-flex w-fit items-center gap-2 text-xs font-bold text-[var(--t-accent)] hover:underline cursor-pointer bg-transparent border-0 p-0"
+                >
+                  {isRtl ? 'ابدأ الدورة' : 'Start the course'}
+                  <ArrowRight className={`w-3.5 h-3.5 ${isRtl ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
             );
           })}
         </div>

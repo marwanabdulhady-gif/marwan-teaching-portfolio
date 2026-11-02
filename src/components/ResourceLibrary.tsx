@@ -26,6 +26,9 @@ import {
   GUIDED_SAMPLER_UI,
 } from '../academyData';
 import Reveal from './Reveal';
+import CoursesExperience from '../courses/CoursesExperience';
+import { lessonKeyFromHref } from '../courses/courseGraph';
+import { requestLesson } from '../courses/openLesson';
 
 function VideoCard({ id, title, topic }: { id: string; title: string; topic: string }) {
   const [playing, setPlaying] = useState(false);
@@ -399,9 +402,15 @@ export default function ResourceLibrary() {
   useEffect(() => {
     const onOpen = (e: Event) => {
       const detail = (e as CustomEvent<{ url: string; title: string }>).detail;
-      if (detail?.url) {
-        launchWorkspace(detail.url, detail.title || L(ACADEMY_WORKSPACE_UI.eyebrow));
+      if (!detail?.url) return;
+      // A lesson page opens its new panel; anything else keeps the iframe.
+      const lessonKey = lessonKeyFromHref(detail.url);
+      if (lessonKey) {
+        setSectionView('courses');
+        requestLesson(lessonKey);
+        return;
       }
+      launchWorkspace(detail.url, detail.title || L(ACADEMY_WORKSPACE_UI.eyebrow));
     };
     window.addEventListener('marwan:open-academy', onOpen);
     return () => window.removeEventListener('marwan:open-academy', onOpen);
@@ -617,6 +626,9 @@ export default function ResourceLibrary() {
 
         {/* TAB 1: Interactive 23-Lesson Directory + GMAT Quick Strip */}
         {sectionView === 'courses' && (
+          <CoursesExperience
+            launchWorkspace={launchWorkspace}
+            listView={
           <div className="space-y-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap gap-2">
@@ -692,6 +704,8 @@ export default function ResourceLibrary() {
               ))}
             </div>
           </div>
+            }
+          />
         )}
 
         {/* TAB 3: YouTube Channel + Worksheets + TPT Store */}

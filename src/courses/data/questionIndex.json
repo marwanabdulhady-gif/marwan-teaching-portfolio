@@ -1,0 +1,210 @@
+{
+  "grade-11-precalculus/1-1": [
+    "guided-v2-type",
+    "guided-v2-builder",
+    "guided-v2-intersection",
+    "guided-v2-interval",
+    "guided-v2-absolute"
+  ],
+  "grade-11-precalculus/1-3": [
+    "guided-neg-exp",
+    "guided-square-sum-check",
+    "guided-gcf-check",
+    "guided-factor-completely",
+    "guided-identity-method"
+  ],
+  "grade-11-precalculus/1-4": [
+    "guided-restriction",
+    "guided-rational-cancel-domain",
+    "guided-division",
+    "guided-lcd",
+    "guided-compound",
+    "guided-rational-root-domain"
+  ],
+  "grade-11-precalculus/1-8": [
+    "guided-inequality-negative",
+    "guided-inequality-repeated",
+    "guided-inequality-rational",
+    "guided-inequality-absolute"
+  ],
+  "grade-11-precalculus/1-9": [
+    "guided-pc19-v2-distance",
+    "guided-pc19-v2-midpoint",
+    "guided-pc19-v2-center",
+    "guided-pc19-v2-write",
+    "guided-pc19-v2-diameter",
+    "guided-pc19-v2-square",
+    "guided-pc19-v2-normalize",
+    "guided-pc19-v2-graph",
+    "guided-pc19-v2-tangent"
+  ],
+  "grade-11-precalculus/2-1": [
+    "guided-pc21-function",
+    "guided-pc21-representations",
+    "guided-pc21-eval",
+    "guided-pc21-piece",
+    "guided-pc21-dq",
+    "guided-pc21-domain-rule",
+    "guided-pc21-common-mistake"
+  ],
+  "grade-11-precalculus/2-2": [
+    "guided-22-family",
+    "guided-22-power1",
+    "guided-22-piece",
+    "guided-22-abs",
+    "guided-22-grapheq",
+    "guided-22-floor1",
+    "guided-22-vlt",
+    "guided-22-equation"
+  ],
+  "grade-11-precalculus/2-3": [
+    "guided-23-first",
+    "guided-23-end",
+    "guided-23-change",
+    "guided-23-compare",
+    "guided-23-inc",
+    "guided-23-max"
+  ],
+  "grade-11-precalculus/2-6": [
+    "guided-26-shift",
+    "guided-26-map",
+    "guided-26-rule",
+    "guided-26-even"
+  ],
+  "grade-12-calculus/1-2": [
+    "guided-m1",
+    "guided-d1",
+    "guided-d2",
+    "guided-numerical",
+    "guided-a-g2",
+    "guided-graphical",
+    "guided-d4",
+    "guided-one-sided",
+    "guided-d5",
+    "guided-value",
+    "guided-dne-jump"
+  ],
+  "grade-12-calculus/1-3": [
+    "l13-guided-diagnose",
+    "l13-guided-substitution",
+    "l13-guided-factoring",
+    "l13-guided-synthetic",
+    "l13-guided-fractions",
+    "l13-guided-conjugate",
+    "l13-guided-fractional-substitution",
+    "l13-guided-piecewise",
+    "l13-guided-floor",
+    "l13-guided-oscillation",
+    "l13-guided-composite",
+    "l13-guided-trig",
+    "l13-guided-identity",
+    "l13-guided-difference",
+    "l13-guided-squeeze"
+  ],
+  "grade-12-calculus/1-4": [
+    "continuity-point",
+    "continuity-predict-0",
+    "continuity-discontinuity",
+    "continuity-families",
+    "continuity-predict-1",
+    "continuity-piecewise",
+    "continuity-predict-2",
+    "continuity-predict-3",
+    "continuity-special",
+    "continuity-closed",
+    "continuity-predict-4",
+    "continuity-ivt",
+    "continuity-predict-5",
+    "continuity-bisection"
+  ],
+  "grade-12-calculus/1-5": [
+    "guided-15-direction",
+    "guided-15-check-graph",
+    "guided-15-candidates",
+    "guided-15-classify",
+    "guided-15-check-factor",
+    "guided-15-check-power",
+    "guided-15-cot",
+    "guided-15-check-trig",
+    "guided-15-property",
+    "guided-15-sketch"
+  ],
+  "grade-12-calculus/2-1": [
+    "c21-guided-slope",
+    "c21-guided-secant",
+    "c21-guided-definition",
+    "c21-guided-cancel",
+    "c21-guided-tangent",
+    "c21-guided-rate",
+    "c21-guided-domain"
+  ],
+  "grade-12-calculus/2-2-2-3": [
+    "c223-predict-terms",
+    "c223-guided-power",
+    "c223-predict-rewrite",
+    "c223-guided-rewrite",
+    "c223-guided-trig",
+    "c223-predict-product",
+    "c223-guided-product",
+    "c223-predict-quotient",
+    "c223-guided-quotient",
+    "c223-predict-motion",
+    "c223-guided-higher",
+    "c223-guided-speed"
+  ],
+  "grade-12-calculus/2-4": [
+    "chainChecks-identify",
+    "chainChecks-order",
+    "chainChecks-power",
+    "chainChecks-trig",
+    "chainChecks-mixed"
+  ],
+  "grade-12-calculus/2-5": [
+    "implicitChecks-y",
+    "implicitChecks-collect",
+    "implicitChecks-product",
+    "implicitChecks-trig",
+    "implicitChecks-slope"
+  ],
+  "grade-12-calculus/2-6": [
+    "ratesChecks-time",
+    "ratesChecks-sign",
+    "ratesChecks-substitute",
+    "ratesChecks-balloon",
+    "ratesChecks-ladder",
+    "ratesChecks-cone",
+    "ratesChecks-shadow"
+  ],
+  "grade-12-calculus/chapter-1-review": [
+    "c1-transfer-local"
+  ],
+  "grade-12-calculus/chapter-2-review": [
+    "c2-transfer-definition"
+  ],
+  "grade-12-calculus/p1": [
+    "p1-guided-point",
+    "p1-predict-intercepts",
+    "p1-guided-intercept",
+    "p1-guided-symmetry",
+    "p1-predict-intersections",
+    "p1-guided-intersection",
+    "p1-guided-model"
+  ],
+  "grade-12-calculus/p3": [
+    "p3-guided-relation",
+    "p3-predict-quotient",
+    "p3-guided-evaluate",
+    "p3-guided-domain",
+    "p3-predict-composition",
+    "p3-guided-composite-domain",
+    "p3-guided-evenodd",
+    "p3-guided-absolute"
+  ],
+  "grade-12-calculus/piecewise-differentiability": [
+    "pw-guided-continuity",
+    "pw-guided-slopes",
+    "pw-guided-stop",
+    "pw-guided-parameters",
+    "pw-guided-corner"
+  ]
+}
