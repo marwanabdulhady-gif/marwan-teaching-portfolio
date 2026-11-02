@@ -1,8 +1,13 @@
 /**
- * Interleaved practice: four questions drawn from different courses, so the
- * learner has to decide *which* idea a problem needs rather than repeating the
- * same skill. Lessons they have opened come first; a fresh visitor gets a
- * spread across all six courses instead.
+ * Interleaved practice, in two modes:
+ *
+ *   mixed  — four questions drawn from different courses, so the learner has to
+ *            decide *which* idea a problem needs rather than repeating one skill.
+ *            Lessons they have opened come first; a fresh visitor gets a spread
+ *            across all six courses instead.
+ *   review — only the questions this learner has actually got wrong, newest
+ *            first. Answering one correctly removes it from the queue, so the
+ *            card empties as the mistakes are cleared.
  */
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useLocale } from '../LocaleContext';
@@ -26,9 +31,17 @@ const strings = {
   restart: { en: 'New set', ar: 'مجموعة جديدة' },
   from: { en: 'from', ar: 'من' },
   open: { en: 'Open lesson', ar: 'افتح الدرس' },
+  modeMixed: { en: 'Mixed', ar: 'متنوّع' },
+  modeReview: { en: 'My mistakes', ar: 'أخطائي' },
+  reviewTitle: { en: 'Questions you have missed. Answer one right and it leaves the queue.', ar: 'أسئلة أخطأت فيها. أجب بشكل صحيح ليغادر السؤال القائمة.' },
+  reviewDone: { en: 'Mistakes cleared', ar: 'تمت مراجعة الأخطاء' },
+  noMistakes: { en: 'No mistakes to review yet. Do a mixed set — anything you miss lands here.', ar: 'لا أخطاء للمراجعة بعد. ابدأ مجموعة متنوّعة وسيظهر هنا كل ما تخطئ فيه.' },
+  queued: { en: 'in the queue', ar: 'في القائمة' },
 };
 
 const SET_SIZE = 4;
+
+type Mode = 'mixed' | 'review';
 
 interface MixedPracticeProps {
   onOpenLesson: (key: LessonKey) => void;
@@ -37,6 +50,7 @@ interface MixedPracticeProps {
 export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
   const { isRtl, locale } = useLocale();
   const progress = useProgress();
+  const [mode, setMode] = useState<Mode>('mixed');
   const [bank, setBank] = useState<Record<string, Question> | null>(null);
   const [error, setError] = useState(false);
   const [round, setRound] = useState(0);
@@ -56,8 +70,30 @@ export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
     };
   }, []);
 
+  /** Every question this learner got wrong, with the lesson it belongs to. */
+  const missedIds = useMemo(() => {
+    const ids: string[] = [];
+    for (const [key, entry] of Object.entries(progress.state.lessons)) {
+      if (!LESSONS[key]) continue;
+      for (const [id, verdict] of Object.entries(entry?.checks ?? {})) {
+        if (verdict === 'wrong') ids.push(id);
+      }
+    }
+    return ids;
+  }, [progress.state.lessons]);
+
   const questions = useMemo(() => {
     if (!bank) return [] as Question[];
+
+    if (mode === 'review') {
+      // Shuffle the queue so the same pair never leads twice in a row.
+      return [...missedIds]
+        .filter((id, position) => bank[id] && missedIds.indexOf(id) === position)
+        .sort((a, b) => ((a.charCodeAt(0) * 31 + round) % 97) - ((b.charCodeAt(0) * 31 + round) % 97))
+        .slice(0, SET_SIZE)
+        .map((id) => bank[id]);
+    }
+
     const opened = Object.keys(progress.state.lessons).filter((key) => LESSONS[key]);
     // Warm up on lessons already visited; otherwise sample the whole map.
     const pool = (opened.length ? opened : Object.keys(LESSONS)).flatMap((key) =>
@@ -86,7 +122,7 @@ export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
       if (chosen.size >= SET_SIZE) break;
     }
     return [...chosen.values()];
-  }, [bank, progress.state.lessons, round]);
+  }, [bank, progress.state.lessons, round, mode, missedIds]);
 
   const question = questions[index];
   const owner = question ? QUESTION_OWNER[question.id] : undefined;
@@ -123,11 +159,50 @@ export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
     setRound((current) => current + 1);
   };
 
+  const reviewCount = missedIds.length;
+
+  const changeMode = (next: Mode) => {
+    if (next === mode) return;
+    setMode(next);
+    setIndex(0);
+    setSelected(null);
+    setChecked(false);
+    setHintOpen(false);
+    setScore({ right: 0, answered: 0 });
+    setRound((current) => current + 1);
+  };
+
   /** The card frame, so the section is identifiable before the bank arrives. */
   const shell = (body: ReactNode) => (
     <div className="teach-card p-4 sm:p-5">
-      <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
-        <p className="teach-eyebrow !text-[0.6rem]">{pick(strings.eyebrow, isRtl)}</p>
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+        <div className="inline-flex gap-1 rounded-full border border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)] p-0.5" role="group" aria-label={pick(strings.eyebrow, isRtl)}>
+          {(
+            [
+              ['mixed', strings.modeMixed],
+              ['review', strings.modeReview],
+            ] as const
+          ).map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              aria-pressed={mode === id}
+              onClick={() => changeMode(id)}
+              className={`cursor-pointer rounded-full border-0 px-2.5 py-1 text-[0.65rem] font-bold transition-colors ${
+                mode === id
+                  ? 'bg-[var(--t-accent)] text-white'
+                  : 'bg-transparent text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)]'
+              }`}
+            >
+              {pick(label, isRtl)}
+              {id === 'review' && reviewCount > 0 && (
+                <span className="ms-1 font-mono" dir="ltr">
+                  {reviewCount}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
         {questions.length > 0 && !finished && (
           <div className="flex items-center gap-1.5" aria-hidden>
             {questions.map((item, position) => (
@@ -150,7 +225,9 @@ export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
           </span>
         )}
       </div>
-      <p className="mb-2 text-[0.72rem] text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]">{pick(strings.title, isRtl)}</p>
+      <p className="mb-2 text-[0.72rem] text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]">
+        {pick(mode === 'review' ? strings.reviewTitle : strings.title, isRtl)}
+      </p>
       {body}
     </div>
   );
@@ -161,14 +238,29 @@ export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
   if (!bank) {
     return shell(<p className="text-xs text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)]">{pick(strings.loading, isRtl)}</p>);
   }
-  if (!questions.length) return null;
+  if (!questions.length) {
+    if (mode === 'review') {
+      return shell(
+        <p className="rounded-xl border border-dashed border-[color-mix(in_srgb,var(--t-ink)_18%,transparent)] px-3 py-2.5 text-xs leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_66%,transparent)]">
+          {pick(strings.noMistakes, isRtl)}
+        </p>,
+      );
+    }
+    return null;
+  }
 
   if (finished) {
     return shell(
       <>
         <p className="text-sm font-bold text-[var(--t-ink)]">
-          {pick(strings.done, isRtl)} · <span dir="ltr">{score.right}/{score.answered}</span>
+          {pick(mode === 'review' ? strings.reviewDone : strings.done, isRtl)} ·{' '}
+          <span dir="ltr">{score.right}/{score.answered}</span>
         </p>
+        {mode === 'review' && (
+          <p className="mt-1 text-[0.7rem] text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]">
+            {reviewCount} {pick(strings.queued, isRtl)}
+          </p>
+        )}
         <button
           type="button"
           onClick={restart}

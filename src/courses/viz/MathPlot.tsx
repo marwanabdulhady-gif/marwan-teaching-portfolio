@@ -297,6 +297,57 @@ export function Region({ top, bottom, from, to, color = 'var(--t-accent)', opaci
   return <path d={d} fill={color} fillOpacity={opacity} stroke="none" />;
 }
 
+export interface CircleProps {
+  /** Centre, in data coordinates. */
+  x: number;
+  y: number;
+  /** Radius, in data coordinates (x units). */
+  r: number;
+  color?: string;
+  width?: number;
+  fill?: string;
+  /** 0–1; ignored when `fill` is a plain token. */
+  fillOpacity?: number;
+  dash?: string;
+  opacity?: number;
+}
+
+/**
+ * A circle in data coordinates. Plots are 400 px wide with an arbitrary domain,
+ * so a radius of `2` is not 2 px: this converts through the plot scale instead
+ * of hard-coding pixels in explorer files.
+ */
+export function Circle({
+  x,
+  y,
+  r,
+  color = ACCENT,
+  width = 2,
+  fill = 'none',
+  fillOpacity = 0.12,
+  dash,
+  opacity = 1,
+}: CircleProps) {
+  const scale = usePlotScale();
+  const cx = scale.x(x);
+  const cy = scale.y(y);
+  const radius = Math.abs(r) * (scale.width / (scale.xDomain[1] - scale.xDomain[0]));
+  if (!Number.isFinite(cx) || !Number.isFinite(cy) || !Number.isFinite(radius)) return null;
+  return (
+    <circle
+      cx={cx}
+      cy={cy}
+      r={radius}
+      fill={fill === 'none' ? 'none' : fill}
+      fillOpacity={fill === 'none' ? undefined : fillOpacity}
+      stroke={color}
+      strokeWidth={width}
+      strokeDasharray={dash}
+      strokeOpacity={opacity}
+    />
+  );
+}
+
 /**
  * A point that can be dragged in two dimensions (and moved with the arrow
  * keys). Used where the plot itself is the control surface.

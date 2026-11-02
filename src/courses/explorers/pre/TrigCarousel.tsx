@@ -6,7 +6,7 @@
  */
 import type { Bi } from '../../../teachingData';
 import { useLocale } from '../../../LocaleContext';
-import { Curve, MathPlot, Point, Segment } from '../../viz/MathPlot';
+import { Circle, Curve, MathPlot, Point, Segment } from '../../viz/MathPlot';
 import { Readout, SegmentedChoice, Slider, pick, useExplorerState } from '../../viz/controls';
 import { fmt } from '../../viz/format';
 import type { ExplorerProps } from '../types';
@@ -65,7 +65,7 @@ export default function TrigCarousel({ onInteract }: ExplorerProps) {
             {pick(strings.circle, isRtl)}
           </p>
           <MathPlot xDomain={[-1.6, 1.6]} yDomain={[-1.6, 1.6]} aspect={1} grid={false} ariaLabel={pick(strings.circle, isRtl)}>
-            <circle cx={200} cy={200} r={70 * (400 / 3.2)} fill="none" stroke="var(--t-ink)" strokeOpacity={0.25} strokeWidth={1.5} />
+            <Circle x={0} y={0} r={1} color="var(--t-ink)" width={1.5} opacity={0.25} />
             <Segment x1={0} y1={0} x2={Math.cos(theta)} y2={Math.sin(theta)} color="var(--t-accent)" width={2} opacity={0.8} />
             <Segment x1={Math.cos(theta)} y1={0} x2={Math.cos(theta)} y2={Math.sin(theta)} color="var(--t-sun)" width={2} dash="3 3" />
             <Point x={Math.cos(theta)} y={Math.sin(theta)} r={5} />

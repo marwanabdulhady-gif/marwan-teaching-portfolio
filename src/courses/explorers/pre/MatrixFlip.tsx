@@ -8,7 +8,8 @@
 import { useState } from 'react';
 import type { Bi } from '../../../teachingData';
 import { useLocale } from '../../../LocaleContext';
-import { MathPlot, Point, Segment } from '../../viz/MathPlot';
+import { MathPlot, Point, Segment, usePlotScale } from '../../viz/MathPlot';
+import type { ReactNode } from 'react';
 import { Readout, SegmentedChoice, pick, useExplorerState } from '../../viz/controls';
 import { fmt } from '../../viz/format';
 import type { ExplorerProps } from '../types';
@@ -73,7 +74,7 @@ export default function MatrixFlip({ onInteract }: ExplorerProps) {
     [a + b, c + d],
     [b, d],
   ];
-  const polygon = image.map(([x, y]) => `${200 + x * 30},${200 - y * 30}`).join(' ');
+  const polygon = image;
 
   return (
     <div className="space-y-3">
@@ -89,8 +90,8 @@ export default function MatrixFlip({ onInteract }: ExplorerProps) {
 
       <div dir="ltr" className="rounded-2xl border border-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] bg-[color-mix(in_srgb,var(--t-bg-2)_45%,transparent)] p-2">
         <MathPlot xDomain={[-3, 3]} yDomain={[-3, 3]} aspect={1} ariaLabel={pick(strings.unit, isRtl)}>
-          <rect x={200} y={170} width={30} height={30} fill="var(--t-ink)" fillOpacity={0.08} stroke="var(--t-ink)" strokeDasharray="4 3" strokeOpacity={0.4} />
-          <polygon points={polygon} fill="var(--t-accent)" fillOpacity={0.18} stroke="var(--t-accent)" strokeWidth={2} />
+          <Polygon points={polygon} fill="var(--t-accent)" fillOpacity={0.18} stroke="var(--t-accent)" strokeWidth={2} />
+          <UnitSquare />
           <Segment x1={0} y1={0} x2={a} y2={c} color="var(--t-accent)" width={2.5} />
           <Segment x1={0} y1={0} x2={b} y2={d} color="var(--t-sky)" width={2.5} />
           <Point x={a} y={c} r={4} />
@@ -133,5 +134,37 @@ export default function MatrixFlip({ onInteract }: ExplorerProps) {
         </p>
       )}
     </div>
+  );
+}
+
+/** A polygon given in data coordinates. */
+function Polygon({ points, fill, fillOpacity, stroke, strokeWidth }: { points: [number, number][]; fill: string; fillOpacity: number; stroke: string; strokeWidth: number }) {
+  const scale = usePlotScale();
+  return (
+    <polygon
+      points={points.map(([x, y]) => `${scale.x(x)},${scale.y(y)}`).join(' ')}
+      fill={fill}
+      fillOpacity={fillOpacity}
+      stroke={stroke}
+      strokeWidth={strokeWidth}
+    />
+  );
+}
+
+/** The unit square the matrix acts on — the dashed outline in the plot. */
+function UnitSquare(): ReactNode {
+  const scale = usePlotScale();
+  return (
+    <rect
+      x={scale.x(0)}
+      y={scale.y(1)}
+      width={scale.x(1) - scale.x(0)}
+      height={scale.y(0) - scale.y(1)}
+      fill="var(--t-ink)"
+      fillOpacity={0.08}
+      stroke="var(--t-ink)"
+      strokeDasharray="4 3"
+      strokeOpacity={0.4}
+    />
   );
 }

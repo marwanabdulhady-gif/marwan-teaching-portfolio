@@ -6,7 +6,7 @@
  */
 import type { Bi } from '../../../teachingData';
 import { useLocale } from '../../../LocaleContext';
-import { Curve, DragHandle, MathPlot, Point } from '../../viz/MathPlot';
+import { Curve, DragHandle, MathPlot, Point, Segment } from '../../viz/MathPlot';
 import { Readout, SegmentedChoice, pick, useExplorerState } from '../../viz/controls';
 import { fmt } from '../../viz/format';
 import type { ExplorerProps } from '../types';
@@ -82,14 +82,15 @@ export default function VerticalLineTest({ onInteract }: ExplorerProps) {
           ) : (
             <Curve fn={(x) => curve.branches(x)[0] ?? NaN} />
           )}
-          <line
-            x1={200 + c * 40}
-            y1={0}
-            x2={200 + c * 40}
-            y2={400}
-            stroke={isFunction ? '#2a8a57' : '#b5481f'}
-            strokeWidth={2}
-            strokeDasharray="6 4"
+          <Segment
+            x1={c}
+            y1={-5}
+            x2={c}
+            y2={5}
+            color={isFunction ? '#2a8a57' : '#b5481f'}
+            width={2}
+            dash="6 4"
+            opacity={1}
           />
           {hits.map((y, index) => (
             <Point key={index} x={c} y={y} color={isFunction ? '#2a8a57' : '#b5481f'} r={5} />

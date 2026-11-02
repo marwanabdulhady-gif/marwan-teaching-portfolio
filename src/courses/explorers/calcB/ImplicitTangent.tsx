@@ -6,7 +6,7 @@
  */
 import type { Bi } from '../../../teachingData';
 import { useLocale } from '../../../LocaleContext';
-import { MathPlot, Point, PointHandle, Segment } from '../../viz/MathPlot';
+import { Circle, MathPlot, Point, PointHandle, Segment } from '../../viz/MathPlot';
 import { Readout, Slider, Toggle, pick, useExplorerState } from '../../viz/controls';
 import { fmt } from '../../viz/format';
 import type { ExplorerProps } from '../types';
@@ -44,7 +44,7 @@ export default function ImplicitTangent({ onInteract }: ExplorerProps) {
 
       <div dir="ltr" className="rounded-2xl border border-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] bg-[color-mix(in_srgb,var(--t-bg-2)_45%,transparent)] p-2">
         <MathPlot xDomain={DOMAIN} yDomain={DOMAIN} aspect={1} ariaLabel={`x² + y² = ${fmt(r, 1)}²`}>
-          <circle cx={200} cy={200} r={r * (400 / 12)} fill="none" stroke="var(--t-accent)" strokeWidth={2.5} />
+          <Circle x={0} y={0} r={r} width={2.5} />
           {show && (
             <Segment
               x1={Number.isFinite(slope) ? x - 2 : x}

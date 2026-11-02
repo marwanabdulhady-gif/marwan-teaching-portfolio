@@ -45,8 +45,9 @@ export default function InfiniteLimit({ onInteract }: ExplorerProps) {
 
   const y = f(x);
   const verdict = square ? '+∞' : side === 'left' ? '−∞' : '+∞';
-  // Auto-zoom, clamped so the curve stays readable.
-  const top = Math.min(400, Math.max(4, Math.abs(y) * 1.4));
+  // Auto-zoom, but never so far that the branch flattens into the axis: past
+  // the cap the readout carries the number and the plot keeps its shape.
+  const top = Math.min(24, Math.max(4, Math.abs(y) * 1.4));
 
   return (
     <div className="space-y-3">

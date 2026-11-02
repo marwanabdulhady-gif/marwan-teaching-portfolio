@@ -6,7 +6,7 @@
  */
 import type { Bi } from '../../../teachingData';
 import { useLocale } from '../../../LocaleContext';
-import { MathPlot, Point, PointHandle, Segment } from '../../viz/MathPlot';
+import { Circle, MathPlot, Point, PointHandle, Segment } from '../../viz/MathPlot';
 import { Readout, pick, useExplorerState } from '../../viz/controls';
 import { fmt, signed } from '../../viz/format';
 import type { ExplorerProps } from '../types';
@@ -42,14 +42,7 @@ export default function CircleBuilder({ onInteract }: ExplorerProps) {
       <div dir="ltr" className="rounded-2xl border border-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] bg-[color-mix(in_srgb,var(--t-bg-2)_45%,transparent)] p-2">
         <MathPlot xDomain={DOMAIN} yDomain={DOMAIN} aspect={1} ariaLabel={`(x − ${fmt(h, 1)})² + (y − ${fmt(k, 1)})² = ${fmt(r, 1)}²`}>
           <Segment x1={h} y1={k} x2={h + r} y2={k} color="var(--t-sun)" width={2} dash="4 3" opacity={0.9} />
-          <circle
-            cx={200 + h * (400 / 12)}
-            cy={200 - k * (400 / 12)}
-            r={r * (400 / 12)}
-            fill="color-mix(in srgb, var(--t-accent) 10%, transparent)"
-            stroke="var(--t-accent)"
-            strokeWidth={2.5}
-          />
+          <Circle x={h} y={k} r={r} fill="var(--t-accent)" fillOpacity={0.1} width={2.5} />
           <Point x={h} y={k} color="var(--t-accent)" label="(h, k)" />
           <PointHandle
             x={h + r}
