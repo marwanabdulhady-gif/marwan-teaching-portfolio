@@ -9,6 +9,7 @@ import {
   EXTRA_SEARCH_ENTRIES,
   SEARCH_UI,
 } from '../academyData';
+import { afterPageMount, scrollToSection } from '../router';
 
 interface SearchResultItem {
   id: string;
@@ -27,23 +28,17 @@ function normalise(s: string) {
 }
 
 export function openAcademyWorkspace(url: string, title: string) {
-  window.dispatchEvent(new CustomEvent('marwan:open-academy', { detail: { url, title } }));
-  const el = document.getElementById('resources');
-  if (el) {
-    const lenis = (window as any).__lenis;
-    if (lenis) lenis.scrollTo(el, { offset: -80 });
-    else el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  afterPageMount('/courses', () => {
+    window.dispatchEvent(new CustomEvent('marwan:open-academy', { detail: { url, title } }));
+    scrollToSection('resources');
+  });
 }
 
 export function openArcadeGame(id: string, title: string) {
-  window.dispatchEvent(new CustomEvent('marwan:open-arcade', { detail: { id, title } }));
-  const el = document.getElementById('lab');
-  if (el) {
-    const lenis = (window as any).__lenis;
-    if (lenis) lenis.scrollTo(el, { offset: -80 });
-    else el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  afterPageMount('/games', () => {
+    window.dispatchEvent(new CustomEvent('marwan:open-arcade', { detail: { id, title } }));
+    scrollToSection('lab');
+  });
 }
 
 export default function SearchPalette() {
@@ -164,12 +159,7 @@ export default function SearchPalette() {
     if (item.kind === 'academy' && item.href) {
       openAcademyWorkspace(item.href, L(item.title));
     } else if (item.kind === 'studio') {
-      const el = document.getElementById('studio');
-      if (el) {
-        const lenis = (window as any).__lenis;
-        if (lenis) lenis.scrollTo(el, { offset: -80 });
-        else el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      scrollToSection('studio');
     } else if (item.kind === 'arcade' && item.arcadeId) {
       openArcadeGame(item.arcadeId, L(item.title));
     }

@@ -3,6 +3,7 @@ import { ArrowRight, Linkedin } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
 import { HERO, HERO_STATS, LINKS } from '../teachingData';
 import { MathConstellation } from './MathArt';
+import { scrollToSection } from '../router';
 
 /**
  * Hero. Mirrors the template's layout (badge → split title → name block →
@@ -12,13 +13,7 @@ import { MathConstellation } from './MathArt';
 export default function TeachHero() {
   const { isRtl } = useLocale();
 
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const lenis = (window as any).__lenis;
-    if (lenis) lenis.scrollTo(el, { offset: -92 });
-    else window.scrollTo({ top: el.offsetTop - 92, behavior: 'smooth' });
-  };
+  const scrollTo = scrollToSection;
 
   return (
     <header id="hero" data-theme="dark" className="relative bg-(--t-bg) min-h-[100svh] flex items-center pt-[100px] pb-16 px-5 lg:px-8 overflow-hidden">

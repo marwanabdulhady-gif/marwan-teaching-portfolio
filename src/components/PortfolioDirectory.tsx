@@ -1,12 +1,16 @@
 import { ArrowRight, BookOpen, Compass, Cpu, Gamepad2, GraduationCap } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
 import Reveal from './Reveal';
+import { Link, navigate, scrollToSection, type RoutePath } from '../router';
 
 type Bi = { en: string; ar: string };
 
 interface PillarItem {
   num: string;
-  targetId: string;
+  /** Section on the home page to scroll to… */
+  targetId?: string;
+  /** …or a separate page to open. */
+  to?: RoutePath;
   icon: typeof GraduationCap;
   title: Bi;
   summary: Bi;
@@ -27,7 +31,7 @@ const PILLARS: PillarItem[] = [
   },
   {
     num: '02',
-    targetId: 'visual-math',
+    to: '/courses',
     icon: BookOpen,
     title: { en: 'Mathematics Academy & Labs', ar: 'أكاديمية الرياضيات والمختبرات' },
     summary: {
@@ -38,7 +42,7 @@ const PILLARS: PillarItem[] = [
   },
   {
     num: '03',
-    targetId: 'lab',
+    to: '/games',
     icon: Gamepad2,
     title: { en: 'FIKR Math Arcade', ar: 'صالة ألعاب فكر للرياضيات' },
     summary: {
@@ -59,14 +63,6 @@ const PILLARS: PillarItem[] = [
     meta: { en: '4 Products · 6 AI Tools', ar: '٤ أنظمة · ٦ أدوات ذكية' },
   },
 ];
-
-export function scrollToSection(id: string) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const lenis = (window as any).__lenis;
-  if (lenis) lenis.scrollTo(el, { offset: -88 });
-  else window.scrollTo({ top: el.offsetTop - 88, behavior: 'smooth' });
-}
 
 /**
  * Architectural 4-pillar overview strip right below the credentials marquee so
@@ -104,7 +100,7 @@ export default function PortfolioDirectory() {
               <Reveal key={p.num} delay={idx * 0.05}>
                 <button
                   type="button"
-                  onClick={() => scrollToSection(p.targetId)}
+                  onClick={() => (p.to ? navigate(p.to) : scrollToSection(p.targetId!))}
                   className="teach-card w-full h-full p-5 flex flex-col justify-between gap-4 text-start cursor-pointer bg-transparent group"
                 >
                   <div className="space-y-3">
@@ -154,18 +150,20 @@ interface ChapterBannerProps {
   label: Bi;
   subtitle: Bi;
   links?: { id: string; label: Bi }[];
+  /** First thing on a page: leaves room for the fixed top bar. */
+  first?: boolean;
 }
 
 /**
  * Subtle editorial landmark separating the four main chapters of the portfolio,
  * with quick anchor pills to jump between sub-sections inside that chapter.
  */
-export function ChapterBanner({ num, label, subtitle, links = [] }: ChapterBannerProps) {
+export function ChapterBanner({ num, label, subtitle, links = [], first = false }: ChapterBannerProps) {
   const { isRtl } = useLocale();
   const L = (o: Bi) => (isRtl ? o.ar : o.en);
 
   return (
-    <div className="px-5 lg:px-8 pt-10 md:pt-14">
+    <div className={`px-5 lg:px-8 ${first ? 'pt-28 md:pt-32' : 'pt-10 md:pt-14'}`}>
       <div className="max-w-7xl mx-auto">
         <div className="rounded-2xl px-5 py-4 bg-[color-mix(in_srgb,var(--t-bg-2)_55%,transparent)] border border-[color-mix(in_srgb,var(--t-accent)_18%,transparent)] flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-3 text-start">
@@ -200,5 +198,44 @@ export function ChapterBanner({ num, label, subtitle, links = [] }: ChapterBanne
         </div>
       </div>
     </div>
+  );
+}
+
+interface PageLinksProps {
+  /** The pages to offer after this one. */
+  items: { to: RoutePath; label: Bi; hint: Bi }[];
+}
+
+/** End-of-page strip: where to go next, so no page is a dead end. */
+export function PageLinks({ items }: PageLinksProps) {
+  const { isRtl } = useLocale();
+  const L = (o: Bi) => (isRtl ? o.ar : o.en);
+  return (
+    <section className="px-5 lg:px-8 pb-6">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {items.map((it) => (
+          <Link
+            key={it.to}
+            to={it.to}
+            className="teach-card group flex items-center justify-between gap-4 px-6 py-5 text-start no-underline"
+          >
+            <span className="space-y-1">
+              <span
+                className="block text-lg font-black text-[var(--t-ink)]"
+                style={{ fontFamily: 'var(--teach-font-display)' }}
+              >
+                {L(it.label)}
+              </span>
+              <span className="block text-xs text-[color-mix(in_srgb,var(--t-ink)_60%,transparent)]">{L(it.hint)}</span>
+            </span>
+            <ArrowRight
+              className={`w-5 h-5 shrink-0 text-[var(--t-accent)] transition-transform ${
+                isRtl ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'
+              }`}
+            />
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }

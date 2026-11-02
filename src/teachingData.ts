@@ -60,8 +60,8 @@ export const BRAND = {
 
 export const NAV_ITEMS: { id: string; label: Bi }[] = [
   { id: 'about', label: { en: 'Profile', ar: 'الملف المهني' } },
-  { id: 'resources', label: { en: 'Academy & Labs', ar: 'الأكاديمية والمختبرات' } },
-  { id: 'lab', label: { en: 'Math Arcade', ar: 'صالة الألعاب' } },
+  { id: 'resources', label: { en: 'Courses', ar: 'الدورات' } },
+  { id: 'lab', label: { en: 'Games', ar: 'الألعاب' } },
   { id: 'designs', label: { en: 'EdTech Designs', ar: 'التصاميم' } },
   { id: 'studio', label: { en: 'AI Studio', ar: 'استوديو الذكاء' } },
 ];

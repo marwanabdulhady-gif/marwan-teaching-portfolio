@@ -1,7 +1,7 @@
 import { ArrowRight, Award, BookOpen, Youtube } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
 import { ABOUT, LINKS } from '../teachingData';
-import { scrollToSection } from './PortfolioDirectory';
+import { navigate, scrollToSection } from '../router';
 import Reveal from './Reveal';
 
 const PILLAR_HIGHLIGHTS = [
@@ -146,7 +146,7 @@ export default function TeachAbout() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => scrollToSection('resources')}
+                  onClick={() => navigate('/courses')}
                   className="teach-btn teach-btn-secondary"
                 >
                   <BookOpen className="w-4 h-4" />

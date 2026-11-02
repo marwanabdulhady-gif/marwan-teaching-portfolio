@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, CalendarCheck, Menu, X } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
 import { NAV_ITEMS, BRAND, FOOTER, LINKS } from '../teachingData';
 import { MathMark } from './MathArt';
+import { PAGE_NAV, navigate, scrollToSection, usePath } from '../router';
 import SearchPalette from './SearchPalette';
 import AppearanceMenu from './AppearanceMenu';
 
@@ -23,6 +24,9 @@ export default function TeachNav({ activeSection }: TeachNavProps) {
   const { locale, setLocale, isRtl, t } = useLocale();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // Only the home page opens on a dark hero; the other pages start on paper.
+  const onHome = usePath() === '/';
+  const solid = scrolled || !onHome;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -41,19 +45,23 @@ export default function TeachNav({ activeSection }: TeachNavProps) {
 
   const goTo = (id: string) => {
     setMenuOpen(false);
-    const el = document.getElementById(id);
-    if (!el) return;
-    const lenis = (window as any).__lenis;
-    if (lenis) lenis.scrollTo(el, { offset: -92 });
-    else window.scrollTo({ top: el.offsetTop - 92, behavior: 'smooth' });
+    const page = PAGE_NAV[id];
+    if (page) navigate(page);
+    else scrollToSection(id);
+  };
+  const hrefFor = (id: string) => PAGE_NAV[id] ?? `/#${id}`;
+  const open = (id: string) => (e: React.MouseEvent) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    goTo(id);
   };
 
   return (
     <nav
       // Over the chalkboard hero the bar is dark; once scrolled it sits on paper.
-      data-theme={scrolled ? undefined : 'dark'}
+      data-theme={solid ? undefined : 'dark'}
       className={`fixed top-0 inset-x-0 z-[900] transition-all duration-500 ${
-        scrolled
+        solid
           ? 'bg-[color-mix(in_srgb,var(--t-bg)_88%,transparent)] backdrop-blur-2xl border-b border-[color-mix(in_srgb,var(--t-accent)_20%,transparent)] shadow-[0_10px_40px_-20px_var(--t-shadow)]'
           : 'bg-[color-mix(in_srgb,var(--t-bg)_55%,transparent)] backdrop-blur-md border-b border-transparent'
       }`}
@@ -61,7 +69,7 @@ export default function TeachNav({ activeSection }: TeachNavProps) {
       <div className="max-w-7xl mx-auto px-5 lg:px-8 h-[72px] flex items-center justify-between gap-2 sm:gap-4">
         {/* Brand */}
         <a
-          href="#hero"
+          href="/"
           onClick={(e) => {
             e.preventDefault();
             goTo('hero');
@@ -91,8 +99,10 @@ export default function TeachNav({ activeSection }: TeachNavProps) {
             const isActive = activeSection === item.id;
             return (
               <li key={item.id}>
-                <button
-                  onClick={() => goTo(item.id)}
+                <a
+                  href={hrefFor(item.id)}
+                  onClick={open(item.id)}
+                  aria-current={isActive ? 'page' : undefined}
                   className={`relative whitespace-nowrap text-[0.8rem] font-medium tracking-wide transition-colors cursor-pointer bg-transparent border-0 ${
                     isActive ? 'text-cyan-300' : 'text-[color-mix(in_srgb,var(--t-ink)_68%,transparent)] hover:text-cyan-300'
                   }`}
@@ -103,7 +113,7 @@ export default function TeachNav({ activeSection }: TeachNavProps) {
                       isActive ? 'w-full' : 'w-0'
                     }`}
                   />
-                </button>
+                </a>
               </li>
             );
           })}
@@ -179,12 +189,13 @@ export default function TeachNav({ activeSection }: TeachNavProps) {
             <ul className="px-5 py-4 space-y-1 list-none">
               {NAV_ITEMS.map((item) => (
                 <li key={item.id}>
-                  <button
-                    onClick={() => goTo(item.id)}
-                    className="w-full text-start px-3 py-3 rounded-xl text-[0.9rem] text-[color-mix(in_srgb,var(--t-ink)_80%,transparent)] hover:bg-[color-mix(in_srgb,var(--t-accent)_12%,transparent)] hover:text-cyan-300 transition-colors cursor-pointer bg-transparent border-0"
+                  <a
+                    href={hrefFor(item.id)}
+                    onClick={open(item.id)}
+                    className="block w-full text-start px-3 py-3 rounded-xl text-[0.9rem] text-[color-mix(in_srgb,var(--t-ink)_80%,transparent)] hover:bg-[color-mix(in_srgb,var(--t-accent)_12%,transparent)] hover:text-cyan-300 transition-colors cursor-pointer bg-transparent border-0"
                   >
                     {isRtl ? item.label.ar : item.label.en}
-                  </button>
+                  </a>
                 </li>
               ))}
               <li className="pt-2 border-t border-white/10 mt-2">
