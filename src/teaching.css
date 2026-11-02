@@ -328,3 +328,19 @@
   border-color: color-mix(in srgb, var(--t-accent) 30%, transparent);
   box-shadow: 0 24px 50px -28px color-mix(in srgb, var(--t-accent) 60%, transparent);
 }
+
+html[data-appearance='dark'] .teach-card.learn {
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--t-accent) 22%, transparent), transparent 60%),
+    linear-gradient(160deg, #182235 0%, #13233f 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Visual Mathematics Animated SVG Models
+   -------------------------------------------------------------------------- */
+.m-motion-frame {
+  position: relative;
+}
+.m-motion-frame[data-running='false'] * {
+  animation-play-state: paused !important;
+}

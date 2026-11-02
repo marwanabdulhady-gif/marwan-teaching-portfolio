@@ -1,0 +1,936 @@
+{
+ "guided-v2-type": [
+  "A terminating decimal is rational: 0.125=1/8.",
+  null,
+  "A ratio of integers with nonzero denominator is rational.",
+  "A repeating decimal is rational, even when it never terminates."
+ ],
+ "guided-v2-builder": [
+  null,
+  "Equality at the upper boundary includes two.",
+  "Negative one also satisfies both inequalities.",
+  "The strict lower inequality excludes negative two."
+ ],
+ "guided-v2-intersection": [
+  "One and seven are in A but not in B.",
+  "The sets do share elements: inspect three and five.",
+  null,
+  "This is the union: it includes elements found in only one set."
+ ],
+ "guided-v2-interval": [
+  "The right endpoint must be included because equality is allowed.",
+  "A bracket at negative two incorrectly includes that excluded endpoint.",
+  null,
+  "Both endpoint choices are reversed."
+ ],
+ "guided-v2-absolute": [
+  "This would use ∣a−b∣=a−b, but the inside is negative here.",
+  null,
+  "The absolute-value term must still be added.",
+  "This is only the absolute-value term; add the original a+b too."
+ ],
+ "guided-neg-exp": [
+  "Taking a reciprocal does not invert the exponent fraction.",
+  null,
+  "A minus sign on the exponent does not negate the value."
+ ],
+ "guided-square-sum-check": [
+  null,
+  "This is AB; the middle term is twice that product.",
+  "Nine comes from squaring three, not calculating twice the product."
+ ],
+ "guided-gcf-check": [
+  "There are only two terms here; first remove their shared factor.",
+  "A shared factor is present and must be removed before considering special products.",
+  null
+ ],
+ "guided-factor-completely": [
+  "There is no denominator here, so there is no factor to cancel against.",
+  null,
+  "The two terms inside are not like terms and cannot be added together."
+ ],
+ "guided-identity-method": [
+  null,
+  "Assuming the conclusion gives no proof.",
+  "One numerical check cannot establish an identity for all inputs."
+ ],
+ "guided-restriction": [
+  "Cross multiplication is not the first step in simplifying one rational expression.",
+  "There may be no division operation between two fractions; inspect the original denominator first.",
+  null,
+  "Expansion hides factors and does not replace checking the original domain."
+ ],
+ "guided-rational-cancel-domain": [
+  "The numerator and denominator were factored incorrectly.",
+  "The original denominator has two real zeros, so its domain is not all real numbers.",
+  "The removed factor still excludes negative three.",
+  null
+ ],
+ "guided-division": [
+  "Expansion usually hides factors that could cancel; use the reciprocal first.",
+  null,
+  "Adding denominators is not a rule for division.",
+  "Cross multiplication is an equation-solving operation, not the division rule here."
+ ],
+ "guided-lcd": [
+  null,
+  "Numerators do not determine a common denominator.",
+  "Common factors alone can miss factors needed by one denominator.",
+  "The first denominator may not contain factors required by the other fractions."
+ ],
+ "guided-compound": [
+  "Simplifying the numerator alone can be valid, but leaves the denominator fractions unresolved; one LCD clears both large parts efficiently.",
+  "Taking the reciprocal changes the value unless that operation is explicitly required.",
+  "This is one expression, not an equation with two ratios to cross multiply.",
+  null
+ ],
+ "guided-rational-root-domain": [
+  "Simplification cannot remove the original domain restrictions.",
+  "Zero makes the original denominator zero.",
+  "This includes negative inputs where the square root is not real.",
+  null
+ ],
+ "guided-inequality-negative": [
+  "The inequality must reverse when dividing by a negative number.",
+  null,
+  "Nine divided by negative three is negative three.",
+  "Both the boundary sign and inequality direction are incorrect."
+ ],
+ "guided-inequality-repeated": [
+  null,
+  "Values below negative two also work, and four must be excluded.",
+  "Above four, both factors are positive.",
+  "At negative two the product is zero, not strictly negative."
+ ],
+ "guided-inequality-rational": [
+  null,
+  "Negative two makes the denominator zero and can never be included.",
+  "The denominator zero cannot be included, and the middle interval has negative sign.",
+  "The quotient is negative between the two critical numbers."
+ ],
+ "guided-inequality-absolute": [
+  null,
+  "This outside region corresponds to a greater-than type inequality.",
+  "Equality is allowed, so both endpoints are included.",
+  "Adding three before dividing gives boundaries negative one and four."
+ ],
+ "guided-pc19-v2-distance": [
+  null,
+  "Adding the coordinate changes gives a path along two legs, not the straight-line distance.",
+  "Square each change before adding inside the square root.",
+  "The sum of squares is the squared distance; take its square root."
+ ],
+ "guided-pc19-v2-midpoint": [
+  "You added coordinates but did not divide each sum by two.",
+  "These are half the coordinate differences, not the averages.",
+  "The vertical sum is −3+5=2, so its average is positive one.",
+  null
+ ],
+ "guided-pc19-v2-center": [
+  "The right side is r2=36, not r=36.",
+  "The expression x+5 means x−(−5), so the horizontal center is negative five.",
+  null,
+  "Reverse the signs inside both parentheses, and take the square root for the radius."
+ ],
+ "guided-pc19-v2-write": [
+  "The horizontal center is positive one, requiring x−1.",
+  null,
+  "These signs describe the opposite center (−1,3).",
+  "Both the vertical center sign and the squared-radius value need correction."
+ ],
+ "guided-pc19-v2-diameter": [
+  null,
+  "Slope gives a direction, not the center.",
+  "Circumference requires the radius, which has not been found yet.",
+  "An intercept does not determine the center of a general circle."
+ ],
+ "guided-pc19-v2-square": [
+  "The expression is already expanded; separate the two variables before making squares.",
+  "Midpoint belongs to coordinate pairs, not this algebraic conversion.",
+  "A square root cannot separate this sum into two completed squares.",
+  null
+ ],
+ "guided-pc19-v2-normalize": [
+  "Normalize first to use the monic completing-square routine correctly.",
+  "Moving one linear term does not normalize the squared coefficients.",
+  null,
+  "Dividing only some terms changes the equation and the circle."
+ ],
+ "guided-pc19-v2-graph": [
+  "This equation leaves the center at the origin.",
+  null,
+  "These signs move the center to (−3,2) instead.",
+  "The vertical center sign is wrong and the radius must be squared."
+ ],
+ "guided-pc19-v2-tangent": [
+  null,
+  "Two is the distance to the y-axis, not the x-axis.",
+  "Do not add horizontal and vertical distances; only perpendicular distance matters.",
+  "Subtracting the coordinate magnitudes does not give distance to an axis."
+ ],
+ "guided-pc21-function": [
+  null,
+  "A function may send several different inputs to the same output.",
+  "A repeated input-output pair is harmless; conflicting outputs for one input are not.",
+  "Repeated outputs are allowed for different inputs."
+ ],
+ "guided-pc21-representations": [
+  "A verbal representation describes the rule in words.",
+  "An algebraic representation is a formula or equation.",
+  "A graphical representation plots coordinates on axes.",
+  null
+ ],
+ "guided-pc21-eval": [
+  "This drops both the negative input and the square.",
+  "The substitution must retain the square on the whole input.",
+  null,
+  "The square applies to −a together; it does not make the coefficient negative."
+ ],
+ "guided-pc21-piece": [
+  "Exactly the condition containing the input selects the rule.",
+  null,
+  "The middle interval starts at negative two, so it does not contain negative three.",
+  "The right interval contains inputs greater than two only."
+ ],
+ "guided-pc21-dq": [
+  null,
+  "Domain restrictions matter but do not construct the numerator.",
+  "Range does not supply the two outputs needed in the numerator.",
+  "A graph is optional; the algebraic quotient uses two substitutions."
+ ],
+ "guided-pc21-domain-rule": [
+  "Strict positivity is needed for an even root in a denominator, not from the numerator root alone.",
+  "A denominator must be nonzero, not equal to zero.",
+  "A negative radicand has no real even root.",
+  null
+ ],
+ "guided-pc21-common-mistake": [
+  "Unique outputs are required for an inverse function to be a function, not for every function itself.",
+  "Inputs matter: each one must still have exactly one assigned output.",
+  null,
+  "Several inputs may share the same output."
+ ],
+ "guided-22-family": [
+  null,
+  "The number four is a horizontal shift, not a slope.",
+  "The outside one gives the vertex height, not an x-intercept.",
+  "An absolute-value graph is V-shaped, not circular."
+ ],
+ "guided-22-power1": [
+  "An odd power changes sign, so it has origin rather than y-axis symmetry.",
+  "For this odd power, negative inputs give negative outputs and positive inputs positive outputs.",
+  "A positive-integer power is continuous, not a staircase.",
+  null
+ ],
+ "guided-22-piece": [
+  "The two conditions cannot both contain three because one is strict.",
+  "The condition with the equality does contain three.",
+  null,
+  "The strict inequality excludes three."
+ ],
+ "guided-22-abs": [
+  "Differentiation is unnecessary; the sign of the inside determines the rewrite.",
+  null,
+  "Squaring would change the function instead of identifying its two rules.",
+  "Zero is not necessarily the breaking input; solve for the inside to vanish."
+ ],
+ "guided-22-grapheq": [
+  null,
+  "This puts the vertex at positive two instead of negative two.",
+  "The horizontal and vertical coordinates have been swapped.",
+  "A quadratic skeleton gives a parabola rather than a V."
+ ],
+ "guided-22-floor1": [
+  "Zero is greater than the input; floor is not truncation toward zero.",
+  "Positive one is greater than the input.",
+  "The floor output must be an integer.",
+  null
+ ],
+ "guided-22-vlt": [
+  "The test does not determine whether the graph is linear.",
+  "The relation has x-values; its failure is uniqueness of output.",
+  null,
+  "Two distinct crossings assign two outputs to one input."
+ ],
+ "guided-22-equation": [
+  "The isolated linear rule accepts every real x, not just positive inputs.",
+  null,
+  "Having both variables in an equation does not prevent it defining a function.",
+  "A nonvertical line is a function of x."
+ ],
+ "guided-23-first": [
+  null,
+  "The vertical axis gives output values and therefore range.",
+  "Domain uses input coordinates only; the other axis gives range.",
+  "Every graph point has an input coordinate to project."
+ ],
+ "guided-23-end": [
+  "The left endpoint is open, so negative two must be excluded.",
+  "The right endpoint is filled, so four must be included.",
+  "Both endpoint choices are reversed.",
+  null
+ ],
+ "guided-23-change": [
+  "Adding outputs does not give net change.",
+  "Subtract the actual endpoint outputs: negative two minus three.",
+  null,
+  "This reverses the subtraction or takes the absolute value."
+ ],
+ "guided-23-compare": [
+  "Subtracting coordinates does not produce the intersection input.",
+  null,
+  "Five is the shared output, not the input solving the equation.",
+  "Adding the coordinates has no role in solving the intersection equation."
+ ],
+ "guided-23-inc": [
+  null,
+  "Increasing means rising as x increases, the opposite of the description.",
+  "A constant function would stay at the same height.",
+  "A decreasing curve still has defined outputs on the interval."
+ ],
+ "guided-23-max": [
+  "Negative one is where the maximum occurs, not its value.",
+  "The ordered pair is the maximum point; its value is just the output.",
+  "Adding the coordinates does not define an extreme value.",
+  null
+ ],
+ "guided-26-shift": [
+  null,
+  "Inside plus four moves the point left, not right.",
+  "Outside minus one moves the output down, not up.",
+  "Both the horizontal and vertical directions are reversed."
+ ],
+ "guided-26-map": [
+  "Divide the old input by two before adding four; do not multiply it by two.",
+  "The outside rule is 3y−1, so the new output is five.",
+  "The new input solves X=4+1/2, not four minus one.",
+  null
+ ],
+ "guided-26-rule": [
+  "Outside plus two shifts vertically up.",
+  "An outside factor stretches the outputs instead of shifting horizontally.",
+  null,
+  "Inside minus two shifts the graph right."
+ ],
+ "guided-26-even": [
+  "A function on a symmetric domain that is both even and odd must be identically zero; this one is not.",
+  null,
+  "Both terms change sign, so f(−x)=−f(x) rather than f(x).",
+  "Both terms have odd powers, and their sum satisfies the odd identity."
+ ],
+ "guided-m1": [
+  "You used the input or the point at the target. A limit follows nearby outputs instead. Trace the line toward x=2.",
+  "Simplify for nearby inputs, then calculate again. The target input itself can remain excluded. Trace the line toward x=2.",
+  null,
+  "A two-sided limit needs evidence from inputs below and above the target. Trace the line toward x=2."
+ ],
+ "guided-d1": [
+  "A limit describes nearby outputs; it does not require f(4) to exist or equal 7.",
+  null,
+  "The notation says the input approaches 4. It is the nearby outputs, not the inputs, that approach 7.",
+  "A limit is a statement about nearby behavior, not a point the graph must cross. Here inputs approach 4 and outputs approach 7."
+ ],
+ "guided-d2": [
+  "The input exactly at 2 does not show nearby behavior. Choose values close to 2 from both sides.",
+  "These inputs move away from 2 and do not bracket it. Choose closer inputs on both sides.",
+  null,
+  "Values above 2 show only the right-hand behavior. Include nearby inputs below 2 as well."
+ ],
+ "guided-numerical": [
+  "3 is the input target, not the approached output. Follow the numbers in the output column toward a shared value.",
+  null,
+  "Do not add the input target to the output. Compare the outputs just below and just above 6.",
+  "An output need not equal the limit exactly. These outputs get closer to one shared number from both sides."
+ ],
+ "guided-a-g2": [
+  "The filled point gives the function value. Trace the curve toward the open point for the limit. Follow the curve toward x=2.",
+  null,
+  "The vertical axis is a scale, not the destination. Trace both branches toward the target and read their shared height.",
+  "The title does not determine a limit. Follow the curve toward x=2 from both sides."
+ ],
+ "guided-graphical": [
+  "1 is the height of the filled point: it gives f(2). For the limit, trace the nearby curve instead.",
+  "2 is the target on the horizontal axis. Read the height approached on the vertical axis.",
+  null,
+  "A hole alone does not prevent a limit. Check whether the branches approach the same height."
+ ],
+ "guided-d4": [
+  "1 is the target input. Read the height of the branch for inputs greater than 1.",
+  "The minus sign means inputs less than the target; the plus sign means inputs greater than it. Approach from larger inputs.",
+  null,
+  "The two-sided limit fails, but the right-hand limit exists: follow only inputs greater than 1."
+ ],
+ "guided-one-sided": [
+  "1 is the target input. Read the output height of the branch to its left.",
+  null,
+  "4 is the right-hand height. The minus sign asks you to use inputs less than 1.",
+  "The two-sided limit fails here, but this question asks for only the left-hand limit. That branch has a definite height."
+ ],
+ "guided-d5": [
+  null,
+  "You used the input or the point at the target. A limit follows nearby outputs instead. Use the filled point.",
+  "An open point is not included. Use the filled point to find the function value. Use the filled point.",
+  "An open point is not included. Use the filled point to find the function value. Use the filled point."
+ ],
+ "guided-value": [
+  "The roles are reversed. Use the filled point for the value and trace both branches for the limit.",
+  null,
+  "The open point at height 4 is not the function value. Find the filled point with input 2.",
+  "A filled point defines f(2), and the nearby branches agree. Read their two heights separately."
+ ],
+ "guided-dne-jump": [
+  "That uses only the left side. The right side approaches 5, so the two sides disagree.",
+  "A limit is not an average of the two sides. Neither side approaches 3.5 here.",
+  "That uses only the right side. The left side approaches 2, so the two sides disagree.",
+  null
+ ],
+ "l13-guided-diagnose": [
+  "A zero numerator alone is not enough when the denominator is also zero.",
+  "Zero divided by zero is not one. Cancellation must be justified by common factors for nearby inputs.",
+  null,
+  "A removable hole can have a finite limit. The form alone does not imply DNE."
+ ],
+ "l13-guided-substitution": [
+  "−4(−2)=+8, not −8. Recalculate with the positive product.",
+  "3(−2)2=12 and −4(−2)=8. Include both terms and the constant.",
+  null,
+  "A polynomial is continuous at −2, so direct substitution gives a finite limit."
+ ],
+ "l13-guided-factoring": [
+  "0/0 is indeterminate, not zero. Expose the common factor first.",
+  null,
+  "There is no radical difference here. The difference-of-squares factorization directly exposes the common factor.",
+  "Cancellation applies to factors of a product, not separate terms in sums or differences."
+ ],
+ "l13-guided-synthetic": [
+  "The synthetic number is 3, not −3. The coefficient of x in the quotient is positive.",
+  "After adding −7+9, the next quotient coefficient is 2, not −2.",
+  null,
+  "The zero coefficient of x2 in the dividend must still be included; division produces a 3x term."
+ ],
+ "l13-guided-fractions": [
+  "The negative sign comes from 2−x=−(x−2); it cannot be dropped.",
+  null,
+  "The common denominator of 1/x and 1/2 is 2x, so the factor 2 remains.",
+  "Combining the small fractions exposes a cancellable factor; the outer denominator does not remain alone."
+ ],
+ "l13-guided-conjugate": [
+  "This is the original expression. The conjugate reverses the sign between its two terms.",
+  null,
+  "The conjugate must retain the radical term and the constant 3.",
+  "Do not change the expression inside the square root; change only the sign before 3."
+ ],
+ "l13-guided-fractional-substitution": [
+  "This makes the square root u, but the cube-root power becomes u4/3.",
+  "This makes x2/3=u2, but the square root becomes u3/2.",
+  "Five is not divisible by either 2 or 3, so fractional powers remain.",
+  null
+ ],
+ "l13-guided-piecewise": [
+  "Two is the input target, not the right-hand output. Evaluate 5−2.",
+  "Two is the input target, not the left-hand output. Evaluate 2+1.",
+  null,
+  "The right expression is 5−x, not the constant 5."
+ ],
+ "l13-guided-floor": [
+  "The value at the target is 1, but nearby inputs below it have floor 0.",
+  null,
+  "Apply the shift +3 before taking the floor; the relevant integer is 1, not 0.",
+  "Inputs on the right have 1<x+3<2, so their floor is 1."
+ ],
+ "l13-guided-oscillation": [
+  "The input 1/x is unbounded, but the sine output is always between −1 and 1.",
+  "For every x=0, sin(1/x) is defined. Undefined at the target alone does not decide a limit.",
+  null,
+  "Some inputs give zero, but other inputs arbitrarily close to zero give 1 or −1."
+ ],
+ "l13-guided-composite": [
+  null,
+  "The nearby limit of g need not equal its value at the target, or even require that value to exist.",
+  "A discontinuous outer function can fail to preserve the inner limit. Continuity is the sufficient condition here.",
+  "The relevant outer input is the inner limit 9, not the original target 2."
+ ],
+ "l13-guided-trig": [
+  "Both numerator and denominator approach zero; that does not make their ratio tend to zero.",
+  "The standard ratio with denominator 5x tends to 1, but the required ratio has an extra factor 5.",
+  null,
+  "The indeterminate form can be rewritten as a known special limit, so the limit exists."
+ ],
+ "l13-guided-identity": [
+  "The denominator is squared, so the special limit (1−cosu)/u→0 cannot be used without further rewriting.",
+  "The identity leaves a factor 2 outside the squared sine-over-angle ratio.",
+  "Using the identity gives 2sin2x, not 4sin2x.",
+  null
+ ],
+ "l13-guided-difference": [
+  null,
+  "2x is the limiting value, not the exact simplified expression for nonzero h.",
+  "The cross term 2xh must be included when expanding (x+h)2.",
+  "This is the expanded numerator; it still needs to be divided by h."
+ ],
+ "l13-guided-squeeze": [
+  "The lower bound is −x2, whose limit is 0, not −1.",
+  null,
+  "The upper bound is x2, whose limit is 0, not 1.",
+  "The bounds are sufficient because their limits are equal. No explicit formula for f is needed."
+ ],
+ "continuity-point": [
+  "A defined value alone says nothing about nearby behavior.",
+  "A limit may exist while the point is missing or misplaced.",
+  null,
+  "Curved graphs can be continuous; being a line is not required."
+ ],
+ "continuity-predict-0": [
+  "Zero is not the nearby output: simplify to x+1 for x not equal to one.",
+  "One is the input target, not the approached output.",
+  null,
+  "The two-sided limit is finite, so defining the missing point to equal it repairs continuity."
+ ],
+ "continuity-discontinuity": [
+  "A removable discontinuity requires equal finite one-sided limits.",
+  null,
+  "Continuity requires the one-sided limits to agree.",
+  "A hole alone has a shared nearby destination, unlike a jump."
+ ],
+ "continuity-families": [
+  "At zero the denominator is negative nine, not zero.",
+  null,
+  "Away from denominator zeros, a rational function is continuous.",
+  "Check the denominator: it has two real zeros."
+ ],
+ "continuity-predict-1": [
+  null,
+  "The left rule contributes six as well as m; do not drop that term.",
+  "Equate the whole left expression to the right limit, not one term to the parameter.",
+  "The right rule is x squared minus one, so its output at three is eight, not nine."
+ ],
+ "continuity-piecewise": [
+  "The value alone does not test nearby behavior.",
+  null,
+  "Equal slopes are not the definition of continuity.",
+  "The domain alone does not show whether the pieces meet."
+ ],
+ "continuity-predict-2": [
+  "Three is the breaking input, not the output.",
+  "Substitute three into the whole expression: six minus six is zero.",
+  "Both one-sided limits exist and agree because both linear pieces approach zero.",
+  null
+ ],
+ "continuity-predict-3": [
+  "The factor x tends to zero and removes the jump in this product at zero.",
+  null,
+  "The right-hand limit also equals zero; continuity holds from both sides.",
+  "The left-hand rule is minus x, whose limit is also zero."
+ ],
+ "continuity-special": [
+  "Immediately below n, the floor is n minus one.",
+  null,
+  "Immediately above n, the floor is n.",
+  "Each one-sided limit exists; it is the two-sided limit that fails."
+ ],
+ "continuity-closed": [
+  "The left side lies outside the interval at its left endpoint.",
+  null,
+  "The endpoint value can be any finite number; it must match the appropriate limit.",
+  "Both endpoint values must agree with their interior one-sided limits."
+ ],
+ "continuity-predict-4": [
+  "Existence does not imply uniqueness; that needs a separate argument.",
+  "IVT does not locate the zero exactly; the polynomial at one half is negative seven eighths.",
+  null,
+  "The endpoint signs differ and the polynomial is continuous, so IVT guarantees a zero."
+ ],
+ "continuity-ivt": [
+  "IVT proves existence, not uniqueness.",
+  null,
+  "The target is K, which need not be zero.",
+  "IVT applies to continuous nonlinear functions too."
+ ],
+ "continuity-predict-5": [
+  null,
+  "Both endpoint outputs on this half are positive, so it loses the sign-change bracket.",
+  "The first midpoint is one and a half; one and a quarter is a later midpoint.",
+  "Zero to one is not a half of the current interval one to two."
+ ],
+ "continuity-bisection": [
+  "The sign test, not left versus right, decides the retained half.",
+  "The sign test, not left versus right, decides the retained half.",
+  null,
+  "Larger outputs do not identify which half contains the sign change."
+ ],
+ "guided-15-direction": [
+  "You reversed the signs: the numerator is negative, not positive.",
+  null,
+  "The denominator changes sign across 4, so the branches have opposite directions.",
+  "A nonzero numerator divided by a quantity approaching zero does not approach zero."
+ ],
+ "guided-15-check-graph": [
+  "Opposite infinities cannot be averaged to zero.",
+  "Unbounded outputs do not approach any real number.",
+  null,
+  "Continuity requires a finite function value and matching limit."
+ ],
+ "guided-15-candidates": [
+  "Also inspect the other factor x+3; its numerator is nonzero.",
+  "Also inspect x-3; its numerator is nonzero.",
+  null,
+  "The numerator x+2 cancels neither x-3 nor x+3."
+ ],
+ "guided-15-classify": [
+  "The common factor x-3 cancels completely; inspect the reduced expression.",
+  "The factor x+2 does not cancel, so the limit at -2 is unbounded.",
+  "These classifications are reversed: x-3 cancels, x+2 remains.",
+  null
+ ],
+ "guided-15-check-factor": [
+  null,
+  "A completely removed denominator zero need not create unbounded behavior.",
+  "The original expression is still undefined at its excluded input.",
+  "A horizontal asymptote concerns behavior far away, not an excluded finite input."
+ ],
+ "guided-15-check-power": [
+  "An odd power changes sign; an even positive power does not.",
+  null,
+  "An even power of a negative number is positive too.",
+  "The power is zero only at c, not throughout a neighborhood."
+ ],
+ "guided-15-cot": [
+  null,
+  "Those are cosine zeros, which give zeros of cotangent rather than VAs.",
+  "This misses odd multiples of pi/2; solve for x after setting 2x=n pi.",
+  "Sine has zeros where the cosine numerator remains nonzero."
+ ],
+ "guided-15-check-trig": [
+  "Sine is the numerator for tangent, not its denominator.",
+  null,
+  "Tangent is not a rational function with denominator x.",
+  "The denominator in the sine/cosine representation is cosine."
+ ],
+ "guided-15-property": [
+  "Cosine approaches zero positively from this side, so tangent is positive.",
+  "A numerator near 1 divided by a tiny positive denominator is unbounded.",
+  null,
+  "The constant does not replace tangent; it multiplies its unbounded behavior."
+ ],
+ "guided-15-sketch": [
+  "Positive infinity means rising, not falling.",
+  "The plus sign is the output direction on both sides.",
+  "Limits describe nearby behavior and do not specify a point on the asymptote.",
+  null
+ ],
+ "c21-guided-slope": [
+  "This gives only the output change; divide by the input interval too.",
+  null,
+  "This reverses rise and run; it measures the reciprocal rate instead."
+ ],
+ "c21-guided-secant": [
+  "A fixed gap of one does not make the two inputs approach each other.",
+  "An increasing gap moves the inputs farther apart, not closer.",
+  null
+ ],
+ "c21-guided-definition": [
+  null,
+  "Adding h to the output is not the same as replacing the input.",
+  "This is the simplified difference quotient, not the shifted function."
+ ],
+ "c21-guided-cancel": [
+  "Substitution into the unsimplified quotient produces 0/0, not a derivative.",
+  "Factor the entire numerator; each term is divided by h.",
+  "The quotient can be undefined at zero while having a finite limit there.",
+  null
+ ],
+ "c21-guided-tangent": [
+  "The tangent must pass through (2,3), not automatically through the origin.",
+  "This reverses the function value and derivative: the slope is five.",
+  null,
+  "A horizontal line has slope zero, but the derivative here is five."
+ ],
+ "c21-guided-rate": [
+  "Position is s(5), without the derivative mark.",
+  null,
+  "Average velocity requires a difference of positions divided by a nonzero interval."
+ ],
+ "c21-guided-domain": [
+  "The original function is not defined at zero.",
+  "Negative nonzero inputs also belong to the original function domain.",
+  "Positive inputs also belong to the original function domain.",
+  null
+ ],
+ "c223-predict-terms": [
+  "The unchanged constant is not its derivative.",
+  null,
+  "Differentiation does not turn a constant into a linear term."
+ ],
+ "c223-guided-power": [
+  "The old exponent five also multiplies the coefficient.",
+  null,
+  "The exponent decreases from five to four after differentiation."
+ ],
+ "c223-predict-rewrite": [
+  "Zero is excluded by the denominator x cubed.",
+  "Negative inputs do not give a real square root.",
+  null
+ ],
+ "c223-guided-rewrite": [
+  "A quotient derivative is not the quotient of the derivatives.",
+  "The Quotient Rule can work, but the requested simplest approach uses a negative power.",
+  null
+ ],
+ "c223-guided-trig": [
+  null,
+  "The cosine derivative is negative; the original minus sign reverses it.",
+  "The sine term must become cosine, and the cosine term must become negative sine."
+ ],
+ "c223-predict-product": [
+  null,
+  "These are their derivatives, not the original factors.",
+  "The second factor in the original expression is sine, not cosine."
+ ],
+ "c223-guided-product": [
+  "Multiplying the two derivatives is not the Product Rule.",
+  null,
+  "This omits the term obtained by differentiating x squared."
+ ],
+ "c223-predict-quotient": [
+  "The Quotient Rule requires the square, not the first power.",
+  null,
+  "This squares the numerator instead of the denominator."
+ ],
+ "c223-guided-quotient": [
+  "Reversing the subtraction changes the derivative sign.",
+  "The derivatives of numerator and denominator are both one, but their difference is not the required numerator.",
+  null
+ ],
+ "c223-predict-motion": [
+  "The time factor disappears when the linear velocity is differentiated.",
+  "Differentiating again does not undo the first derivative.",
+  null
+ ],
+ "c223-guided-higher": [
+  null,
+  "Velocity is the first derivative, not the second.",
+  "Position is the original function, before either derivative."
+ ],
+ "c223-guided-speed": [
+  "Speed cannot be negative; take the absolute value.",
+  "Two is the acceleration, with different units.",
+  null,
+  "There is no multiplication of velocity by acceleration in the speed definition."
+ ],
+ "chainChecks-identify": [
+  "This describes the outside function after naming its input u.",
+  null,
+  "This is part of a derivative, not the original inside function."
+ ],
+ "chainChecks-order": [
+  "Composition is not addition; the outside derivative must be evaluated at g(x).",
+  "The inside factor must be its derivative, and the outside must receive g(x).",
+  null
+ ],
+ "chainChecks-power": [
+  "The outside factor 4 is already present.",
+  null,
+  "This is the inside itself, which is already kept inside the power.",
+  "The exponent falls to three, but this is not the inner derivative."
+ ],
+ "chainChecks-trig": [
+  null,
+  "The derivative of sine is cosine, not sine.",
+  "You differentiated the outside but lost the inner derivative 4."
+ ],
+ "chainChecks-mixed": [
+  "Multiplying the derivatives omits the two product-rule terms.",
+  "Differentiating both factors at once is not Product Rule.",
+  "This omits the derivative of x2 and the inner factor 3.",
+  null
+ ],
+ "implicitChecks-y": [
+  "This differentiates with respect to y, not with respect to x.",
+  null,
+  "The original power is a power of y, not a power of x."
+ ],
+ "implicitChecks-collect": [
+  "Substitution into a differentiated relation can find a slope at one point, but the goal here is a general derivative formula, so retain the variables.",
+  "Terms can only be cancelled as valid common factors, not by erasing every y.",
+  null
+ ],
+ "implicitChecks-product": [
+  "You retained only the term differentiating y; differentiating x contributes y.",
+  null,
+  "The derivative of a product is not the product of the derivatives."
+ ],
+ "implicitChecks-trig": [
+  null,
+  "The inner derivative of y(x) is missing.",
+  "The derivative of sine is cosine, not negative sine.",
+  "The input remains y, not x."
+ ],
+ "implicitChecks-slope": [
+  "The derivative is −x/y, not −y/x.",
+  "Moving the 2x term to the other side introduces a minus sign.",
+  null,
+  "Here y=4 is nonzero, so the slope is finite."
+ ],
+ "ratesChecks-time": [
+  "The rate of the changing radius is missing.",
+  "Keep the inside r when differentiating its square; it does not become t.",
+  null
+ ],
+ "ratesChecks-sign": [
+  "The given units are volume per time, not height per time.",
+  null,
+  "Positive volume rate would mean volume is increasing."
+ ],
+ "ratesChecks-substitute": [
+  null,
+  "Substituting changing lengths too early turns them into constants and loses their rates.",
+  "A model relating the quantities is needed before inserting the instant data."
+ ],
+ "ratesChecks-balloon": [
+  "This uses the diameter as if it were the radius.",
+  "A volume rate cannot be copied as a length rate.",
+  null,
+  "Solving for the rate requires division by 4πr2, not its reciprocal reversal."
+ ],
+ "ratesChecks-ladder": [
+  "The minus sign in the rate equation reverses the negative bottom rate.",
+  "The bottom is moving and both lengths are positive, so the top rate is not zero.",
+  "The given signs and fixed ladder determine the sign.",
+  null
+ ],
+ "ratesChecks-cone": [
+  null,
+  "The original relation gives radius from height, not height from radius.",
+  "The cone is not a one-to-one radius-height ratio.",
+  "A volume rate cannot be used directly as a length rate; differentiate the similarity relation to connect the length rates."
+ ],
+ "ratesChecks-shadow": [
+  "This measures the change in shadow length relative to the person.",
+  null,
+  "The two distances add along the same direction from the pole.",
+  "The tip also moves as the shadow length changes."
+ ],
+ "c1-transfer-local": [
+  "The isolated value does not determine nearby behavior.",
+  null,
+  "Unequal function value does not destroy an existing limit.",
+  "Agreement of the sides gives a limit, but continuity also requires agreement with the value."
+ ],
+ "c2-transfer-definition": [
+  null,
+  "Subtract f(3)=9, not the input three.",
+  "The original output must be subtracted.",
+  "The nearby input is 3+h, not just h."
+ ],
+ "p1-guided-point": [
+  "Keep the subtraction sign: subtracting 4(−1) adds 4.",
+  null,
+  "At x=1, the output is 1−4=−3, not 3.",
+  "At x=2, the output is 8−8=0, not 2."
+ ],
+ "p1-predict-intercepts": [
+  "Do not stop at the factor x; solve the other two factors.",
+  "The zero from the factor x also counts.",
+  null,
+  "A nonzero cubic has at most three distinct real zeros."
+ ],
+ "p1-guided-intercept": [
+  null,
+  "Setting y=0 finds x-intercepts instead."
+ ],
+ "p1-guided-symmetry": [
+  null,
+  "Do not replace only x: origin symmetry replaces both coordinates."
+ ],
+ "p1-predict-intersections": [
+  null,
+  "This finds the parabola's x-intercepts, not necessarily intersections with the line.",
+  "This finds the line's x-intercept only.",
+  "You added the outputs; intersections require equal outputs."
+ ],
+ "p1-guided-intersection": [
+  "The solved values are horizontal coordinates, not vertical coordinates.",
+  "The question asks for points, so include both coordinates.",
+  null,
+  "Replacing a solution input by zero changes the point."
+ ],
+ "p1-guided-model": [
+  "The initial volume is V(0)=120 litres.",
+  null,
+  "The coefficient is negative, so volume decreases.",
+  "The stated model is restricted to 0≤t≤20; extrapolating past that range is not justified."
+ ],
+ "p3-guided-relation": [
+  "Input 1 has outputs 2 and 4, so the rule is not a function.",
+  null,
+  "Input 0 has three different outputs."
+ ],
+ "p3-predict-quotient": [
+  "The middle product term is missing.",
+  null,
+  "That is the simplified difference quotient, not the substituted output.",
+  "The whole input is squared; this is not an additive shift of the output."
+ ],
+ "p3-guided-evaluate": [
+  null,
+  "The three terms do not cancel: 1−2−3=−4.",
+  "Remember (−1)2=1, not −1.",
+  "Keep the negative signs in the linear and constant terms."
+ ],
+ "p3-guided-domain": [
+  null,
+  "Dividing by positive 6 does not reverse the inequality.",
+  "Negative inputs give a negative radicand, outside the real domain."
+ ],
+ "p3-predict-composition": [
+  "This is g(f(x)), the reverse order.",
+  "Composition is substitution, not multiplication.",
+  null,
+  "The outer function squares x−1; substitute before expanding."
+ ],
+ "p3-guided-composite-domain": [
+  "Although g accepts every real input, its output must be nonnegative for f.",
+  "The outer function receives x−1, not x.",
+  null,
+  "Solving x−1≥0 gives x≥1, not the opposite inequality."
+ ],
+ "p3-guided-evenodd": [
+  "The calculation gives −f(x), not f(x).",
+  null,
+  "Both terms change sign, so the result is exactly −f(x)."
+ ],
+ "p3-guided-absolute": [
+  "That branch is for x≥1, which does not include zero.",
+  null,
+  "The valid branch gives positive one, as an absolute value must.",
+  "The condition x<1 includes zero."
+ ],
+ "pw-guided-continuity": [
+  null,
+  "The first derivative cannot exist at a discontinuity, regardless of the second derivative.",
+  "The intercept concerns x=0 and does not test an arbitrary join x=c."
+ ],
+ "pw-guided-slopes": [
+  null,
+  "The height of the join can be any value; differentiability compares rates of change.",
+  "Opposite nonzero slopes form a corner, not one shared slope."
+ ],
+ "pw-guided-stop": [
+  "Equal derivative formulas do not overcome a jump at the join.",
+  null,
+  "An existing function value does not guarantee continuity.",
+  "The separate formula slopes are equal; the failure here is continuity, not unequal formula slopes."
+ ],
+ "pw-guided-parameters": [
+  "This meets the continuity equation but gives left slope one, not two.",
+  "This meets the continuity equation but gives left slope zero, not two.",
+  "The slopes agree, but the left limit is four while the right limit is two.",
+  null
+ ],
+ "pw-guided-corner": [
+  "Adding slopes does not produce a derivative at a corner.",
+  "Multiplying slopes does not produce a derivative at a corner.",
+  null,
+  "Averaging slopes does not repair their disagreement."
+ ]
+}

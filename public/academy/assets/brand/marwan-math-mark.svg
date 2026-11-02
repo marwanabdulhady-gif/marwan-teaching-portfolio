@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Marwan Mathematics Hub">
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="#14213d"/>
+  <circle cx="64" cy="64" r="44" fill="none" stroke="#e8553d" stroke-width="5" stroke-dasharray="8 6"/>
+  <polygon points="64,26 98,92 30,92" fill="none" stroke="#fdf8f0" stroke-width="5" stroke-linejoin="round"/>
+  <circle cx="64" cy="70" r="9" fill="#f2b33d"/>
+</svg>

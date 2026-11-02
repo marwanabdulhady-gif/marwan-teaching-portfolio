@@ -16,21 +16,17 @@ npm run lint     # type check
 Deploy on Vercel: **Add New → Project → import this repo**. Vercel detects
 Vite; no settings or environment variables are needed.
 
-## Sections
+## Organized 4-Chapter Architecture
 
-| Section | File |
+| Chapter / Section | File |
 | --- | --- |
-| Navigation + mobile menu | `src/components/TeachNav.tsx` |
-| Hero (chalkboard) | `src/components/TeachHero.tsx` |
-| Credentials marquee | `src/components/CredentialsBar.tsx` |
-| About | `src/components/TeachAbout.tsx` |
-| Learning-experience designs | `src/components/LearningDesigns.tsx` |
-| Lessons & resources (YouTube, worksheets, TPT store) | `src/components/ResourceLibrary.tsx` |
-| FIKR Math Arcade | `src/components/MathLab.tsx` + `public/arcade/` |
-| Live rooms (Math Fighter, Tug of War) | `src/components/LiveRooms.tsx` + `src/rooms/` |
-| Classroom gallery | `src/components/ClassroomGallery.tsx` |
-| Work with me (schools / parents & students) | `src/components/WorkWithMe.tsx` |
-| Footer | `src/components/TeachFooter.tsx` |
+| Top Navigation + Search (`/`) + Appearance (`8 themes × 3 sizes`) | `src/components/TeachNav.tsx` + `SearchPalette.tsx` + `AppearanceMenu.tsx` |
+| Orientation · Hero, Credentials Strip & 4-Chapter Directory | `src/components/TeachHero.tsx` + `CredentialsBar.tsx` + `PortfolioDirectory.tsx` |
+| **Ch. 01 · Profile & Track Record** — Philosophy, 6 Facets of Practice & School Timeline | `src/components/TeachAbout.tsx` + `ClassroomGallery.tsx` + `Experience.tsx` |
+| **Ch. 02 · Mathematics Academy & Labs** — 5 Live SVG Models + Tabbed Academy (23 Lessons, Guided Sampler, YouTube & Store) | `src/components/VisualMathShowcase.tsx` + `ResourceLibrary.tsx` + `public/academy/` |
+| **Ch. 03 · FIKR Math Arcade** — 18 Tier-Filtered Games & Live 1-v-1 Rooms | `src/components/MathLab.tsx` + `LiveRooms.tsx` + `public/arcade/` |
+| **Ch. 04 · EdTech Systems & AI Studio** — 4 Tabbed Flagship Platforms + 6-Tool AI Teacher Studio | `src/components/LearningDesigns.tsx` + `AiTeacherStudio.tsx` + `public/studio/` |
+| Closing · Work With Me & Footer | `src/components/WorkWithMe.tsx` + `TeachFooter.tsx` |
 
 ## Editing content
 

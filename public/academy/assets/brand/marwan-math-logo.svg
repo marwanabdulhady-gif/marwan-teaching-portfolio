@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" height="300" role="img" aria-label="Marwan Abdulhady Mathematics Hub">
+  <defs>
+    <linearGradient id="mGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8553d"/>
+      <stop offset="100%" stop-color="#f2b33d"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(36, 42)">
+    <rect x="0" y="0" width="216" height="216" rx="48" fill="#14213d"/>
+    <circle cx="108" cy="108" r="74" fill="none" stroke="url(#mGrad)" stroke-width="8" stroke-dasharray="14 10" opacity="0.85"/>
+    <polygon points="108,44 166,154 50,154" fill="none" stroke="#fdf8f0" stroke-width="7" stroke-linejoin="round"/>
+    <circle cx="108" cy="118" r="14" fill="#f2b33d"/>
+  </g>
+  <text x="284" y="148" fill="#14213d" font-family="Georgia, 'Playfair Display', serif" font-size="68" font-weight="700" letter-spacing="-1">Marwan Abdulhady</text>
+  <text x="288" y="206" fill="#e8553d" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="30" font-weight="700" letter-spacing="6">MATHEMATICS HUB</text>
+</svg>

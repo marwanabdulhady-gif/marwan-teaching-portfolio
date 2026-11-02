@@ -17,7 +17,7 @@ export default function WorkWithMe() {
   const arrow = <ArrowRight className={`w-4 h-4 ${isRtl ? 'rotate-180' : ''}`} />;
 
   return (
-    <section id="work" className="relative py-24 md:py-32 px-5 lg:px-8 overflow-hidden">
+    <section id="work" className="relative py-14 md:py-20 px-5 lg:px-8 overflow-hidden">
       <div className="max-w-6xl mx-auto space-y-14">
         <Reveal className="text-center space-y-4">
           <p className="teach-eyebrow">{L(WORK.tag)}</p>

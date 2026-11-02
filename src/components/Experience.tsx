@@ -12,7 +12,7 @@ export default function Experience() {
   const L = (o: { en: string; ar: string }) => (isRtl ? o.ar : o.en);
 
   return (
-    <section id="experience" className="relative py-24 md:py-32 px-5 lg:px-8 overflow-hidden">
+    <section id="experience" className="relative py-14 md:py-20 px-5 lg:px-8 overflow-hidden">
       <div className="max-w-6xl mx-auto space-y-12">
         <Reveal className="text-center space-y-4">
           <p className="teach-eyebrow">{L(EXPERIENCE.tag)}</p>

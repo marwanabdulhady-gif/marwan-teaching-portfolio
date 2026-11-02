@@ -1,0 +1,77 @@
+{
+ "/courses/grade-12-calculus/lessons/2-4": {
+  "0": {
+   "prompt": "Which rule controls this nested function?",
+   "options": [
+    {
+     "text": "Power Rule only",
+     "statusHTML": "<strong>Not yet. </strong><span><span><span>The inside also depends on x.</span></span></span> Choose again and check.",
+     "correct": false,
+     "cls": "min-h-11 rounded-xl border px-4 py-2 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current disabled:cursor-not-allowed disabled:opacity-50 text-left bg-background"
+    },
+    {
+     "text": "Chain Rule",
+     "statusHTML": "<strong>Correct. </strong><span><span><span>One function is inside another.</span></span></span>",
+     "correct": true,
+     "cls": "min-h-11 rounded-xl border px-4 py-2 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current disabled:cursor-not-allowed disabled:opacity-50 text-left bg-background"
+    },
+    {
+     "text": "Product Rule",
+     "statusHTML": "<strong>Not yet. </strong><span><span><span>There is no product of two separate functions here.</span></span></span> Choose again and check.",
+     "correct": false,
+     "cls": "min-h-11 rounded-xl border px-4 py-2 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current disabled:cursor-not-allowed disabled:opacity-50 text-left bg-background"
+    }
+   ]
+  }
+ },
+ "/courses/grade-12-calculus/lessons/2-5": {
+  "0": {
+   "prompt": "What happens when differentiating a function of y with respect to x?",
+   "options": [
+    {
+     "text": "Include the chain factor dy/dx",
+     "statusHTML": "<strong>Correct. </strong><span><span><span>Correct. Include the chain factor dy/dx</span></span></span>",
+     "correct": true,
+     "cls": "min-h-11 rounded-xl border px-4 py-2 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current disabled:cursor-not-allowed disabled:opacity-50 text-left bg-background"
+    },
+    {
+     "text": "Treat y as constant",
+     "statusHTML": "<strong>Not yet. </strong><span><span><span>y depends on x: the Chain Rule applies.</span></span></span> Choose again and check.",
+     "correct": false,
+     "cls": "min-h-11 rounded-xl border px-4 py-2 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current disabled:cursor-not-allowed disabled:opacity-50 text-left bg-background"
+    },
+    {
+     "text": "Replace y with x",
+     "statusHTML": "<strong>Not yet. </strong><span><span><span>y depends on x: the Chain Rule applies.</span></span></span> Choose again and check.",
+     "correct": false,
+     "cls": "min-h-11 rounded-xl border px-4 py-2 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current disabled:cursor-not-allowed disabled:opacity-50 text-left bg-background"
+    }
+   ]
+  }
+ },
+ "/courses/grade-12-calculus/lessons/piecewise-differentiability": {
+  "0": {
+   "prompt": "Step 1 \u00b7 At the breaking point x=1x=1x=1, what must we check first?",
+   "options": [
+    {
+     "text": "Continuity",
+     "statusHTML": "<strong>Correct. </strong><span><span><span>Correct. Differentiability cannot happen without continuity.</span></span></span>",
+     "correct": true,
+     "cls": "min-h-11 rounded-xl border px-4 py-2 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current disabled:cursor-not-allowed disabled:opacity-50 text-left bg-background"
+    },
+    {
+     "text": "Differentiate immediately",
+     "statusHTML": "<strong>Not yet. </strong><span><span><span>Compare the left limit, right limit and defined value at x = 1.</span></span></span> Choose again and check.",
+     "correct": false,
+     "cls": "min-h-11 rounded-xl border px-4 py-2 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current disabled:cursor-not-allowed disabled:opacity-50 text-left bg-background"
+    },
+    {
+     "text": "Second derivative",
+     "statusHTML": "<strong>Not yet. </strong><span><span><span>Compare the left limit, right limit and defined value at x = 1.</span></span></span> Choose again and check.",
+     "correct": false,
+     "cls": "min-h-11 rounded-xl border px-4 py-2 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current disabled:cursor-not-allowed disabled:opacity-50 text-left bg-background"
+    }
+   ]
+  }
+ }
+}

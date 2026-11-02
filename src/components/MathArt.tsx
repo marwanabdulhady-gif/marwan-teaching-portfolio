@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import { useEffect, useState, type ReactElement } from 'react';
 
 /**
  * Generated mathematical line-work.
@@ -117,6 +117,34 @@ export function MathMark({ className = '' }: { className?: string }) {
  * rotating conic rings, with floating formula chips laid over the top.
  */
 export function MathConstellation() {
+  // Continuous live tangent glider along the Hero quadratic Bezier M 70 210 Q 210 -20 350 210
+  // so the hero mathematical graph stays alive continuously instead of stopping after initial draw.
+  const [phase, setPhase] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    let last = performance.now();
+    const tick = (now: number) => {
+      const dt = Math.min(0.064, (now - last) / 1000);
+      last = now;
+      setPhase((p) => (p + dt * 0.45) % (Math.PI * 2));
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  // Quadratic Bezier B(u) with P0=(70,210), P1=(210,-20), P2=(350,210), u in [0.12, 0.88]
+  const u = 0.5 + 0.36 * Math.sin(phase);
+  const oneMinusU = 1 - u;
+  const bx = oneMinusU * oneMinusU * 70 + 2 * oneMinusU * u * 210 + u * u * 350;
+  const by = oneMinusU * oneMinusU * 210 + 2 * oneMinusU * u * -20 + u * u * 210;
+  // Derivative B'(u) = 2(1-u)(P1-P0) + 2u(P2-P1); dx/du = 280, dy/du = -460 + 920u
+  const dxDu = 280;
+  const dyDu = -460 + 920 * u;
+  const len = Math.hypot(dxDu, dyDu) || 1;
+  const tx = (dxDu / len) * 68;
+  const ty = (dyDu / len) * 68;
+
   return (
     <div className="relative w-full max-w-[520px] aspect-square mx-auto" dir="ltr">
       {/* Soft glow behind the artwork */}
@@ -203,9 +231,23 @@ export function MathConstellation() {
           strokeLinecap="round"
         />
 
-        {/* Vertex marker + tangent */}
-        <circle cx="210" cy="115" r="5" fill={GOLD} />
-        <line x1="120" y1="115" x2="300" y2="115" stroke={GOLD} strokeWidth="1" strokeDasharray="5 6" opacity="0.65" />
+        {/* Vertex marker + reference horizontal tangent */}
+        <circle cx="210" cy="95" r="4" fill={GOLD} opacity="0.55" />
+        <line x1="135" y1="95" x2="285" y2="95" stroke={GOLD} strokeWidth="1" strokeDasharray="5 6" opacity="0.4" />
+
+        {/* Live gliding tangent line & tracer point along the parabola */}
+        <line
+          x1={bx - tx}
+          y1={by - ty}
+          x2={bx + tx}
+          y2={by + ty}
+          stroke={GOLD}
+          strokeWidth="1.8"
+          strokeDasharray="4 4"
+          opacity="0.9"
+        />
+        <circle cx={bx} cy={by} r="9" fill={GOLD} opacity="0.2" />
+        <circle cx={bx} cy={by} r="4.8" fill={GOLD} stroke="#13233f" strokeWidth="1.8" />
 
         {/* Roots */}
         <circle cx="140" cy="288" r="4" fill={CYAN_2} />
@@ -286,7 +328,7 @@ const MOTIFS: Record<string, ReactElement> = {
 
   chart: (
     <>
-      <path d={bellPoints()} fill="none" stroke={CYAN} strokeWidth="1.8" />
+      <polyline points={bellPoints()} fill="none" stroke={CYAN} strokeWidth="1.8" />
       <g fill={CYAN_2} opacity="0.55">
         <rect x="38" y="132" width="14" height="50" rx="2" />
         <rect x="62" y="112" width="14" height="70" rx="2" />

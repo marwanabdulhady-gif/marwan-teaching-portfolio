@@ -2,18 +2,13 @@ import { ArrowLeft, ArrowRight, Linkedin, Mail, Youtube } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
 import { FOOTER, BRAND, NAV_ITEMS, ARCADE, LINKS, mailto } from '../teachingData';
 import { MathMark } from './MathArt';
+import { Link, PAGE_NAV, scrollToSection } from '../router';
 
 /** Footer: brand block, two link columns, contact, and a route switch back. */
 export default function TeachFooter() {
   const { isRtl } = useLocale();
 
-  const goTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const lenis = (window as any).__lenis;
-    if (lenis) lenis.scrollTo(el, { offset: -92 });
-    else window.scrollTo({ top: el.offsetTop - 92, behavior: 'smooth' });
-  };
+  const goTo = scrollToSection;
 
   return (
     <footer data-theme="dark" className="relative border-t border-[color-mix(in_srgb,var(--t-accent)_16%,transparent)] bg-[color-mix(in_srgb,var(--t-bg)_90%,transparent)]">
@@ -81,14 +76,28 @@ export default function TeachFooter() {
               {isRtl ? FOOTER.exploreTitle.ar : FOOTER.exploreTitle.en}
             </p>
             <ul className="space-y-3 list-none">
-              {NAV_ITEMS.map((item) => (
+              {[
+                ...NAV_ITEMS,
+                { id: 'experience', label: { en: 'School Track Record', ar: 'المسيرة المدرسية' } },
+                { id: 'visual-math', label: { en: 'Visual Math Models', ar: 'النماذج البصرية' } },
+                { id: 'work', label: { en: 'Work With Me', ar: 'تواصل معي' } },
+              ].map((item) => (
                 <li key={item.id}>
-                  <button
-                    onClick={() => goTo(item.id)}
-                    className="text-[0.83rem] text-[color-mix(in_srgb,var(--t-ink)_60%,transparent)] hover:text-cyan-300 transition-colors bg-transparent border-0 p-0 cursor-pointer text-start"
-                  >
-                    {isRtl ? item.label.ar : item.label.en}
-                  </button>
+                  {PAGE_NAV[item.id] ? (
+                    <Link
+                      to={PAGE_NAV[item.id]}
+                      className="text-[0.83rem] text-[color-mix(in_srgb,var(--t-ink)_60%,transparent)] hover:text-cyan-300 transition-colors"
+                    >
+                      {isRtl ? item.label.ar : item.label.en}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => goTo(item.id)}
+                      className="text-[0.83rem] text-[color-mix(in_srgb,var(--t-ink)_60%,transparent)] hover:text-cyan-300 transition-colors bg-transparent border-0 p-0 cursor-pointer text-start"
+                    >
+                      {isRtl ? item.label.ar : item.label.en}
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
@@ -101,6 +110,9 @@ export default function TeachFooter() {
             </p>
             <ul className="space-y-3 list-none">
               {[
+                { href: '/academy/index.html', label: { en: 'Interactive Mathematics Hub (23 Lessons)', ar: 'أكاديمية الرياضيات التفاعلية (٢٣ درساً)' } },
+                { href: '/academy/courses/grade-12-calculus/desmos/index.html', label: { en: 'Desmos Graphing Lab', ar: 'مختبر Desmos البياني' } },
+                { href: '/academy/tutor/index.html', label: { en: 'Mathematics AI Tutor', ar: 'المعلم الذكي للرياضيات' } },
                 { href: LINKS.youtube, label: { en: 'Lessons on YouTube', ar: 'الدروس على يوتيوب' } },
                 { href: ARCADE.home, label: { en: 'FIKR Math Arcade', ar: 'ألعاب فكر للرياضيات' } },
                 ...ARCADE.games.filter((g) => g.tier === 'class').map((g) => ({ href: ARCADE.play(g.id), label: g.title })),

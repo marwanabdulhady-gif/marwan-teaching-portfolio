@@ -1,44 +1,66 @@
-import { useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import { Gamepad2, Maximize2, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, Gamepad2, Maximize2, Minimize2, Play, Users, X } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
 import { ARCADE, type ArcadeTier } from '../teachingData';
 import LiveRooms from './LiveRooms';
 import Reveal from './Reveal';
 
-/**
- * FIKR Math Arcade.
- *
- * The general games from FIKR's MathPlay hub live as one self-contained page
- * in public/arcade. The iframe only mounts when asked, so the portfolio pays
- * nothing for it on first load; each game card opens its own game.
- */
-const TIER_ORDER: ArcadeTier[] = ['easy', 'medium', 'hard', 'class'];
+const TIER_ORDER: ArcadeTier[] = ['class', 'easy', 'medium', 'hard'];
+
+const TIER_COLORS: Record<ArcadeTier, string> = {
+  class: 'from-amber-400 to-rose-500 text-[#fff]',
+  easy: 'from-emerald-400 to-teal-500 text-[#fff]',
+  medium: 'from-cyan-400 to-blue-500 text-[#fff]',
+  hard: 'from-violet-500 to-fuchsia-500 text-[#fff]',
+};
 
 export default function MathLab() {
   const { isRtl } = useLocale();
   const L = (o: { en: string; ar: string }) => (isRtl ? o.ar : o.en);
-  const [activeUrl, setActiveUrl] = useState<string | null>(null);
-  const [activeTitle, setActiveTitle] = useState('');
-  const wrapRef = useRef<HTMLDivElement>(null);
 
-  const launch = (url: string, title: string) => {
-    setActiveUrl(url);
-    setActiveTitle(title);
-    // Let the panel mount before scrolling to it.
+  const [arcadeTab, setArcadeTab] = useState<'games' | 'rooms'>('games');
+  const [tierFilter, setTierFilter] = useState<'all' | ArcadeTier>('all');
+  const [frameSrc, setFrameSrc] = useState<string | null>(null);
+  const [frameTitle, setFrameTitle] = useState<string>('');
+  const [expanded, setExpanded] = useState(false);
+  const playerRef = useRef<HTMLDivElement>(null);
+
+  const openArcadeUrl = (url: string, title: string) => {
+    setArcadeTab('games');
+    setFrameSrc(url);
+    setFrameTitle(title);
     requestAnimationFrame(() => {
-      wrapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      playerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   };
 
-  const close = () => {
-    setActiveUrl(null);
-    setActiveTitle('');
-  };
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<{ id?: string; slug?: string; title?: string }>).detail;
+      const gameId = detail?.id ?? detail?.slug;
+      if (!gameId) return;
+      const found = ARCADE.games.find((g) => g.id === gameId);
+      if (found) {
+        openArcadeUrl(ARCADE.play(found.id), detail?.title || found.title.en);
+      } else {
+        openArcadeUrl(ARCADE.home, detail?.title || ARCADE.frameTitle.en);
+      }
+    };
+    window.addEventListener('marwan:open-arcade', handler);
+    return () => window.removeEventListener('marwan:open-arcade', handler);
+  }, []);
+
+  const visibleTiers =
+    tierFilter === 'all' ? TIER_ORDER : TIER_ORDER.filter((t) => t === tierFilter);
 
   return (
-    <section id="lab" className="relative py-24 md:py-32 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_28%,transparent)]">
-      <div className="max-w-7xl mx-auto relative space-y-12">
+    <section
+      id="lab"
+      className="relative py-14 md:py-20 px-5 lg:px-8 overflow-hidden bg-[color-mix(in_srgb,var(--t-bg-2)_45%,transparent)]"
+    >
+      <div className="absolute -top-24 start-1/4 w-[460px] h-[460px] rounded-full bg-cyan-500/[0.08] blur-[140px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative space-y-10">
         <Reveal className="text-center space-y-4">
           <p className="teach-eyebrow">{L(ARCADE.tag)}</p>
           <h2 className="teach-section-title">
@@ -48,98 +70,202 @@ export default function MathLab() {
           <p className="teach-section-desc">{L(ARCADE.desc)}</p>
         </Reveal>
 
-        {/* Launch panel (chalkboard) */}
-        <Reveal>
-          <div data-theme="dark" className="teach-card chalk !rounded-3xl px-6 py-12 sm:px-12 sm:py-14 text-center relative overflow-hidden">
-            <div className="absolute inset-0 teach-grid-bg opacity-50" />
-            <div className="relative z-10 space-y-5">
-              <span className="inline-flex teach-icon-chip !w-16 !h-16" aria-hidden="true">
-                <Gamepad2 className="w-7 h-7" />
-              </span>
-              <h3 className="text-2xl sm:text-4xl font-black" style={{ fontFamily: 'var(--teach-font-display)' }}>
-                {L(ARCADE.heading)}
-              </h3>
-              <p className="teach-section-desc !mx-auto max-w-2xl">{L(ARCADE.body)}</p>
-              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-                <button onClick={() => launch(ARCADE.home, L(ARCADE.frameTitle))} className="teach-btn teach-btn-primary border-0">
-                  <Gamepad2 className="w-4 h-4" />
-                  {L(ARCADE.launch)}
-                </button>
-                <a href={ARCADE.home} target="_blank" rel="noreferrer" className="teach-btn teach-btn-secondary">
-                  <Maximize2 className="w-4 h-4" />
-                  {L(ARCADE.openNewTab)}
-                </a>
-              </div>
-            </div>
-          </div>
-        </Reveal>
-
-        <LiveRooms />
-
-        {/* Lazy-loaded arcade */}
-        <AnimatePresence initial={false}>
-          {activeUrl && (
-            <motion.div
-              ref={wrapRef}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="overflow-hidden"
+        {/* Segmented Mode Bar: 18 Games vs Live 1-v-1 Rooms + Full Arcade Launcher */}
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-[color-mix(in_srgb,var(--t-card)_85%,transparent)] border border-[color-mix(in_srgb,var(--t-ink)_10%,transparent)]">
+            <button
+              type="button"
+              onClick={() => setArcadeTab('games')}
+              aria-pressed={arcadeTab === 'games'}
+              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer transition-all border-0 ${
+                arcadeTab === 'games'
+                  ? 'bg-[var(--t-accent)] text-[#fff] shadow-md'
+                  : 'bg-transparent text-[color-mix(in_srgb,var(--t-ink)_72%,transparent)] hover:text-[var(--t-ink)]'
+              }`}
             >
-              <div className="teach-card !rounded-2xl overflow-hidden">
-                <div className="flex items-center justify-between gap-4 px-5 py-3.5 bg-[color-mix(in_srgb,var(--t-accent)_10%,transparent)] border-b border-[color-mix(in_srgb,var(--t-accent)_20%,transparent)]">
-                  <span className="text-[0.8rem] font-semibold text-[var(--t-ink)] flex items-center gap-2 min-w-0">
-                    <Gamepad2 className="w-4 h-4 shrink-0 text-[var(--t-accent)]" />
-                    <span className="truncate">{activeTitle}</span>
-                  </span>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <a href={activeUrl} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[0.75rem] text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)] hover:text-[var(--t-accent)]">
-                      <Maximize2 className="w-3.5 h-3.5" /> {L(ARCADE.openNewTab)}
+              <Gamepad2 className="w-4 h-4" />
+              {isRtl ? `تصفّح الألعاب (${ARCADE.games.length})` : `Browse ${ARCADE.games.length} Games`}
+            </button>
+            <button
+              type="button"
+              onClick={() => setArcadeTab('rooms')}
+              aria-pressed={arcadeTab === 'rooms'}
+              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer transition-all border-0 ${
+                arcadeTab === 'rooms'
+                  ? 'bg-[var(--t-accent)] text-[#fff] shadow-md'
+                  : 'bg-transparent text-[color-mix(in_srgb,var(--t-ink)_72%,transparent)] hover:text-[var(--t-ink)]'
+              }`}
+            >
+              <Users className="w-4 h-4" />
+              {isRtl ? 'غرف التحدّي المباشرة (١ ضد ١)' : 'Live 1-v-1 Rooms'}
+            </button>
+          </div>
+
+          {arcadeTab === 'games' && (
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <button
+                type="button"
+                onClick={() => setTierFilter('all')}
+                aria-pressed={tierFilter === 'all'}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold cursor-pointer transition-all border ${
+                  tierFilter === 'all'
+                    ? 'border-[var(--t-accent)] bg-[var(--t-accent)] text-[#fff]'
+                    : 'border-[color-mix(in_srgb,var(--t-ink)_16%,transparent)] bg-transparent text-[var(--t-ink)] hover:border-[var(--t-accent)]'
+                }`}
+              >
+                {isRtl ? `الكل (${ARCADE.games.length})` : `All (${ARCADE.games.length})`}
+              </button>
+              {TIER_ORDER.map((tKey) => {
+                const count = ARCADE.games.filter((g) => g.tier === tKey).length;
+                const on = tierFilter === tKey;
+                return (
+                  <button
+                    key={tKey}
+                    type="button"
+                    onClick={() => setTierFilter(tKey)}
+                    aria-pressed={on}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold cursor-pointer transition-all border ${
+                      on
+                        ? 'border-[var(--t-accent)] bg-[var(--t-accent)] text-[#fff]'
+                        : 'border-[color-mix(in_srgb,var(--t-ink)_16%,transparent)] bg-transparent text-[var(--t-ink)] hover:border-[var(--t-accent)]'
+                    }`}
+                  >
+                    {L(ARCADE.tiers[tKey])} ({count})
+                  </button>
+                );
+              })}
+              <button
+                type="button"
+                onClick={() => openArcadeUrl(ARCADE.home, L(ARCADE.frameTitle))}
+                className="px-3.5 py-1.5 rounded-full text-xs font-bold cursor-pointer transition-all border border-[color-mix(in_srgb,var(--t-accent)_40%,transparent)] bg-[color-mix(in_srgb,var(--t-accent)_12%,transparent)] text-[var(--t-accent)] hover:bg-[var(--t-accent)] hover:text-[#fff] inline-flex items-center gap-1.5"
+              >
+                <Play className="w-3 h-3" />
+                {L(ARCADE.launch)}
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Live 1-v-1 Rooms Tab */}
+        {arcadeTab === 'rooms' && <LiveRooms />}
+
+        {/* Games Catalogue Tab */}
+        {arcadeTab === 'games' && (
+          <>
+            {frameSrc && (
+              <div
+                ref={playerRef}
+                data-theme="dark"
+                className={`teach-card chalk !p-0 overflow-hidden transition-all ${
+                  expanded ? 'fixed inset-3 z-50 !rounded-2xl flex flex-col' : ''
+                }`}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3.5 border-b border-white/10 bg-[#0b1022]">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <Gamepad2 className="w-4 h-4 text-cyan-400 shrink-0" />
+                    <p className="text-sm font-bold truncate">{frameTitle || L(ARCADE.frameTitle)}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={frameSrc}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/20 transition-colors inline-flex items-center gap-1.5"
+                    >
+                      {L(ARCADE.openNewTab)} <ArrowUpRight className="w-3.5 h-3.5" />
                     </a>
                     <button
-                      onClick={close}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[color-mix(in_srgb,var(--t-ink)_8%,transparent)] text-[var(--t-ink)] hover:bg-[color-mix(in_srgb,var(--t-ink)_14%,transparent)] transition-colors text-[0.75rem] cursor-pointer border-0"
+                      type="button"
+                      onClick={() => setExpanded((v) => !v)}
+                      className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer border-0 text-white"
+                      aria-label={expanded ? 'Shrink' : 'Expand'}
                     >
-                      <X className="w-3.5 h-3.5" />
-                      {L(ARCADE.close)}
+                      {expanded ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setExpanded(false);
+                        setFrameSrc(null);
+                      }}
+                      className="w-8 h-8 rounded-full bg-white/10 hover:bg-rose-500/40 flex items-center justify-center cursor-pointer border-0 text-white"
+                      aria-label={L(ARCADE.close)}
+                    >
+                      <X className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
                 <iframe
-                  key={activeUrl}
-                  src={activeUrl}
-                  title={L(ARCADE.frameTitle)}
-                  className="block w-full h-[clamp(480px,75vh,820px)] bg-[var(--t-bg)] border-0"
-                  allowFullScreen
+                  key={frameSrc}
+                  src={frameSrc}
+                  title={frameTitle || ARCADE.frameTitle.en}
+                  className={`w-full border-0 bg-[#070b18] ${expanded ? 'flex-1' : 'h-[72vh] min-h-[520px]'}`}
                 />
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            )}
 
-        {/* Games by level */}
-        <div className="space-y-8">
-          {TIER_ORDER.map((tier) => (
-            <div key={tier} className="space-y-3">
-              <p className="teach-eyebrow text-start">{L(ARCADE.tiers[tier])}</p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-                {ARCADE.games.filter((g) => g.tier === tier).map((g, i) => (
-                  <Reveal key={g.id} delay={0.04 * i}>
-                    <button
-                      onClick={() => launch(ARCADE.play(g.id), L(g.title))}
-                      className="teach-card w-full h-full px-4 py-5 flex flex-col items-center gap-2 text-center cursor-pointer bg-transparent"
-                    >
-                      <span className="text-3xl" aria-hidden="true">{g.icon}</span>
-                      <span className="text-[0.88rem] font-bold text-[var(--t-ink)] leading-snug">{L(g.title)}</span>
-                      <span className="text-[0.7rem] text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)] leading-tight">{L(g.desc)}</span>
-                    </button>
-                  </Reveal>
-                ))}
-              </div>
+            <div className="space-y-9">
+              {visibleTiers.map((tierKey) => {
+                const games = ARCADE.games.filter((g) => g.tier === tierKey);
+                return (
+                  <div key={tierKey} className="space-y-4">
+                    <Reveal className="flex flex-wrap items-center justify-between gap-2 text-start">
+                      <span
+                        className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-gradient-to-r ${TIER_COLORS[tierKey]}`}
+                      >
+                        <Gamepad2 className="w-3.5 h-3.5" />
+                        {L(ARCADE.tiers[tierKey])}
+                      </span>
+                      <span className="text-xs font-semibold text-[color-mix(in_srgb,var(--t-ink)_45%,transparent)]">
+                        {games.length} {isRtl ? 'ألعاب' : 'games'}
+                      </span>
+                    </Reveal>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {games.map((g, idx) => {
+                        const targetUrl = ARCADE.play(g.id);
+                        const isPlaying = frameSrc === targetUrl;
+                        return (
+                          <Reveal key={g.id} delay={0.025 * idx}>
+                            <button
+                              type="button"
+                              onClick={() => openArcadeUrl(targetUrl, L(g.title))}
+                              className={`teach-card group w-full h-full p-5 flex items-start gap-4 text-start cursor-pointer bg-transparent transition-all ${
+                                isPlaying ? '!border-[var(--t-accent)] ring-2 ring-[var(--t-accent)]/30' : ''
+                              }`}
+                            >
+                              <span
+                                className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${TIER_COLORS[g.tier]} flex items-center justify-center text-2xl shrink-0 shadow-md group-hover:scale-105 transition-transform`}
+                              >
+                                {g.icon}
+                              </span>
+                              <span className="min-w-0 flex-1 space-y-1">
+                                <span className="flex items-center justify-between gap-2">
+                                  <span
+                                    className="font-bold text-base text-[var(--t-ink)] truncate"
+                                    style={{ fontFamily: 'var(--teach-font-display)' }}
+                                  >
+                                    {L(g.title)}
+                                  </span>
+                                  <span className="text-xs font-bold text-[var(--t-accent-deep)] shrink-0 opacity-75 group-hover:opacity-100">
+                                    {isRtl ? 'العب ←' : 'Play →'}
+                                  </span>
+                                </span>
+                                <span className="block text-[0.82rem] leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_66%,transparent)]">
+                                  {L(g.desc)}
+                                </span>
+                              </span>
+                            </button>
+                          </Reveal>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
+          </>
+        )}
       </div>
     </section>
   );

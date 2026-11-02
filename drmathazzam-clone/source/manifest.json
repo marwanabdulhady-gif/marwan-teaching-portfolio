@@ -1,0 +1,839 @@
+{
+ "pages": [
+  {
+   "route": "/",
+   "file": "index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 68417
+  },
+  {
+   "route": "/tutor",
+   "file": "tutor/index.html",
+   "title": "Dr. Math Calculus AI Tutor | Dr. Math Azzam Platform",
+   "bytes": 39210
+  },
+  {
+   "route": "/ai-teacher-studio",
+   "file": "ai-teacher-studio/index.html",
+   "title": "AI Teacher Studio \u2014 Preview | Dr. Math Azzam",
+   "bytes": 68565
+  },
+  {
+   "route": "/teacher-login",
+   "file": "teacher-login/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 11044
+  },
+  {
+   "route": "/courses/grade-12-calculus",
+   "file": "courses/grade-12-calculus/index.html",
+   "title": "Grade 12 Calculus | Dr. Math Azzam Platform",
+   "bytes": 44767
+  },
+  {
+   "route": "/courses/grade-11-precalculus",
+   "file": "courses/grade-11-precalculus/index.html",
+   "title": "Grade 11 Precalculus | Dr. Math Azzam Platform",
+   "bytes": 40493
+  },
+  {
+   "route": "/courses/kuwait-national-exam",
+   "file": "courses/kuwait-national-exam/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 11326
+  },
+  {
+   "route": "/courses/gmat-preparation",
+   "file": "courses/gmat-preparation/index.html",
+   "title": "GMAT Preparation | Dr. Math Azzam",
+   "bytes": 47364
+  },
+  {
+   "route": "/courses/grade-12-calculus/discover",
+   "file": "courses/grade-12-calculus/discover/index.html",
+   "title": "Discover Grade 12 Calculus | Dr. Math Azzam",
+   "bytes": 47448
+  },
+  {
+   "route": "/courses/grade-11-precalculus/discover",
+   "file": "courses/grade-11-precalculus/discover/index.html",
+   "title": "Discover Grade 11 Precalculus | Dr. Math Azzam",
+   "bytes": 43605
+  },
+  {
+   "route": "/courses/kuwait-national-exam/discover",
+   "file": "courses/kuwait-national-exam/discover/index.html",
+   "title": "Kuwait National Exam Preparation | Dr. Math Azzam",
+   "bytes": 68708
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/p1",
+   "file": "courses/grade-12-calculus/lessons/p1/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 387886
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/p3",
+   "file": "courses/grade-12-calculus/lessons/p3/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 474343
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/1-2",
+   "file": "courses/grade-12-calculus/lessons/1-2/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 737095
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/1-3",
+   "file": "courses/grade-12-calculus/lessons/1-3/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 1540425
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/1-4",
+   "file": "courses/grade-12-calculus/lessons/1-4/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 436495
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/1-5",
+   "file": "courses/grade-12-calculus/lessons/1-5/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 661384
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/chapter-1-review",
+   "file": "courses/grade-12-calculus/lessons/chapter-1-review/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 315696
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/2-1",
+   "file": "courses/grade-12-calculus/lessons/2-1/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 536730
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/2-2-2-3",
+   "file": "courses/grade-12-calculus/lessons/2-2-2-3/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 376437
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/piecewise-differentiability",
+   "file": "courses/grade-12-calculus/lessons/piecewise-differentiability/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 331493
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/2-4",
+   "file": "courses/grade-12-calculus/lessons/2-4/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 290873
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/2-5",
+   "file": "courses/grade-12-calculus/lessons/2-5/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 519967
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/2-6",
+   "file": "courses/grade-12-calculus/lessons/2-6/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 858050
+  },
+  {
+   "route": "/courses/grade-12-calculus/lessons/chapter-2-review",
+   "file": "courses/grade-12-calculus/lessons/chapter-2-review/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 235621
+  },
+  {
+   "route": "/courses/grade-11-precalculus/lessons/1-1",
+   "file": "courses/grade-11-precalculus/lessons/1-1/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 310641
+  },
+  {
+   "route": "/courses/grade-11-precalculus/lessons/1-3",
+   "file": "courses/grade-11-precalculus/lessons/1-3/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 601972
+  },
+  {
+   "route": "/courses/grade-11-precalculus/lessons/1-4",
+   "file": "courses/grade-11-precalculus/lessons/1-4/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 721344
+  },
+  {
+   "route": "/courses/grade-11-precalculus/lessons/1-8",
+   "file": "courses/grade-11-precalculus/lessons/1-8/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 335981
+  },
+  {
+   "route": "/courses/grade-11-precalculus/lessons/1-9",
+   "file": "courses/grade-11-precalculus/lessons/1-9/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 562800
+  },
+  {
+   "route": "/courses/grade-11-precalculus/lessons/2-1",
+   "file": "courses/grade-11-precalculus/lessons/2-1/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 612943
+  },
+  {
+   "route": "/courses/grade-11-precalculus/lessons/2-2",
+   "file": "courses/grade-11-precalculus/lessons/2-2/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 732600
+  },
+  {
+   "route": "/courses/grade-11-precalculus/lessons/2-3",
+   "file": "courses/grade-11-precalculus/lessons/2-3/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 352233
+  },
+  {
+   "route": "/courses/grade-11-precalculus/lessons/2-6",
+   "file": "courses/grade-11-precalculus/lessons/2-6/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 506249
+  },
+  {
+   "route": "/courses/gmat-preparation/batch-lessons/linear-equations",
+   "file": "courses/gmat-preparation/batch-lessons/linear-equations/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 28579
+  },
+  {
+   "route": "/courses/gmat-preparation/batch-lessons/number-properties",
+   "file": "courses/gmat-preparation/batch-lessons/number-properties/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 26635
+  },
+  {
+   "route": "/courses/gmat-preparation/data-sufficiency",
+   "file": "courses/gmat-preparation/data-sufficiency/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 15759
+  },
+  {
+   "route": "/courses/gmat-preparation/di/di-mixed",
+   "file": "courses/gmat-preparation/di/di-mixed/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 24109
+  },
+  {
+   "route": "/courses/gmat-preparation/di/ds-algebra",
+   "file": "courses/gmat-preparation/di/ds-algebra/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 34639
+  },
+  {
+   "route": "/courses/gmat-preparation/di/ds-number-properties",
+   "file": "courses/gmat-preparation/di/ds-number-properties/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 37221
+  },
+  {
+   "route": "/courses/gmat-preparation/di/ds-yes-no",
+   "file": "courses/gmat-preparation/di/ds-yes-no/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 31644
+  },
+  {
+   "route": "/courses/gmat-preparation/di/graphics-axes",
+   "file": "courses/gmat-preparation/di/graphics-axes/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 109067
+  },
+  {
+   "route": "/courses/gmat-preparation/di/graphics-pie",
+   "file": "courses/gmat-preparation/di/graphics-pie/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 39871
+  },
+  {
+   "route": "/courses/gmat-preparation/di/graphics-scatter",
+   "file": "courses/gmat-preparation/di/graphics-scatter/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 54112
+  },
+  {
+   "route": "/courses/gmat-preparation/di/msr-conflicts",
+   "file": "courses/gmat-preparation/di/msr-conflicts/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 34728
+  },
+  {
+   "route": "/courses/gmat-preparation/di/multi-source-reasoning",
+   "file": "courses/gmat-preparation/di/multi-source-reasoning/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 56050
+  },
+  {
+   "route": "/courses/gmat-preparation/di/multi-source-synthesis",
+   "file": "courses/gmat-preparation/di/multi-source-synthesis/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 30258
+  },
+  {
+   "route": "/courses/gmat-preparation/di/table-derived",
+   "file": "courses/gmat-preparation/di/table-derived/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 102547
+  },
+  {
+   "route": "/courses/gmat-preparation/di/two-part-analysis",
+   "file": "courses/gmat-preparation/di/two-part-analysis/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 60094
+  },
+  {
+   "route": "/courses/gmat-preparation/di/two-part-constraints",
+   "file": "courses/gmat-preparation/di/two-part-constraints/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 33959
+  },
+  {
+   "route": "/courses/gmat-preparation/di/two-part-tables",
+   "file": "courses/gmat-preparation/di/two-part-tables/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 24153
+  },
+  {
+   "route": "/courses/gmat-preparation/exam-pilot",
+   "file": "courses/gmat-preparation/exam-pilot/index.html",
+   "title": "GMAT Exam Pilot | Dr. Math Azzam",
+   "bytes": 11313
+  },
+  {
+   "route": "/courses/gmat-preparation/graphics-interpretation",
+   "file": "courses/gmat-preparation/graphics-interpretation/index.html",
+   "title": "Graphics Interpretation | GMAT Data Insights",
+   "bytes": 54090
+  },
+  {
+   "route": "/courses/gmat-preparation/percentage-changes",
+   "file": "courses/gmat-preparation/percentage-changes/index.html",
+   "title": "Successive Percentage Changes | GMAT",
+   "bytes": 37285
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/absolute-value",
+   "file": "courses/gmat-preparation/quant/absolute-value/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36207
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/algebraic-fractions",
+   "file": "courses/gmat-preparation/quant/algebraic-fractions/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 37884
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/averages",
+   "file": "courses/gmat-preparation/quant/averages/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 38163
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/counting",
+   "file": "courses/gmat-preparation/quant/counting/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 23034
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/exponents",
+   "file": "courses/gmat-preparation/quant/exponents/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 23488
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/expressions",
+   "file": "courses/gmat-preparation/quant/expressions/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 34671
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/factoring",
+   "file": "courses/gmat-preparation/quant/factoring/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36608
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/fractions",
+   "file": "courses/gmat-preparation/quant/fractions/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 84383
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/functions",
+   "file": "courses/gmat-preparation/quant/functions/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 25139
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/inequalities",
+   "file": "courses/gmat-preparation/quant/inequalities/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 32542
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/integers",
+   "file": "courses/gmat-preparation/quant/integers/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 25217
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/mixtures",
+   "file": "courses/gmat-preparation/quant/mixtures/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 22737
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/number-line",
+   "file": "courses/gmat-preparation/quant/number-line/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 21701
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/overlapping-sets",
+   "file": "courses/gmat-preparation/quant/overlapping-sets/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 25397
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/parity",
+   "file": "courses/gmat-preparation/quant/parity/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 24187
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/percent-fundamentals",
+   "file": "courses/gmat-preparation/quant/percent-fundamentals/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 32792
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/probability",
+   "file": "courses/gmat-preparation/quant/probability/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 29223
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/quadratics",
+   "file": "courses/gmat-preparation/quant/quadratics/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 37228
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/rates-work",
+   "file": "courses/gmat-preparation/quant/rates-work/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 51873
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/remainders",
+   "file": "courses/gmat-preparation/quant/remainders/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 38827
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/sequences",
+   "file": "courses/gmat-preparation/quant/sequences/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 29585
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/statistics",
+   "file": "courses/gmat-preparation/quant/statistics/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 26982
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/systems",
+   "file": "courses/gmat-preparation/quant/systems/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 34091
+  },
+  {
+   "route": "/courses/gmat-preparation/quant/word-problems",
+   "file": "courses/gmat-preparation/quant/word-problems/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 28445
+  },
+  {
+   "route": "/courses/gmat-preparation/ratios-and-rates",
+   "file": "courses/gmat-preparation/ratios-and-rates/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 48162
+  },
+  {
+   "route": "/courses/gmat-preparation/table-analysis",
+   "file": "courses/gmat-preparation/table-analysis/index.html",
+   "title": "Table Analysis | GMAT Data Insights",
+   "bytes": 14044
+  },
+  {
+   "route": "/courses/grade-11-precalculus/assessments",
+   "file": "courses/grade-11-precalculus/assessments/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 34593
+  },
+  {
+   "route": "/courses/grade-11-precalculus/assessments/1-1-quick",
+   "file": "courses/grade-11-precalculus/assessments/1-1-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 176139
+  },
+  {
+   "route": "/courses/grade-11-precalculus/assessments/1-3-quick",
+   "file": "courses/grade-11-precalculus/assessments/1-3-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 244553
+  },
+  {
+   "route": "/courses/grade-11-precalculus/assessments/1-4-quick",
+   "file": "courses/grade-11-precalculus/assessments/1-4-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 231629
+  },
+  {
+   "route": "/courses/grade-11-precalculus/assessments/1-8-quick",
+   "file": "courses/grade-11-precalculus/assessments/1-8-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 245125
+  },
+  {
+   "route": "/courses/grade-11-precalculus/assessments/1-9-quick",
+   "file": "courses/grade-11-precalculus/assessments/1-9-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 227789
+  },
+  {
+   "route": "/courses/grade-11-precalculus/assessments/2-1-quick",
+   "file": "courses/grade-11-precalculus/assessments/2-1-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 200507
+  },
+  {
+   "route": "/courses/grade-11-precalculus/assessments/2-2-quick",
+   "file": "courses/grade-11-precalculus/assessments/2-2-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 214511
+  },
+  {
+   "route": "/courses/grade-11-precalculus/assessments/2-3-quick",
+   "file": "courses/grade-11-precalculus/assessments/2-3-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 358935
+  },
+  {
+   "route": "/courses/grade-11-precalculus/assessments/2-6-quick",
+   "file": "courses/grade-11-precalculus/assessments/2-6-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 144312
+  },
+  {
+   "route": "/courses/grade-11-precalculus/chapter-review",
+   "file": "courses/grade-11-precalculus/chapter-review/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 495018
+  },
+  {
+   "route": "/courses/grade-11-precalculus/chapter-tests",
+   "file": "courses/grade-11-precalculus/chapter-tests/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 25490
+  },
+  {
+   "route": "/courses/grade-11-precalculus/desmos",
+   "file": "courses/grade-11-precalculus/desmos/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 60481
+  },
+  {
+   "route": "/courses/grade-11-precalculus/practice",
+   "file": "courses/grade-11-precalculus/practice/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36899
+  },
+  {
+   "route": "/courses/grade-11-precalculus/practice/1-1",
+   "file": "courses/grade-11-precalculus/practice/1-1/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36672
+  },
+  {
+   "route": "/courses/grade-11-precalculus/practice/1-3",
+   "file": "courses/grade-11-precalculus/practice/1-3/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36969
+  },
+  {
+   "route": "/courses/grade-11-precalculus/practice/1-4",
+   "file": "courses/grade-11-precalculus/practice/1-4/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36960
+  },
+  {
+   "route": "/courses/grade-11-precalculus/practice/1-8",
+   "file": "courses/grade-11-precalculus/practice/1-8/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36705
+  },
+  {
+   "route": "/courses/grade-11-precalculus/practice/1-9",
+   "file": "courses/grade-11-precalculus/practice/1-9/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36741
+  },
+  {
+   "route": "/courses/grade-11-precalculus/practice/2-1",
+   "file": "courses/grade-11-precalculus/practice/2-1/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 37502
+  },
+  {
+   "route": "/courses/grade-11-precalculus/practice/2-2",
+   "file": "courses/grade-11-precalculus/practice/2-2/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 37365
+  },
+  {
+   "route": "/courses/grade-11-precalculus/practice/2-3",
+   "file": "courses/grade-11-precalculus/practice/2-3/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 37784
+  },
+  {
+   "route": "/courses/grade-11-precalculus/practice/2-6",
+   "file": "courses/grade-11-precalculus/practice/2-6/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 52477
+  },
+  {
+   "route": "/courses/grade-11-precalculus/resources",
+   "file": "courses/grade-11-precalculus/resources/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 52727
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments",
+   "file": "courses/grade-12-calculus/assessments/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 41021
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/1-2-quick",
+   "file": "courses/grade-12-calculus/assessments/1-2-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 241765
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/1-3-quick",
+   "file": "courses/grade-12-calculus/assessments/1-3-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 182525
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/1-4-quick",
+   "file": "courses/grade-12-calculus/assessments/1-4-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 189959
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/1-5-quick",
+   "file": "courses/grade-12-calculus/assessments/1-5-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 184519
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/2-1-quick",
+   "file": "courses/grade-12-calculus/assessments/2-1-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 198933
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/2-2-2-3-quick",
+   "file": "courses/grade-12-calculus/assessments/2-2-2-3-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 279083
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/2-4-quick",
+   "file": "courses/grade-12-calculus/assessments/2-4-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 233305
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/2-5-quick",
+   "file": "courses/grade-12-calculus/assessments/2-5-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 240011
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/2-6-quick",
+   "file": "courses/grade-12-calculus/assessments/2-6-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 181611
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/chapter-1-full",
+   "file": "courses/grade-12-calculus/assessments/chapter-1-full/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 262736
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/chapter-2-full",
+   "file": "courses/grade-12-calculus/assessments/chapter-2-full/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 421612
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/p1-quick",
+   "file": "courses/grade-12-calculus/assessments/p1-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 257555
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/p3-quick",
+   "file": "courses/grade-12-calculus/assessments/p3-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 179087
+  },
+  {
+   "route": "/courses/grade-12-calculus/assessments/piecewise-differentiability-quick",
+   "file": "courses/grade-12-calculus/assessments/piecewise-differentiability-quick/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 219517
+  },
+  {
+   "route": "/courses/grade-12-calculus/chapter-tests",
+   "file": "courses/grade-12-calculus/chapter-tests/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 29669
+  },
+  {
+   "route": "/courses/grade-12-calculus/desmos",
+   "file": "courses/grade-12-calculus/desmos/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 60430
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice",
+   "file": "courses/grade-12-calculus/practice/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 45338
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/1-2",
+   "file": "courses/grade-12-calculus/practice/1-2/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36828
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/1-3",
+   "file": "courses/grade-12-calculus/practice/1-3/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 38387
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/1-4",
+   "file": "courses/grade-12-calculus/practice/1-4/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 37120
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/1-5",
+   "file": "courses/grade-12-calculus/practice/1-5/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36827
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/2-1",
+   "file": "courses/grade-12-calculus/practice/2-1/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36627
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/2-2-2-3",
+   "file": "courses/grade-12-calculus/practice/2-2-2-3/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36846
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/2-4",
+   "file": "courses/grade-12-calculus/practice/2-4/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36590
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/2-5",
+   "file": "courses/grade-12-calculus/practice/2-5/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36615
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/2-6",
+   "file": "courses/grade-12-calculus/practice/2-6/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36817
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/chapter-1-review",
+   "file": "courses/grade-12-calculus/practice/chapter-1-review/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 37311
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/chapter-2-review",
+   "file": "courses/grade-12-calculus/practice/chapter-2-review/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 37442
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/p1",
+   "file": "courses/grade-12-calculus/practice/p1/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36750
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/p3",
+   "file": "courses/grade-12-calculus/practice/p3/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 37061
+  },
+  {
+   "route": "/courses/grade-12-calculus/practice/piecewise-differentiability",
+   "file": "courses/grade-12-calculus/practice/piecewise-differentiability/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 36719
+  },
+  {
+   "route": "/courses/grade-12-calculus/resources",
+   "file": "courses/grade-12-calculus/resources/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 86460
+  },
+  {
+   "route": "/sign-up",
+   "file": "sign-up/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 11982
+  },
+  {
+   "route": "/student-login",
+   "file": "student-login/index.html",
+   "title": "Dr. Math Azzam Platform | High School &amp; University Mathematics",
+   "bytes": 11068
+  }
+ ],
+ "skipped": []
+}
