@@ -8,6 +8,7 @@ import { useLocale } from '../LocaleContext';
 import type { LessonNode } from './courseGraph';
 import { useProgress } from './progress';
 import { loadQuestions, mathRuns, type Question } from './questions';
+import AnswerChoices from './AnswerChoices';
 import { pick } from './viz/controls';
 
 const strings = {
@@ -170,46 +171,14 @@ export default function PracticeMini({ lesson, onComplete }: PracticeMiniProps) 
         )}
       </p>
 
-      <div role="radiogroup" aria-label={isRtl ? 'الخيارات' : 'Answer options'} className="space-y-2">
-        {question.options.map((option, position) => {
-          const chosen = selected === position;
-          const state = !checked
-            ? chosen
-              ? 'border-[var(--t-accent)] bg-[color-mix(in_srgb,var(--t-accent)_10%,transparent)]'
-              : 'border-[color-mix(in_srgb,var(--t-ink)_14%,transparent)]'
-            : position === question.correctIndex
-              ? 'border-[var(--t-ok)] bg-[color-mix(in_srgb,var(--t-ok)_12%,transparent)]'
-              : chosen
-                ? 'border-[var(--t-danger)] bg-[color-mix(in_srgb,var(--t-danger)_10%,transparent)]'
-                : 'border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)] opacity-70';
-          return (
-            <button
-              key={option}
-              type="button"
-              role="radio"
-              aria-checked={chosen}
-              disabled={checked}
-              onClick={() => answer(position)}
-              className={`flex w-full items-start gap-2.5 rounded-xl border px-3 py-2.5 text-start text-[0.82rem] cursor-pointer transition-colors disabled:cursor-default ${state}`}
-            >
-              <span className="mt-0.5 font-mono text-[0.7rem] font-black text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)]">
-                {'ABCD'[position] ?? position + 1}
-              </span>
-              <span className="min-w-0 text-[var(--t-ink)]">
-                {mathRuns(option).map((run, runIndex) =>
-                  run.math ? (
-                    <span key={runIndex} dir="ltr" className="font-mono">
-                      {run.text}
-                    </span>
-                  ) : (
-                    <span key={runIndex}>{run.text}</span>
-                  ),
-                )}
-              </span>
-            </button>
-          );
-        })}
-      </div>
+      <AnswerChoices
+        options={question.options}
+        selected={selected ?? -1}
+        onSelect={answer}
+        checked={checked}
+        correctIndex={question.correctIndex}
+        isRtl={isRtl}
+      />
 
       {hintOpen && question.hint && (
         <p className="rounded-xl bg-[color-mix(in_srgb,var(--t-sun)_14%,transparent)] px-3 py-2 text-xs text-[var(--t-ink)]">

@@ -34,6 +34,7 @@ import { LESSONS, COURSES } from '${root}/src/courses/courseGraph';
 import CoursesExperience from '${root}/src/courses/CoursesExperience';
 import { offPlot } from '${root}/scripts/plot-bounds.cjs';
 import { audit } from '${root}/scripts/a11y-dom.cjs';
+import AnswerChoices from '${root}/src/courses/AnswerChoices';
 
 // Node has no storage, no window: stub just enough for a first render.
 globalThis.localStorage = { getItem: () => null, setItem: () => {}, removeItem: () => {} };
@@ -101,12 +102,56 @@ try {
     if (!map.includes(label)) failures.push('map is missing ' + label);
   }
   if (!map.includes('Search lessons, numbers or ideas')) failures.push('map is missing the lesson search');
+  // Closing the panel returns focus to the opener, or to these two if it has
+  // gone away — so both need to keep their ids.
+  for (const id of ['course-map', 'lesson-search']) {
+    if (!map.includes('id="' + id + '"')) failures.push('map is missing id="' + id + '" (the focus fallback)');
+  }
   for (const problem of audit(map, { where: 'courses map' })) failures.push(problem);
   for (const label of ['Mixed practice', 'Hands-on lab', 'Not started', 'Labs', 'My mistakes']) {
     if (!map.includes(label)) failures.push('map is missing "' + label + '"');
   }
 } catch (error) {
   failures.push('courses map: ' + error.message);
+}
+
+// Answer options: a radio group has to be one tab stop with arrow-key movement,
+// not four independent tab stops. That is a roving tabindex, which shows up in
+// the static markup, so it can be checked without a browser.
+try {
+  const choices = (selected, checked) =>
+    renderToStaticMarkup(
+      React.createElement(
+        LocaleProvider,
+        null,
+        React.createElement(AnswerChoices, {
+          options: ['7', '9', '12', '15'],
+          selected,
+          onSelect: () => {},
+          checked,
+          correctIndex: 2,
+          isRtl: false,
+        }),
+      ),
+    );
+  const stops = (html) => [...html.matchAll(/<button[^>]*>/g)].map((match) => /tabindex="0"/.test(match[0]));
+  const labels = (html) =>
+    html
+      .split('<button')
+      .slice(1)
+      .map((part) => part.slice(part.indexOf('>') + 1).split('</button>')[0].replace(/<[^>]+>/g, '').trim());
+  const chosen = choices(2, false);
+  const chosenStops = stops(chosen);
+  if (chosenStops.filter(Boolean).length !== 1) failures.push('answer choices: expected exactly one tab stop, got ' + chosenStops.filter(Boolean).length);
+  else if (chosenStops[2] !== true) failures.push('answer choices: the tab stop is not the chosen option');
+  const untouched = stops(choices(-1, false));
+  if (untouched.filter(Boolean).length !== 1 || untouched[0] !== true) failures.push('answer choices: with nothing chosen the first option must be the tab stop');
+  if (stops(choices(1, true)).some(Boolean)) failures.push('answer choices: a checked group must not keep a tab stop');
+  const letters = labels(choices(-1, false)).map((text) => text[0]).join('');
+  if (letters !== 'ABCD') failures.push('answer choices: options are not lettered A–D (' + letters + ')');
+  for (const problem of audit(choices(-1, false), { where: 'answer choices' })) failures.push(problem);
+} catch (error) {
+  failures.push('answer choices: ' + error.message);
 }
 
 // URL contract: ?lesson= opens that panel on a cold load, ?legacy=1 forces the

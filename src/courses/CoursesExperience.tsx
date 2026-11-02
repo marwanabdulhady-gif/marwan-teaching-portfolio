@@ -229,7 +229,7 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
         <GmatGrid onOpenTopic={openLesson} onOpenPage={launchWorkspace} />
       ) : (
         <>
-          <div className="teach-card p-4 sm:p-6">
+          <div id="course-map" tabIndex={-1} className="teach-card p-4 sm:p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--t-accent)]">
             <p className="teach-eyebrow mb-4 !text-[0.6rem]">{pick(strings.mapTitle, isRtl)}</p>
             <CourseMap
               course={course}

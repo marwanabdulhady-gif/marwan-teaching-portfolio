@@ -127,6 +127,27 @@ Only each lab's **default state** is rendered, so a broken tab or mode is not
 caught automatically — check those by hand (the AngleLab transversal mode was
 found that way).
 
+### Focus and the answer options
+
+Three things that are easy to get wrong without a browser, so they are stated as
+rules and guarded where a static render can see them:
+
+- **Answer options are one radio group, not four tab stops.** `AnswerChoices.tsx`
+  is shared by the panel's quick practice and the mixed card: one option is in
+  the tab order (the chosen one, or the first), ↑/↓ and ←/→ walk the options and
+  select as they go, Home/End jump to the ends. Once the question is checked the
+  group is frozen and out of the tab order, and the Check/Next button carries on.
+  `qa:render` renders the group in three states and fails unless exactly one
+  option is a tab stop, that it is the right one, that a checked group has none,
+  and that the options read A–D.
+- **Closing the panel gives the keyboard back.** Focus returns to whatever opened
+  the panel — a map node, a search result, a "practise this course" button. If
+  that element is gone, it falls back to `#course-map`, then `#lesson-search`;
+  both ids are asserted by `qa:render`, because silently losing the fallback
+  would put the focus ring back at the top of the page.
+- **Stepping between lessons keeps focus in the panel.** Only a real close
+  restores focus, not a move to the next or previous lesson.
+
 ### Screen readers
 
 `Readout` shows every value immediately, but what a screen reader hears comes

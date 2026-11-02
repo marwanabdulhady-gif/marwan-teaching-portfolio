@@ -71,6 +71,24 @@ export default function LessonPanel({ lessonKey, onClose, onOpenFull, onNavigate
   useEffect(() => {
     setPracticeScore(null);
   }, [lesson?.key]);
+  // Hand the keyboard back: closing the panel must return focus to whatever
+  // opened it (the map node, a search result, a "mixed practice" link). Without
+  // this the focus ring lands on <body> and the next Tab starts at the top of
+  // the page. Stepping to the next lesson keeps focus inside the panel, so only
+  // a real close restores.
+  const latestKey = useRef(lessonKey);
+  latestKey.current = lessonKey;
+  useEffect(() => {
+    if (!lessonKey) return;
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    return () => {
+      if (latestKey.current !== null) return;
+      if (opener && opener.isConnected) opener.focus();
+      else document.getElementById('course-map')?.focus();
+      // Last resort — the map is not on screen on every view.
+      if (document.activeElement === document.body) document.getElementById('lesson-search')?.focus();
+    };
+  }, [lessonKey]);
 
   useEffect(() => {
     if (!lesson) return;

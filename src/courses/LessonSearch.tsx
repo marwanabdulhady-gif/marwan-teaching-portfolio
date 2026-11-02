@@ -53,6 +53,7 @@ export default function LessonSearch({ onOpen }: LessonSearchProps) {
         </span>
         <input
           ref={inputRef}
+          id="lesson-search"
           type="search"
           value={query}
           role="combobox"
