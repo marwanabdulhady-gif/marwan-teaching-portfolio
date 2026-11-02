@@ -100,3 +100,36 @@ script. UI strings are not covered by that check.
 - **Not yet run:** `scripts/qa-courses.cjs` — no browser is available in the build
   environment, so the visual and keyboard checks above still need a human or a CI
   run before release.
+
+### Geometry checks (`npm run qa:render`)
+
+The labs are hand-written SVG, so a wrong scale does not throw — it draws
+somewhere you cannot see. Alongside the crash check, every lab is now read for:
+
+- **NaN** in an attribute (a coordinate that could not be computed);
+- a coordinate beyond 1500 px (the unit circle that came out 8750 px wide);
+- a shape **entirely outside** its viewBox (a dot plotted at y = 250 in a 125 px
+  box — invisible);
+- a label whose anchor falls outside the viewBox (clipped text).
+
+Partly-clipped lines are allowed: guide lines run off the edge on purpose. The
+helpers live in `scripts/plot-bounds.cjs` and have their own cases in the test
+notes below.
+
+Only each lab's **default state** is rendered, so a broken tab or mode is not
+caught automatically — check those by hand (the AngleLab transversal mode was
+found that way).
+
+```
+node -e "const {offPlot}=require('./scripts/plot-bounds.cjs');
+  console.log(offPlot('<svg viewBox=\"0 0 400 125\"><circle cx=\"200\" cy=\"250\" r=\"6\"/></svg>'));"
+```
+
+### Plot maths
+
+`MathPlot` is 400 px wide and its height follows `aspect`, so nothing in a lab
+may assume a canvas size. Ticks and labels go through `Label`, shapes through
+`Segment` / `Point` / `Circle` / `Region`, all in **data coordinates**; the
+built-in axes can be switched off with `axes={false}` for plots that draw their
+own (number lines). `Point` keeps its label inside the box and flips it to the
+left when there is no room on the right.

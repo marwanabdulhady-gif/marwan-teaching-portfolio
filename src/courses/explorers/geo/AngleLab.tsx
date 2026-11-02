@@ -4,7 +4,7 @@
  */
 import type { Bi } from '../../../teachingData';
 import { useLocale } from '../../../LocaleContext';
-import { MathPlot, Segment } from '../../viz/MathPlot';
+import { Label, MathPlot, Point, Segment } from '../../viz/MathPlot';
 import { Readout, SegmentedChoice, Slider, pick, useExplorerState } from '../../viz/controls';
 import { fmt } from '../../viz/format';
 import type { ExplorerProps } from '../types';
@@ -36,6 +36,11 @@ export default function AngleLab({ onInteract }: ExplorerProps) {
   const theta = values.theta;
   const mode: Mode = values.mode > 0.5 ? 'transversal' : 'pairs';
   const rad = (theta * Math.PI) / 180;
+  // tan θ climbs without limit; beyond 80° the parallels leave the box, which is
+  // honest, but keep the value finite.
+  const slope = Math.tan(Math.min(80, Math.max(5, theta)) * Math.PI / 180);
+  // Keep the parallel lines inside the plot: |y| must stay below 8 at both ends.
+  const span = Math.min(8, 5.6 / slope);
 
   return (
     <div className="space-y-3">
@@ -67,24 +72,17 @@ export default function AngleLab({ onInteract }: ExplorerProps) {
             </>
           ) : (
             <>
-              <Segment x1={0} y1={140} x2={400} y2={140} color="var(--t-ink)" width={2} opacity={0.55} />
-              <Segment x1={0} y1={260} x2={400} y2={260} color="var(--t-ink)" width={2} opacity={0.55} />
-              <Segment
-                x1={200 - 260 * Math.cos(rad)}
-                y1={260 + 260 * Math.sin(rad)}
-                x2={200 + 260 * Math.cos(rad)}
-                y2={140 - 260 * Math.sin(rad)}
-                color="var(--t-accent)"
-                width={2.5}
-              />
-              <circle cx={200} cy={260} r={4} fill="var(--t-sun)" />
-              <circle cx={200} cy={140} r={4} fill="var(--t-sun)" />
-              <text x={252} y={252} fontSize={11} fill="var(--t-accent-deep)" fontFamily="ui-monospace, monospace">
-                {fmt(theta, 0)}°
-              </text>
-              <text x={252} y={132} fontSize={11} fill="var(--t-sky)" fontFamily="ui-monospace, monospace">
-                {fmt(theta, 0)}°
-              </text>
+              {/* Two parallel lines, each tilted by θ, cut by a vertical
+                  transversal: the angle at the crossings is θ and every point
+                  stays inside the plot (this mode used to draw at y = 140 px
+                  in a domain of −8…8, so both lines were off-canvas). */}
+              <Segment x1={-span} y1={2.4 - span * slope} x2={span} y2={2.4 + span * slope} width={2} opacity={0.55} />
+              <Segment x1={-span} y1={-2.4 - span * slope} x2={span} y2={-2.4 + span * slope} width={2} opacity={0.55} />
+              <Segment x1={0} y1={-8} x2={0} y2={8} color="var(--t-accent)" width={2.5} />
+              <Point x={0} y={2.4} r={4} color="var(--t-sun)" />
+              <Point x={0} y={-2.4} r={4} color="var(--t-sun)" />
+              <Label x={0.45} y={2.4} anchor="start" color="var(--t-accent-deep)">θ</Label>
+              <Label x={0.45} y={-2.4} anchor="start" color="var(--t-sky)">θ</Label>
             </>
           )}
         </MathPlot>

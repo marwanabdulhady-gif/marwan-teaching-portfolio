@@ -32,6 +32,7 @@ import { LocaleProvider } from '${root}/src/LocaleContext';
 import { EXPLORERS, EXPLORER_KEYS } from '${root}/src/courses/explorers/index';
 import { LESSONS, COURSES } from '${root}/src/courses/courseGraph';
 import CoursesExperience from '${root}/src/courses/CoursesExperience';
+import { offPlot } from '${root}/scripts/plot-bounds.cjs';
 
 // Node has no storage, no window: stub just enough for a first render.
 globalThis.localStorage = { getItem: () => null, setItem: () => {}, removeItem: () => {} };
@@ -48,6 +49,7 @@ globalThis.matchMedia = globalThis.window.matchMedia;
 
 const failures = [];
 let rendered = 0;
+
 for (const key of EXPLORER_KEYS) {
   try {
     const mod = await EXPLORERS[key]();
@@ -60,11 +62,10 @@ for (const key of EXPLORER_KEYS) {
       React.createElement(LocaleProvider, null, React.createElement(mod.default, { lesson, onInteract: () => {} })),
     );
     if (!html || html.length < 40) failures.push(key + ': empty output');
-    // Geometry sanity: a lab that draws outside its 400×400 viewBox is not
-    // throwing, just invisible or misplaced — catch it here (this is how the
-    // unit circle that came out 8750 px wide was found).
-    // A NaN in an attribute means a plot tried to draw a coordinate it could not
-    // compute — the shape silently disappears.
+    // Geometry sanity: a lab that draws outside its viewBox is not throwing,
+    // just invisible or misplaced — catch it here (this is how the unit circle
+    // that came out 8750 px wide was found). A NaN in an attribute means a plot
+    // tried to draw a coordinate it could not compute.
     if (/[:=]\s*"?NaN|NaN"/.test(html)) failures.push(key + ': NaN in a rendered attribute');
     for (const match of html.matchAll(/(?:^|[\s"'(,])(-?\d{4,}(?:\.\d+)?)/g)) {
       const value = Number(match[1]);
@@ -73,6 +74,8 @@ for (const key of EXPLORER_KEYS) {
         break;
       }
     }
+    const off = offPlot(html);
+    if (off) failures.push(key + ': ' + off);
     rendered += 1;
   } catch (error) {
     failures.push(key + ': ' + error.message);

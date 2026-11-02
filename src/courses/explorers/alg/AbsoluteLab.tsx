@@ -4,7 +4,7 @@
  */
 import type { Bi } from '../../../teachingData';
 import { useLocale } from '../../../LocaleContext';
-import { Curve, MathPlot, Point, Segment } from '../../viz/MathPlot';
+import { Curve, MathPlot, Point, Region, Segment } from '../../viz/MathPlot';
 import { Readout, SegmentedChoice, Slider, pick, useExplorerState } from '../../viz/controls';
 import { fmt } from '../../viz/format';
 import type { ExplorerProps } from '../types';
@@ -48,9 +48,10 @@ export default function AbsoluteLab({ onInteract }: ExplorerProps) {
 
       <div dir="ltr" className="rounded-2xl border border-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] bg-[color-mix(in_srgb,var(--t-bg-2)_45%,transparent)] p-2">
         <MathPlot xDomain={[-6, 8]} yDomain={[-1, 8]} ariaLabel={`a|x − h| = k`}>
-          {kind === 'lt' && (
-            <rect x={200 + (left - 0) * 28.57} y={0} width={(right - left) * 28.57} height={300} fill="var(--t-accent)" fillOpacity={0.12} />
-          )}
+          {/* The shaded band between the two solutions, in data coordinates:
+              the old pixel maths put x = 0 at 200 px, but the domain starts at
+              −6, so the band sat about one unit to the right. */}
+          {kind === 'lt' && <Region from={left} to={right} top={() => 8} bottom={() => -1} />}
           <Curve fn={f} width={3} />
           <Segment x1={-6} y1={k} x2={8} y2={k} color="var(--t-sun)" dash="5 4" opacity={0.8} />
           <Point x={left} y={k} r={5} color="var(--t-accent)" />

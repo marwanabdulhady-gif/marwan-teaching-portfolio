@@ -8,7 +8,7 @@
 import { useMemo, useState } from 'react';
 import type { Bi } from '../../../teachingData';
 import { useLocale } from '../../../LocaleContext';
-import { DragHandle, MathPlot, Point } from '../../viz/MathPlot';
+import { DragHandle, Label, MathPlot, Point, Segment } from '../../viz/MathPlot';
 import { Readout, pick, useExplorerState } from '../../viz/controls';
 import { fmt } from '../../viz/format';
 import type { ExplorerProps } from '../types';
@@ -86,18 +86,20 @@ export default function RealNumbers({ onInteract }: ExplorerProps) {
       <p className="text-xs leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)]">{pick(strings.what, isRtl)}</p>
 
       <div dir="ltr" className="rounded-2xl border border-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] bg-[color-mix(in_srgb,var(--t-bg-2)_45%,transparent)] p-2">
-        <MathPlot xDomain={[-10, 10]} yDomain={[-2.4, 2.4]} aspect={16 / 5} grid={false} ariaLabel={pick(strings.value, isRtl)}>
-          <line x1={0} y1={120} x2={400} y2={120} stroke="var(--t-ink)" strokeOpacity={0.45} strokeWidth={2} />
+        {/* y = 0 is the middle of the plot, so the line, the dot and the drag
+            handle all sit on the same row and the labels stay inside the box. */}
+        <MathPlot xDomain={[-10, 10]} yDomain={[-1, 1]} aspect={16 / 5} grid={false} axes={false} ariaLabel={pick(strings.value, isRtl)}>
+          <Segment x1={-10} y1={0} x2={10} y2={0} width={2} opacity={0.45} />
           {[-10, -5, 0, 5, 10].map((tick) => (
             <g key={tick}>
-              <line x1={200 + tick * 20} y1={113} x2={200 + tick * 20} y2={127} stroke="var(--t-ink)" strokeOpacity={0.5} strokeWidth={2} />
-              <text x={200 + tick * 20} y={145} textAnchor="middle" fontSize={10} fill="var(--t-ink)" fillOpacity={0.6} fontFamily="ui-monospace, monospace">
+              <Segment x1={tick} y1={0.16} x2={tick} y2={-0.16} width={2} opacity={0.5} />
+              <Label x={tick} y={-0.42} opacity={0.6}>
                 {tick}
-              </text>
+              </Label>
             </g>
           ))}
           <Point x={x} y={0} r={7} />
-          <DragHandle x={x} onChange={(value) => set('x', value)} min={-10} max={10} step={0.25} ariaLabel={pick(strings.value, isRtl)} py={120} />
+          <DragHandle x={x} onChange={(value) => set('x', value)} min={-10} max={10} step={0.25} ariaLabel={pick(strings.value, isRtl)} />
         </MathPlot>
       </div>
 

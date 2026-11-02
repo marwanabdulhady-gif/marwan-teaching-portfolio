@@ -41,7 +41,7 @@ export default function ExpLogWorld({ onInteract }: ExplorerProps) {
 
       <div dir="ltr" className="rounded-2xl border border-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] bg-[color-mix(in_srgb,var(--t-bg-2)_45%,transparent)] p-2">
         <MathPlot xDomain={[-4, 4]} yDomain={[-2, 6]} ariaLabel={`b = ${fmt(b, 2)}`}>
-          <Segment x1={-4} y1={-4} x2={6} y2={6} color="var(--t-ink)" dash="5 5" opacity={0.25} />
+          <Segment x1={-2} y1={-2} x2={4} y2={4} color="var(--t-ink)" dash="5 5" opacity={0.25} />
           <Curve fn={exp} width={3} />
           {show && <Curve fn={log} color="var(--t-sky)" />}
           <Point x={0} y={1} r={4} label="(0, 1)" />

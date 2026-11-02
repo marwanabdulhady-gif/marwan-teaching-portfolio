@@ -200,7 +200,16 @@ export default function ModelLab({ lesson, onInteract }: ExplorerProps) {
             <Curve fn={f} color="var(--t-accent)" />
             <Curve fn={g} color="var(--t-sky)" />
             <Point x={x} y={g(x)} r={4} color="var(--t-sky)" label={`g(${fmt(x, 1)})`} />
-            <Point x={x} y={f(g(x))} r={5} color="var(--t-sun)" label={`f(g(${fmt(x, 1)}))`} />
+            {/* f(g(x)) leaves the window for x > 2.9; park the dot at the top edge
+                with the real value so it never disappears off-plot. */}
+            {f(g(x)) <= 15.5 ? (
+              <Point x={x} y={f(g(x))} r={5} color="var(--t-sun)" label={`f(g(${fmt(x, 1)}))`} />
+            ) : (
+              <>
+                <Point x={x} y={15.4} r={5} color="var(--t-sun)" hollow label={`${fmt(f(g(x)), 0)} ↑`} />
+                <Segment x1={x} y1={15.4} x2={x} y2={16} color="var(--t-sun)" width={2} opacity={0.5} />
+              </>
+            )}
           </MathPlot>
         </div>
         <Slider label={strings.x0} value={x} min={-3} max={3} step={0.5} onChange={(value) => set('x', value)} format={(value) => fmt(value, 1)} />

@@ -4,7 +4,7 @@
  */
 import type { Bi } from '../../../teachingData';
 import { useLocale } from '../../../LocaleContext';
-import { MathPlot, Point, Segment } from '../../viz/MathPlot';
+import { Label, MathPlot, Point, Segment } from '../../viz/MathPlot';
 import { Readout, Slider, pick, useExplorerState } from '../../viz/controls';
 import { fmt } from '../../viz/format';
 import type { ExplorerProps } from '../types';
@@ -51,16 +51,31 @@ export default function ScatterLab({ lesson, onInteract }: ExplorerProps) {
     for (const value of values_) counts.set(value, (counts.get(value) ?? 0) + 1);
     const mode = [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? 0;
     const max = Math.max(...values_);
+    // Duplicates stack upwards so every value in the set is visible.
+    const seen = new Map<number, number>();
+    const dots = values_.map((value) => {
+      const row = seen.get(value) ?? 0;
+      seen.set(value, row + 1);
+      return { value, row };
+    });
 
     return (
       <div className="space-y-3">
         <div dir="ltr" className="rounded-2xl border border-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] bg-[color-mix(in_srgb,var(--t-bg-2)_45%,transparent)] p-2">
-          <MathPlot xDomain={[0, 44]} yDomain={[0, 6]} grid={false} aspect={16 / 5} ariaLabel={pick(strings.data, isRtl)}>
-            {values_.map((value, index) => (
-              <circle key={`${value}-${index}`} cx={(value / 44) * 400} cy={250} r={6} fill="var(--t-accent)" fillOpacity={0.8} />
+          {/* A dot plot on a number line: y = 0 is the bottom of the box, so the
+              dots sit on the line and the mean/median marks stand on it. */}
+          <MathPlot xDomain={[0, 44]} yDomain={[0, 1]} grid={false} axes={false} aspect={16 / 5} ariaLabel={pick(strings.data, isRtl)}>
+            <Segment x1={0} y1={0.14} x2={44} y2={0.14} width={2} opacity={0.45} />
+            {[0, 10, 20, 30, 40].map((tick) => (
+              <Label key={tick} x={tick} y={0.05} opacity={0.55}>
+                {tick}
+              </Label>
             ))}
-            <Segment x1={(mean / 44) * 400} y1={0} x2={(mean / 44) * 400} y2={300} color="var(--t-sun)" width={2} dash="5 4" />
-            <Segment x1={(median / 44) * 400} y1={0} x2={(median / 44) * 400} y2={300} color="var(--t-sky)" width={2} dash="5 4" />
+            {dots.map(({ value, row }) => (
+              <Point key={`${value}-${row}`} x={value} y={0.3 + row * 0.2} r={6} color="var(--t-accent)" />
+            ))}
+            <Segment x1={mean} y1={0.2} x2={mean} y2={0.95} color="var(--t-sun)" width={2} dash="5 4" />
+            <Segment x1={median} y1={0.2} x2={median} y2={0.95} color="var(--t-sky)" width={2} dash="5 4" />
           </MathPlot>
         </div>
         <label className="flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)] px-2.5 py-1.5">

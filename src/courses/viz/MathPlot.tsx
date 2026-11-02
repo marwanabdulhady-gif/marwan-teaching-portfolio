@@ -62,6 +62,12 @@ export interface MathPlotProps {
   /** width ÷ height of the drawing area. */
   aspect?: number;
   grid?: boolean;
+  /**
+   * Draw the built-in axes and their tick numbers. Turn it off for plots that
+   * draw their own axis — e.g. a number line, where the y axis is noise and its
+   * labels get clipped on a 125 px tall box.
+   */
+  axes?: boolean;
   ariaLabel: string;
   children: ReactNode;
   className?: string;
@@ -72,6 +78,7 @@ export function MathPlot({
   yDomain,
   aspect = 4 / 3,
   grid = true,
+  axes = true,
   ariaLabel,
   children,
   className = '',
@@ -119,22 +126,43 @@ export function MathPlot({
             ))}
           </g>
         )}
-        <g stroke={INK} strokeOpacity={0.45} strokeWidth={1.5}>
-          <line x1={0} y1={axisY} x2={width} y2={axisY} />
-          <line x1={axisX} y1={0} x2={axisX} y2={height} />
-        </g>
-        <g fill={INK} fillOpacity={0.5} fontSize={10} fontFamily="ui-monospace, monospace">
-          {xTicks.map((t) => (
-            <text key={`tx-${t}`} x={scale.x(t)} y={axisY + 13} textAnchor="middle">
-              {t}
-            </text>
-          ))}
-          {yTicks.map((t) => (
-            <text key={`ty-${t}`} x={axisX - 5} y={scale.y(t) + 3} textAnchor="end">
-              {t}
-            </text>
-          ))}
-        </g>
+        {axes && (
+          <>
+            <g stroke={INK} strokeOpacity={0.45} strokeWidth={1.5}>
+              <line x1={0} y1={axisY} x2={width} y2={axisY} />
+              <line x1={axisX} y1={0} x2={axisX} y2={height} />
+            </g>
+            {/* Labels are kept inside the viewBox: on a short plot the bottom
+                tick and the left-hand y numbers used to be cut in half. The y
+                numbers flip to the right of the axis when it hugs the left
+                edge, so they are not clipped there either. */}
+            <g fill={INK} fillOpacity={0.5} fontSize={10} fontFamily="ui-monospace, monospace">
+              {xTicks.map((t) => {
+                const px = scale.x(t);
+                const half = String(t).length * 3.2;
+                if (px - half < 0 || px + half > width) return null;
+                return (
+                  <text key={`tx-${t}`} x={px} y={Math.min(height - 3, axisY + 13)} textAnchor="middle">
+                    {t}
+                  </text>
+                );
+              })}
+              {yTicks.map((t) => {
+                const py = Math.min(height - 3, Math.max(10, scale.y(t) + 3));
+                return (
+                  <text
+                    key={`ty-${t}`}
+                    x={axisX > 20 ? axisX - 5 : axisX + 5}
+                    y={py}
+                    textAnchor={axisX > 20 ? 'end' : 'start'}
+                  >
+                    {t}
+                  </text>
+                );
+              })}
+            </g>
+          </>
+        )}
         {children}
       </svg>
     </PlotContext.Provider>
@@ -211,6 +239,13 @@ export function Point({ x, y, r = 5, color = 'var(--t-sun)', hollow = false, lab
   const cx = scale.x(x);
   const cy = scale.y(y);
   if (!Number.isFinite(cx) || !Number.isFinite(cy)) return null;
+  // The label goes on whichever side of the dot has room, and never above or
+  // below the plot: a point near the right edge used to push its text out of
+  // the viewBox, where it was simply invisible.
+  const width = label ? label.length * 6.6 : 0;
+  const toRight = cx + r + 4 + width <= scale.width - 2;
+  const labelX = toRight ? cx + r + 4 : cx - r - 4;
+  const labelY = Math.min(scale.height - 3, Math.max(9, cy - r - 2));
   return (
     <g>
       <circle
@@ -222,7 +257,15 @@ export function Point({ x, y, r = 5, color = 'var(--t-sun)', hollow = false, lab
         strokeWidth={2}
       />
       {label && (
-        <text x={cx + r + 4} y={cy - r - 2} fontSize={11} fill={INK} fillOpacity={0.75} fontFamily="ui-monospace, monospace">
+        <text
+          x={labelX}
+          y={labelY}
+          textAnchor={toRight ? 'start' : 'end'}
+          fontSize={11}
+          fill={INK}
+          fillOpacity={0.75}
+          fontFamily="ui-monospace, monospace"
+        >
           {label}
         </text>
       )}
@@ -261,6 +304,41 @@ export function Segment({
       strokeDasharray={dash}
       strokeOpacity={opacity}
     />
+  );
+}
+
+export interface LabelProps {
+  /** Text anchor point, in data coordinates. */
+  x: number;
+  y: number;
+  children: ReactNode;
+  size?: number;
+  anchor?: 'start' | 'middle' | 'end';
+  opacity?: number;
+  color?: string;
+}
+
+/**
+ * Small text placed in data coordinates. Tick numbers on hand-built axes used to
+ * be hard-coded pixels and fell outside the 400 × height viewBox on short plots.
+ */
+export function Label({ x, y, children, size = 10, anchor = 'middle', opacity = 0.6, color = INK }: LabelProps) {
+  const scale = usePlotScale();
+  const px = scale.x(x);
+  const py = scale.y(y);
+  if (!Number.isFinite(px) || !Number.isFinite(py)) return null;
+  return (
+    <text
+      x={px}
+      y={py}
+      textAnchor={anchor}
+      fontSize={size}
+      fill={color}
+      fillOpacity={opacity}
+      fontFamily="ui-monospace, monospace"
+    >
+      {children}
+    </text>
   );
 }
 

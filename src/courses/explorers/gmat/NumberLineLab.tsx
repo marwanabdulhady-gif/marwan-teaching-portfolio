@@ -5,7 +5,7 @@
  */
 import type { Bi } from '../../../teachingData';
 import { useLocale } from '../../../LocaleContext';
-import { MathPlot, Point, PointHandle } from '../../viz/MathPlot';
+import { Label, MathPlot, Point, PointHandle, Segment } from '../../viz/MathPlot';
 import { Readout, SegmentedChoice, Slider, pick, useExplorerState } from '../../viz/controls';
 import { fmt } from '../../viz/format';
 import type { ExplorerProps } from '../types';
@@ -139,22 +139,23 @@ export default function NumberLineLab({ lesson, onInteract }: ExplorerProps) {
     <div className="space-y-3">
       <p className="text-xs leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)]">{pick(strings.what, isRtl)}</p>
       <div dir="ltr" className="rounded-2xl border border-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] bg-[color-mix(in_srgb,var(--t-bg-2)_45%,transparent)] p-2">
-        <MathPlot xDomain={DOMAIN} yDomain={[-3, 3]} aspect={3.4} grid={false} ariaLabel={pick(strings.distance, isRtl)}>
-          <line x1={0} y1={0} x2={400} y2={0} stroke="transparent" />
-          <PointHandle x={a} y={0} xDomain={DOMAIN} yDomain={[-30, 30]} step={1} ariaLabel={pick(strings.pointA, isRtl)} onChange={(x) => set('a', x)} />
-          <PointHandle x={b} y={0} xDomain={DOMAIN} yDomain={[-30, 30]} step={1} ariaLabel={pick(strings.pointB, isRtl)} color="var(--t-accent)" onChange={(x) => set('b', x)} />
-          {/* |x − a| < r drawn as a visible band around a on the axis */}
-          <line
-            x1={((a - r - DOMAIN[0]) / (DOMAIN[1] - DOMAIN[0])) * 400}
-            y1={200}
-            x2={((a + r - DOMAIN[0]) / (DOMAIN[1] - DOMAIN[0])) * 400}
-            y2={200}
-            stroke="var(--t-sun)"
-            strokeWidth={14}
-            strokeOpacity={0.35}
-            strokeLinecap="round"
-          />
-          <line x1={0} y1={200} x2={400} y2={200} stroke="var(--t-ink)" strokeOpacity={0.5} strokeWidth={1.5} />
+        {/* The axis is y = 0, the middle row of the box: the band, the ticks and
+            the two handles all sit on it (they used to be drawn at a fixed
+            y = 200 in a 118 px tall plot, i.e. off the canvas). */}
+        <MathPlot xDomain={DOMAIN} yDomain={[-1, 1]} aspect={3.4} grid={false} axes={false} ariaLabel={pick(strings.distance, isRtl)}>
+          <Segment x1={DOMAIN[0]} y1={0} x2={DOMAIN[1]} y2={0} width={1.5} opacity={0.5} />
+          {[-10, -5, 0, 5, 10].map((tick) => (
+            <g key={tick}>
+              <Segment x1={tick} y1={0.16} x2={tick} y2={-0.16} width={2} opacity={0.5} />
+              <Label x={tick} y={-0.5} opacity={0.6}>
+                {tick}
+              </Label>
+            </g>
+          ))}
+          {/* |x − a| < r: a band of half-width r centred on a */}
+          <Segment x1={a - r} y1={0} x2={a + r} y2={0} color="var(--t-sun)" width={14} opacity={0.35} />
+          <PointHandle x={a} y={0} xDomain={DOMAIN} yDomain={[-1, 1]} step={1} constrain="x" ariaLabel={pick(strings.pointA, isRtl)} onChange={(x) => set('a', x)} />
+          <PointHandle x={b} y={0} xDomain={DOMAIN} yDomain={[-1, 1]} step={1} constrain="x" ariaLabel={pick(strings.pointB, isRtl)} color="var(--t-accent)" onChange={(x) => set('b', x)} />
         </MathPlot>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
