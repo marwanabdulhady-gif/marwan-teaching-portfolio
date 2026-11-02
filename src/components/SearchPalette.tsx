@@ -73,7 +73,9 @@ export default function SearchPalette() {
     // Authored courses live only in the learning map, so they need their own
     // entries; the academy lessons above already cover the iframe courses.
     const mapLessons: SearchResultItem[] = Object.values(LESSONS)
-      .filter((lesson) => !lesson.hasPage)
+      // Authored lessons have no page; GMAT topics have one but still deserve a
+      // result that opens the lab panel rather than a cold iframe.
+      .filter((lesson) => !lesson.hasPage || lesson.course === 'gmat')
       .map((lesson) => {
         const course = COURSES.find((entry) => entry.id === lesson.course);
         const badge = {

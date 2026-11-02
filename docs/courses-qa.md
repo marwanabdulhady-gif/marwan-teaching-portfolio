@@ -55,6 +55,14 @@ their checks are data-level plus the panel checks above:
 4. Mixed practice under the map draws four questions from four different courses.
 5. Chapter headers show a progress bar and `done/total` counts.
 
+## GMAT checks
+
+1. `course=gmat` shows 38 tiles, each with a code, a rule line and a lab badge.
+2. Opening a tile opens the panel: lab, two key ideas, “practice lives inside the
+   full lesson”, then **Open full lesson** loads the iframe.
+3. The “Page ▸” link on a tile skips the panel and opens the iframe directly.
+4. Arabic: tiles show the Arabic title, search matches both languages.
+
 ## Status
 
 - `npm run lint`, `npm run build`, `npm run qa:data` and `npm run qa:render`:

@@ -201,7 +201,7 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
           {listView}
         </div>
       ) : course === 'gmat' ? (
-        <GmatGrid onOpen={launchWorkspace} />
+        <GmatGrid onOpenTopic={openLesson} onOpenPage={launchWorkspace} />
       ) : (
         <>
           <div className="teach-card p-4 sm:p-6">

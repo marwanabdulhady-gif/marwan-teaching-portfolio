@@ -9,8 +9,9 @@ import { entries as calcB } from './registry.calcB';
 import { entries as alg1 } from './registry.alg1';
 import { entries as alg2 } from './registry.alg2';
 import { entries as geo } from './registry.geo';
+import { entries as gmat } from './registry.gmat';
 
-export const EXPLORERS: ExplorerRegistry = { ...pre, ...calcA, ...calcB, ...alg1, ...alg2, ...geo };
+export const EXPLORERS: ExplorerRegistry = { ...pre, ...calcA, ...calcB, ...alg1, ...alg2, ...geo, ...gmat };
 
 export const EXPLORER_KEYS = Object.keys(EXPLORERS);
 

@@ -50,6 +50,29 @@ so nothing depends on `public/academy/**`.
 | Algebra 2 | `ParabolaLab` 2.1, 2.2, 2.4 · `ComplexLab` 2.3 · `AbsoluteLab` 1.3 · `PolyDivisionLab` 3.2 · `SequenceLab` 4.3 (plus `Transformations`, `InverseCheck`, `PiecewiseBuilder`, `ParentFamilies`, `RationalAsymptotes`, `RationalHole`, `GrowthDecay`, `ExpLogWorld`) |
 | Geometry | `PointsLab` 1.1–1.3 · `AngleLab` 1.2 · `TransformLab` 1.4, 4.2 · `TriangleLab` 2.1–2.4 · `CircleLab` 3.1, 3.3 · `MeasureLab` 3.2, 3.4, 4.3 (plus `SolveTriangle` 2.5, `CircleBuilder` 4.1) |
 
+## GMAT visual layer
+
+The exam course used to be a grid of tiles pointing at iframes. It is now a
+proper lesson set too:
+
+- Each of the 38 topics is a `LessonNode` (`gmat/<slug>`, course `gmat`), with
+  a code (`Q1`…`Q24`, `D1`…`D14`), a bilingual title (Arabic added in
+  `gmatTopics.ts`), its iframe `href`, two key ideas from `gmatContent.ts` and a
+  lab. `questionIds` stays empty — practice lives inside the page — so the panel
+  offers “Open the lesson to practise” instead of an empty quiz.
+- Ten new labs built for the exam patterns: `PercentLab` (percent, fractions,
+  mixtures), `RateLab` (work and motion), `SetsLab` (Venn + probability),
+  `NumberLineLab` (distance, integers, parity), `RemainderLab` (remainders and
+  sequences), `CountingLab` (slots, nPr/nCr), `StatsLab` (outlier vs mean,
+  weighted means), `ChartLab` (truncated axes, pie shares, scatter trend),
+  `TableLab` (row/column totals, derived rates, two-part pairs) and
+  `SufficiencyLab` (the five Data Sufficiency answers, shown as verdicts).
+- `ModelLab` covers the eight algebra topics (exponents, expressions, factoring,
+  quadratics, functions, inequalities, systems, algebraic fractions) with one
+  plot each, so a tile never opens onto a bare formula.
+- Tiles open the lab panel; a small “Page ▸” link still goes straight to the
+  iframe for anyone who wants the original lesson.
+
 ## Explorer catalogue (23)
 
 | Course | Lessons with an explorer |
@@ -71,7 +94,8 @@ Every explorer follows the contract in §7.2: keyboard operable, live readout
   chip onto a graph; select-then-pair works identically with a keyboard and a
   screen reader, so both chapter reviews use it.
 - **GMAT records only "opened"** (there is no per-topic question set to score),
-  so the GMAT ring is opened ÷ 38.
+  so the GMAT ring is opened ÷ 38. Every topic now also has a lab, so the ring
+  and the lab badge agree.
 - **Progress stays local.** No accounts, no server, no analytics.
 
 ## Data QA (no browser needed)

@@ -20,6 +20,8 @@ import { ALGEBRA_2 } from './data/authored.algebra2';
 import { GEOMETRY } from './data/authored.geometry';
 import type { AuthoredCourse } from './data/authored.algebra1';
 import { EXPLORER_KEYS as EXPLORER_LESSON_KEYS } from './explorers';
+import { GMAT_TOPICS } from './gmatTopics';
+import { GMAT_CONTENT } from './gmatContent';
 
 export type CourseId = 'algebra1' | 'algebra2' | 'geometry' | 'precalculus' | 'calculus' | 'gmat';
 export type CourseSlug = 'grade-12-calculus' | 'grade-11-precalculus' | string;
@@ -223,13 +225,65 @@ addAuthored(ALGEBRA_1);
 addAuthored(ALGEBRA_2);
 addAuthored(GEOMETRY);
 
-BY_ID.gmat = {
-  id: 'gmat',
-  title: { en: 'GMAT Quantitative & Data Insights', ar: 'GMAT الكمي وتحليل البيانات' },
-  short: { en: 'GMAT', ar: 'GMAT' },
-  chapters: [],
-  count: 38,
-};
+/* ------------------------------------------------------------------ GMAT */
+/**
+ * GMAT topics are lessons too: they have a page (the iframe lesson), a lab, and
+ * the two ideas the lab teaches. They carry no question set of their own — the
+ * practice lives inside the page — so `questionIds` stays empty and the panel
+ * shows the “practice is in the full lesson” note instead of a quiz.
+ */
+function addGmat() {
+  const groups: { id: string; title: Bi; topics: typeof GMAT_TOPICS }[] = [
+    {
+      id: 'quant',
+      title: { en: 'Quantitative Reasoning', ar: 'الاستدلال الكمي' },
+      topics: GMAT_TOPICS.filter((topic) => topic.group === 'quant'),
+    },
+    {
+      id: 'di',
+      title: { en: 'Data Insights', ar: 'تحليل البيانات' },
+      topics: GMAT_TOPICS.filter((topic) => topic.group === 'di'),
+    },
+  ];
+
+  const chapters: Chapter[] = [];
+  let order = 0;
+  for (const group of groups) {
+    const keys: LessonKey[] = [];
+    for (const topic of group.topics) {
+      const key = `gmat/${topic.slug}`;
+      const content = GMAT_CONTENT[topic.slug];
+      LESSONS[key] = {
+        key,
+        course: 'gmat',
+        courseSlug: 'gmat-preparation',
+        id: topic.slug,
+        code: group.id === 'quant' ? `Q${keys.length + 1}` : `D${keys.length + 1}`,
+        title: { en: topic.title, ar: topic.ar },
+        topics: content?.ideas ?? [],
+        shape: 'hexagon',
+        chapterId: group.id,
+        order: order++,
+        href: topic.href,
+        hasPage: true,
+        questionIds: [],
+        hasExplorer: EXPLORER_KEYS.has(key),
+      };
+      keys.push(key);
+    }
+    chapters.push({ id: group.id, title: group.title, lessons: keys });
+  }
+
+  BY_ID.gmat = {
+    id: 'gmat',
+    title: { en: 'GMAT Quantitative & Data Insights', ar: 'GMAT الكمي وتحليل البيانات' },
+    short: { en: 'GMAT', ar: 'GMAT' },
+    chapters,
+    count: chapters.reduce((total, chapter) => total + chapter.lessons.length, 0),
+  };
+}
+
+addGmat();
 
 /** Display order: school courses by grade, then the exam course. */
 export const COURSES: Course[] = [

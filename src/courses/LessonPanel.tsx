@@ -28,6 +28,11 @@ const strings = {
   loading: { en: 'Loading explorer…', ar: 'جارٍ تحميل المختبر…' },
   progress: { en: 'Completion', ar: 'نسبة الإنجاز' },
   questions: { en: 'questions', ar: 'أسئلة' },
+  practiceInPage: {
+    en: 'This topic\'s practice lives inside the full lesson.',
+    ar: 'تدريب هذا الموضوع داخل الدرس الكامل.',
+  },
+  openToPractise: { en: 'Open the lesson to practise', ar: 'افتح الدرس للتدريب' },
 };
 
 const MASTERY: { id: Mastery; label: { en: string; ar: string } }[] = [
@@ -199,10 +204,28 @@ export default function LessonPanel({ lessonKey, onClose, onOpenFull, onNavigate
               </section>
 
               <section className="space-y-2">
-                <PracticeMini
-                  lesson={lesson}
-                  onComplete={(right, answered) => setPracticeScore(`${right}/${answered}`)}
-                />
+                {lesson.questionIds.length > 0 ? (
+                  <PracticeMini
+                    lesson={lesson}
+                    onComplete={(right, answered) => setPracticeScore(`${right}/${answered}`)}
+                  />
+                ) : (
+                  <div className="space-y-2 rounded-xl border border-dashed border-[color-mix(in_srgb,var(--t-ink)_18%,transparent)] px-3 py-2.5">
+                    <p className="teach-eyebrow !text-[0.6rem]">{pick(strings.practice, isRtl)}</p>
+                    <p className="text-xs leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_68%,transparent)]">
+                      {pick(strings.practiceInPage, isRtl)}
+                    </p>
+                    {lesson.hasPage && (
+                      <button
+                        type="button"
+                        onClick={() => onOpenFull(lesson.href, pick(lesson.title, isRtl))}
+                        className="text-xs font-bold text-[var(--t-accent-deep)] underline underline-offset-4 cursor-pointer bg-transparent border-0 p-0"
+                      >
+                        {pick(strings.openToPractise, isRtl)}
+                      </button>
+                    )}
+                  </div>
+                )}
               </section>
 
               <section className="space-y-2">

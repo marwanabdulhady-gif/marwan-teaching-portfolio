@@ -75,6 +75,22 @@ for (const key of allLessons) {
   if (count !== perLesson) note(`${key}: ${count} questions, expected ${perLesson}`);
 }
 
+// ---------------------------------------------------------------- GMAT
+const gmatSource = read('src/courses/gmatTopics.ts');
+const gmatSlugs = [...gmatSource.matchAll(/\{ slug: "([a-z0-9-]+)"/g)].map((match) => match[1]);
+if (gmatSlugs.length !== 38) note(`gmatTopics: expected 38 topics, found ${gmatSlugs.length}`);
+for (const slug of gmatSlugs) allLessons.push(`gmat/${slug}`);
+
+const gmatContent = read('src/courses/gmatContent.ts');
+// Keys appear both quoted ('absolute-value') and bare (averages, quadratics).
+const contentSlugs = [...gmatContent.matchAll(/^ {2}'?([a-z0-9-]+)'?: \{\n?\s*lab:/gm)].map((match) => match[1]);
+for (const slug of gmatSlugs) {
+  if (!contentSlugs.includes(slug)) note(`gmatContent: no lab content for gmat/${slug}`);
+}
+for (const slug of contentSlugs) {
+  if (!gmatSlugs.includes(slug)) note(`gmatContent: unknown topic ${slug}`);
+}
+
 // ------------------------------------------------- academy (iframe) lessons
 const academySource = read('src/academyData.ts');
 const academyLessons = [
@@ -136,5 +152,6 @@ const totals = [...lessonsOf.entries()].map(([slug, ids]) => `${slug}: ${ids.len
 console.log('✓ course data is consistent');
 console.log(`  lessons — ${totals} (${allLessons.length} total)`);
 console.log(`  questions — ${questionIds.length} (${perLesson} per lesson)`);
+console.log(`  gmat — ${gmatSlugs.length} topics, all with content`);
 console.log(`  academy — ${academyKeys.length} static lessons`);
 console.log(`  explorers — ${registered.size} keys across ${registryFiles.length} registries`);
