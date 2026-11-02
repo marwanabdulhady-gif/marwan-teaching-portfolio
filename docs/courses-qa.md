@@ -92,7 +92,10 @@ GMAT content: an empty Arabic string, or Arabic left as English, fails the
 script. It also counts `en`/`ar` fields in **every** file under `src/courses`
 (1201 pairs, `title` counted as the English side for the generated topic list),
 so a string added without its translation fails even when it is not one of the
-hand-written course files. UI strings outside `src/courses` are not covered.
+hand-written course files. Arabic that keeps a long English word (three letters or more) is reported too —
+that is usually a half-finished translation. Maths notation is allowed:
+`GMAT`, `SSS`/`SAS`/`ASA`, `log`, `sin`, `mod`, … (`ARABIC_ALLOWED_LATIN` in the
+script). UI strings outside `src/courses` are not covered.
 
 ## Status
 

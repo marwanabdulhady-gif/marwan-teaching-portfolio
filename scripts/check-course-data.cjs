@@ -174,6 +174,17 @@ const courseSourceFiles = [];
   }
 })('src/courses');
 
+// Arabic that keeps a long English word is usually a translation that was never
+// finished. Maths notation is allowed: angle-side abbreviations, function names,
+// and GMAT's own vocabulary.
+const ARABIC_ALLOWED_LATIN = new Set([
+  'GMAT', 'GRE', 'SAT',
+  'SSS', 'SAS', 'ASA', 'AAS', 'SSA', 'AA', 'HL',
+  'log', 'ln', 'lim', 'sin', 'cos', 'tan', 'sec', 'csc', 'cot', 'mod', 'abs',
+  'max', 'min', 'gcd', 'lcm', 'dx', 'dy', 'dt', 'exp', 'deg', 'rad',
+]);
+let arabicLeaks = 0;
+
 let bilingualFields = 0;
 let arabicFields = 0;
 for (const file of courseSourceFiles) {
@@ -183,6 +194,17 @@ for (const file of courseSourceFiles) {
   bilingualFields += english;
   arabicFields += arabic;
   if (english !== arabic) note(`${file}: ${english} English field(s) but ${arabic} Arabic`);
+
+  for (const match of source.matchAll(/en:\s*'((?:[^'\\]|\\.)*)',?\s*\n?\s*ar:\s*'((?:[^'\\]|\\.)*)'/g)) {
+    const [, en, ar] = match;
+    if (ar === en) continue; // reported by the pair scan above
+    for (const word of ar.match(/[A-Za-z]{3,}/g) ?? []) {
+      if (ARABIC_ALLOWED_LATIN.has(word)) continue;
+      arabicLeaks += 1;
+      note(`${file}: Arabic still contains “${word}” — “${ar.slice(0, 48)}”`);
+      break;
+    }
+  }
 }
 
 // -------------------------------------------------------------- explorers
@@ -246,4 +268,6 @@ if (uncovered.length) {
   process.exit(1);
 }
 console.log('  coverage — every authored lesson and GMAT topic has a lab');
-console.log(`  bilingual — ${pairs} en/ar pairs checked by hand, ${bilingualFields} fields paired across ${courseSourceFiles.length} course files`);
+console.log(
+  `  bilingual — ${pairs} en/ar pairs checked by hand · ${bilingualFields} fields paired across ${courseSourceFiles.length} course files · ${arabicLeaks ? arabicLeaks + ' untranslated' : 'no untranslated Latin words'}`,
+);
