@@ -12,6 +12,7 @@ import type { Bi } from '../teachingData';
 import questionIndex from './data/questionIndex.json';
 import lessonTopics from './data/lessonTopics.json';
 import topicsAr from './data/topics.ar.json';
+import { EXPLORER_KEYS as EXPLORER_LESSON_KEYS } from './explorers';
 
 export type CourseId = 'calculus' | 'precalculus' | 'gmat';
 export type CourseSlug = 'grade-12-calculus' | 'grade-11-precalculus';
@@ -105,11 +106,8 @@ const QUESTIONS = questionIndex as Record<string, string[]>;
 const TOPICS_EN = lessonTopics as Record<string, string[]>;
 const TOPICS_AR = topicsAr as Record<string, string[]>;
 
-/** Lesson keys that have a hands-on explorer (kept in sync with the registry). */
-const EXPLORER_KEYS = new Set<string>([
-  'grade-11-precalculus/2-6',
-  'grade-12-calculus/2-1',
-]);
+/** Lessons that have a hands-on explorer (kept in sync with the registry). */
+const EXPLORER_KEYS = new Set<string>(EXPLORER_LESSON_KEYS);
 
 const LESSONS: Record<LessonKey, LessonNode> = {};
 const COURSES: Course[] = [];

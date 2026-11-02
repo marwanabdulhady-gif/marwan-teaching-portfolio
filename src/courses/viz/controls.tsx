@@ -95,3 +95,73 @@ export function useExplorerState(
   );
   return [values, set, touched.current];
 }
+
+export interface SegmentedChoiceProps<T extends string> {
+  label?: Bi;
+  value: T;
+  options: { id: T; label: Bi }[];
+  onChange: (value: T) => void;
+  isRtl?: boolean;
+}
+
+/** A small set of mutually exclusive options (tablist semantics). */
+export function SegmentedChoice<T extends string>({ label, value, options, onChange, isRtl = false }: SegmentedChoiceProps<T>) {
+  return (
+    <div className="space-y-1.5">
+      {label && (
+        <p className="text-[0.72rem] font-bold uppercase tracking-wider text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)]">
+          {pick(label, isRtl)}
+        </p>
+      )}
+      <div role="group" aria-label={label ? pick(label, isRtl) : undefined} className="flex flex-wrap gap-1.5">
+        {options.map((option) => {
+          const active = option.id === value;
+          return (
+            <button
+              key={option.id}
+              type="button"
+              aria-pressed={active}
+              onClick={() => onChange(option.id)}
+              className={`px-3 py-2 rounded-lg text-xs font-bold cursor-pointer border transition-colors ${
+                active
+                  ? 'border-[var(--t-accent)] bg-[color-mix(in_srgb,var(--t-accent)_14%,transparent)] text-[var(--t-accent-deep)]'
+                  : 'border-[color-mix(in_srgb,var(--t-ink)_16%,transparent)] bg-transparent text-[var(--t-ink)]'
+              }`}
+            >
+              {pick(option.label, isRtl)}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export interface ToggleProps {
+  label: Bi;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  isRtl?: boolean;
+  /** Optional small formula shown in mono after the label. */
+  detail?: string;
+}
+
+/** A checkbox with a 44 px hit target. */
+export function Toggle({ label, checked, onChange, isRtl = false, detail }: ToggleProps) {
+  return (
+    <label className="flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)] px-2.5 py-1.5">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(event) => onChange(event.target.checked)}
+        className="h-4 w-4 shrink-0 accent-[var(--t-accent)]"
+      />
+      <span className="text-xs font-semibold text-[var(--t-ink)]">{pick(label, isRtl)}</span>
+      {detail && (
+        <span dir="ltr" className="ms-auto font-mono text-[0.68rem] text-[color-mix(in_srgb,var(--t-ink)_62%,transparent)]">
+          {detail}
+        </span>
+      )}
+    </label>
+  );
+}

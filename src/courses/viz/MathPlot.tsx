@@ -264,6 +264,118 @@ export function Segment({
   );
 }
 
+export interface RegionProps {
+  /** Upper boundary (default: the x-axis / y = 0). */
+  top?: (x: number) => number;
+  bottom?: (x: number) => number;
+  from: number;
+  to: number;
+  color?: string;
+  opacity?: number;
+  samples?: number;
+}
+
+/** Shade the area between two curves (or a curve and the axis). */
+export function Region({ top, bottom, from, to, color = 'var(--t-accent)', opacity = 0.16, samples = 120 }: RegionProps) {
+  const scale = usePlotScale();
+  const d = useMemo(() => {
+    const up: string[] = [];
+    const down: string[] = [];
+    for (let i = 0; i <= samples; i += 1) {
+      const x = from + ((to - from) * i) / samples;
+      const yTop = top ? top(x) : 0;
+      const yBottom = bottom ? bottom(x) : 0;
+      if (!Number.isFinite(yTop) || !Number.isFinite(yBottom)) continue;
+      up.push(`${scale.x(x).toFixed(2)},${scale.y(yTop).toFixed(2)}`);
+      down.unshift(`${scale.x(x).toFixed(2)},${scale.y(yBottom).toFixed(2)}`);
+    }
+    if (up.length < 2) return '';
+    return `M${up.join('L')}L${down.join('L')}Z`;
+  }, [top, bottom, from, to, samples, scale]);
+
+  if (!d) return null;
+  return <path d={d} fill={color} fillOpacity={opacity} stroke="none" />;
+}
+
+/**
+ * A point that can be dragged in two dimensions (and moved with the arrow
+ * keys). Used where the plot itself is the control surface.
+ */
+export function PointHandle({
+  x,
+  y,
+  onChange,
+  xDomain,
+  yDomain,
+  step = 0.1,
+  constrain = 'xy',
+  ariaLabel,
+  color = 'var(--t-accent)',
+  snap,
+}: {
+  x: number;
+  y: number;
+  onChange: (x: number, y: number) => void;
+  xDomain: [number, number];
+  yDomain: [number, number];
+  step?: number;
+  constrain?: 'x' | 'y' | 'xy';
+  ariaLabel: string;
+  color?: string;
+  snap?: (x: number, y: number) => [number, number];
+}) {
+  const scale = usePlotScale();
+
+  const apply = (nextX: number, nextY: number) => {
+    let nx = Math.min(xDomain[1], Math.max(xDomain[0], nextX));
+    let ny = Math.min(yDomain[1], Math.max(yDomain[0], nextY));
+    if (snap) [nx, ny] = snap(nx, ny);
+    onChange(
+      constrain === 'y' ? x : Number(nx.toFixed(3)),
+      constrain === 'x' ? y : Number(ny.toFixed(3)),
+    );
+  };
+
+  const move = (event: React.PointerEvent<SVGGElement>) => {
+    const rect = event.currentTarget.ownerSVGElement?.getBoundingClientRect();
+    if (!rect) return;
+    const px = ((event.clientX - rect.left) / rect.width) * scale.width;
+    const py = ((event.clientY - rect.top) / rect.height) * scale.height;
+    apply(scale.ix(px), scale.iy(py));
+  };
+
+  return (
+    <g
+      role="slider"
+      tabIndex={0}
+      aria-label={ariaLabel}
+      aria-valuemin={xDomain[0]}
+      aria-valuemax={xDomain[1]}
+      aria-valuenow={Number(x.toFixed(2))}
+      aria-valuetext={`${ariaLabel}: (${x.toFixed(2)}, ${y.toFixed(2)})`}
+      style={{ cursor: 'grab', touchAction: 'none', outline: 'none' }}
+      onPointerDown={(event) => {
+        event.preventDefault();
+        event.currentTarget.setPointerCapture(event.pointerId);
+      }}
+      onPointerMove={(event) => {
+        if (!event.currentTarget.hasPointerCapture(event.pointerId)) return;
+        move(event);
+      }}
+      onKeyDown={(event) => {
+        const delta = event.shiftKey ? step * 10 : step;
+        if (event.key === 'ArrowRight') { event.preventDefault(); apply(x + delta, y); }
+        else if (event.key === 'ArrowLeft') { event.preventDefault(); apply(x - delta, y); }
+        else if (event.key === 'ArrowUp') { event.preventDefault(); apply(x, y + delta); }
+        else if (event.key === 'ArrowDown') { event.preventDefault(); apply(x, y - delta); }
+      }}
+    >
+      <circle cx={scale.x(x)} cy={scale.y(y)} r={12} fill={color} fillOpacity={0.2} />
+      <circle cx={scale.x(x)} cy={scale.y(y)} r={6} fill={color} stroke="var(--t-bg)" strokeWidth={2} />
+    </g>
+  );
+}
+
 /** Vertical or horizontal asymptote / guide line across the whole plot. */
 export function Asymptote({ x, y }: { x?: number; y?: number }) {
   const scale = usePlotScale();
