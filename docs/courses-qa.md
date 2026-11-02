@@ -154,6 +154,25 @@ process is what a reload looks like):
 | `corrupt` | an unreadable payload starts clean and then records normally |
 | `second-tab` | a `storage` event replaces the state, unrelated keys are ignored, unsubscribe stops it |
 
+### Accessibility of the rendered markup (`npm run qa:render`)
+
+`scripts/a11y-dom.cjs` audits the HTML that `qa:render` already produces — all
+111 labs, the map and every gallery — for the mistakes a screenshot cannot show:
+
+- a `<button>` or `<a>` with no accessible name (text, `aria-label`,
+  `aria-labelledby` or `title`);
+- an `<input>` with no label — `id` + `for`, a wrapping `<label>`,
+  `aria-label` or `aria-labelledby`;
+- an `svg role="img"` with no label;
+- `role="slider"` with no `aria-valuenow` or no name;
+- a duplicate `id` in one render (this broke the second `<label for>` of a lab
+  with two sliders called “a”, “b” or “x” — the label focused the wrong input);
+- `aria-describedby` / `aria-labelledby` pointing at an id that is not in the
+  render. (`aria-controls` may name a popup that only exists once opened.)
+
+The helpers have their own cases (13 of them) so the audit itself is known to
+fire.
+
 ### Appearance themes (`npm run qa:theme`)
 
 Every course colour is a `--t-*` token, and there are nine appearances (paper,

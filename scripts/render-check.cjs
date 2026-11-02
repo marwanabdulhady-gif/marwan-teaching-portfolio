@@ -33,6 +33,7 @@ import { EXPLORERS, EXPLORER_KEYS } from '${root}/src/courses/explorers/index';
 import { LESSONS, COURSES } from '${root}/src/courses/courseGraph';
 import CoursesExperience from '${root}/src/courses/CoursesExperience';
 import { offPlot } from '${root}/scripts/plot-bounds.cjs';
+import { audit } from '${root}/scripts/a11y-dom.cjs';
 
 // Node has no storage, no window: stub just enough for a first render.
 globalThis.localStorage = { getItem: () => null, setItem: () => {}, removeItem: () => {} };
@@ -76,6 +77,7 @@ for (const key of EXPLORER_KEYS) {
     }
     const off = offPlot(html);
     if (off) failures.push(key + ': ' + off);
+    for (const problem of audit(html, { where: key })) failures.push(problem);
     rendered += 1;
   } catch (error) {
     failures.push(key + ': ' + error.message);
@@ -99,6 +101,7 @@ try {
     if (!map.includes(label)) failures.push('map is missing ' + label);
   }
   if (!map.includes('Search lessons, numbers or ideas')) failures.push('map is missing the lesson search');
+  for (const problem of audit(map, { where: 'courses map' })) failures.push(problem);
   for (const label of ['Mixed practice', 'Hands-on lab', 'Not started', 'Labs', 'My mistakes']) {
     if (!map.includes(label)) failures.push('map is missing "' + label + '"');
   }
@@ -159,6 +162,7 @@ try {
       React.createElement(LocaleProvider, null, React.createElement(ExplorerGallery, { course: course.id, onOpen: () => {} })),
     );
     if (gallery.length < 200) failures.push('labs gallery is empty for ' + course.id);
+    for (const problem of audit(gallery, { where: 'labs gallery ' + course.id })) failures.push(problem);
     if (gallery.includes('This course has no labs yet')) failures.push('labs gallery has no labs for ' + course.id);
   }
 } catch (error) {

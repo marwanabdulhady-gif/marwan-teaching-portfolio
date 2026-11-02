@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import type { Bi } from '../../teachingData';
 
 /** Pick the active language out of a bilingual string. */
@@ -17,9 +17,17 @@ export interface SliderProps {
   isRtl?: boolean;
 }
 
-/** A labelled range input with a live monospace readout. */
+/**
+ * A labelled range input with a live monospace readout.
+ *
+ * The id has to be unique: two sliders with the same label in one lab („a” and
+ * „b” appear in several GMAT explorers, and a lab with two „x” sliders) used to
+ * share an id, so the second label focused the first input. `useId` keeps the
+ * readable slug and adds a per-instance suffix.
+ */
 export function Slider({ label, value, min, max, step = 0.1, onChange, format, isRtl = false }: SliderProps) {
-  const id = `slider-${label.en.replace(/\W+/g, '-').toLowerCase()}`;
+  const slug = label.en.replace(/\W+/g, '-').toLowerCase();
+  const id = `slider-${slug}-${useId().replace(/[^\w-]/g, '')}`;
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-baseline justify-between gap-2">
