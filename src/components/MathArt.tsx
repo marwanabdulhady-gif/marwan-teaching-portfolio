@@ -328,7 +328,7 @@ const MOTIFS: Record<string, ReactElement> = {
 
   chart: (
     <>
-      <path d={bellPoints()} fill="none" stroke={CYAN} strokeWidth="1.8" />
+      <polyline points={bellPoints()} fill="none" stroke={CYAN} strokeWidth="1.8" />
       <g fill={CYAN_2} opacity="0.55">
         <rect x="38" y="132" width="14" height="50" rx="2" />
         <rect x="62" y="112" width="14" height="70" rx="2" />

@@ -372,7 +372,7 @@ function CardSvg({ id, t }: { id: string; t: number }) {
   }
 
   // Exam network: 4 strands connected to central REASON hub with traveling signal pulses
-  const strandCycle = (t * 0.75) % 4;
+  const strandCycle = ((((Number.isFinite(t) ? t : 0) * 0.75) % 4) + 4) % 4;
   const activeStrand = Math.floor(strandCycle);
   const segProgress = strandCycle - activeStrand; // 0..1 along active connector
 
@@ -384,7 +384,7 @@ function CardSvg({ id, t }: { id: string; t: number }) {
     { x0: 273, y0: 123, x1: 310, y1: 173, color: '#f5c84c' }, // Data (bottom-right)
   ];
 
-  const activeConn = connectors[activeStrand];
+  const activeConn = connectors[activeStrand] ?? connectors[0];
   const pulseX = activeConn.x0 + (activeConn.x1 - activeConn.x0) * segProgress;
   const pulseY = activeConn.y0 + (activeConn.y1 - activeConn.y0) * segProgress;
 

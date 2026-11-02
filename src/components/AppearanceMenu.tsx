@@ -68,7 +68,7 @@ export default function AppearanceMenu() {
         className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[0.72rem] font-semibold transition-colors cursor-pointer bg-[color-mix(in_srgb,var(--t-glass)_8%,transparent)] border border-[color-mix(in_srgb,var(--t-accent)_25%,transparent)] text-[color-mix(in_srgb,var(--t-ink)_82%,transparent)] hover:border-cyan-400/60 hover:text-cyan-300"
       >
         <Palette className="w-3.5 h-3.5 text-cyan-400" />
-        <span className="hidden xl:inline">{L(APPEARANCE_UI.buttonLabel)}</span>
+        <span className="hidden 2xl:inline whitespace-nowrap">{L(APPEARANCE_UI.buttonLabel)}</span>
       </button>
 
       {typeof document !== 'undefined' &&

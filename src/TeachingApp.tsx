@@ -15,6 +15,7 @@ import LearningDesigns from './components/LearningDesigns';
 import AiTeacherStudio from './components/AiTeacherStudio';
 import WorkWithMe from './components/WorkWithMe';
 import TeachFooter from './components/TeachFooter';
+import './teaching.css';
 
 /**
  * Ordered DOM section IDs matching the 4-chapter portfolio layout, mapped to

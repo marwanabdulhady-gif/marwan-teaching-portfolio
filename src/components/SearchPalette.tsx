@@ -185,8 +185,8 @@ export default function SearchPalette() {
         className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-full text-[0.72rem] font-semibold transition-colors cursor-pointer bg-[color-mix(in_srgb,var(--t-glass)_8%,transparent)] border border-[color-mix(in_srgb,var(--t-accent)_25%,transparent)] text-[color-mix(in_srgb,var(--t-ink)_82%,transparent)] hover:border-cyan-400/60 hover:text-cyan-300"
       >
         <Search className="w-3.5 h-3.5 text-cyan-400" />
-        <span className="hidden xl:inline">{L(SEARCH_UI.trigger)}</span>
-        <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[0.62rem] font-mono rounded bg-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)]">
+        <span className="hidden 2xl:inline whitespace-nowrap">{L(SEARCH_UI.trigger)}</span>
+        <kbd className="hidden 2xl:inline-block px-1.5 py-0.5 text-[0.62rem] font-mono rounded bg-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)]">
           /
         </kbd>
       </button>

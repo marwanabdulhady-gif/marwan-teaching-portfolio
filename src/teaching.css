@@ -295,6 +295,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .teach-anim-float,
+  .teach-anim-spin-slow,
+  .teach-anim-pulse-dot,
+  .teach-anim-marquee,
+  .teach-draw-path {
+    animation: none !important;
+  }
+  .teach-draw-path {
+    stroke-dashoffset: 0;
+  }
   .teach-card:hover {
     transform: none;
   }
