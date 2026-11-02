@@ -60,6 +60,19 @@ for (const key of EXPLORER_KEYS) {
       React.createElement(LocaleProvider, null, React.createElement(mod.default, { lesson, onInteract: () => {} })),
     );
     if (!html || html.length < 40) failures.push(key + ': empty output');
+    // Geometry sanity: a lab that draws outside its 400×400 viewBox is not
+    // throwing, just invisible or misplaced — catch it here (this is how the
+    // unit circle that came out 8750 px wide was found).
+    // A NaN in an attribute means a plot tried to draw a coordinate it could not
+    // compute — the shape silently disappears.
+    if (/[:=]\s*"?NaN|NaN"/.test(html)) failures.push(key + ': NaN in a rendered attribute');
+    for (const match of html.matchAll(/(?:^|[\s"'(,])(-?\d{4,}(?:\.\d+)?)/g)) {
+      const value = Number(match[1]);
+      if (Math.abs(value) > 1500) {
+        failures.push(key + ': draws at ' + value + ' — outside the plot');
+        break;
+      }
+    }
     rendered += 1;
   } catch (error) {
     failures.push(key + ': ' + error.message);
