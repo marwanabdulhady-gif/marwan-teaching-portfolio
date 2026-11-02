@@ -126,6 +126,13 @@ Only each lab's **default state** is rendered, so a broken tab or mode is not
 caught automatically — check those by hand (the AngleLab transversal mode was
 found that way).
 
+### Screen readers
+
+`Readout` shows every value immediately, but what a screen reader hears comes
+from a hidden `aria-live="polite"` copy throttled to four updates a second, so
+dragging a slider does not flood the announcement queue. Sliders are native
+range inputs, so their own value announcements are unchanged.
+
 ```
 node -e "const {offPlot}=require('./scripts/plot-bounds.cjs');
   console.log(offPlot('<svg viewBox=\"0 0 400 125\"><circle cx=\"200\" cy=\"250\" r=\"6\"/></svg>'));"

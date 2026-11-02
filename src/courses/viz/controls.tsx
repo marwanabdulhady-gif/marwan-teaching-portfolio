@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Bi } from '../../teachingData';
 
 /** Pick the active language out of a bilingual string. */
@@ -51,16 +51,53 @@ export interface ReadoutRow {
 }
 
 /**
- * Live numeric readout. Read by screen readers at most a few times a second
- * (politeness keeps it off the announcement queue while dragging).
+ * A string that only changes at most every `ms`. Dragging a slider fires dozens
+ * of updates a second; without this the announcement queue is unusable.
+ */
+function useThrottledText(text: string, ms = 250): string {
+  const [announced, setAnnounced] = useState(text);
+  const latest = useRef(text);
+  const lastRun = useRef(0);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  latest.current = text;
+
+  useEffect(() => {
+    if (timer.current) return; // a trailing update is already on its way
+    const since = Date.now() - lastRun.current;
+    if (since >= ms) {
+      lastRun.current = Date.now();
+      setAnnounced(latest.current);
+      return;
+    }
+    timer.current = setTimeout(() => {
+      timer.current = null;
+      lastRun.current = Date.now();
+      setAnnounced(latest.current);
+    }, ms - since);
+  }, [text, ms]);
+
+  useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
+
+  return announced;
+}
+
+/**
+ * Live numeric readout. The visible numbers update on every frame; a separate
+ * hidden copy is what screen readers hear, at most four times a second.
  */
 export function Readout({ rows, dir = 'ltr' }: { rows: ReadoutRow[]; dir?: 'ltr' | 'rtl' }) {
+  const spoken = rows.map((row) => `${row.label}: ${row.value}`).join('. ');
+  const announced = useThrottledText(spoken);
   return (
     <div
       dir={dir}
-      aria-live="polite"
       className="rounded-xl border border-[color-mix(in_srgb,var(--t-ink)_12%,transparent)] bg-[color-mix(in_srgb,var(--t-ink)_4%,transparent)] px-3 py-2 font-mono text-[0.78rem] leading-relaxed"
     >
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {announced}
+      </p>
       {rows.map((row) => (
         <div key={row.label} className="flex items-baseline justify-between gap-3">
           <span className="text-[color-mix(in_srgb,var(--t-ink)_62%,transparent)]">{row.label}</span>
