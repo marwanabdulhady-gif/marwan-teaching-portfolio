@@ -26,6 +26,10 @@ const strings = {
   list: { en: 'List', ar: 'القائمة' },
   viewLabel: { en: 'Choose a view', ar: 'اختر العرض' },
   mapTitle: { en: 'Your path through the course', ar: 'مسارك في الدورة' },
+  listNote: {
+    en: 'Algebra 1, Algebra 2 and Geometry live on the map — they have no separate pages.',
+    ar: 'الجبر ١ والجبر ٢ والهندسة على الخريطة — لا صفحات منفصلة لها.',
+  },
 };
 
 interface CoursesExperienceProps {
@@ -173,7 +177,29 @@ export default function CoursesExperience({ launchWorkspace, listView }: Courses
       </div>
 
       {view === 'list' ? (
-        <div className="space-y-4">{listView}</div>
+        <div className="space-y-4">
+          <div className="teach-card flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_65%,transparent)]">
+              {pick(strings.listNote, isRtl)}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {COURSES.filter((entry) => entry.authored).map((entry) => (
+                <button
+                  key={entry.id}
+                  type="button"
+                  onClick={() => {
+                    changeView('map');
+                    changeCourse(entry.id);
+                  }}
+                  className="teach-btn teach-btn-secondary text-xs"
+                >
+                  {pick(entry.short, isRtl)}
+                </button>
+              ))}
+            </div>
+          </div>
+          {listView}
+        </div>
       ) : course === 'gmat' ? (
         <GmatGrid onOpen={launchWorkspace} />
       ) : (

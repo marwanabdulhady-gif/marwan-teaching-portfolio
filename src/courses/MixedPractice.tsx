@@ -4,7 +4,7 @@
  * same skill. Lessons they have opened come first; a fresh visitor gets a
  * spread across all six courses instead.
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useLocale } from '../LocaleContext';
 import { COURSES, LESSONS, QUESTION_OWNER, type LessonKey } from './courseGraph';
 import { useProgress } from './progress';
@@ -13,7 +13,7 @@ import { pick } from './viz/controls';
 
 const strings = {
   eyebrow: { en: 'Mixed practice', ar: 'تدريب متنوّع' },
-  title: { en: 'Four questions, four different corners of the map.', ar: 'أربعة أسئلة من أربع زوايا مختلفة من الخريطة.' },
+  title: { en: 'Four questions, four corners of the map.', ar: 'أربعة أسئلة من أربع زوايا مختلفة من الخريطة.' },
   loading: { en: 'Loading questions…', ar: 'جارٍ تحميل الأسئلة…' },
   failed: { en: 'The question bank could not load right now.', ar: 'تعذّر تحميل بنك الأسئلة الآن.' },
   check: { en: 'Check', ar: 'تحقّق' },
@@ -26,7 +26,6 @@ const strings = {
   restart: { en: 'New set', ar: 'مجموعة جديدة' },
   from: { en: 'from', ar: 'من' },
   open: { en: 'Open lesson', ar: 'افتح الدرس' },
-  compact: { en: 'Fewer questions', ar: 'أسئلة أقل' },
 };
 
 const SET_SIZE = 4;
@@ -92,6 +91,7 @@ export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
   const question = questions[index];
   const owner = question ? QUESTION_OWNER[question.id] : undefined;
   const ownerLesson = owner ? LESSONS[owner] : undefined;
+  const courseTitle = ownerLesson ? COURSES.find((course) => course.id === ownerLesson.course)?.short : undefined;
   const finished = questions.length > 0 && index >= questions.length;
 
   const answer = (option: number) => {
@@ -123,26 +123,49 @@ export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
     setRound((current) => current + 1);
   };
 
-  if (error) {
-    return (
-      <div className="teach-card p-4 sm:p-5">
-        <p className="text-xs text-[color-mix(in_srgb,var(--t-ink)_65%,transparent)]">{pick(strings.failed, isRtl)}</p>
+  /** The card frame, so the section is identifiable before the bank arrives. */
+  const shell = (body: ReactNode) => (
+    <div className="teach-card p-4 sm:p-5">
+      <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
+        <p className="teach-eyebrow !text-[0.6rem]">{pick(strings.eyebrow, isRtl)}</p>
+        {questions.length > 0 && !finished && (
+          <div className="flex items-center gap-1.5" aria-hidden>
+            {questions.map((item, position) => (
+              <span
+                key={item.id}
+                className={`h-1.5 w-4 rounded-full ${
+                  position < index
+                    ? 'bg-[var(--t-accent)]'
+                    : position === index
+                      ? 'bg-[var(--t-accent)]/60'
+                      : 'bg-[color-mix(in_srgb,var(--t-ink)_16%,transparent)]'
+                }`}
+              />
+            ))}
+          </div>
+        )}
+        {questions.length > 0 && (
+          <span className="font-mono text-[0.68rem] text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]" dir="ltr">
+            {Math.min(index + 1, questions.length)}/{questions.length}
+          </span>
+        )}
       </div>
-    );
+      <p className="mb-2 text-[0.72rem] text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]">{pick(strings.title, isRtl)}</p>
+      {body}
+    </div>
+  );
+
+  if (error) {
+    return shell(<p className="text-xs text-[color-mix(in_srgb,var(--t-ink)_65%,transparent)]">{pick(strings.failed, isRtl)}</p>);
   }
   if (!bank) {
-    return (
-      <div className="teach-card p-4 sm:p-5">
-        <p className="text-xs text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)]">{pick(strings.loading, isRtl)}</p>
-      </div>
-    );
+    return shell(<p className="text-xs text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)]">{pick(strings.loading, isRtl)}</p>);
   }
   if (!questions.length) return null;
 
   if (finished) {
-    return (
-      <div className="teach-card p-4 sm:p-5">
-        <p className="teach-eyebrow mb-2 !text-[0.6rem]">{pick(strings.eyebrow, isRtl)}</p>
+    return shell(
+      <>
         <p className="text-sm font-bold text-[var(--t-ink)]">
           {pick(strings.done, isRtl)} · <span dir="ltr">{score.right}/{score.answered}</span>
         </p>
@@ -153,37 +176,15 @@ export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
         >
           {pick(strings.restart, isRtl)}
         </button>
-      </div>
+      </>,
     );
   }
 
   const isCorrect = checked && selected === question.correctIndex;
   const feedback = checked && selected !== null ? question.optionFeedback?.[selected] ?? null : null;
-  const courseTitle = ownerLesson ? COURSES.find((course) => course.id === ownerLesson.course)?.short : undefined;
 
-  return (
-    <div className="teach-card p-4 sm:p-5">
-      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <p className="teach-eyebrow !text-[0.6rem]">{pick(strings.eyebrow, isRtl)}</p>
-        <div className="flex items-center gap-1.5" aria-hidden>
-          {questions.map((item, position) => (
-            <span
-              key={item.id}
-              className={`h-1.5 w-4 rounded-full ${
-                position < index
-                  ? 'bg-[var(--t-accent)]'
-                  : position === index
-                    ? 'bg-[var(--t-accent)]/60'
-                    : 'bg-[color-mix(in_srgb,var(--t-ink)_16%,transparent)]'
-              }`}
-            />
-          ))}
-        </div>
-        <span className="font-mono text-[0.68rem] text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]" dir="ltr">
-          {index + 1}/{questions.length}
-        </span>
-      </div>
-
+  return shell(
+    <>
       <p className="mb-1 text-[0.72rem] text-[color-mix(in_srgb,var(--t-ink)_58%,transparent)]">
         {pick(strings.from, isRtl)}{' '}
         <button
@@ -293,17 +294,13 @@ export default function MixedPractice({ onOpenLesson }: MixedPracticeProps) {
               {pick(strings.next, isRtl)}
             </button>
             {ownerLesson && (
-              <button
-                type="button"
-                onClick={() => owner && onOpenLesson(owner)}
-                className="teach-btn teach-btn-secondary"
-              >
+              <button type="button" onClick={() => owner && onOpenLesson(owner)} className="teach-btn teach-btn-secondary">
                 {pick(strings.open, isRtl)}
               </button>
             )}
           </>
         )}
       </div>
-    </div>
+    </>,
   );
 }

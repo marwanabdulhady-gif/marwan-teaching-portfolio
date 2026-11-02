@@ -9,3 +9,6 @@ coverage/
 
 # local QA screenshots
 qa/
+
+# render-check scratch dir (scripts/render-check.cjs)
+.render-check/

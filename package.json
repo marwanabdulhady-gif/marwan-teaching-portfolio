@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
-    "qa:data": "node scripts/check-course-data.cjs"
+    "qa:data": "node scripts/check-course-data.cjs",
+    "qa:render": "node scripts/render-check.cjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",
