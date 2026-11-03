@@ -15,3 +15,6 @@ qa/
 .qa-practice/
 .qa-progress/
 .qa-search/
+
+# Local Claude Code settings (contains secrets)
+.claude/settings.local.json
