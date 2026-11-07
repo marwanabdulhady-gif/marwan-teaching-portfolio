@@ -78,7 +78,6 @@ export default function TeachFooter() {
             <ul className="space-y-3 list-none">
               {[
                 ...NAV_ITEMS,
-                { id: 'experience', label: { en: 'School Track Record', ar: 'المسيرة المدرسية' } },
                 { id: 'visual-math', label: { en: 'Visual Math Models', ar: 'النماذج البصرية' } },
                 { id: 'work', label: { en: 'Work With Me', ar: 'تواصل معي' } },
               ].map((item) => (

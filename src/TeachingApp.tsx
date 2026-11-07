@@ -35,28 +35,30 @@ const TITLES: Record<RoutePath, { en: string; ar: string }> = {
 function HomePage() {
   return (
     <>
-      {/* Orientation: hero, credentials strip and the chapter directory */}
+      {/* Orientation: hero and credentials */}
       <TeachHero />
       <CredentialsBar />
-      <PortfolioDirectory />
 
-      {/* CHAPTER 01 · Educator Profile & Track Record */}
+      {/* CHAPTER 01 · Teaching Track Record: proof first, then philosophy */}
       <ChapterBanner
         num="01"
-        label={{ en: 'Educator Profile & School Track Record', ar: 'الملف المهني والمسيرة المدرسية' }}
+        label={{ en: 'Teaching Track Record', ar: 'المسيرة التعليمية' }}
         subtitle={{
-          en: 'Teaching philosophy, six classroom roles, and school track record across international and national curricula.',
-          ar: 'فلسفة التدريس، ستة أدوار صفية، والمسيرة المدرسية في المناهج الدولية والوطنية.',
+          en: 'Schools, roles and exam results across international and national curricula, then the philosophy and classroom roles behind them.',
+          ar: 'المدارس والأدوار ونتائج الاختبارات في المناهج الدولية والوطنية، ثم الفلسفة والأدوار الصفية التي تقف خلفها.',
         }}
         links={[
+          { id: 'experience', label: { en: 'School Timeline', ar: 'المسيرة المدرسية' } },
           { id: 'about', label: { en: 'Philosophy', ar: 'فلسفة التدريس' } },
           { id: 'gallery', label: { en: '6 Facets of Practice', ar: 'أوجه الممارسة الستة' } },
-          { id: 'experience', label: { en: 'School Timeline', ar: 'المسيرة المدرسية' } },
         ]}
       />
+      <Experience />
       <TeachAbout />
       <ClassroomGallery />
-      <Experience />
+
+      {/* The four-chapter guide, once the visitor has seen the proof */}
+      <PortfolioDirectory />
 
       {/* Chapters 02 and 03 live on their own pages: point to them from here */}
       <PageLinks

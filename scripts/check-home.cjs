@@ -28,6 +28,9 @@ const entry = `
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { LocaleProvider } from '${root}/src/LocaleContext';
+import PortfolioDirectory from '${root}/src/components/PortfolioDirectory';
+import { HOME_SECTIONS } from '${root}/src/homeSections';
+import { NAV_ITEMS } from '${root}/src/teachingData';
 import Experience from '${root}/src/components/Experience';
 import { EXPERIENCE } from '${root}/src/teachingData';
 import { experienceStats, hasDetails } from '${root}/src/experienceStats';
@@ -105,6 +108,42 @@ for (const locale of ['en', 'ar']) {
     check(where + 'no English toggle label', !html.includes(EXPERIENCE.showDetails.en) && !html.includes(EXPERIENCE.hideDetails.en));
   }
 }
+
+// 4. Home page order: proof first, then philosophy, then the guide.
+const fs = require('node:fs');
+const read = (file) => fs.readFileSync('${root}/' + file, 'utf8');
+const app = read('src/TeachingApp.tsx');
+const home = app.slice(app.indexOf('function HomePage'), app.indexOf('function CoursesPage'));
+const order = ['<TeachHero', '<CredentialsBar', '<ChapterBanner', '<Experience', '<TeachAbout', '<ClassroomGallery', '<PortfolioDirectory', '<PageLinks', '<LearningDesigns', '<AiTeacherStudio', '<WorkWithMe'];
+let last = -1;
+for (const tag of order) {
+  const at = home.indexOf(tag);
+  check('home order: ' + tag + ' is present', at >= 0);
+  check('home order: ' + tag + ' comes after the one before it', at > last, at + ' <= ' + last);
+  last = at;
+}
+check('home order: nothing else shows before the Chapter 01 banner but hero and credentials', home.indexOf('<ChapterBanner') < home.indexOf('<PortfolioDirectory'));
+
+// 5. Scrollspy and nav follow that order.
+check('sections: order', same(HOME_SECTIONS.map((s) => s.id), ['hero', 'experience', 'about', 'gallery', 'designs', 'studio', 'work']), HOME_SECTIONS.map((s) => s.id).join(','));
+check('nav: first item is Experience', NAV_ITEMS[0].id === 'experience', NAV_ITEMS[0].id);
+const spyTargets = new Set(HOME_SECTIONS.map((s) => s.navId));
+for (const item of NAV_ITEMS) {
+  if (item.id === 'resources' || item.id === 'lab') continue;
+  check('nav: ' + item.id + ' is lit by a home section', spyTargets.has(item.id));
+}
+check('sections: experience, about and gallery all light the Experience nav item', HOME_SECTIONS.filter((s) => ['experience', 'about', 'gallery'].includes(s.id)).every((s) => s.navId === 'experience'));
+
+// 6. The chapter guide makes no claim the data cannot back.
+for (const locale of ['en', 'ar']) {
+  const html = render(locale, React.createElement(PortfolioDirectory));
+  check('directory ' + locale + ': teaching since 2019', html.includes(locale === 'ar' ? 'أدرّس منذ ٢٠١٩' : 'Teaching since 2019'));
+  check('directory ' + locale + ': no unverifiable years claim', !html.includes('12+') && !html.includes('١٢'));
+}
+const directory = read('src/components/PortfolioDirectory.tsx');
+check('directory: pillar 01 jumps to the experience section', /num: '01',[^]{0,12}targetId: 'experience'/.test(directory));
+check('directory: nothing jumps to #about', !directory.includes("targetId: 'about'"));
+check('footer: no hard-coded duplicate experience link', !read('src/components/TeachFooter.tsx').includes("id: 'experience'"));
 
 console.log(JSON.stringify({ failures }));
 `;

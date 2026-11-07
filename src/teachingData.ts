@@ -59,7 +59,7 @@ export const BRAND = {
    ------------------------------------------------------------------------- */
 
 export const NAV_ITEMS: { id: string; label: Bi }[] = [
-  { id: 'about', label: { en: 'Profile', ar: 'الملف المهني' } },
+  { id: 'experience', label: { en: 'Experience', ar: 'الخبرة' } },
   { id: 'resources', label: { en: 'Courses', ar: 'الدورات' } },
   { id: 'lab', label: { en: 'Games', ar: 'الألعاب' } },
   { id: 'designs', label: { en: 'EdTech Designs', ar: 'التصاميم' } },

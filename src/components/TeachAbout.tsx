@@ -137,11 +137,11 @@ export default function TeachAbout() {
               <div className="flex flex-wrap items-center gap-3 pt-1">
                 <button
                   type="button"
-                  onClick={() => scrollToSection('experience')}
+                  onClick={() => scrollToSection('gallery')}
                   className="teach-btn teach-btn-primary border-0"
                 >
                   <Award className="w-4 h-4" />
-                  {isRtl ? 'المسيرة والنتائج المدرسية' : 'School Track Record'}
+                  {isRtl ? 'أوجه الممارسة الستة' : '6 Facets of Practice'}
                   <ArrowRight className={`w-4 h-4 ${isRtl ? 'rotate-180' : ''}`} />
                 </button>
                 <button

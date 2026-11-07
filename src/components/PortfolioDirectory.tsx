@@ -20,14 +20,14 @@ interface PillarItem {
 const PILLARS: PillarItem[] = [
   {
     num: '01',
-    targetId: 'about',
+    targetId: 'experience',
     icon: GraduationCap,
     title: { en: 'Profile & Track Record', ar: 'الملف المهني والخبرة' },
     summary: {
-      en: 'Classroom philosophy, six facets of practice, school roles & 100% national exam milestones.',
-      ar: 'فلسفة التدريس، ستة أدوار مهنية، المسيرة المدرسية ونتائج الاختبارات الوطنية.',
+      en: 'School timeline and exam results first, then classroom philosophy and six facets of practice.',
+      ar: 'المسيرة المدرسية ونتائج الاختبارات أولاً، ثم فلسفة التدريس وأوجه الممارسة الستة.',
     },
-    meta: { en: '12+ Years · 3 Curricula', ar: '+١٢ عاماً · ٣ مناهج' },
+    meta: { en: 'Teaching since 2019', ar: 'أدرّس منذ ٢٠١٩' },
   },
   {
     num: '02',
