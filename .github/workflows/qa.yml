@@ -41,6 +41,9 @@ jobs:
       - name: Search
         run: npm run qa:search
 
+      - name: Home page — order and experience section
+        run: npm run qa:home
+
       - name: Progress store
         run: npm run qa:progress
 
