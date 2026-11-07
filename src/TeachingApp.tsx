@@ -16,19 +16,9 @@ import LearningDesigns from './components/LearningDesigns';
 import AiTeacherStudio from './components/AiTeacherStudio';
 import WorkWithMe from './components/WorkWithMe';
 import TeachFooter from './components/TeachFooter';
+import { HOME_SECTIONS } from './homeSections';
 import { settleScroll, usePath, type RoutePath } from './router';
 import './teaching.css';
-
-/** Home-page sections in order, mapped to the nav item that should light up. */
-const HOME_SECTIONS: { id: string; navId: string }[] = [
-  { id: 'hero', navId: 'hero' },
-  { id: 'about', navId: 'about' },
-  { id: 'gallery', navId: 'about' },
-  { id: 'experience', navId: 'about' },
-  { id: 'designs', navId: 'designs' },
-  { id: 'studio', navId: 'studio' },
-  { id: 'work', navId: 'work' },
-];
 
 /** Page → the nav item that stays lit for the whole page. */
 const PAGE_NAV_ID: Partial<Record<RoutePath, string>> = { '/courses': 'resources', '/games': 'lab' };

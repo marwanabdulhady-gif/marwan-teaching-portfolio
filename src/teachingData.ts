@@ -215,6 +215,13 @@ export const EXPERIENCE = {
   tag: { en: 'Experience', ar: 'الخبرة' },
   titlePrefix: { en: 'Where I have', ar: 'أين' },
   titleAccent: { en: 'taught', ar: 'درّست' },
+  statLabels: {
+    schools: { en: 'Schools', ar: 'مدارس' },
+    since: { en: 'Teaching since', ar: 'أدرّس منذ' },
+  },
+  showDetails: { en: 'Show details', ar: 'عرض التفاصيل' },
+  hideDetails: { en: 'Hide details', ar: 'إخفاء التفاصيل' },
+  cta: { en: 'Work with me', ar: 'اعمل معي' },
   results: {
     en: 'IGCSE and American Diploma students reached A* in Edexcel, CIE, SAT, ACT and EST mathematics.',
     ar: 'حقق طلاب IGCSE والدبلومة الأمريكية A* في رياضيات Edexcel، CIE، SAT، ACT، EST.',
@@ -222,6 +229,7 @@ export const EXPERIENCE = {
   roles: [
     {
       id: 'fikr',
+      kind: 'school' as const,
       years: '2026 – present',
       yearsAr: 'من ٢٠٢٦ إلى الآن',
       school: { en: 'Dar Al Fikr Schools, Jeddah', ar: 'مدارس دار الفكر، جدة' },
@@ -231,6 +239,7 @@ export const EXPERIENCE = {
     },
     {
       id: 'andalus',
+      kind: 'school' as const,
       years: '2024 – 2026',
       yearsAr: 'من ٢٠٢٤ إلى ٢٠٢٦',
       school: { en: 'Al-Andalus International School, Jeddah', ar: 'مدارس الأندلس الدولية، جدة' },
@@ -243,6 +252,7 @@ export const EXPERIENCE = {
     },
     {
       id: 'mhs',
+      kind: 'school' as const,
       years: '2022 – 2024',
       yearsAr: 'من ٢٠٢٢ إلى ٢٠٢٤',
       school: { en: 'Manor House International School (MHS), Giza', ar: 'مدرسة مانور هاوس الدولية (MHS)، الجيزة' },
@@ -255,6 +265,7 @@ export const EXPERIENCE = {
     },
     {
       id: 'ris',
+      kind: 'school' as const,
       years: '2020 – 2022',
       yearsAr: 'من ٢٠٢٠ إلى ٢٠٢٢',
       school: { en: 'Roots International School (RIS), Cairo', ar: 'مدرسة روتس الدولية (RIS)، القاهرة' },
@@ -267,6 +278,7 @@ export const EXPERIENCE = {
     },
     {
       id: 'exams',
+      kind: 'practice' as const,
       years: '2021 – present',
       yearsAr: 'من ٢٠٢١ إلى الآن',
       school: { en: 'International exam preparation', ar: 'التحضير للامتحانات الدولية' },
@@ -276,6 +288,7 @@ export const EXPERIENCE = {
     },
     {
       id: 'early',
+      kind: 'practice' as const,
       years: '2019 – 2023',
       yearsAr: 'من ٢٠١٩ إلى ٢٠٢٣',
       school: { en: 'Online tutoring, coding and English', ar: 'تدريس عبر الإنترنت وبرمجة ولغة إنجليزية' },

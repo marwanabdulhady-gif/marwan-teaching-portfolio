@@ -13,9 +13,10 @@
     "qa:practice": "node scripts/check-practice.cjs",
     "qa:progress": "node scripts/check-progress.cjs",
     "qa:search": "node scripts/check-search.cjs",
+    "qa:home": "node scripts/check-home.cjs",
     "qa:theme": "node scripts/check-theme.cjs",
     "qa:bundle": "node scripts/check-bundle.cjs",
-    "qa": "npm run lint && npm run qa:data && npm run qa:practice && npm run qa:search && npm run qa:progress && npm run qa:theme && npm run qa:render && npm run qa:bundle"
+    "qa": "npm run lint && npm run qa:data && npm run qa:practice && npm run qa:search && npm run qa:home && npm run qa:progress && npm run qa:theme && npm run qa:render && npm run qa:bundle"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",
