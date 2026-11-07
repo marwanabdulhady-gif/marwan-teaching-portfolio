@@ -76,6 +76,21 @@ check('esl role exists', Boolean(esl));
 check('esl role: practice, not a school', esl && esl.kind === 'practice');
 check('esl role: is the last (oldest) entry', EXPERIENCE.roles[EXPERIENCE.roles.length - 1].id === 'esl');
 
+// Every timeline photo is a real, light file with captions in both languages.
+const fsPhotos = require('node:fs');
+for (const role of EXPERIENCE.roles) {
+  for (const photo of role.photos) {
+    const file = '${root}/public' + photo.src;
+    const exists = fsPhotos.existsSync(file);
+    check('photo ' + photo.src + ': file exists', exists);
+    if (exists) check('photo ' + photo.src + ': under 100 KB', fsPhotos.statSync(file).size <= 100 * 1024, String(fsPhotos.statSync(file).size));
+    check('photo ' + photo.src + ': captions in both languages', Boolean(photo.caption.en && photo.caption.ar));
+  }
+}
+check('esl role: three photos', esl && esl.photos.length === 3, esl && String(esl.photos.length));
+const early = EXPERIENCE.roles.find((role) => role.id === 'early');
+check('business-English role: two photos', early && early.photos.length === 2, early && String(early.photos.length));
+
 // 2. A role with nothing behind the toggle gets no toggle.
 check('hasDetails: empty', hasDetails({ photos: [] }) === false);
 check('hasDetails: detail text', hasDetails({ detail: { en: 'x', ar: 'x' }, photos: [] }) === true);

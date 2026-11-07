@@ -294,7 +294,10 @@ export const EXPERIENCE = {
       school: { en: 'Online tutoring, coding and English', ar: 'تدريس عبر الإنترنت وبرمجة ولغة إنجليزية' },
       role: { en: 'Maths tutor, coding instructor for kids, English instructor', ar: 'مدرّس رياضيات، ومدرّب برمجة للأطفال، ومدرّب لغة إنجليزية' },
       detail: { en: 'Online maths tutor at Etap · Years 7–8 homeschoolers in the United States with Rahman Institute · coding and STEM for kids at Timedoor · English and business-English courses, including technicians at National Oilwell Varco Egypt.', ar: 'مدرّس رياضيات عبر الإنترنت في Etap · طلاب التعليم المنزلي في الولايات المتحدة للصفين ٧–٨ مع Rahman Institute · البرمجة والعلوم (STEM) للأطفال في Timedoor · دورات اللغة الإنجليزية وإنجليزية الأعمال، منها فنيو National Oilwell Varco مصر.' },
-      photos: [],
+      photos: [
+        { src: '/photos/business-english-class.webp', caption: { en: 'A business English group in a corporate training room', ar: 'مجموعة إنجليزية الأعمال في قاعة تدريب بإحدى الشركات' } },
+        { src: '/photos/business-english-selfie.webp', caption: { en: 'A selfie with a business English group', ar: 'صورة سيلفي مع مجموعة إنجليزية الأعمال' } },
+      ],
     },
     {
       id: 'esl',
@@ -304,7 +307,11 @@ export const EXPERIENCE = {
       school: { en: 'ESL teaching centers, online and in person', ar: 'مراكز تعليم اللغة الإنجليزية، عبر الإنترنت وحضورياً' },
       role: { en: 'ESL teacher', ar: 'معلم لغة إنجليزية (ESL)' },
       detail: { en: 'Taught English as a second language in many centers, online and in person, to learners across Asia and to Egyptians around the world.', ar: 'درّست اللغة الإنجليزية كلغة ثانية في مراكز عديدة، عبر الإنترنت وحضورياً، لمتعلمين من آسيا ولمصريين حول العالم.' },
-      photos: [],
+      photos: [
+        { src: '/photos/esl-group.webp', caption: { en: 'With my learners after class', ar: 'مع طلابي بعد الحصة' } },
+        { src: '/photos/esl-center-group.webp', caption: { en: 'A full class at an English center', ar: 'فصل كامل في أحد مراكز اللغة الإنجليزية' } },
+        { src: '/photos/esl-center-selfie.webp', caption: { en: 'A selfie with learners at the center', ar: 'صورة سيلفي مع المتعلمين في المركز' } },
+      ],
     },
   ],
 };
