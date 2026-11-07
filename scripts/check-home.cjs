@@ -86,6 +86,10 @@ for (const locale of ['en', 'ar']) {
   check(where + 'results headline', html.includes(L(EXPERIENCE.results)));
   check(where + 'schools tile', tile(html, 'schools').includes(locale === 'ar' ? '٤' : '4'), tile(html, 'schools'));
   check(where + 'since tile', tile(html, 'since').includes(locale === 'ar' ? '٢٠١٩' : '2019'), tile(html, 'since'));
+  for (const name of ['schools', 'since']) {
+    const t = tile(html, name);
+    check(where + name + ' tile: term (dt) comes before its value (dd)', t.indexOf('<dt') >= 0 && t.indexOf('<dt') < t.indexOf('<dd'), t);
+  }
   check(where + 'tile labels', html.includes(L(EXPERIENCE.statLabels.schools)) && html.includes(L(EXPERIENCE.statLabels.since)));
   check(where + 'cta', html.includes('data-cta="work"') && html.includes(L(EXPERIENCE.cta)));
 

@@ -94,9 +94,9 @@ export default function Experience() {
         <Reveal>
           <dl className="grid grid-cols-2 gap-4">
             {tiles.map((tile) => (
-              <div key={tile.name} data-stat={tile.name} className="teach-card p-5 text-start">
-                <dd className="font-[family-name:var(--teach-font-display)] text-3xl sm:text-4xl font-black text-[var(--t-accent)]">{tile.value}</dd>
+              <div key={tile.name} data-stat={tile.name} className="teach-card p-5 text-start flex flex-col-reverse">
                 <dt className="text-sm font-semibold text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)]">{L(tile.label)}</dt>
+                <dd className="font-[family-name:var(--teach-font-display)] text-3xl sm:text-4xl font-black text-[var(--t-accent)]">{tile.value}</dd>
               </div>
             ))}
           </dl>
