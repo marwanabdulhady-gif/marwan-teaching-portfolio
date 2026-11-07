@@ -1,5 +1,7 @@
 import { ArrowRight, BookOpen, Compass, Cpu, Gamepad2, GraduationCap } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
+import { EXPERIENCE } from '../teachingData';
+import { experienceStats } from '../experienceStats';
 import Reveal from './Reveal';
 import { Link, navigate, scrollToSection, type RoutePath } from '../router';
 
@@ -17,6 +19,16 @@ interface PillarItem {
   meta: Bi;
 }
 
+/** The start year comes from the timeline, so the guide cannot disagree with it. */
+const { sinceYear } = experienceStats(EXPERIENCE.roles);
+const TEACHING_SINCE: Bi =
+  sinceYear === null
+    ? { en: 'Teaching track record', ar: 'المسيرة التعليمية' }
+    : {
+        en: `Teaching since ${sinceYear}`,
+        ar: `أدرّس منذ ${sinceYear.toLocaleString('ar-EG', { useGrouping: false })}`,
+      };
+
 const PILLARS: PillarItem[] = [
   {
     num: '01',
@@ -27,7 +39,7 @@ const PILLARS: PillarItem[] = [
       en: 'School timeline and exam results first, then classroom philosophy and six facets of practice.',
       ar: 'المسيرة المدرسية ونتائج الاختبارات أولاً، ثم فلسفة التدريس وأوجه الممارسة الستة.',
     },
-    meta: { en: 'Teaching since 2019', ar: 'أدرّس منذ ٢٠١٩' },
+    meta: TEACHING_SINCE,
   },
   {
     num: '02',

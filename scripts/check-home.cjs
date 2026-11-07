@@ -60,7 +60,7 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
 // 1. Stats come from the timeline data.
 const stats = experienceStats(EXPERIENCE.roles);
-check('stats: schools and start year from the data', same(stats, { schools: 4, sinceYear: 2019 }), JSON.stringify(stats));
+check('stats: schools and start year from the data', same(stats, { schools: 4, sinceYear: 2014 }), JSON.stringify(stats));
 check('stats: no roles', same(experienceStats([]), { schools: 0, sinceYear: null }));
 check(
   'stats: unparseable years do not give NaN',
@@ -69,6 +69,12 @@ check(
 for (const role of EXPERIENCE.roles) {
   check('role ' + role.id + ': has a kind', role.kind === 'school' || role.kind === 'practice', String(role.kind));
 }
+
+// The ESL years before 2019 are part of the record.
+const esl = EXPERIENCE.roles.find((role) => role.id === 'esl');
+check('esl role exists', Boolean(esl));
+check('esl role: practice, not a school', esl && esl.kind === 'practice');
+check('esl role: is the last (oldest) entry', EXPERIENCE.roles[EXPERIENCE.roles.length - 1].id === 'esl');
 
 // 2. A role with nothing behind the toggle gets no toggle.
 check('hasDetails: empty', hasDetails({ photos: [] }) === false);
@@ -85,7 +91,7 @@ for (const locale of ['en', 'ar']) {
   const L = (o) => o[locale];
   check(where + 'results headline', html.includes(L(EXPERIENCE.results)));
   check(where + 'schools tile', tile(html, 'schools').includes(locale === 'ar' ? '٤' : '4'), tile(html, 'schools'));
-  check(where + 'since tile', tile(html, 'since').includes(locale === 'ar' ? '٢٠١٩' : '2019'), tile(html, 'since'));
+  check(where + 'since tile', tile(html, 'since').includes(locale === 'ar' ? '٢٠١٤' : '2014'), tile(html, 'since'));
   for (const name of ['schools', 'since']) {
     const t = tile(html, name);
     check(where + name + ' tile: term (dt) comes before its value (dd)', t.indexOf('<dt') >= 0 && t.indexOf('<dt') < t.indexOf('<dd'), t);
@@ -141,8 +147,9 @@ check('sections: experience, about and gallery all light the Experience nav item
 // 6. The chapter guide makes no claim the data cannot back.
 for (const locale of ['en', 'ar']) {
   const html = render(locale, React.createElement(PortfolioDirectory));
-  check('directory ' + locale + ': teaching since 2019', html.includes(locale === 'ar' ? 'أدرّس منذ ٢٠١٩' : 'Teaching since 2019'));
+  check('directory ' + locale + ': teaching since the first role in the data', html.includes(locale === 'ar' ? 'أدرّس منذ ٢٠١٤' : 'Teaching since 2014'));
   check('directory ' + locale + ': no unverifiable years claim', !html.includes('12+') && !html.includes('١٢'));
+  check('directory ' + locale + ': no stale 2019 start', !html.includes('2019') && !html.includes('٢٠١٩'));
 }
 const directory = read('src/components/PortfolioDirectory.tsx');
 check('directory: pillar 01 jumps to the experience section', /num: '01',[^]{0,12}targetId: 'experience'/.test(directory));

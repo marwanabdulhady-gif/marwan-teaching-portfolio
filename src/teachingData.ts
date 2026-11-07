@@ -296,6 +296,16 @@ export const EXPERIENCE = {
       detail: { en: 'Online maths tutor at Etap · Years 7–8 homeschoolers in the United States with Rahman Institute · coding and STEM for kids at Timedoor · English and business-English courses, including technicians at National Oilwell Varco Egypt.', ar: 'مدرّس رياضيات عبر الإنترنت في Etap · طلاب التعليم المنزلي في الولايات المتحدة للصفين ٧–٨ مع Rahman Institute · البرمجة والعلوم (STEM) للأطفال في Timedoor · دورات اللغة الإنجليزية وإنجليزية الأعمال، منها فنيو National Oilwell Varco مصر.' },
       photos: [],
     },
+    {
+      id: 'esl',
+      kind: 'practice' as const,
+      years: '2014 – 2019',
+      yearsAr: 'من ٢٠١٤ إلى ٢٠١٩',
+      school: { en: 'ESL teaching centers, online and in person', ar: 'مراكز تعليم اللغة الإنجليزية، عبر الإنترنت وحضورياً' },
+      role: { en: 'ESL teacher', ar: 'معلم لغة إنجليزية (ESL)' },
+      detail: { en: 'Taught English as a second language in many centers, online and in person, to learners across Asia and to Egyptians around the world.', ar: 'درّست اللغة الإنجليزية كلغة ثانية في مراكز عديدة، عبر الإنترنت وحضورياً، لمتعلمين من آسيا ولمصريين حول العالم.' },
+      photos: [],
+    },
   ],
 };
 
