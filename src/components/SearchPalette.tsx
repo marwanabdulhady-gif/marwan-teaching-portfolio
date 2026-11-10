@@ -97,7 +97,9 @@ export default function SearchPalette() {
         };
       });
 
-    const extras: SearchResultItem[] = EXTRA_SEARCH_ENTRIES.map((e) => ({
+    // The AI Teacher Studio is parked (docs/later-improvements.md), so its
+    // entries stay out of search until it is back on the page.
+    const extras: SearchResultItem[] = EXTRA_SEARCH_ENTRIES.filter((e) => e.kind !== 'studio').map((e) => ({
       id: `extra-${e.id}`,
       code: e.code,
       badge: e.badge,

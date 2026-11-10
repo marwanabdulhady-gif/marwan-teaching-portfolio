@@ -7,13 +7,11 @@ import TeachHero from './components/TeachHero';
 import CredentialsBar from './components/CredentialsBar';
 import PortfolioDirectory, { ChapterBanner, PageLinks } from './components/PortfolioDirectory';
 import TeachAbout from './components/TeachAbout';
-import ClassroomGallery from './components/ClassroomGallery';
 import Experience from './components/Experience';
 import VisualMathShowcase from './components/VisualMathShowcase';
 import ResourceLibrary from './components/ResourceLibrary';
 import MathLab from './components/MathLab';
 import LearningDesigns from './components/LearningDesigns';
-import AiTeacherStudio from './components/AiTeacherStudio';
 import WorkWithMe from './components/WorkWithMe';
 import TeachFooter from './components/TeachFooter';
 import { HOME_SECTIONS } from './homeSections';
@@ -40,43 +38,36 @@ function HomePage() {
       <TeachHero />
       <CredentialsBar />
 
-      {/* CHAPTER 01 · Teaching Track Record: proof first, then philosophy */}
+      {/* CHAPTER 01 · Profile & Teaching Track Record: the person, then the proof */}
       <ChapterBanner
         num="01"
-        label={{ en: 'Teaching Track Record', ar: 'المسيرة التعليمية' }}
+        label={{ en: 'Profile & Teaching Track Record', ar: 'الملف المهني والمسيرة التعليمية' }}
         subtitle={{
-          en: 'Schools, roles and exam results across international and national curricula, then the philosophy and classroom roles behind them.',
-          ar: 'المدارس والأدوار ونتائج الاختبارات في المناهج الدولية والوطنية، ثم الفلسفة والأدوار الصفية التي تقف خلفها.',
+          en: 'Who I am and how I teach, then the schools, roles and exam results behind it.',
+          ar: 'من أنا وكيف أدرّس، ثم المدارس والأدوار ونتائج الاختبارات التي تقف خلف ذلك.',
         }}
         links={[
+          { id: 'about', label: { en: 'Meet Mr. Marwan', ar: 'تعرّف على الأستاذ مروان' } },
           { id: 'experience', label: { en: 'School Timeline', ar: 'المسيرة المدرسية' } },
-          { id: 'about', label: { en: 'Philosophy', ar: 'فلسفة التدريس' } },
-          { id: 'gallery', label: { en: '6 Facets of Practice', ar: 'أوجه الممارسة الستة' } },
         ]}
       />
-      <Experience />
       <TeachAbout />
-      <ClassroomGallery />
+      <Experience />
 
-      {/* The four-chapter guide, once the visitor has seen the proof. Its cards
-          open /courses and /games, so no separate link strip is needed here. */}
+      {/* The chapter guide: a compact row of buttons to every part of the site */}
       <PortfolioDirectory />
 
-      {/* CHAPTER 04 · EdTech Systems & AI Teacher Studio */}
+      {/* CHAPTER 04 · EdTech Designs. The AI Teacher Studio is parked until it
+          really generates something: see docs/later-improvements.md. */}
       <ChapterBanner
         num="04"
-        label={{ en: 'EdTech Systems & AI Teacher Studio', ar: 'منظومات التقنية التعليمية واستوديو الذكاء الاصطناعي' }}
+        label={{ en: 'EdTech Designs', ar: 'التصاميم التعليمية' }}
         subtitle={{
-          en: 'Four flagship learning-design platforms alongside six practical AI classroom workflows.',
-          ar: 'أربع منصات تعليمية متكاملة إلى جانب ست منظومات ذكاء اصطناعي لخدمة المعلم والطالب.',
+          en: 'Learning products I designed from the learner up, then built myself.',
+          ar: 'منتجات تعليمية صممتها انطلاقاً من المتعلم ثم بنيتها بنفسي.',
         }}
-        links={[
-          { id: 'designs', label: { en: '4 Flagship Platforms', ar: '٤ منصات تعليمية' } },
-          { id: 'studio', label: { en: '6 AI Workflows', ar: '٦ أدوات ذكاء اصطناعي' } },
-        ]}
       />
       <LearningDesigns />
-      <AiTeacherStudio />
       <WorkWithMe />
     </>
   );

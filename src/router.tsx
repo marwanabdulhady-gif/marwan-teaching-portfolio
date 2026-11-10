@@ -3,7 +3,7 @@ import { useEffect, useState, type AnchorHTMLAttributes, type MouseEvent } from 
 /**
  * A tiny History-API router (no dependency) for the three pages of the site:
  *
- *   /         profile, EdTech designs, AI studio, enquiries
+ *   /         profile, track record, EdTech designs, enquiries
  *   /courses  visual math models + the lesson library
  *   /games    FIKR Math Arcade + live rooms
  *
@@ -18,10 +18,8 @@ const NAV_EVENT = 'teach:navigate';
 const SECTION_PAGE: Record<string, RoutePath> = {
   hero: '/',
   about: '/',
-  gallery: '/',
   experience: '/',
   designs: '/',
-  studio: '/',
   work: '/',
   'visual-math': '/courses',
   resources: '/courses',

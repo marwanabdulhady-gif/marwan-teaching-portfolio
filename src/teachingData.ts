@@ -59,11 +59,11 @@ export const BRAND = {
    ------------------------------------------------------------------------- */
 
 export const NAV_ITEMS: { id: string; label: Bi }[] = [
+  { id: 'about', label: { en: 'About', ar: 'نبذة' } },
   { id: 'experience', label: { en: 'Experience', ar: 'الخبرة' } },
   { id: 'resources', label: { en: 'Courses', ar: 'الدورات' } },
   { id: 'lab', label: { en: 'Games', ar: 'الألعاب' } },
   { id: 'designs', label: { en: 'EdTech Designs', ar: 'التصاميم' } },
-  { id: 'studio', label: { en: 'AI Studio', ar: 'استوديو الذكاء' } },
 ];
 
 /* -------------------------------------------------------------------------
@@ -540,71 +540,6 @@ export const ARCADE = {
     { id: 'math-fighter', tier: 'class', icon: '🥋', title: { en: 'Math Fighter', ar: 'المقاتل الرياضي' }, desc: { en: 'Every right answer is a move', ar: 'كل إجابة صحيحة حركة قتالية' } },
   ] as { id: string; tier: ArcadeTier; icon: string; title: Bi; desc: Bi }[],
 };
-
-/* -------------------------------------------------------------------------
-   CLASSROOM GALLERY
-   ------------------------------------------------------------------------- */
-
-export const GALLERY = {
-  tag: { en: 'Gallery', ar: 'المعرض' },
-  titlePrefix: { en: 'The Classroom', ar: 'عالم' },
-  titleAccent: { en: 'Universe', ar: 'الصف الدراسي' },
-  desc: {
-    en: 'Six sides of the same teacher — from the whiteboard to the boardroom, always teaching, always building.',
-    ar: 'ستة أوجه لمعلم واحد — من السبورة إلى غرفة الاجتماعات، يعلم دائماً ويبني دائماً.',
-  },
-  roles: [
-    {
-      id: 'solver',
-      icon: '🧭',
-      label: { en: 'The Problem Solver', ar: 'حلال المشكلات' },
-      note: { en: 'Project-based investigations', ar: 'مشروعات بحثية قائمة على حل المشكلات' },
-      /** Which generated motif to draw. */
-      art: 'spiral',
-      gradient: 'linear-gradient(160deg,#0d2444,#0a1628)',
-    },
-    {
-      id: 'geometer',
-      icon: '📐',
-      label: { en: 'The Geometer', ar: 'المهندس الهندسي' },
-      note: { en: 'Constructions before formulas', ar: 'الإنشاءات قبل الصيغ' },
-      art: 'conics',
-      gradient: 'linear-gradient(160deg,#10315c,#0a1628)',
-    },
-    {
-      id: 'analyst',
-      icon: '📊',
-      label: { en: 'The Analyst', ar: 'المحلل' },
-      note: { en: 'Data-driven assessment', ar: 'تقويم قائم على البيانات' },
-      art: 'chart',
-      gradient: 'linear-gradient(160deg,#0b3b3b,#0a1628)',
-    },
-    {
-      id: 'gamifier',
-      icon: '🎲',
-      label: { en: 'The Gamifier', ar: 'صانع الألعاب التعليمية' },
-      note: { en: 'Gamification diplomas, applied', ar: 'دبلومات الألعاب التعليمية مطبقة' },
-      art: 'dice',
-      gradient: 'linear-gradient(160deg,#2a1246,#0a1628)',
-    },
-    {
-      id: 'designer',
-      icon: '🎯',
-      label: { en: 'The Instructional Designer', ar: 'المصمم التعليمي' },
-      note: { en: 'ADDIE, scenario mapping, PBL', ar: 'ADDIE، خرائط السيناريو، التعلم بالمشروعات' },
-      art: 'compass',
-      gradient: 'linear-gradient(160deg,#3a2410,#0a1628)',
-    },
-    {
-      id: 'ai',
-      icon: '🤖',
-      label: { en: 'The AI-Enabled Educator', ar: 'المعلم الممكّن بالذكاء الاصطناعي' },
-      note: { en: 'AI for rapid content creation', ar: 'الذكاء الاصطناعي لإنتاج المحتوى السريع' },
-      art: 'network',
-      gradient: 'linear-gradient(160deg,#0e2340,#0a1628)',
-    },
-  ],
-} as const;
 
 /* -------------------------------------------------------------------------
    FOOTER
