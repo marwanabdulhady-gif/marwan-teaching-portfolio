@@ -4,8 +4,8 @@
  *
  *   npm run qa:home
  *
- * The portfolio opens on Marwan's teaching track record, so the order of the
- * home page, the numbers in the experience stats row and the way the timeline
+ * The portfolio opens on who Marwan is, then his teaching track record, so the
+ * order of the home page, the numbers in the experience stats row and the way the timeline
  * cards open are worth pinning down. Stats are derived from the timeline data
  * (never typed in), and every check runs in English and Arabic.
  *
@@ -134,12 +134,12 @@ for (const locale of ['en', 'ar']) {
   }
 }
 
-// 4. Home page order: proof first, then philosophy, then the guide.
+// 4. Home page order: the person, then the proof, then the guide.
 const fs = require('node:fs');
 const read = (file) => fs.readFileSync('${root}/' + file, 'utf8');
 const app = read('src/TeachingApp.tsx');
 const home = app.slice(app.indexOf('function HomePage'), app.indexOf('function CoursesPage'));
-const order = ['<TeachHero', '<CredentialsBar', '<ChapterBanner', '<Experience', '<TeachAbout', '<ClassroomGallery', '<PortfolioDirectory', '<PageLinks', '<LearningDesigns', '<AiTeacherStudio', '<WorkWithMe'];
+const order = ['<TeachHero', '<CredentialsBar', '<ChapterBanner', '<TeachAbout', '<Experience', '<PortfolioDirectory', '<LearningDesigns', '<WorkWithMe'];
 let last = -1;
 for (const tag of order) {
   const at = home.indexOf(tag);
@@ -147,17 +147,25 @@ for (const tag of order) {
   check('home order: ' + tag + ' comes after the one before it', at > last, at + ' <= ' + last);
   last = at;
 }
+// The guide's own cards open /courses and /games, so the home page carries no
+// second strip of links to them.
+check('home order: no duplicate page links under the guide', !home.includes('<PageLinks'));
+// Marwan removed the six-facets gallery, and parked the AI Teacher Studio until
+// it is functional (docs/later-improvements.md).
+check('home order: the gallery is gone', !home.includes('<ClassroomGallery'));
+check('home order: the AI studio is parked', !home.includes('<AiTeacherStudio'));
 check('home order: nothing else shows before the Chapter 01 banner but hero and credentials', home.indexOf('<ChapterBanner') < home.indexOf('<PortfolioDirectory'));
 
 // 5. Scrollspy and nav follow that order.
-check('sections: order', same(HOME_SECTIONS.map((s) => s.id), ['hero', 'experience', 'about', 'gallery', 'designs', 'studio', 'work']), HOME_SECTIONS.map((s) => s.id).join(','));
-check('nav: first item is Experience', NAV_ITEMS[0].id === 'experience', NAV_ITEMS[0].id);
+check('sections: order', same(HOME_SECTIONS.map((s) => s.id), ['hero', 'about', 'experience', 'designs', 'work']), HOME_SECTIONS.map((s) => s.id).join(','));
+check('nav: About, then Experience', NAV_ITEMS[0].id === 'about' && NAV_ITEMS[1].id === 'experience', NAV_ITEMS.map((i) => i.id).join(','));
+check('nav: no AI Studio item while it is parked', !NAV_ITEMS.some((i) => i.id === 'studio'));
 const spyTargets = new Set(HOME_SECTIONS.map((s) => s.navId));
 for (const item of NAV_ITEMS) {
   if (item.id === 'resources' || item.id === 'lab') continue;
   check('nav: ' + item.id + ' is lit by a home section', spyTargets.has(item.id));
 }
-check('sections: experience, about and gallery all light the Experience nav item', HOME_SECTIONS.filter((s) => ['experience', 'about', 'gallery'].includes(s.id)).every((s) => s.navId === 'experience'));
+check('sections: about and experience each light their own nav item', HOME_SECTIONS.filter((s) => ['experience', 'about'].includes(s.id)).every((s) => s.navId === s.id));
 
 // 6. The chapter guide makes no claim the data cannot back.
 for (const locale of ['en', 'ar']) {
@@ -167,8 +175,8 @@ for (const locale of ['en', 'ar']) {
   check('directory ' + locale + ': no stale 2019 start', !html.includes('2019') && !html.includes('٢٠١٩'));
 }
 const directory = read('src/components/PortfolioDirectory.tsx');
-check('directory: pillar 01 jumps to the experience section', /num: '01',[^]{0,12}targetId: 'experience'/.test(directory));
-check('directory: nothing jumps to #about', !directory.includes("targetId: 'about'"));
+// Chapter 01 now opens with "Meet Mr. Marwan", so its button lands there.
+check('directory: pillar 01 jumps to the start of chapter 01 (#about)', /num: '01',[^]{0,12}targetId: 'about'/.test(directory));
 check('footer: no hard-coded duplicate experience link', !read('src/components/TeachFooter.tsx').includes("id: 'experience'"));
 
 console.log(JSON.stringify({ failures }));

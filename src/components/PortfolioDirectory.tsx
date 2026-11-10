@@ -1,6 +1,7 @@
 import { ArrowRight, BookOpen, Compass, Cpu, Gamepad2, GraduationCap } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
-import { EXPERIENCE } from '../teachingData';
+import { ARCADE, DESIGNS, EXPERIENCE } from '../teachingData';
+import { COURSE_STATS, num } from '../courses/courseStats';
 import { experienceStats } from '../experienceStats';
 import Reveal from './Reveal';
 import { Link, navigate, scrollToSection, type RoutePath } from '../router';
@@ -15,7 +16,7 @@ interface PillarItem {
   to?: RoutePath;
   icon: typeof GraduationCap;
   title: Bi;
-  summary: Bi;
+  /** One short fact, counted from the data. */
   meta: Bi;
 }
 
@@ -29,131 +30,95 @@ const TEACHING_SINCE: Bi =
         ar: `أدرّس منذ ${sinceYear.toLocaleString('ar-EG', { useGrouping: false })}`,
       };
 
+/** Course, game and product counts come from the data too, for the same reason. */
+const C = COURSE_STATS;
+const games = ARCADE.games.length;
+const designs = DESIGNS.length;
+
 const PILLARS: PillarItem[] = [
   {
     num: '01',
-    targetId: 'experience',
+    targetId: 'about',
     icon: GraduationCap,
-    title: { en: 'Profile & Track Record', ar: 'الملف المهني والخبرة' },
-    summary: {
-      en: 'School timeline and exam results first, then classroom philosophy and six facets of practice.',
-      ar: 'المسيرة المدرسية ونتائج الاختبارات أولاً، ثم فلسفة التدريس وأوجه الممارسة الستة.',
-    },
+    title: { en: 'Profile & Track Record', ar: 'الملف المهني والمسيرة' },
     meta: TEACHING_SINCE,
   },
   {
     num: '02',
     to: '/courses',
     icon: BookOpen,
-    title: { en: 'Mathematics Academy & Labs', ar: 'أكاديمية الرياضيات والمختبرات' },
-    summary: {
-      en: '5 live visual math models, 23 Calculus & Precalculus lessons, GMAT hub, Desmos & AI Tutor.',
-      ar: '٥ نماذج بصرية حية، ٢٣ درس تفاضل وما قبل التفاضل، تحضير GMAT، مختبر Desmos والمعلم الذكي.',
-    },
-    meta: { en: '23 Lessons · 162 Checks', ar: '٢٣ درساً · ١٦٢ تحققاً' },
+    title: { en: 'Courses & Visual Labs', ar: 'الدورات والمختبرات' },
+    meta: { en: `${C.lessons} lessons`, ar: `${num(C.lessons, true)} درساً` },
   },
   {
     num: '03',
     to: '/games',
     icon: Gamepad2,
-    title: { en: 'FIKR Math Arcade', ar: 'صالة ألعاب فكر للرياضيات' },
-    summary: {
-      en: '18 bilingual fluency & challenge games plus live 1-vs-1 classroom battle rooms.',
-      ar: '١٨ لعبة ثنائية اللغة لبناء الطلاقة والتحدي مع غرف منافسة صفية مباشرة.',
-    },
-    meta: { en: '18 Games · Live Rooms', ar: '١٨ لعبة · غرف مباشرة' },
+    title: { en: 'Math Games', ar: 'ألعاب الرياضيات' },
+    meta: { en: `${games} games`, ar: `${num(games, true)} لعبة` },
   },
   {
     num: '04',
     targetId: 'designs',
     icon: Cpu,
-    title: { en: 'EdTech Systems & AI Studio', ar: 'الأنظمة التعليمية واستوديو الذكاء' },
-    summary: {
-      en: '4 flagship learning-experience platforms and a 6-workflow AI Teacher Studio workbench.',
-      ar: '٤ منصات تعليمية متكاملة واستوديو الذكاء الاصطناعي للمعلم بـ ٦ مسارات عمل.',
-    },
-    meta: { en: '4 Products · 6 AI Tools', ar: '٤ أنظمة · ٦ أدوات ذكية' },
+    title: { en: 'EdTech Designs', ar: 'التصاميم التعليمية' },
+    meta: { en: `${designs} products`, ar: `${num(designs, true)} منتجات` },
   },
 ];
 
 /**
- * Architectural 4-pillar overview strip right below the credentials marquee so
- * school leaders, parents/students, and fellow educators can orient themselves
- * immediately and jump straight to any chapter.
+ * The chapter guide as one compact row of small buttons: where everything is,
+ * without taking a screen to say it. Each button opens its chapter.
  */
 export default function PortfolioDirectory() {
   const { isRtl } = useLocale();
   const L = (o: Bi) => (isRtl ? o.ar : o.en);
 
   return (
-    <section
+    <nav
       aria-label={isRtl ? 'خريطة أقسام الملف' : 'Portfolio directory'}
-      className="relative py-12 md:py-16 px-5 lg:px-8 border-b border-[color-mix(in_srgb,var(--t-accent)_14%,transparent)]"
+      className="relative px-5 lg:px-8 pt-10 md:pt-14"
     >
-      <div className="max-w-7xl mx-auto space-y-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <Compass className="w-4 h-4 text-[var(--t-accent)]" />
-            <span className="teach-eyebrow">
-              {isRtl ? 'دليل التصفح المنظّم · ٤ فصول رئيسية' : 'Portfolio Guide · 4 Organized Chapters'}
-            </span>
-          </div>
-          <span className="text-xs text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)]">
-            {isRtl
-              ? 'اضغط على أي فصل للانتقال المباشر أو اضغط ( / ) للبحث الفوري'
-              : 'Jump directly to any chapter — or press ( / ) to search everything'}
-          </span>
-        </div>
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-5">
+        <p className="teach-eyebrow inline-flex items-center gap-2 shrink-0">
+          <Compass className="w-4 h-4" aria-hidden="true" />
+          {isRtl ? 'دليل الملف' : 'Portfolio guide'}
+        </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {PILLARS.map((p, idx) => {
+        <ul className="grid grid-cols-2 lg:flex lg:flex-wrap gap-2 list-none flex-1">
+          {PILLARS.map((p) => {
             const Icon = p.icon;
             return (
-              <Reveal key={p.num} delay={idx * 0.05}>
+              <li key={p.num} className="min-w-0">
                 <button
                   type="button"
                   onClick={() => (p.to ? navigate(p.to) : scrollToSection(p.targetId!))}
-                  className="teach-card w-full h-full p-5 flex flex-col justify-between gap-4 text-start cursor-pointer bg-transparent group"
+                  className="group w-full h-full min-h-11 inline-flex items-center gap-2.5 px-3.5 py-2 rounded-2xl lg:rounded-full text-start cursor-pointer border border-[color-mix(in_srgb,var(--t-ink)_14%,transparent)] bg-[var(--t-bg)] text-[var(--t-ink)] hover:border-[var(--t-accent)] transition-colors"
                 >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="font-mono text-xs font-bold px-2.5 py-1 rounded-full bg-[color-mix(in_srgb,var(--t-accent)_12%,transparent)] text-[var(--t-accent)]">
-                        {isRtl ? `فصل ${p.num}` : `CH ${p.num}`}
-                      </span>
-                      <span className="w-9 h-9 rounded-xl bg-[color-mix(in_srgb,var(--t-ink)_6%,transparent)] flex items-center justify-center text-[var(--t-ink)] group-hover:text-[var(--t-accent)] transition-colors">
-                        <Icon className="w-4 h-4" />
-                      </span>
-                    </div>
-
-                    <h3
-                      className="text-lg font-black text-[var(--t-ink)] leading-snug"
-                      style={{ fontFamily: 'var(--teach-font-display)' }}
-                    >
-                      {L(p.title)}
-                    </h3>
-
-                    <p className="text-xs leading-relaxed text-[color-mix(in_srgb,var(--t-ink)_65%,transparent)]">
-                      {L(p.summary)}
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-t border-[color-mix(in_srgb,var(--t-ink)_10%,transparent)] flex items-center justify-between gap-2 text-[0.7rem] font-semibold text-[var(--t-accent)]">
-                    <span className="font-mono text-[color-mix(in_srgb,var(--t-ink)_55%,transparent)]">
+                  <Icon className="w-4 h-4 shrink-0 text-[var(--t-accent)]" aria-hidden="true" />
+                  <span className="min-w-0 leading-tight">
+                    <span className="block text-[0.78rem] font-bold lg:whitespace-nowrap">{L(p.title)}</span>
+                    <span className="block font-mono text-[0.64rem] text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)] lg:whitespace-nowrap">
                       {L(p.meta)}
                     </span>
-                    <ArrowRight
-                      className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 ${
-                        isRtl ? 'rotate-180 group-hover:-translate-x-0.5' : ''
-                      }`}
-                    />
-                  </div>
+                  </span>
+                  <ArrowRight
+                    aria-hidden="true"
+                    className={`hidden sm:block w-3.5 h-3.5 shrink-0 ms-auto text-[var(--t-accent)] transition-transform ${
+                      isRtl ? 'rotate-180 group-hover:-translate-x-0.5' : 'group-hover:translate-x-0.5'
+                    }`}
+                  />
                 </button>
-              </Reveal>
+              </li>
             );
           })}
-        </div>
+        </ul>
+
+        <p className="hidden xl:block text-xs text-[color-mix(in_srgb,var(--t-ink)_70%,transparent)] shrink-0">
+          {isRtl ? 'أو اضغط ( / ) للبحث' : 'or press ( / ) to search'}
+        </p>
       </div>
-    </section>
+    </nav>
   );
 }
 

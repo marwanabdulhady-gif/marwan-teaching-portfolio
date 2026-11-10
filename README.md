@@ -22,10 +22,10 @@ Vite; no settings or environment variables are needed.
 | --- | --- |
 | Top Navigation + Search (`/`) + Appearance (`8 themes × 3 sizes`) | `src/components/TeachNav.tsx` + `SearchPalette.tsx` + `AppearanceMenu.tsx` |
 | Orientation · Hero & Credentials Strip | `src/components/TeachHero.tsx` + `CredentialsBar.tsx` |
-| **Ch. 01 · Teaching Track Record** — School Timeline & Exam Results (stats derived from the data, collapsible cards), Philosophy, 6 Facets of Practice, then the 4-Chapter Directory (`PortfolioDirectory.tsx`) | `src/components/Experience.tsx` + `TeachAbout.tsx` + `ClassroomGallery.tsx`; section order in `src/TeachingApp.tsx` and `src/homeSections.ts` |
+| **Ch. 01 · Profile & Teaching Track Record**: Meet Mr. Marwan (philosophy), then the School Timeline & Exam Results (stats derived from the data, collapsible cards), then the compact chapter guide (`PortfolioDirectory.tsx`) | `src/components/TeachAbout.tsx` + `Experience.tsx`; section order in `src/TeachingApp.tsx` and `src/homeSections.ts` |
 | **Ch. 02 · Mathematics Academy & Labs** — 5 Live SVG Models + Tabbed Academy (23 Lessons, Guided Sampler, YouTube & Store) | `src/components/VisualMathShowcase.tsx` + `ResourceLibrary.tsx` + `public/academy/` |
 | **Ch. 03 · FIKR Math Arcade** — 18 Tier-Filtered Games & Live 1-v-1 Rooms | `src/components/MathLab.tsx` + `LiveRooms.tsx` + `public/arcade/` |
-| **Ch. 04 · EdTech Systems & AI Studio** — 4 Tabbed Flagship Platforms + 6-Tool AI Teacher Studio | `src/components/LearningDesigns.tsx` + `AiTeacherStudio.tsx` + `public/studio/` |
+| **Ch. 04 · EdTech Designs**: 4 Tabbed Flagship Platforms. The AI Teacher Studio is parked until it is functional (see `docs/later-improvements.md`) | `src/components/LearningDesigns.tsx` (parked: `AiTeacherStudio.tsx` + `public/studio/`) |
 | Closing · Work With Me & Footer | `src/components/WorkWithMe.tsx` + `TeachFooter.tsx` |
 
 ## Editing content
