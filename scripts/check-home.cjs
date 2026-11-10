@@ -139,7 +139,7 @@ const fs = require('node:fs');
 const read = (file) => fs.readFileSync('${root}/' + file, 'utf8');
 const app = read('src/TeachingApp.tsx');
 const home = app.slice(app.indexOf('function HomePage'), app.indexOf('function CoursesPage'));
-const order = ['<TeachHero', '<CredentialsBar', '<ChapterBanner', '<Experience', '<TeachAbout', '<ClassroomGallery', '<PortfolioDirectory', '<PageLinks', '<LearningDesigns', '<AiTeacherStudio', '<WorkWithMe'];
+const order = ['<TeachHero', '<CredentialsBar', '<ChapterBanner', '<Experience', '<TeachAbout', '<ClassroomGallery', '<PortfolioDirectory', '<LearningDesigns', '<AiTeacherStudio', '<WorkWithMe'];
 let last = -1;
 for (const tag of order) {
   const at = home.indexOf(tag);
@@ -147,6 +147,9 @@ for (const tag of order) {
   check('home order: ' + tag + ' comes after the one before it', at > last, at + ' <= ' + last);
   last = at;
 }
+// The guide's own cards open /courses and /games, so the home page carries no
+// second strip of links to them.
+check('home order: no duplicate page links under the guide', !home.includes('<PageLinks'));
 check('home order: nothing else shows before the Chapter 01 banner but hero and credentials', home.indexOf('<ChapterBanner') < home.indexOf('<PortfolioDirectory'));
 
 // 5. Scrollspy and nav follow that order.

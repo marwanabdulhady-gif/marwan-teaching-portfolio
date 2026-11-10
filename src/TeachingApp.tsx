@@ -18,6 +18,7 @@ import WorkWithMe from './components/WorkWithMe';
 import TeachFooter from './components/TeachFooter';
 import { HOME_SECTIONS } from './homeSections';
 import { settleScroll, usePath, type RoutePath } from './router';
+import { COURSE_STATS, num } from './courses/courseStats';
 import './teaching.css';
 
 /** Page → the nav item that stays lit for the whole page. */
@@ -57,24 +58,9 @@ function HomePage() {
       <TeachAbout />
       <ClassroomGallery />
 
-      {/* The four-chapter guide, once the visitor has seen the proof */}
+      {/* The four-chapter guide, once the visitor has seen the proof. Its cards
+          open /courses and /games, so no separate link strip is needed here. */}
       <PortfolioDirectory />
-
-      {/* Chapters 02 and 03 live on their own pages: point to them from here */}
-      <PageLinks
-        items={[
-          {
-            to: '/courses',
-            label: { en: 'Chapter 02 · Courses & Visual Labs', ar: 'الفصل ٠٢ · الدورات والمختبرات' },
-            hint: { en: '23 bilingual lessons, GMAT prep, Desmos and the AI tutor', ar: '٢٣ درساً ثنائي اللغة وتحضير GMAT ومختبر Desmos والمعلم الذكي' },
-          },
-          {
-            to: '/games',
-            label: { en: 'Chapter 03 · Math Games', ar: 'الفصل ٠٣ · ألعاب الرياضيات' },
-            hint: { en: '18 fluency games and live 1-v-1 rooms', ar: '١٨ لعبة طلاقة وغرف تحدٍّ مباشرة' },
-          },
-        ]}
-      />
 
       {/* CHAPTER 04 · EdTech Systems & AI Teacher Studio */}
       <ChapterBanner
@@ -104,12 +90,12 @@ function CoursesPage() {
         num="02"
         label={{ en: 'Courses & Visual Labs', ar: 'الدورات والمختبرات البصرية' }}
         subtitle={{
-          en: 'Live 60fps mathematical models leading directly into 23 bilingual lessons, Desmos explorations, GMAT prep, and the AI Math Tutor.',
-          ar: 'نماذج رياضية متحركة تقود مباشرة إلى ٢٣ درساً تفاعلياً ومختبر Desmos وتحضير GMAT والمعلم الذكي.',
+          en: `Live mathematical models leading into ${COURSE_STATS.lessons} bilingual lessons across ${COURSE_STATS.courses} courses, each with a hands-on lab, plus Desmos, GMAT prep and the AI Math Tutor.`,
+          ar: `نماذج رياضية متحركة تقود إلى ${num(COURSE_STATS.lessons, true)} درساً ثنائي اللغة في ${num(COURSE_STATS.courses, true)} دورات، في كل درس مختبر تفاعلي، مع Desmos وتحضير GMAT والمعلم الذكي.`,
         }}
         links={[
           { id: 'visual-math', label: { en: 'Visual Math Models', ar: 'النماذج البصرية' } },
-          { id: 'resources', label: { en: '23 Lessons & Labs', ar: '٢٣ درساً والمختبرات' } },
+          { id: 'resources', label: { en: `${COURSE_STATS.lessons} Lessons & Labs`, ar: `${num(COURSE_STATS.lessons, true)} درساً والمختبرات` } },
         ]}
       />
       <VisualMathShowcase />
@@ -140,7 +126,7 @@ function GamesPage() {
       <MathLab />
       <PageLinks
         items={[
-          { to: '/courses', label: { en: 'Next: Courses & Visual Labs', ar: 'التالي: الدورات والمختبرات' }, hint: { en: '23 bilingual lessons and live models', ar: '٢٣ درساً ثنائي اللغة ونماذج حية' } },
+          { to: '/courses', label: { en: 'Next: Courses & Visual Labs', ar: 'التالي: الدورات والمختبرات' }, hint: { en: `${COURSE_STATS.lessons} bilingual lessons and live models`, ar: `${num(COURSE_STATS.lessons, true)} درساً ثنائي اللغة ونماذج حية` } },
           { to: '/', label: { en: 'Back to the profile', ar: 'العودة إلى الملف المهني' }, hint: { en: 'About, track record and EdTech work', ar: 'نبذة والمسيرة وأعمال التقنية التعليمية' } },
         ]}
       />
