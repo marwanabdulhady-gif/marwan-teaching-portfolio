@@ -1,0 +1,72 @@
+[
+  {
+    "id": "g1-counting-cove",
+    "file": "g1-counting-cove.html",
+    "title": "Counting Cove",
+    "emoji": "🐟",
+    "accent": "#0f8394"
+  },
+  {
+    "id": "g1-pearl-pairs",
+    "file": "g1-pearl-pairs.html",
+    "title": "Pearl Market",
+    "emoji": "🦪",
+    "accent": "#a9577a"
+  },
+  {
+    "id": "g1-oasis-add",
+    "file": "g1-oasis-add.html",
+    "title": "Oasis Addition Garden",
+    "emoji": "🌱",
+    "accent": "#3f8f57"
+  },
+  {
+    "id": "g1-lantern-light",
+    "file": "g1-lantern-light.html",
+    "title": "Lantern Light-Out",
+    "emoji": "🏮",
+    "accent": "#c86a2a"
+  },
+  {
+    "id": "g1-coral-patterns",
+    "file": "g1-coral-patterns.html",
+    "title": "Coral Pattern Path",
+    "emoji": "🪸",
+    "accent": "#0e8898"
+  },
+  {
+    "id": "g1-tile-shapes",
+    "file": "g1-tile-shapes.html",
+    "title": "Jeddah Tile Studio",
+    "emoji": "🔷",
+    "accent": "#6f54c4"
+  },
+  {
+    "id": "g1-shell-steps",
+    "file": "g1-shell-steps.html",
+    "title": "Shell-Step Measure",
+    "emoji": "🐚",
+    "accent": "#0d8b84"
+  },
+  {
+    "id": "g1-time-garden",
+    "file": "g1-time-garden.html",
+    "title": "Time in the Garden",
+    "emoji": "🌻",
+    "accent": "#3b6fb6"
+  },
+  {
+    "id": "g1-date-data",
+    "file": "g1-date-data.html",
+    "title": "Date-Shop Data Detectives",
+    "emoji": "📊",
+    "accent": "#3f7ec9"
+  },
+  {
+    "id": "g1-story-scout",
+    "file": "g1-story-scout.html",
+    "title": "Story Scout",
+    "emoji": "🧭",
+    "accent": "#2f74b8"
+  }
+]

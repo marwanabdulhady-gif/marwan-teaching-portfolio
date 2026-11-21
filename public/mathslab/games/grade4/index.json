@@ -1,0 +1,72 @@
+[
+  {
+    "id": "g4-carpet-workshop",
+    "file": "g4-carpet-workshop.html",
+    "title": "Carpet Workshop",
+    "emoji": "🧶",
+    "accent": "#a8452f"
+  },
+  {
+    "id": "g4-pearl-divers",
+    "file": "g4-pearl-divers.html",
+    "title": "Pearl Divers",
+    "emoji": "🦪",
+    "accent": "#1d7f8c"
+  },
+  {
+    "id": "g4-aquarium-trip",
+    "file": "g4-aquarium-trip.html",
+    "title": "Aquarium Trip",
+    "emoji": "🚌",
+    "accent": "#4a5fa8"
+  },
+  {
+    "id": "g4-falcon-factors",
+    "file": "g4-falcon-factors.html",
+    "title": "Falcon Factors",
+    "emoji": "🦅",
+    "accent": "#7a6a2f"
+  },
+  {
+    "id": "g4-khandaq-compare",
+    "file": "g4-khandaq-compare.html",
+    "title": "Khandaq Compare",
+    "emoji": "🌉",
+    "accent": "#8a5a2c"
+  },
+  {
+    "id": "g4-majlis-fractions",
+    "file": "g4-majlis-fractions.html",
+    "title": "Majlis Fractions",
+    "emoji": "🫖",
+    "accent": "#8c3f6b"
+  },
+  {
+    "id": "g4-halala-decimals",
+    "file": "g4-halala-decimals.html",
+    "title": "Halala Decimals",
+    "emoji": "🪙",
+    "accent": "#157a5f"
+  },
+  {
+    "id": "g4-ridge-angles",
+    "file": "g4-ridge-angles.html",
+    "title": "Ridge Angles",
+    "emoji": "📐",
+    "accent": "#4f5f8a"
+  },
+  {
+    "id": "g4-dune-place",
+    "file": "g4-dune-place.html",
+    "title": "Dune Place",
+    "emoji": "🏜️",
+    "accent": "#b3762a"
+  },
+  {
+    "id": "g4-pigeon-loft",
+    "file": "g4-pigeon-loft.html",
+    "title": "Pigeon Loft",
+    "emoji": "🕊️",
+    "accent": "#48607a"
+  }
+]

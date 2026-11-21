@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fikr Lesson Game Template</title>
+<!--
+╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║  FIKR LESSON GAME — COMPLETE HTML TEMPLATE + INSTRUCTIONS FOR THE AI AGENT THAT BUILDS NEW GAMES        ║
+╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+READ ALL OF THIS BEFORE YOU CHANGE ANYTHING.
+
+0. WHAT THIS FILE IS
+   One self-contained, offline lesson game (HTML + CSS + JS, no libraries, no network, no image files).
+   The ENGINE (top of the <script>) is finished and shared by every game. To make a NEW lesson game you
+   edit ONLY the `GAME` object at the very bottom (section "✏️ YOUR GAME"). Do not edit the engine unless
+   the task explicitly says so; if you must, keep every public API below working.
+
+   The example inside is Grade 4 · Lesson 6-3 "Model Multi-Step Problems" (enVision), Saudi context,
+   the book's own numbers: 8 buses × 24 and 6 vans × 15 → 102 fewer.
+
+1. THE STUDENT'S JOURNEY (what the engine already does)
+   Home screen → 🎓 Learn (guided slides) → Level 1 → Level 2 → Level 3 → 🏆 finale.
+   Every round:  (word problem?) 🧠 THINK FIRST (CUBES) → the round → ✓ right / ✗ wrong + "why" → next.
+   Hints: 💡 reveals the next hint (strategy → step → near-answer). After 2 misses: 👀 "Show me".
+   Stars per level = first-try accuracy (3 ★ ≥ 90 %, 2 ★ ≥ 70 %, 1 ★ otherwise).
+   Mastery = overall first-try score ≥ 70 %. Progress is saved (localStorage) and can be resumed.
+
+2. THE CHARACTERS (built into the engine as inline SVG — never use copyrighted characters)
+   • RAWI — the guide (friendly storyteller with a ghutra). Moods: 'idle', 'good', 'bad', 'hint', 'cheer'.
+     Speaks every instruction in the coach bar. Use COACH.say(html, mood).
+   • GHUBAR — the dusty mischief-maker who makes the COMMON MISTAKES. He never mocks the student; he makes
+     the mistake himself so the student can catch it. Use GHUBAR.pop(html) for a short pop-in bubble,
+     and put his lines in GAME.ghubar (one per misconception). Learn slides should include one
+     "Ghubar says … what went wrong?" slide.
+   Tone: warm, short sentences (≤ 18 words), never "Wrong!" alone — always say WHY.
+
+3. THE HINT SYSTEM (rules)
+   • Every round sets `hints: [strategy, step, near-answer]` — exactly 2–3 hints, from general to specific.
+   • Hint 1 = a strategy question ("What must you find first?"). Hint 2 = the next step with numbers.
+     Hint 3 = almost the answer ("192 − 90 = ?"). NEVER put the final answer in a hint.
+   • `solution` (html) is what 👀 Show me displays after 2 misses; it shows the full worked answer.
+   • `why(value)` returns a sentence for a SPECIFIC wrong answer (predict the misconceptions!):
+       why: v => v === 282 ? 'You added — the question asks how many FEWER.' : 'Check each hidden question.'
+   • The engine logs every why-category for the teacher (postMessage 'lesson:mistakes').
+
+4. POP-UP DIALOGS (DIALOG.open) — use them, don't invent new modals
+   DIALOG.open({ icon:'🏆', title:'…', html:'…', buttons:[{label:'Next ▸', value:'next', primary:true}] })
+   → returns a Promise with the clicked button's value. Esc / backdrop = the first non-primary button.
+   Built-in dialogs: How to play (❓ button), level complete (stars), finale, resume, Ghubar's story card.
+   Dialogs are focus-trapped, keyboard accessible and read aloud when read-aloud is on.
+
+5. SOUND (SFX) AND READ-ALOUD (VOICE)
+   • SFX.play('right'|'wrong'|'tap'|'pop'|'star'|'level'|'win'|'hint') — Web Audio tones, no files.
+   • 🔊 button mutes/unmutes (saved). Never autoplay before the first tap (browsers block it; engine handles it).
+   • VOICE.say(text) reads aloud (speechSynthesis; 'en-GB' or 'ar-SA'). 🗣 button toggles read-aloud;
+     ON by default for GAME.band 'k2' and 'g35'. Every coach line and dialog is read when it is on.
+
+6. THE WORD-PROBLEM SYSTEM (our method + the book's method, ONE path, same everywhere)
+   Path shown on screen:  1 🧠 CUBES → 2 🔍 Hidden question → 3 📊 Bars → 4 ✅ Answer
+   (steps 2–4 are the "S — Solve" of CUBES; never present them as a different method).
+
+   A round becomes a word problem when it has `problem:` (an object, NOT a string):
+     problem: {
+       sentences: ['For the trip, 8 buses carry 24 fourth graders each.',   // one array item = one sentence
+                   'The school also books a photographer.',                  // ← an EXTRA sentence
+                   '6 vans carry 15 third graders each.',
+                   'How many fewer third graders than fourth graders go?'],
+       question: 3,                    // index of the question sentence (to underline)
+       keys: ['each', 'fewer'],        // key words to box (exact words that appear in the text)
+       extras: [1]                     // indexes of sentences that do not help (to cross out) — may be []
+     }
+   The engine runs CUBES automatically before the round:
+     C ⭕ tap every number  → U 〰 tap the question sentence → B 🔲 tap the key words →
+     E ✂ decide "I need it / Cross out" for each other sentence → S 🧮 "Solve it ▸".
+   Wrong taps shake and Rawi explains; after the marks, the marked problem stays visible during the round.
+   Set `think:false` on a level (or round) to skip CUBES (e.g. pure computation or an equation level).
+
+   For multi-step lessons, structure the 3 levels as the book's steps (as the example does):
+     L1 🔍 choose the HIDDEN QUESTION (type 'choice')
+     L2 📊 BARS: a bar model is drawn for every hidden question with LETTERS (never the hidden answers),
+         the student types the answer to the ORIGINAL question (type 'bars')
+     L3 ✅ choose the ONE EQUATION, e.g. S = (8 × 24) − (6 × 15) (type 'choice', think:false)
+
+7. ROUND TYPES (what `round(i)` may return)
+   { type:'choice', prompt, options:[…], answer, why, hints, solution, problem? }
+   { type:'number', prompt, answer, prefix?, suffix?, decimal?, why, hints, solution, problem? }   → keypad
+   { type:'bars',   prompt, answer, model:{rows:[…], final:{…}}, why, hints, solution, problem? }   → bars + keypad
+       model.rows:  [{ letter:'F', label:'fourth graders', n:8, each:24, color:'#ffd23f' }, …]
+       model.final: { kind:'compare'|'sum'|'part', letter:'S', total?:282 }  (part = a known total minus rows)
+   { type:'order',  prompt, items:[first…last] (correct order), why, hints, solution }           → tap in order
+   `round(i)` receives the round index (0-based) so stories can cycle; return a NEW object every call.
+
+8. LEARN SLIDES (GAME.learn)
+   [{ say:'html', draw(el, L){…}, wait?:true }] — `wait:true` locks "Next" until the slide calls L.ok(msg).
+   Recipe: hook → model (one example, step by step) → your turn (wait) → Ghubar's mistake (wait).
+   Helpers for drawing: UI.h(tag, attrs, …children), UI.bars(model, {reveal:true}), UI.steps(n).
+
+9. DATA CONTRACT (the games page listens; keep it)
+   parent.postMessage({v:1, type:'lesson:ready', id}) on load
+   {type:'lesson:progress', id, stars, done, total} each round · {type:'lesson:level', id, level, stars}
+   {type:'lesson:mistakes', id, level, list:[{detail, n}]} · {type:'lesson:done', id, score, total}
+   Sent only when embedded in an iframe. Never send names or free text the student typed.
+
+10. ACCESSIBILITY + LOCAL CONTEXT (non-negotiable)
+   • Touch targets ≥ GAME band size (k2 72px, g35 56px, g68 44px, g912 44px); every action works by keyboard.
+   • Never colour alone (✓ ✗ icons + words). aria-live on the coach. prefers-reduced-motion respected.
+   • Arabic: set GAME.lang:'ar' → dir="rtl", Arabic voice; wrap mixed text in <bdi>.
+   • Saudi contexts (Jeddah, AlUla, Riyadh, SAR, dates, souq…); keep the TEXTBOOK'S NUMBERS when asked.
+
+11. HOW TO BUILD A NEW GAME — STEP BY STEP (do this, in this order)
+   1. Copy this file to `<lesson-code>-<slug>.html`.
+   2. Fill GAME.id/code/title/emoji/topic/band/lang/objective/how/welcome.
+   3. Write 3–6 Learn slides (section 8). One must be Ghubar's mistake with wait:true.
+   4. Write 3 levels — concrete/picture → representational → abstract — each `round(i)` returning a type
+      from section 7 with hints (3), why(v) for every predictable mistake, and a full solution.
+   5. Word problems: use `problem:{sentences, question, keys, extras}`; include an extra sentence in at
+      least some rounds so ✂ has something to cross out.
+   6. GAME.ghubar: 3 lines, one per top misconception. GAME.praise: 4–6 short cheers. GAME.finale: one line.
+   7. TEST (section 12). Open the file directly in a browser: no console errors, every level finishes.
+
+12. TEST CHECKLIST (the agent must run it before delivering)
+   □ Open the file → home screen, ❓ How to play dialog works, 🔊 and 🗣 toggle.
+   □ Learn: every slide, the wait slides unlock only after the right action.
+   □ Each level: right answer → ✓ + sound + next; wrong → why + shake; 💡 hints in order; 👀 Show me after 2 misses.
+   □ CUBES: numbers, question, key words, extras all behave; the marks stay during the round.
+   □ Level complete dialog shows stars; finale shows score; reload → resume offered.
+   □ Keyboard only: Tab/Enter can finish a round. Arabic (GAME.lang 'ar'): the layout flips.
+   □ Automated: window.GAME_TEST.level(0); GAME_TEST.skipThink(); GAME_TEST.pass() … GAME_TEST.state.
+   DON'T: load external fonts/scripts/images, use alert()/prompt(), put the answer in a hint, show the
+   hidden answers inside the bar model before the student solves them, or exceed 18 words per coach line.
+-->
+<style>
+  :root{
+    --ink:#1d1408; --paper:#fffaf0; --panel:#fbf1de; --line:#4a2f15; --brand:#0e7c86; --brand-ink:#095a61;
+    --good:#2f8a4f; --good-bg:#e3f4e8; --bad:#c62828; --bad-bg:#fde9e4; --hint:#c98a12; --hint-bg:#fff3c4;
+    --c1:#ffd23f; --c2:#7bdff2; --c3:#b6e3a1; --q:#c2521d; --target:56px; --r:16px;
+    --font:"Segoe UI","Noto Sans","Noto Sans Arabic",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box} html,body{margin:0;height:100%}
+  body{font:600 17px/1.45 var(--font);color:var(--ink);background:linear-gradient(170deg,#f6e2b4,#e3c48c 60%,#c99d5f);display:flex;flex-direction:column;min-height:100vh}
+  button{font:inherit;cursor:pointer;color:inherit} button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+  .bar{display:flex;align-items:center;gap:10px;padding:8px 14px;background:#3b2814;color:#fff3d6;box-shadow:0 3px 0 #0003;flex-wrap:wrap}
+  .bar h1{margin:0;font-size:18px;flex:1;min-width:150px}.bar small{display:block;font-size:12px;opacity:.75;font-weight:600}
+  .chip{background:#ffffff1f;border-radius:999px;padding:3px 10px;font-size:14px;white-space:nowrap}
+  .dots{display:flex;gap:4px}.dots i{width:11px;height:11px;border-radius:50%;background:#ffffff33;display:block}.dots i.on{background:#ffd23f}.dots i.miss{background:#ff8a7a}
+  .ibtn{min-width:var(--target);min-height:var(--target);border-radius:12px;border:0;background:#ffffff22;color:#fff;font-size:18px}.ibtn[aria-pressed="false"]{opacity:.5}
+  main{flex:1;width:min(980px,100%);margin:0 auto;padding:14px 14px 0;display:flex;flex-direction:column;gap:12px}
+  .stage{flex:1;background:var(--paper);border:3px solid var(--line);border-radius:22px;box-shadow:0 6px 0 var(--line);padding:16px;display:flex;flex-direction:column;gap:12px;align-items:center;min-height:320px}
+  .prompt{width:100%;font-size:clamp(18px,2.4vw,24px);font-weight:800;text-align:center;margin:0;line-height:1.5}
+  .path{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;list-style:none;margin:0;padding:0}
+  .path li{padding:4px 12px;border-radius:999px;background:#efe3c8;font-size:13px;font-weight:800;color:#7a6040}
+  .path li.done{background:#d8f0dc;color:#1f6b35}.path li.now{background:#ffd23f;color:#3b2814;box-shadow:0 0 0 2px var(--line)}
+  .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;width:100%}
+  .opt{min-height:var(--target);border:3px solid var(--line);border-radius:var(--r);background:#fff;padding:10px 16px;font-size:18px;font-weight:800;box-shadow:0 4px 0 var(--line);transition:transform .08s}
+  .opt:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}.opt.good{background:var(--good-bg);border-color:var(--good)}.opt.bad{background:var(--bad-bg);border-color:var(--bad)}
+  .pad{display:grid;grid-template-columns:repeat(3,minmax(var(--target),76px));gap:8px;justify-content:center}
+  .pad .disp{grid-column:1/-1;min-height:56px;border-radius:14px;background:#2a1a0c;color:#ffd23f;font-size:30px;font-weight:900;display:grid;place-items:center;letter-spacing:2px}
+  .pad button{min-height:var(--target);border-radius:14px;border:3px solid var(--line);background:#fff;font-size:22px;font-weight:900;box-shadow:0 3px 0 var(--line)}
+  .pad .go{grid-column:1/-1;background:var(--brand);color:#fff;border-color:var(--brand-ink)}
+  .split{display:grid;grid-template-columns:1.5fr 1fr;gap:14px;width:100%;align-items:start}@media (max-width:720px){.split{grid-template-columns:1fr}}
+  .model{background:#fbf1de;border:2.5px solid var(--line);border-radius:16px;padding:10px;width:100%}.model svg{width:100%;height:auto;display:block}
+  .model text{font-family:var(--font);font-weight:900;text-anchor:middle}.m-l{font-size:15px;fill:#4a2f15}.m-n{font-size:15px;fill:#1d1408}.m-q{font-size:17px;fill:var(--q)}
+  .order{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.order .opt{min-width:160px}.order .opt.used{opacity:.35;pointer-events:none}.picked{display:flex;flex-direction:column;gap:6px;width:100%;max-width:560px}.picked span{padding:8px 12px;border-radius:12px;background:var(--good-bg);border:2px solid var(--good);font-weight:800}
+  /* coach bar */
+  .coach{display:flex;align-items:center;gap:12px;background:#fffaf0;border:3px solid var(--line);border-radius:20px;padding:8px 12px;box-shadow:0 4px 0 var(--line);margin-bottom:12px}
+  .coach .face{width:64px;height:64px;flex:none}.coach .say{flex:1;font-size:16px;min-height:44px;display:flex;align-items:center}
+  .coach.good{background:var(--good-bg)}.coach.bad{background:var(--bad-bg)}.coach.hint{background:var(--hint-bg)}
+  .cbtn{min-height:var(--target);border-radius:12px;border:3px solid var(--line);background:#fff;padding:6px 14px;font-weight:900;box-shadow:0 3px 0 var(--line)}.cbtn.hint{background:var(--hint-bg)}.cbtn.show{background:#e9ddff}.cbtn.go{background:var(--brand);color:#fff;border-color:var(--brand-ink)}.cbtn[disabled]{opacity:.45;cursor:default}
+  /* characters */
+  .bob{animation:bob 2.4s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-3px)}}
+  .face.good .mouth{d:path("M24 44 Q32 52 40 44")}.face.bad .brow{transform:rotate(8deg);transform-origin:center}
+  .ghubar{position:fixed;inset-inline-end:18px;bottom:110px;z-index:30;display:flex;align-items:flex-end;gap:8px;max-width:min(420px,calc(100% - 36px));animation:gin .35s ease-out}
+  .ghubar .gb{background:#fff;border:3px solid #6b5a4a;border-radius:18px 18px 4px 18px;padding:10px 14px;font-weight:800;box-shadow:0 6px 18px #0003}
+  @keyframes gin{from{transform:translateY(30px);opacity:0}}
+  /* think (CUBES) */
+  .think{width:100%;display:flex;flex-direction:column;gap:10px}
+  .trail{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.trail span{border-radius:12px;background:#efe3c8;text-align:center;padding:6px 4px;font-size:12px;font-weight:800;color:#7a6040}
+  .trail span b{display:block;font-size:20px}.trail span.now{background:#ffd23f;color:#3b2814;box-shadow:0 0 0 2px var(--line)}.trail span.done{background:#d8f0dc;color:#1f6b35}
+  .ttext{font-size:clamp(18px,2.4vw,23px);line-height:2;padding:12px 16px;border-radius:16px;background:#fff;border:2.5px solid var(--line)}
+  .w{border-radius:6px;padding:1px 2px;cursor:pointer}.w:hover{background:#0001}
+  .w.num.on{border:3px solid #d6402a;border-radius:50%;padding:0 6px}.w.key.on{outline:3px solid var(--good);outline-offset:1px}
+  .s.q.on{text-decoration:underline;text-decoration-color:#2f6fd1;text-decoration-thickness:3px;text-underline-offset:5px}.s.x{text-decoration:line-through;text-decoration-color:var(--bad);opacity:.5}
+  .tcard{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:#f6efe0;border:2px solid #d9c29b}.tcard p{flex:1;margin:0;min-width:200px}
+  .shake{animation:shake .35s}@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+  .burst{position:fixed;pointer-events:none;font-size:30px;z-index:50;animation:burst .8s ease-out forwards}@keyframes burst{to{transform:translate(var(--dx),var(--dy)) scale(.6);opacity:0}}
+  /* home */
+  .home{width:100%;display:grid;gap:14px;justify-items:center;text-align:center}.home h2{margin:0;font-size:clamp(26px,4vw,40px)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;width:100%}
+  .card{border:3px solid var(--line);border-radius:18px;background:#fff;padding:14px;box-shadow:0 5px 0 var(--line);display:grid;gap:4px;justify-items:center;min-height:150px}
+  .card .ic{font-size:36px}.card b{font-size:17px}.card small{color:#6b5a3a}.card .st{color:#c98a12;letter-spacing:2px}.card.lock{opacity:.55}
+  /* dialog */
+  .dlg-back{position:fixed;inset:0;background:#1d140899;z-index:100;display:grid;place-items:center;padding:16px;animation:fade .2s}
+  .dlg{width:min(560px,100%);max-height:calc(100vh - 32px);overflow:auto;background:var(--paper);border:3px solid var(--line);border-radius:22px;box-shadow:0 10px 0 var(--line),0 20px 40px #0006;padding:18px 20px;text-align:center;animation:pop .25s ease-out}
+  .dlg .di{font-size:48px;line-height:1}.dlg h2{margin:6px 0}.dlg .dh{text-align:start;font-weight:600}.dlg .db{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+  .dlg ol{text-align:start}.stars{font-size:40px;letter-spacing:6px;color:#c98a12}
+  @keyframes pop{from{transform:scale(.85);opacity:0}}@keyframes fade{from{opacity:0}}
+  .toast{position:fixed;left:50%;top:70px;translate:-50% 0;z-index:60;background:#3b2814;color:#fff3d6;padding:8px 16px;border-radius:12px;font-weight:800}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  [dir="rtl"] .ghubar .gb{border-radius:18px 18px 18px 4px}
+</style>
+</head>
+<body>
+<header class="bar" role="banner">
+  <span id="g-emoji" style="font-size:26px">🎮</span>
+  <h1 id="g-title">Lesson game<small id="g-sub"></small></h1>
+  <span class="chip" id="g-level">🏠 Home</span>
+  <span class="dots" id="g-dots" aria-hidden="true"></span>
+  <span class="chip" id="g-stars" aria-label="stars">⭐ 0</span>
+  <span class="chip" id="g-streak" title="streak">🔥 0</span>
+  <button class="ibtn" id="b-sound" aria-pressed="true" aria-label="Sound on/off">🔊</button>
+  <button class="ibtn" id="b-voice" aria-pressed="false" aria-label="Read aloud on/off">🗣</button>
+  <button class="ibtn" id="b-help" aria-label="How to play">❓</button>
+  <button class="ibtn" id="b-home" aria-label="Home">🏠</button>
+</header>
+<main>
+  <section class="stage" id="stage" aria-live="off"></section>
+  <div class="coach" id="coach" role="status" aria-live="polite">
+    <span class="face bob" id="coach-face" aria-hidden="true"></span>
+    <span class="say" id="coach-say"></span>
+    <span id="coach-tools" style="display:flex;gap:6px;flex-wrap:wrap"></span>
+  </div>
+</main>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════════════════════════════════════
+   ENGINE — shared by every game. Do not edit for a new lesson (edit GAME at the bottom).
+   ══════════════════════════════════════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  const $ = s => document.querySelector(s);
+  /* ---------- UI helpers ---------- */
+  const UI = window.UI = {
+    h(tag, attrs, ...kids) {
+      const el = document.createElement(tag);
+      Object.entries(attrs || {}).forEach(([k, v]) => {
+        if (v == null || v === false) return;
+        if (k === 'html') el.innerHTML = v; else if (k === 'text') el.textContent = v;
+        else if (k.startsWith('on') && typeof v === 'function') el.addEventListener(k.slice(2), v);
+        else el.setAttribute(k, v === true ? '' : v);
+      });
+      kids.flat().forEach(c => c != null && el.append(c.nodeType ? c : document.createTextNode(c)));
+      return el;
+    },
+    rint: (a, b) => a + Math.floor(Math.random() * (b - a + 1)),
+    pick: a => a[Math.floor(Math.random() * a.length)],
+    shuffle: a => a.map(v => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map(x => x[1]),
+    fmt: n => (typeof n === 'number' ? n.toLocaleString('en-US') : String(n)),
+    strip: s => String(s).replace(/<[^>]+>/g, ''),
+    shake(el) { if (!el) return; el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); },
+    burst(at) {
+      const r = at ? at.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight / 2, width: 0, height: 0 };
+      for (let i = 0; i < 8; i++) {
+        const s = UI.h('span', { class: 'burst', text: UI.pick(['⭐', '✨', '🌟']) });
+        s.style.left = r.left + r.width / 2 + 'px'; s.style.top = r.top + r.height / 2 + 'px';
+        s.style.setProperty('--dx', (Math.cos(i / 8 * 6.28) * 90) + 'px'); s.style.setProperty('--dy', (Math.sin(i / 8 * 6.28) * 90) + 'px');
+        document.body.append(s); setTimeout(() => s.remove(), 900);
+      }
+    },
+    toast(t) { const el = UI.h('div', { class: 'toast', html: t }); document.body.append(el); setTimeout(() => el.remove(), 1800); },
+    steps(n) { return UI.h('ol', { class: 'path', 'aria-label': 'steps' }, ...STEPS().map((t, i) => UI.h('li', { class: i < n ? 'done' : i === n ? 'now' : '', text: (i + 1) + '. ' + t }))); },
+    /* the bar model: one row per hidden question (letters until solved), then the original question's bar */
+    bars(m, o) {
+      o = o || {};
+      const W = 640, X = 24, w = 592, show = o.reveal === true, rows = m.rows || [];
+      let y = 10, s = '';
+      const box = (x, bw, fill, txt, dash) => `<rect x="${x.toFixed(1)}" y="${y}" width="${Math.max(2, bw).toFixed(1)}" height="34" rx="4" fill="${fill}" stroke="${dash ? 'var(--q)' : '#4a2f15'}" stroke-width="${dash ? 2.5 : 2}"${dash ? ' stroke-dasharray="6 4"' : ''}/><text x="${(x + bw / 2).toFixed(1)}" y="${y + 23}" class="${dash ? 'm-q' : 'm-n'}">${txt}</text>`;
+      const tot = r => r.n * r.each, big = Math.max(...rows.map(tot), m.final && m.final.total || 0);
+      rows.forEach(r => {
+        s += `<text x="${X}" y="${y + 14}" class="m-l" style="text-anchor:start">${r.letter} = ${r.label}</text>`; y += 22;
+        const bw = (w * tot(r) / big) / r.n;
+        for (let k = 0; k < r.n; k++) s += box(X + k * bw, bw, r.color || 'var(--c1)', UI.fmt(r.each));
+        s += `<path d="M${X} ${y + 40} v6 h${(bw * r.n).toFixed(1)} v-6" fill="none" stroke="#4a2f15" stroke-width="2"/><text x="${(X + bw * r.n / 2).toFixed(1)}" y="${y + 64}" class="m-n">${r.letter} = ${r.n} × ${UI.fmt(r.each)} = ${show ? UI.fmt(tot(r)) : '?'}</text>`;
+        y += 74;
+      });
+      const f = m.final; if (f) {
+        s += `<text x="${X}" y="${y + 14}" class="m-l" style="text-anchor:start">${GAME.lang === 'ar' ? 'السؤال' : 'the question'}: ${f.letter} = ?</text>`; y += 22;
+        const v = (r, i) => (show ? UI.fmt(tot(r)) : r.letter), ans = o.answer != null ? UI.fmt(o.answer) : f.letter + ' = ?';
+        if (f.kind === 'compare') { const [A, B] = rows, sw = Math.min(w * .75, w * tot(B) / tot(A)); s += box(X, w, A.color || 'var(--c1)', v(A)); y += 40; s += box(X, sw, B.color || 'var(--c2)', v(B)) + box(X + sw, w - sw, '#fff', ans, o.answer == null); }
+        else if (f.kind === 'part') { const A = rows[0], sw = Math.min(w * .75, w * tot(A) / f.total); s += box(X, w, '#2f8a4f', UI.fmt(f.total)).replace('class="m-n"', 'class="m-n" style="fill:#fff"'); y += 40; s += box(X, sw, A.color || 'var(--c1)', v(A)) + box(X + sw, w - sw, '#fff', ans, o.answer == null); }
+        else { const all = rows.reduce((n, r) => n + tot(r), 0); let x = X; rows.forEach((r, i) => { const sw = w * tot(r) / all; s += box(x, sw, r.color || 'var(--c1)', v(r, i)); x += sw; });
+          s += `<path d="M${X} ${y + 40} v6 h${w} v-6" fill="none" stroke="var(--q)" stroke-width="2.5"/><text x="${X + w / 2}" y="${y + 64}" class="m-q">${f.letter} = ${rows.map(v).join(' + ')} = ${o.answer != null ? UI.fmt(o.answer) : '?'}</text>`; y += 28; }
+        y += 46;
+      }
+      const d = UI.h('div', { class: 'model' }); d.innerHTML = `<svg viewBox="0 0 ${W} ${y}" role="img" aria-label="bar model">${s}</svg>`; return d;
+    }
+  };
+  const L10N = {
+    en: { home: 'Home', learn: 'Learn', next: 'Next ▸', ready: 'I’m ready — play! ▸', check: 'Check ✓', hint: '💡 Hint', show: '👀 Show me', solve: '🧮 Solve it ▸', need: '✅ I need it', cut: '✂ Cross out',
+      level: 'Level', done: 'Level complete!', again: '↻ Play again', cont: 'Next level ▸', homeB: '🏠 Home', finale: 'You finished the game!', resume: 'Continue where you left off?', yes: 'Continue', no: 'Start again',
+      how: 'How to play', got: 'Got it ▶', think: '🧠 Think first — CUBES', tC: 'Circle the numbers', tU: 'Underline the question', tB: 'Box the key words', tE: 'Cross out extras', tS: 'Solve',
+      cTap: 'Tap every number.', uTap: 'Tap the sentence that asks the question.', bTap: 'Tap the key words that tell you what to do.', eAsk: 'Does this sentence help you answer the question?', sGo: 'You know what to find. Now solve it!',
+      steps: ['🧠 CUBES', '🔍 Hidden question', '📊 Bars', '✅ Answer'], noHint: 'No more hints — try 👀 Show me after another try.', mastery: 'Mastery', score: 'Score' },
+    ar: { home: 'الرئيسية', learn: 'تعلّم', next: 'التالي ◂', ready: 'أنا جاهز — العب! ◂', check: 'تحقّق ✓', hint: '💡 تلميح', show: '👀 أرني', solve: '🧮 احلّها ◂', need: '✅ أحتاجها', cut: '✂ احذفها',
+      level: 'المستوى', done: 'أنهيت المستوى!', again: '↻ العب مجددًا', cont: 'المستوى التالي ◂', homeB: '🏠 الرئيسية', finale: 'أنهيت اللعبة!', resume: 'هل تكمل من حيث توقفت؟', yes: 'أكمل', no: 'ابدأ من جديد',
+      how: 'طريقة اللعب', got: 'فهمت ◀', think: '🧠 فكّر أولًا — CUBES', tC: 'ضع دائرة حول الأعداد', tU: 'ضع خطًا تحت السؤال', tB: 'ضع مربعًا حول الكلمات المفتاحية', tE: 'احذف الزائد', tS: 'احلّ',
+      cTap: 'اضغط على كل عدد.', uTap: 'اضغط على جملة السؤال.', bTap: 'اضغط على الكلمات المفتاحية.', eAsk: 'هل تساعدك هذه الجملة على الإجابة؟', sGo: 'عرفت المطلوب. الآن احلّها!',
+      steps: ['🧠 CUBES', '🔍 السؤال الخفي', '📊 الأشرطة', '✅ الإجابة'], noHint: 'لا تلميحات أخرى — جرّب 👀 أرني بعد محاولة أخرى.', mastery: 'الإتقان', score: 'النتيجة' }
+  };
+  const T = k => (L10N[GAME.lang] || L10N.en)[k] || L10N.en[k] || k;
+  const STEPS = () => T('steps');
+
+  /* ---------- SOUND: Web Audio tones, no files ---------- */
+  const SFX = window.SFX = (() => {
+    let ctx = null, on = true;
+    try { on = localStorage.getItem('lg:sound') !== '0'; } catch (e) { /* default on */ }
+    const tone = (f, ms, type = 'sine', at = 0, vol = .09) => {
+      if (!on) return;
+      try {
+        ctx = ctx || new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume();
+        const o = ctx.createOscillator(), g = ctx.createGain(), t0 = ctx.currentTime + at;
+        o.type = type; o.frequency.value = f; g.gain.setValueAtTime(.0001, t0); g.gain.exponentialRampToValueAtTime(vol, t0 + .015); g.gain.exponentialRampToValueAtTime(.0001, t0 + ms / 1000);
+        o.connect(g).connect(ctx.destination); o.start(t0); o.stop(t0 + ms / 1000 + .02);
+      } catch (e) { /* no audio */ }
+    };
+    const SOUNDS = {
+      tap: () => tone(520, 60, 'triangle'), pop: () => tone(880, 80, 'triangle'),
+      right: () => { tone(660, 110); tone(880, 160, 'sine', .1); }, wrong: () => { tone(300, 140, 'square', 0, .05); tone(210, 200, 'square', .12, .05); },
+      hint: () => { tone(740, 90, 'triangle'); tone(990, 120, 'triangle', .09); }, star: () => [880, 1100, 1320].forEach((f, i) => tone(f, 120, 'sine', i * .08)),
+      level: () => [523, 659, 784, 1046].forEach((f, i) => tone(f, 160, 'triangle', i * .11)), win: () => [523, 659, 784, 1046, 1318, 1568].forEach((f, i) => tone(f, 180, 'sine', i * .12))
+    };
+    return { play: k => SOUNDS[k] && SOUNDS[k](), get on() { return on; }, set on(v) { on = v; try { localStorage.setItem('lg:sound', v ? '1' : '0'); } catch (e) { /* fine */ } } };
+  })();
+  /* ---------- READ-ALOUD ---------- */
+  const VOICE = window.VOICE = (() => {
+    let on = null;
+    return {
+      get on() { if (on == null) { try { const s = localStorage.getItem('lg:voice'); on = s == null ? ['k2', 'g35'].includes(GAME.band) : s === '1'; } catch (e) { on = false; } } return on; },
+      set on(v) { on = v; try { localStorage.setItem('lg:voice', v ? '1' : '0'); } catch (e) { /* fine */ } if (!v) try { speechSynthesis.cancel(); } catch (e) { /* fine */ } },
+      say(text) { if (!this.on || !('speechSynthesis' in window)) return; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(UI.strip(text)); u.lang = GAME.lang === 'ar' ? 'ar-SA' : 'en-GB'; u.rate = .92; speechSynthesis.speak(u); } catch (e) { /* fine */ } }
+    };
+  })();
+
+  /* ---------- CHARACTERS (inline SVG, our own) ---------- */
+  const RAWI = mood => `<svg viewBox="0 0 64 64" width="64" height="64"><circle cx="32" cy="34" r="22" fill="#f1c9a0" stroke="#4a2f15" stroke-width="2.5"/>
+    <path d="M8 30 Q32 2 56 30 L56 22 Q32 -4 8 22Z" fill="#fff" stroke="#4a2f15" stroke-width="2.5"/><path d="M8 26 Q32 6 56 26" fill="none" stroke="#d6402a" stroke-width="3" stroke-dasharray="4 3"/>
+    <path d="M10 28 Q32 24 54 28" fill="none" stroke="#2b2b2b" stroke-width="4"/>
+    <g class="brow"><path d="M20 30 h7 M37 30 h7" stroke="#4a2f15" stroke-width="2.5" stroke-linecap="round"/></g>
+    <circle cx="24" cy="36" r="${mood === 'cheer' ? 0 : 2.6}" fill="#2b1b0e"/><circle cx="40" cy="36" r="${mood === 'cheer' ? 0 : 2.6}" fill="#2b1b0e"/>
+    ${mood === 'cheer' ? '<path d="M20 37 q4 -4 8 0 M36 37 q4 -4 8 0" stroke="#2b1b0e" stroke-width="2.5" fill="none"/>' : ''}
+    <path class="mouth" d="${mood === 'bad' ? 'M25 48 Q32 44 39 48' : mood === 'hint' ? 'M26 47 h12' : 'M24 45 Q32 52 40 45'}" fill="none" stroke="#7a2b22" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M22 50 Q32 60 42 50" fill="#6b4a2a" opacity=".85"/>${mood === 'hint' ? '<text x="52" y="14" font-size="14">💡</text>' : mood === 'good' || mood === 'cheer' ? '<text x="50" y="14" font-size="14">✨</text>' : ''}</svg>`;
+  const GHUBAR_SVG = `<svg viewBox="0 0 70 70" width="70" height="70" aria-hidden="true"><path d="M10 50 Q4 30 18 22 Q22 6 38 10 Q54 4 58 22 Q70 32 62 50 Q50 62 34 58 Q18 62 10 50Z" fill="#c9b39a" stroke="#6b5a4a" stroke-width="2.5"/>
+    <circle cx="26" cy="32" r="5" fill="#fff"/><circle cx="44" cy="32" r="5" fill="#fff"/><circle cx="27" cy="33" r="2.4" fill="#2b2b2b"/><circle cx="43" cy="31" r="2.4" fill="#2b2b2b"/>
+    <path d="M26 45 Q34 52 44 44" fill="none" stroke="#5a4a3a" stroke-width="2.5" stroke-linecap="round"/><circle cx="12" cy="18" r="3" fill="#d9c7b0"/><circle cx="62" cy="14" r="2" fill="#d9c7b0"/><circle cx="66" cy="40" r="2.5" fill="#d9c7b0"/></svg>`;
+  const COACH = window.COACH = {
+    say(html, mood) {
+      const c = $('#coach'); c.className = 'coach ' + (mood || ''); $('#coach-say').innerHTML = html || ''; $('#coach-face').innerHTML = RAWI(mood || 'idle');
+      if (html) VOICE.say(html);
+    },
+    tools(...btns) { const t = $('#coach-tools'); t.innerHTML = ''; btns.filter(Boolean).forEach(b => t.append(b)); }
+  };
+  const GHUBAR = window.GHUBAR = {
+    pop(html, ms) {
+      document.querySelectorAll('.ghubar').forEach(e => e.remove());
+      const g = UI.h('div', { class: 'ghubar', role: 'note' }); g.innerHTML = GHUBAR_SVG; g.append(UI.h('div', { class: 'gb', html: '<b>Ghubar:</b> ' + html }));
+      g.onclick = () => g.remove(); document.body.append(g); SFX.play('pop'); setTimeout(() => g.remove(), ms || 4200);
+    }
+  };
+
+  /* ---------- POP-UP DIALOGS ---------- */
+  const DIALOG = window.DIALOG = {
+    open(o) {
+      return new Promise(res => {
+        const prev = document.activeElement;
+        const back = UI.h('div', { class: 'dlg-back' }), d = UI.h('div', { class: 'dlg', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'dlg-t' });
+        d.append(UI.h('div', { class: 'di', text: o.icon || '' }), UI.h('h2', { id: 'dlg-t', html: o.title || '' }), UI.h('div', { class: 'dh', html: o.html || '' }));
+        const row = UI.h('div', { class: 'db' }), btns = o.buttons || [{ label: T('got'), value: 'ok', primary: true }];
+        const close = v => { back.remove(); document.removeEventListener('keydown', key); if (prev && prev.focus) prev.focus(); res(v); };
+        btns.forEach(b => row.append(UI.h('button', { class: 'cbtn' + (b.primary ? ' go' : ''), text: b.label, onclick: () => { SFX.play('tap'); close(b.value); } })));
+        d.append(row); back.append(d); document.body.append(back);
+        const esc = (btns.find(b => !b.primary) || btns[0]).value;
+        const key = e => { if (e.key === 'Escape') close(esc); if (e.key === 'Tab') { const f = [...d.querySelectorAll('button')]; const i = f.indexOf(document.activeElement); if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); } else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); } } };
+        document.addEventListener('keydown', key); back.addEventListener('click', e => { if (e.target === back) close(esc); });
+        setTimeout(() => (row.querySelector('.go') || row.firstChild).focus(), 30);
+        VOICE.say((o.title || '') + '. ' + UI.strip(o.html || ''));
+      });
+    }
+  };
+
+  /* ---------- the parent page (games page) ---------- */
+  const tell = m => { if (window.parent !== window) try { window.parent.postMessage(Object.assign({ v: 1, id: GAME.id }, m), '*'); } catch (e) { /* fine */ } };
+
+  /* ---------- STATE ---------- */
+  const KEY = () => 'lg:' + GAME.id;
+  let S = { li: -1, ri: 0, stars: [0, 0, 0], first: 0, streak: 0, best: 0, done: 0 };
+  let R = null, mistakes = {}, timers = [];
+  const later = (fn, ms) => { const t = setTimeout(fn, ms); timers.push(t); return t; };
+  const clearTimers = () => { timers.forEach(clearTimeout); timers = []; };
+  const save = () => { try { localStorage.setItem(KEY(), JSON.stringify(S)); } catch (e) { /* fine */ } };
+  const total = () => GAME.levels.reduce((n, l) => n + l.rounds, 0);
+  function bar() {
+    $('#g-stars').textContent = '⭐ ' + S.stars.reduce((a, b) => a + b, 0); $('#g-streak').textContent = '🔥 ' + S.streak;
+    const L = GAME.levels[S.li];
+    $('#g-level').textContent = S.li < 0 ? '🏠 ' + T('home') : S.li === 99 ? '🎓 ' + T('learn') : (L.icon || '⭐') + ' ' + L.name;
+    $('#g-dots').innerHTML = L && S.li !== 99 ? Array.from({ length: L.rounds }, (_, k) => `<i class="${k < S.ri ? 'on' : ''}"></i>`).join('') : '';
+  }
+
+  /* ---------- 🧠 THINK FIRST: CUBES on a word problem ---------- */
+  function think(stage, p, done) {
+    const box = UI.h('div', { class: 'think' }), trail = UI.h('div', { class: 'trail' });
+    const ST = [['C', '⭕', T('tC')], ['U', '〰', T('tU')], ['B', '🔲', T('tB')], ['E', '✂', T('tE')], ['S', '🧮', T('tS')]];
+    ST.forEach(([k, ic, t]) => trail.append(UI.h('span', { 'data-k': k, html: `<b>${k}</b>${ic} ${t}` })));
+    const text = UI.h('div', { class: 'ttext' }), head = UI.h('p', { class: 'prompt', style: 'font-size:18px;margin:0' }), extra = UI.h('div', { style: 'display:grid;gap:8px' });
+    const keys = (p.keys || []).map(k => k.toLowerCase()), nums = [], keyEls = [], sents = [];
+    p.sentences.forEach((s, si) => {
+      const se = UI.h('span', { class: 's' + (si === p.question ? ' q' : ''), 'data-s': si });
+      s.split(/(\s+)/).forEach(tok => {
+        if (/^\s+$/.test(tok)) { se.append(tok); return; }
+        const bare = tok.replace(/[.,?!:;“”"()]/g, ''), isNum = /\d/.test(bare), isKey = keys.includes(bare.toLowerCase());
+        const w = UI.h('span', { class: 'w' + (isNum ? ' num' : '') + (isKey ? ' key' : ''), text: tok, tabindex: '0', role: 'button' });
+        if (isNum) nums.push(w); if (isKey) keyEls.push(w); se.append(w);
+      });
+      sents.push(se); text.append(se, ' ');
+    });
+    box.append(UI.h('b', { text: T('think') }), trail, head, text, extra); stage.append(box);
+    let step = 0;
+    const mark = n => trail.querySelectorAll('span').forEach((s, i) => s.className = i < n ? 'done' : i === n ? 'now' : '');
+    const go = n => {
+      step = n; mark(n); extra.innerHTML = '';
+      if (n === 0) { head.textContent = '⭕ ' + T('cTap'); COACH.say(T('cTap'), 'hint'); if (!nums.length) later(() => go(1), 300); }
+      else if (n === 1) { head.textContent = '〰 ' + T('uTap'); COACH.say(T('uTap'), 'hint'); }
+      else if (n === 2) { head.textContent = '🔲 ' + T('bTap'); COACH.say(T('bTap'), 'hint'); if (!keyEls.length) later(() => go(3), 300); }
+      else if (n === 3) {
+        const todo = sents.map((se, i) => i).filter(i => i !== p.question);
+        if (!todo.length) return go(4);
+        head.textContent = '✂ ' + T('eAsk'); COACH.say(T('eAsk'), 'hint');
+        let k = 0;
+        const card = () => {
+          extra.innerHTML = ''; if (k >= todo.length) return go(4);
+          const i = todo[k], isExtra = (p.extras || []).includes(i), c = UI.h('div', { class: 'tcard' });
+          const settle = cut => { if (cut) sents[i].classList.add('x'); SFX.play('tap'); k++; card(); };
+          c.append(UI.h('p', { text: p.sentences[i] }),
+            UI.h('button', { class: 'cbtn', text: T('need'), onclick: e => isExtra ? (UI.shake(e.target), SFX.play('wrong'), COACH.say('Look again — does it help answer the question?', 'bad')) : settle(false) }),
+            UI.h('button', { class: 'cbtn', text: T('cut'), onclick: e => !isExtra ? (UI.shake(e.target), SFX.play('wrong'), COACH.say('You need this one — it has numbers you use!', 'bad')) : settle(true) }));
+          extra.append(c);
+        };
+        card();
+      } else {
+        head.textContent = '🧮 ' + T('sGo'); COACH.say(T('sGo'), 'good');
+        const b = UI.h('button', { class: 'cbtn go', text: T('solve'), onclick: () => { SFX.play('tap'); box.remove(); done(text); } });
+        extra.append(b); setTimeout(() => b.focus(), 30);
+      }
+    };
+    text.addEventListener('click', e => {
+      const w = e.target.closest('.w'); if (!w) return;
+      if (step === 0) { if (w.classList.contains('num')) { if (!w.classList.contains('on')) { w.classList.add('on'); SFX.play('tap'); } if (nums.every(x => x.classList.contains('on'))) later(() => go(1), 350); } else { UI.shake(w); SFX.play('wrong'); COACH.say('That is not a number. Tap the numbers.', 'bad'); } }
+      else if (step === 1) { const se = w.closest('.s'); if (+se.dataset.s === p.question) { se.classList.add('on'); SFX.play('right'); later(() => go(2), 350); } else { UI.shake(se); SFX.play('wrong'); COACH.say('That sentence does not ask anything. Find the question.', 'bad'); } }
+      else if (step === 2) { if (w.classList.contains('key')) { w.classList.add('on'); SFX.play('tap'); if (keyEls.every(x => x.classList.contains('on'))) later(() => go(3), 350); } else { UI.shake(w); SFX.play('wrong'); COACH.say('Key words tell you WHAT TO DO — like “each” or “fewer”.', 'bad'); } }
+    });
+    text.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('w')) { e.preventDefault(); e.target.click(); } });
+    THINKING = { skip: () => { box.remove(); done(text); } };
+    go(0);
+  }
+  let THINKING = null;
+
+  /* ---------- a ROUND ---------- */
+  function round() {
+    clearTimers(); THINKING = null;
+    const L = GAME.levels[S.li], q = L.round(S.ri), stage = $('#stage');
+    stage.innerHTML = ''; bar();
+    R = { q, tries: 0, hint: 0, done: false };
+    if (L.path != null) stage.append(UI.steps(L.path));
+    const useThink = q.problem && L.think !== false && q.think !== false;
+    const body = marked => {
+      const pr = UI.h('p', { class: 'prompt' });
+      if (marked) { pr.append(marked); marked.classList.add('ttext'); marked.style.pointerEvents = 'none'; } else pr.innerHTML = q.prompt || (q.problem ? q.problem.sentences.join(' ') : '');
+      stage.append(pr);
+      if (marked && q.prompt) stage.append(UI.h('p', { class: 'prompt', style: 'font-size:18px', html: q.prompt }));
+      KINDS[q.type || 'choice'](stage, q);
+      COACH.say(q.say || L.say || '', ''); hintTools();
+    };
+    if (useThink) { COACH.tools(); think(stage, q.problem, body); } else body(null);
+    tell({ type: 'lesson:progress', stars: S.stars.reduce((a, b) => a + b, 0), done: S.done, total: total() });
+  }
+  function hintTools() {
+    const q = R.q, hb = UI.h('button', { class: 'cbtn hint', text: T('hint'), onclick: () => {
+      SFX.play('hint');
+      if (R.hint < (q.hints || []).length) COACH.say('💡 ' + q.hints[R.hint++], 'hint'); else COACH.say(T('noHint'), 'hint');
+    } });
+    const sb = R.tries >= 2 && q.solution ? UI.h('button', { class: 'cbtn show', text: T('show'), onclick: showMe }) : null;
+    COACH.tools(q.hints && q.hints.length ? hb : null, sb);
+  }
+  function showMe() {
+    if (R.done) return; R.done = true; SFX.play('pop');
+    COACH.say('👀 ' + R.q.solution, 'hint');
+    if (R.solve) R.solve();
+    COACH.tools(UI.h('button', { class: 'cbtn go', text: T('next'), onclick: nextRound }));
+    S.streak = 0; S.done++; S.ri++; save(); bar();
+  }
+  function right(at) {
+    if (R.done) return; R.done = true;
+    if (R.tries === 0) S.first++;
+    S.streak++; S.best = Math.max(S.best, S.streak); S.done++; S.ri++;
+    SFX.play(S.streak > 0 && S.streak % 5 === 0 ? 'star' : 'right'); UI.burst(at);
+    COACH.say('✓ ' + UI.pick(GAME.praise || ['Brilliant!']) + (S.streak >= 3 ? ` 🔥 ${S.streak}` : ''), 'good');
+    COACH.tools(); save(); bar();
+    later(nextRound, 1300);
+  }
+  function wrong(v, at) {
+    if (R.done) return;
+    R.tries++; S.streak = 0; SFX.play('wrong'); UI.shake(at);
+    const why = R.q.why ? R.q.why(v) : '';
+    COACH.say('✗ ' + (why || 'Not quite — look again.'), 'bad');
+    if (why) mistakes[why] = (mistakes[why] || 0) + 1;
+    if (R.tries === 1 && GAME.ghubar && Math.random() < .35) later(() => GHUBAR.pop(UI.pick(GAME.ghubar)), 900);
+    hintTools(); bar();
+  }
+  function nextRound() {
+    clearTimers();
+    const L = GAME.levels[S.li];
+    if (S.ri < L.rounds) return round();
+    finishLevel();
+  }
+  async function finishLevel() {
+    const L = GAME.levels[S.li], acc = S.first / L.rounds, st = acc >= .9 ? 3 : acc >= .7 ? 2 : 1;
+    S.stars[S.li] = Math.max(S.stars[S.li] || 0, st);
+    tell({ type: 'lesson:level', level: S.li, stars: st });
+    const list = Object.entries(mistakes).map(([detail, n]) => ({ detail, n })); if (list.length) tell({ type: 'lesson:mistakes', level: S.li, list }); mistakes = {};
+    SFX.play('level'); save(); bar();
+    const last = S.li >= GAME.levels.length - 1;
+    const v = await DIALOG.open({ icon: L.icon || '⭐', title: T('done'), html: `<div class="stars">${'★'.repeat(st)}${'☆'.repeat(3 - st)}</div><p style="text-align:center">${L.name} · ${S.first} / ${L.rounds} first try</p>`,
+      buttons: [{ label: T('again'), value: 'again' }, { label: last ? '🏆 ' + T('finale') : T('cont'), value: 'next', primary: true }] });
+    if (v === 'again') return startLevel(S.li);
+    if (last) return finale();
+    startLevel(S.li + 1);
+  }
+  async function finale() {
+    const tot = total(), score = Math.round(S.stars.reduce((a, b) => a + b, 0) / (GAME.levels.length * 3) * tot);
+    tell({ type: 'lesson:done', score, total: tot });
+    SFX.play('win'); UI.burst();
+    const pct = Math.round(score / tot * 100);
+    await DIALOG.open({ icon: '🏆', title: GAME.finale || T('finale'), html: `<div class="stars">${S.stars.map(s => '★'.repeat(s) + '☆'.repeat(3 - s)).join(' ')}</div><p style="text-align:center">${T('score')}: ${pct}% · ${T('mastery')}: ${pct >= 70 ? '✅' : '🌱'}</p>`,
+      buttons: [{ label: T('homeB'), value: 'home', primary: true }] });
+    S.li = -1; S.ri = 0; save(); home();
+  }
+  function startLevel(i) { S.li = i; S.ri = 0; S.first = 0; mistakes = {}; save(); const L = GAME.levels[i]; if (L.intro) COACH.say(L.intro); round(); }
+
+  /* ---------- ROUND KINDS ---------- */
+  function keypad(stage, q, onEnter) {
+    const pad = UI.h('div', { class: 'pad', role: 'group', 'aria-label': 'number pad' }), disp = UI.h('div', { class: 'disp', 'aria-live': 'polite' });
+    let val = '';
+    const show = () => { disp.textContent = (q.prefix || '') + (val || '?') + (q.suffix || ''); };
+    const press = k => { if (R.done) return; SFX.play('tap'); if (k === '⌫') val = val.slice(0, -1); else if (k === '.' && (!q.decimal || val.includes('.'))) return; else if (val.length < 7) val += k; show(); };
+    pad.append(disp);
+    ['7', '8', '9', '4', '5', '6', '1', '2', '3', q.decimal ? '.' : '', '0', '⌫'].forEach(k => pad.append(k ? UI.h('button', { text: k, 'aria-label': k === '⌫' ? 'delete' : k, onclick: () => press(k) }) : UI.h('span')));
+    const go = UI.h('button', { class: 'go', text: T('check'), onclick: () => { if (!val) return; const v = Number(val); onEnter(v, disp); if (!R.done) { val = ''; show(); } } });
+    pad.append(go); show();
+    R.keydown = e => { if (/^[0-9.]$/.test(e.key)) press(e.key); else if (e.key === 'Backspace') press('⌫'); else if (e.key === 'Enter') go.click(); };
+    R.solve = () => { val = String(q.answer); show(); };
+    stage.append(pad); return pad;
+  }
+  const same = (v, a) => Math.abs(Number(v) - Number(a)) < 1e-9;
+  const KINDS = {
+    choice(stage, q) {
+      const opts = UI.h('div', { class: 'opts' });
+      UI.shuffle(q.options.slice()).forEach(o => {
+        const b = UI.h('button', { class: 'opt', html: String(o), onclick: () => { if (R.done) return; if (o === q.answer) { b.classList.add('good'); right(b); } else { b.classList.add('bad'); wrong(o, b); } } });
+        opts.append(b);
+      });
+      R.solve = () => opts.querySelectorAll('.opt').forEach(b => { if (b.innerHTML === String(q.answer)) b.classList.add('good'); });
+      stage.append(opts);
+    },
+    number(stage, q) { keypad(stage, q, (v, at) => same(v, q.answer) ? right(at) : wrong(v, at)); },
+    bars(stage, q) {
+      const wrap = UI.h('div', { class: 'split' }), left = UI.h('div', {});
+      left.append(UI.bars(q.model)); wrap.append(left); stage.append(wrap);
+      keypad(wrap, q, (v, at) => same(v, q.answer) ? right(at) : wrong(v, at));
+      const solve0 = R.solve; R.solve = () => { solve0(); left.innerHTML = ''; left.append(UI.bars(q.model, { reveal: true, answer: q.answer })); };
+    },
+    order(stage, q) {
+      const items = q.items.slice(), got = [], picked = UI.h('div', { class: 'picked' }), pool = UI.h('div', { class: 'order' });
+      UI.shuffle(items.slice()).forEach(it => {
+        const b = UI.h('button', { class: 'opt', html: it, onclick: () => {
+          if (R.done) return;
+          if (it === items[got.length]) { got.push(it); b.classList.add('used'); picked.append(UI.h('span', { html: got.length + '. ' + it })); SFX.play('tap'); if (got.length === items.length) right(b); }
+          else wrong(it, b);
+        } });
+        pool.append(b);
+      });
+      R.solve = () => { picked.innerHTML = items.map((it, i) => `<span>${i + 1}. ${it}</span>`).join(''); };
+      stage.append(picked, pool);
+    }
+  };
+  document.addEventListener('keydown', e => { if (R && !R.done && R.keydown && !document.querySelector('.dlg-back')) R.keydown(e); });
+
+  /* ---------- 🎓 LEARN ---------- */
+  function learn(i) {
+    clearTimers(); S.li = 99; bar();
+    const slides = GAME.learn || [], sl = slides[i], stage = $('#stage');
+    stage.innerHTML = ''; $('#g-dots').innerHTML = slides.map((_, k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join('');
+    let ready = !sl.wait;
+    const last = i === slides.length - 1;
+    const next = UI.h('button', { class: 'cbtn go', text: last ? T('ready') : T('next'), onclick: () => { if (!ready) return; SFX.play('tap'); last ? startLevel(0) : learn(i + 1); } });
+    const back = i > 0 ? UI.h('button', { class: 'cbtn', text: '◂', 'aria-label': 'back', onclick: () => learn(i - 1) }) : null;
+    next.disabled = !ready;
+    const Lc = { ok(msg) { ready = true; next.disabled = false; SFX.play('right'); if (msg) COACH.say(msg, 'good'); COACH.tools(back, next); next.focus(); } };
+    COACH.say(sl.say, sl.wait ? 'hint' : '');
+    COACH.tools(back, next);
+    if (sl.draw) sl.draw(stage, Lc);
+  }
+
+  /* ---------- 🏠 HOME ---------- */
+  function home() {
+    clearTimers(); S.li = -1; bar(); R = null;
+    const stage = $('#stage'); stage.innerHTML = '';
+    const h = UI.h('div', { class: 'home' });
+    h.append(UI.h('div', { style: 'font-size:64px', text: GAME.emoji }), UI.h('h2', { text: GAME.title }), UI.h('p', { style: 'margin:0;max-width:640px', html: GAME.objective || '' }));
+    const cards = UI.h('div', { class: 'cards' });
+    cards.append(UI.h('button', { class: 'card', onclick: () => { SFX.play('tap'); learn(0); } }, UI.h('span', { class: 'ic', text: '🎓' }), UI.h('b', { text: T('learn') }), UI.h('small', { text: GAME.learnBlurb || 'A guided walk-through' })));
+    GAME.levels.forEach((L, i) => cards.append(UI.h('button', { class: 'card', onclick: () => { SFX.play('tap'); startLevel(i); } },
+      UI.h('span', { class: 'ic', text: L.icon || '⭐' }), UI.h('b', { text: `${T('level')} ${i + 1} · ${L.name}` }), UI.h('small', { text: L.blurb || '' }), UI.h('span', { class: 'st', text: '★'.repeat(S.stars[i] || 0) + '☆'.repeat(3 - (S.stars[i] || 0)) }))));
+    h.append(cards); stage.append(h);
+    COACH.say(GAME.welcome || '', 'cheer'); COACH.tools();
+  }
+  function howTo() {
+    return DIALOG.open({ icon: '❓', title: T('how'), html: `<p>${GAME.how.what}</p><ol>${GAME.how.steps.map(s => `<li>${s}</li>`).join('')}</ol>` });
+  }
+
+  /* ---------- START ---------- */
+  function boot() {
+    document.documentElement.lang = GAME.lang || 'en'; document.documentElement.dir = GAME.lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.style.setProperty('--target', ({ k2: 72, g35: 56, g68: 44, g912: 44 }[GAME.band] || 56) + 'px');
+    document.title = GAME.title; $('#g-emoji').textContent = GAME.emoji; $('#g-title').firstChild.textContent = GAME.title; $('#g-sub').textContent = `${GAME.code} · ${GAME.topic}`;
+    const sb = $('#b-sound'), vb = $('#b-voice');
+    const sync = () => { sb.setAttribute('aria-pressed', SFX.on); sb.textContent = SFX.on ? '🔊' : '🔇'; vb.setAttribute('aria-pressed', VOICE.on); };
+    sb.onclick = () => { SFX.on = !SFX.on; sync(); SFX.play('tap'); }; vb.onclick = () => { VOICE.on = !VOICE.on; sync(); UI.toast(VOICE.on ? '🗣 on' : '🗣 off'); };
+    $('#b-help').onclick = howTo; $('#b-home').onclick = home; sync();
+    let saved = null; try { saved = JSON.parse(localStorage.getItem(KEY()) || 'null'); } catch (e) { /* new */ }
+    if (saved) S = Object.assign(S, saved, { li: saved.li });
+    home(); tell({ type: 'lesson:ready' });
+    if (saved && saved.li >= 0 && saved.li < GAME.levels.length && saved.ri > 0)
+      DIALOG.open({ icon: '💾', title: T('resume'), html: `<p style="text-align:center">${GAME.levels[saved.li].name} · ${saved.ri} / ${GAME.levels[saved.li].rounds}</p>`, buttons: [{ label: T('no'), value: 'no' }, { label: T('yes'), value: 'yes', primary: true }] })
+        .then(v => { if (v === 'yes') { S.li = saved.li; S.ri = saved.ri; round(); } else { S.ri = 0; S.li = -1; save(); } });
+    else if (!saved) howTo();
+  }
+  /* ---------- test hooks (automated tests and screenshots) ---------- */
+  window.GAME_TEST = {
+    get state() { return { li: S.li, ri: S.ri, stars: S.stars.slice(), streak: S.streak, done: S.done, thinking: !!(THINKING && document.querySelector('.think')) }; },
+    level: i => startLevel(i), learn: () => learn(0), home: () => home(), reset() { try { localStorage.removeItem(KEY()); } catch (e) { /* fine */ } S = { li: -1, ri: 0, stars: [0, 0, 0], first: 0, streak: 0, best: 0, done: 0 }; home(); },
+    skipThink() { if (THINKING && document.querySelector('.think')) THINKING.skip(); },
+    pass() { if (!R || R.done) return false; GAME_TEST.skipThink(); if (R.solve) R.solve(); right(); return true; },
+    fail(v) { if (R && !R.done) wrong(v == null ? -1 : v); }
+  };
+  window.addEventListener('DOMContentLoaded', boot);
+})();
+</script>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════════════════════════════════════
+   ✏️ YOUR GAME — the ONLY part to edit for a new lesson. (Example: Grade 4 · Lesson 6-3, the book's numbers.)
+   ══════════════════════════════════════════════════════════════════════════════════════════════════════ */
+const C1 = '#ffd23f', C2 = '#7bdff2', C3 = '#b6e3a1';
+/* every story keeps the textbook's numbers; only the context is Saudi */
+const STORIES = [
+  { problem: { sentences: ['For the trip to the Jeddah Aquarium, 8 buses carry 24 fourth graders each.', 'The school also books a photographer for the day.', '6 vans carry 15 third graders each.', 'How many fewer third graders than fourth graders go?'], question: 3, keys: ['each', 'fewer'], extras: [1] },
+    hidden: 'How many fourth graders go on the trip?', fake: ['How many buses and vans are there?', 'How many students fit in one bus?', 'Which is bigger, a bus or a van?'],
+    model: { rows: [{ letter: 'F', label: 'fourth graders', n: 8, each: 24, color: C1 }, { letter: 'T', label: 'third graders', n: 6, each: 15, color: C2 }], final: { kind: 'compare', letter: 'S' } },
+    answer: 102, eq: 'S = (8 × 24) − (6 × 15)', wrongEq: ['S = (8 × 24) − 6', 'S = (8 + 6) × 24', 'S = (8 × 24) + (6 × 15)'],
+    why: v => v === 282 ? 'You added — the question asks how many FEWER.' : v === 186 ? 'Each van holds 15 — find all the third graders: 6 × 15.' : v === 192 || v === 90 ? 'That answers one hidden question. Now compare the two.' : 'Find F and T first, then F − T.',
+    hints: ['What must you know before you can compare?', 'F = 8 × 24 and T = 6 × 15.', 'S = 192 − 90'], solution: 'F = 192, T = 90 → <b>S = 192 − 90 = 102</b> fewer third graders.' },
+  { problem: { sentences: ['At the corniche kiosk, a mutabbaq costs SAR 18 and a shawarma costs SAR 6.', 'The kiosk opens at 4 o’clock.', 'A family buys 2 mutabbaq and 4 shawarma.', 'What is the total cost?'], question: 3, keys: ['total'], extras: [1] },
+    hidden: 'What do 2 mutabbaq cost?', fake: ['How many things did they buy?', 'When does the kiosk open?', 'How much change do they get?'],
+    model: { rows: [{ letter: 'M', label: 'cost of mutabbaq', n: 2, each: 18, color: C1 }, { letter: 'H', label: 'cost of shawarma', n: 4, each: 6, color: C2 }], final: { kind: 'sum', letter: 'T' } },
+    answer: 60, prefix: 'SAR ', eq: 'T = (2 × 18) + (4 × 6)', wrongEq: ['T = 2 + 18 + 4 + 6', 'T = (2 + 4) × 18', 'T = (2 × 18) − (4 × 6)'],
+    why: v => v === 36 || v === 24 ? 'That is one hidden question. Add both costs.' : v === 30 ? '2 mutabbaq is 2 × 18, not 2 + 18.' : 'M + H.',
+    hints: ['What does each part cost?', 'M = 2 × 18, H = 4 × 6', 'T = 36 + 24'], solution: 'M = 36, H = 24 → <b>T = SAR 60</b>.' },
+  { problem: { sentences: ['282 students go to the aquarium.', 'The school fills 11 buses with 24 students each.', 'The rest ride in vans.', 'How many students ride in vans?'], question: 3, keys: ['each', 'rest'], extras: [] },
+    hidden: 'How many students ride in the buses?', fake: ['How many buses are there?', 'How many students fit in one van?', 'How many students go in all?'],
+    model: { rows: [{ letter: 'B', label: 'students in buses', n: 11, each: 24, color: C1 }], final: { kind: 'part', letter: 'V', total: 282 } },
+    answer: 18, eq: 'V = 282 − (11 × 24)', wrongEq: ['V = 282 − 11', 'V = 11 × 24', 'V = 282 + (11 × 24)'],
+    why: v => v === 264 ? 'That is the buses. How many are LEFT for the vans?' : v === 271 ? 'Each bus holds 24 — 11 × 24 first.' : '282 − B.',
+    hints: ['Who rides the buses first?', 'B = 11 × 24', 'V = 282 − 264'], solution: 'B = 264 → <b>V = 282 − 264 = 18</b> students.' }
+];
+const story = i => STORIES[((i % STORIES.length) + STORIES.length) % STORIES.length];
+
+const GAME = {
+  id: 'g4-6-3-hidden-question', code: 'Lesson 6-3', title: 'The Hidden Question Trip', emoji: '🚌', topic: 'Model multi-step problems',
+  band: 'g35',            // k2 · g35 · g68 · g912 — sets button size and read-aloud default
+  lang: 'en',             // 'en' or 'ar' (Arabic flips the layout and the voice)
+  objective: 'I can find <b>hidden questions</b> and use <b>bar diagrams</b> and <b>equations</b> to solve multi-step problems.',
+  welcome: 'Yalla, trip day! Every story hides a question. 🚌',
+  learnBlurb: 'CUBES → hidden question → bars → answer',
+  how: { what: 'Four steps, the same every time:', steps: ['🧠 CUBES — circle the numbers, underline the question, box the key words, cross out extras.', '🔍 Hidden question — what must you find first?', '📊 Bars — a bar for each hidden question.', '✅ Answer — the original question, as one equation.'] },
+  learn: [
+    { say: 'The school goes to the Jeddah Aquarium: <b>8 buses</b> of 24, <b>6 vans</b> of 15. How many <b>fewer</b> third graders?',
+      draw(el) { el.append(UI.steps(-1), UI.h('div', { style: 'font-size:38px;text-align:center', html: '🚌'.repeat(8) + '<br>' + '🚐'.repeat(6) })); } },
+    { say: 'Step 1 · <b>CUBES</b>: circle the numbers, underline the question, box <b>each</b> and <b>fewer</b>.',
+      draw(el) { el.append(UI.steps(0), UI.h('p', { class: 'prompt ttext', html: '<span class="w num on">8</span> buses carry <span class="w num on">24</span> fourth graders <span class="w key on">each</span>; <span class="w num on">6</span> vans carry <span class="w num on">15</span> <span class="w key on">each</span>. <span class="s q on">How many <span class="w key on">fewer</span> third graders go?</span>' })); } },
+    { say: 'Step 2 · <b>Hidden questions</b>: how many fourth graders? How many third graders?',
+      draw(el) { el.append(UI.steps(1), UI.h('p', { class: 'prompt', html: '🔍 F = 8 × 24 = ?<br>🔍 T = 6 × 15 = ?' })); } },
+    { say: 'Step 3 · <b>Bars</b>: 8 boxes of 24 → F = 192. 6 boxes of 15 → T = 90.',
+      draw(el) { el.append(UI.steps(2), UI.bars({ rows: STORIES[0].model.rows }, { reveal: true })); } },
+    { say: 'Your turn! Step 4 · <b>Answer</b>: F = 192, T = 90. How many fewer?', wait: true,
+      draw(el, L) {
+        el.append(UI.steps(3), UI.bars(STORIES[0].model, { reveal: true }));
+        const row = UI.h('div', { class: 'opts' });
+        [102, 282, 186].forEach(v => row.append(UI.h('button', { class: 'opt', text: String(v), onclick: e => v === 102 ? (e.target.classList.add('good'), L.ok('Yes! S = 192 − 90 = <b>102</b>.')) : (UI.shake(e.target), SFX.play('wrong'), COACH.say(v === 282 ? 'That adds them. FEWER means subtract.' : 'Each van holds 15 — use T = 90.', 'bad')) })));
+        el.append(row);
+      } },
+    { say: 'Ghubar wrote <b>S = 8 × 24 − 6 = 186</b>. What did he forget?', wait: true,
+      draw(el, L) {
+        GHUBAR.pop('8 × 24 − 6 = 186. Vans are vans, who counts students? Hee hee!', 5000);
+        const row = UI.h('div', { class: 'opts' });
+        [['The 15 students in each van', true], ['The buses', false], ['Nothing — 186 is right', false]].forEach(([t, ok]) => row.append(UI.h('button', { class: 'opt', text: t, onclick: e => ok ? (e.target.classList.add('good'), L.ok('Right! He skipped hidden question 2: 6 × 15 = 90.')) : (UI.shake(e.target), SFX.play('wrong'), COACH.say('Look at the vans: 6 vans, but how many in each?', 'bad')) })));
+        el.append(row);
+      } }
+  ],
+  levels: [
+    { name: 'Hidden question', icon: '🔍', blurb: 'After CUBES: what must you find first?', rounds: 3, path: 1,
+      say: '🔍 What is the <b>hidden question</b>?',
+      round(i) { const s = story(i); return { type: 'choice', problem: s.problem, prompt: '🔍 What must you find out <b>first</b>?', options: [s.hidden, ...s.fake], answer: s.hidden,
+        why: () => 'That does not help yet. What number do you need before you can answer?', hints: ['Which number is missing from the story?', 'You need a total for each group first.'], solution: 'Hidden question: <b>' + s.hidden + '</b>' }; } },
+    { name: 'Bars', icon: '📊', blurb: 'Use the bars to answer the question', rounds: 3, path: 2,
+      say: '📊 Use the bars — then type the answer.',
+      round(i) { const s = story(i + 1); return { type: 'bars', problem: s.problem, model: s.model, answer: s.answer, prefix: s.prefix, why: s.why, hints: s.hints, solution: s.solution }; } },
+    { name: 'One equation', icon: '✅', blurb: 'Pick the equation for the whole story', rounds: 3, path: 3, think: false,
+      say: '✅ Which equation tells the whole story?',
+      round(i) { const s = story(i + 2); return { type: 'choice', prompt: s.problem.sentences.filter((_, k) => !(s.problem.extras || []).includes(k)).join(' '), options: [s.eq, ...s.wrongEq], answer: s.eq,
+        why: v => v.includes('+') && s.model.final.kind === 'compare' ? 'Adding? The question asks how many fewer.' : 'Each bracket is one hidden question — check them.', hints: ['Write each hidden question in brackets.', 'Then join them with the operation the question asks for.'], solution: '<b>' + s.eq + '</b> = ' + s.answer }; } }
+  ],
+  ghubar: ['Hidden question? I answer the first number I see!', '8 buses minus 6 vans — 2. Done!', 'Brackets are just decoration. Hee hee!'],
+  praise: ['Hidden question found!', 'Bar by bar — solved!', 'Mashallah, brilliant!', 'Spot on!', 'Great thinking!'],
+  finale: 'Every trip story cracked — hidden questions, bars and answers! 🚌'
+};
+</script>
+</body>
+</html>

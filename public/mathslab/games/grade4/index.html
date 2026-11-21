@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grade 4 lesson games · Fikr template</title>
+<style>
+  :root{--ink:#1d1408;--line:#4a2f15;--brand:#a8452f;--paper:#fffaf0;--muted:#6b5a3a;
+    --font:"Segoe UI","Noto Sans","Noto Sans Arabic",system-ui,sans-serif}
+  *{box-sizing:border-box}
+  body{margin:0;font:600 17px/1.45 var(--font);color:var(--ink);background:linear-gradient(170deg,#f6e2b4,#e3c48c 60%,#c99d5f);min-height:100vh}
+  .wrap{max-width:1040px;margin:0 auto;padding:26px 16px 44px}
+  a.back{display:inline-block;color:var(--ink);text-decoration:none;font-weight:800;font-size:14px;border:3px solid var(--line);background:var(--paper);padding:8px 13px;border-radius:12px;box-shadow:0 3px 0 var(--line)}
+  h1{font-size:clamp(26px,4vw,38px);margin:18px 0 6px}
+  .lede{margin:0;max-width:74ch;color:#3b2814}
+  .note{margin:14px 0 24px;padding:12px 14px;border:3px solid var(--line);border-radius:14px;background:#fff3c4;font-size:14.5px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+  .card{display:grid;gap:6px;text-align:start;background:var(--paper);border:3px solid var(--line);border-radius:18px;box-shadow:0 5px 0 var(--line);padding:16px;text-decoration:none;color:inherit}
+  .card:hover{transform:translateY(-2px)}
+  .card .ic{font-size:30px}
+  .card b{font-size:18px}
+  .card small{color:var(--muted);font-weight:600}
+  .card .go{margin-top:6px;font-weight:900;color:var(--brand)}
+  footer{margin-top:30px;font-size:14px;color:#3b2814}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="../../index.html">← MathsLab</a>
+  <h1>Grade 4 lesson games</h1>
+  <p class="lede">Ten Grade 4 maths games, one per objective, built from the same Fikr lesson-game template as
+    Grades 1–3: Rawi the guide, Ghubar the mischief-maker, guided Learn slides, CUBES think-first on every word
+    problem, a three-step hint ladder and three CRA levels — now on multi-digit multiplication by area model,
+    division with partial quotients, hidden-question two-step problems, factors and primes, comparing fractions,
+    like-denominator fraction sums, decimals to hundredths, angle measurement, place value <em>to the millions</em>,
+    and quadrilateral classification by property.</p>
+  <p class="lede">Every game also renders the نبع/موازي <b>lesson frame</b> under the play cards: the unit's Quranic
+    verse anchor and three-letter roots, the anti-overreach caution, five objectives, the three levels as
+    stations, an exit card of four items with a success criterion, two screen-free homework tasks, a reflection,
+    and the P2 status line.</p>
+  <p class="note">Prototypes for review — <b>not curriculum-approved and not classroom-tested (P2)</b>.
+    Objective mapping, the source ledger and the evidence boundary are recorded in
+    <a href="../../docs/mowazi/g4-expansion.md">docs/mowazi/g4-expansion.md</a>; the methodology audit against the
+    curriculum folder is in <a href="../../docs/mowazi/methodology-audit-g1-g4.md">methodology-audit-g1-g4.md</a>.</p>
+  <div class="grid" id="grid"></div>
+  <footer>Each game is one self-contained offline HTML file in this folder. No network, no external fonts, no images —
+    artwork is inline SVG drawn in the page.</footer>
+</main>
+<script>
+  const CAT = [
+    ['g4-carpet-workshop','🧶','Carpet Workshop','Two-digit × two-digit on an area model'],
+    ['g4-pearl-divers','🦪','Pearl Divers','Divide multi-digit by one digit, partial quotients'],
+    ['g4-aquarium-trip','🚌','Aquarium Trip','Find the hidden question in a two-step story'],
+    ['g4-falcon-factors','🦅','Falcon Factors','Every factor pair, and prime or composite'],
+    ['g4-khandaq-compare','🌉','Khandaq Compare','Compare fractions with different denominators'],
+    ['g4-majlis-fractions','🫖','Majlis Fractions','Add and subtract like-denominator fractions'],
+    ['g4-halala-decimals','🌱','Halala Decimals','Decimals to hundredths from a hundred grid'],
+    ['g4-ridge-angles','📐','Ridge Angles','Measure an angle, then classify it'],
+    ['g4-dune-place','🏜️','Dune Place','Place value to the millions, and compare'],
+    ['g4-pigeon-loft','🕊️','Pigeon Loft','Classify quadrilaterals by their properties']
+  ];
+  const grid = document.getElementById('grid');
+  CAT.forEach(([id, ic, title, blurb]) => {
+    const a = document.createElement('a');
+    a.className = 'card'; a.href = id + '.html';
+    a.innerHTML = `<span class="ic">${ic}</span><b>${title}</b><small>${blurb}</small><span class="go">Play ▶</span>`;
+    grid.append(a);
+  });
+</script>
+</body>
+</html>

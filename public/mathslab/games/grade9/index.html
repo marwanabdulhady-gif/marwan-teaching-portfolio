@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grade 9 lesson games · Fikr template</title>
+<style>
+  :root{--ink:#1d1408;--line:#4a2f15;--brand:#35507a;--paper:#fffaf0;--muted:#6b5a3a;
+    --font:"Segoe UI","Noto Sans","Noto Sans Arabic",system-ui,sans-serif}
+  *{box-sizing:border-box}
+  body{margin:0;font:600 17px/1.45 var(--font);color:var(--ink);background:linear-gradient(170deg,#eef2fa,#d5dff0 60%,#b6c6e0);min-height:100vh}
+  .wrap{max-width:1040px;margin:0 auto;padding:26px 16px 44px}
+  a.back{display:inline-block;color:var(--ink);text-decoration:none;font-weight:800;font-size:14px;border:3px solid var(--line);background:var(--paper);padding:8px 13px;border-radius:12px;box-shadow:0 3px 0 var(--line)}
+  h1{font-size:clamp(26px,4vw,38px);margin:18px 0 6px}
+  .lede{margin:0 0 12px;max-width:74ch;color:#3b2814}
+  .note{margin:14px 0 24px;padding:12px 14px;border:3px solid var(--line);border-radius:14px;background:#fff3c4;font-size:14.5px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+  .card{display:grid;gap:6px;text-align:start;background:var(--paper);border:3px solid var(--line);border-radius:18px;box-shadow:0 5px 0 var(--line);padding:16px;text-decoration:none;color:inherit}
+  .card:hover{transform:translateY(-2px)}
+  .card .ic{font-size:30px}
+  .card b{font-size:18px}
+  .card small{color:var(--muted);font-weight:600}
+  .card .go{margin-top:6px;font-weight:900;color:var(--brand)}
+  footer{margin-top:30px;font-size:14px;color:#3b2814}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="../../index.html">← MathsLab</a>
+  <h1>Grade 9 lesson games</h1>
+  <p class="lede">Seven Grade 9 maths games, <b>one per real lesson document</b> in the Grade 9 mathematics
+    folder (الرياضيات — السنة التاسعة / الصف الثالث الإعدادي / الترم الأول والثاني) — not one per invented
+    objective. Each keeps its document's own bundle code: G09-U01-MAT-L01, G09-U01-MAT-L02,
+    G09-U01-MATH-L02, G09-U01-L03, G09-U02-MAT-L01, G09-U02-MAT-L02 and G09-U02-MATH-L02.</p>
+  <p class="lede">The set is almost entirely <b>quadratics</b>, so the seven games divide the topic rather than
+    repeating it: the curve and its crossings (<b>Parabola Launch</b>), systems and the solution region of
+    inequalities (<b>Region Planner</b>), factoring into roots (<b>Factor Bench</b>), the values table and
+    vector components (<b>Arc Table</b>), completing the square with the general formula and the
+    discriminant (<b>Complete the Square</b>), maximum versus minimum (<b>Vertex Extremes</b>), and intervals
+    of increase and decrease with the limits of a claim (<b>Quadratic Apps</b>).</p>
+  <p class="lede">Every game also renders the نبع/موازي <b>lesson frame</b> under the play cards: the unit's
+    Quranic verse anchor and three-letter roots, the anti-overreach caution, five objectives, the levels as
+    stations, an exit card of four items with a success criterion, two screen-free homework tasks (the
+    documents' own 30 minutes بلا شاشات beside the 45-minute lesson), a reflection, and the P2 status line.</p>
+  <p class="note">Prototypes for review — <b>not curriculum-approved and not classroom-tested (P2)</b>.
+    <b>Two things in this grade need a human decision.</b> First, <code>G09-U01-MATH-L02</code> (factoring
+    polynomials) and <code>G09-U02-MAT-L01</code> (completing the square and the general formula) are
+    <b>different lessons that finish the same equations</b>; they are kept as two games, one owning the
+    factoring route and one owning the completing-the-square route, and neither works the other's method.
+    Second, <code>G09-U01-L03</code> (quadratic function and vectors) says of itself that it is an unapproved
+    draft whose <b>HTML and digital game build are deferred</b>, and that its numbers are hypothetical and
+    prove no real aircraft performance; its game is the prototype the document asks for, and the caveat
+    travels with it. Source mapping and every split decision are recorded in
+    <a href="../../docs/mowazi/g9-expansion.md">docs/mowazi/g9-expansion.md</a>.</p>
+  <div class="grid" id="grid"></div>
+  <footer>Each game is one self-contained offline HTML file in this folder. No network, no external fonts, no images —
+    artwork is inline SVG drawn in the page.</footer>
+</main>
+<script>
+  const CAT = [
+    ['g9-parabola-launch','🎯','Parabola Launch','The curve, its vertex, its roots, and a projectile model'],
+    ['g9-region-planner','🗺️','Region Planner','Systems by elimination and the solution region of two inequalities'],
+    ['g9-factor-bench','🧩','Factor Bench','GCF, difference of squares, trinomials, and the zero product property'],
+    ['g9-arc-table','📊','Arc Table','A table of values, zero versus greatest height, vector components'],
+    ['g9-complete-square','⬛','Complete the Square','(x − p)² = q, the general formula, and the discriminant'],
+    ['g9-vertex-extremes','⛰️','Vertex Extremes','Maximum or minimum at the vertex, and what it means'],
+    ['g9-quadratic-apps','📈','Quadratic Apps','Intervals of increase and decrease, and the limits of a claim']
+  ];
+  const grid = document.getElementById('grid');
+  CAT.forEach(([id, ic, title, blurb]) => {
+    const a = document.createElement('a');
+    a.className = 'card'; a.href = id + '.html';
+    a.innerHTML = `<span class="ic">${ic}</span><b>${title}</b><small>${blurb}</small><span class="go">Play ▶</span>`;
+    grid.append(a);
+  });
+</script>
+</html>

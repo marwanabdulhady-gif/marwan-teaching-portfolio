@@ -1,0 +1,72 @@
+[
+  {
+    "id": "g2-date-packing",
+    "file": "g2-date-packing.html",
+    "title": "Date-Shop Packing",
+    "emoji": "📦",
+    "accent": "#0f8394"
+  },
+  {
+    "id": "g2-expanded-form",
+    "file": "g2-expanded-form.html",
+    "title": "Expanded-Form Workshop",
+    "emoji": "🧾",
+    "accent": "#6b4bc0"
+  },
+  {
+    "id": "g2-caravan-compare",
+    "file": "g2-caravan-compare.html",
+    "title": "Caravan Compare",
+    "emoji": "🐪",
+    "accent": "#b4703a"
+  },
+  {
+    "id": "g2-regroup-add",
+    "file": "g2-regroup-add.html",
+    "title": "Regrouping Depot",
+    "emoji": "🧱",
+    "accent": "#2f7d5c"
+  },
+  {
+    "id": "g2-regroup-subtract",
+    "file": "g2-regroup-subtract.html",
+    "title": "Lantern Borrow",
+    "emoji": "🏮",
+    "accent": "#bf4a5c"
+  },
+  {
+    "id": "g2-falcon-hop",
+    "file": "g2-falcon-hop.html",
+    "title": "Falcon Hop",
+    "emoji": "🦅",
+    "accent": "#3b6fb6"
+  },
+  {
+    "id": "g2-riyal-market",
+    "file": "g2-riyal-market.html",
+    "title": "Riyal Market",
+    "emoji": "🪙",
+    "accent": "#a8781f"
+  },
+  {
+    "id": "g2-crate-arrays",
+    "file": "g2-crate-arrays.html",
+    "title": "Crate Arrays",
+    "emoji": "🍊",
+    "accent": "#c1692f"
+  },
+  {
+    "id": "g2-five-minute-time",
+    "file": "g2-five-minute-time.html",
+    "title": "Harbour Clock",
+    "emoji": "⛵",
+    "accent": "#2b6f8f"
+  },
+  {
+    "id": "g2-ridge-diagram",
+    "file": "g2-ridge-diagram.html",
+    "title": "Ridge Diagram",
+    "emoji": "📈",
+    "accent": "#4a5fa8"
+  }
+]

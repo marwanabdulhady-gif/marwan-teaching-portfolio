@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson games · K–12 · MathsLab</title>
+<style>
+  :root{--ink:#10172a;--ink2:#475467;--muted:#8a94a6;--line:#e4e8f0;--accent:#6f5bf0;--accent-ink:#4a35c9;--gold:#ffb020;--bg:#eef1f7;--font:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
+  *{box-sizing:border-box}
+  body{margin:0;font:500 17px/1.45 var(--font);color:var(--ink);background:var(--bg)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 16px 40px}
+  header.top{display:flex;align-items:center;gap:14px;padding:16px 0 6px;flex-wrap:wrap}
+  header.top a.back{color:var(--ink2);text-decoration:none;font-weight:700;font-size:14px;border:1.5px solid var(--line);padding:9px 13px;border-radius:11px;background:#fff}
+  header.top a.back:hover{border-color:#c9bffb;color:var(--ink)}
+  h1{font:800 clamp(24px,4vw,34px)/1.1 var(--font);margin:14px 0 6px;letter-spacing:-.02em}
+  .lede{margin:0;color:var(--ink2);max-width:74ch}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 14px}
+  .filters button{appearance:none;cursor:pointer;font:700 13.5px/1 var(--font);color:var(--ink2);background:#fff;border:1.5px solid var(--line);border-radius:99px;padding:10px 15px}
+  .filters button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px}
+  .card{background:#fff;border-radius:18px;padding:16px;box-shadow:0 10px 26px -20px #10172a66,0 2px 0 #10172a0d;display:flex;flex-direction:column;gap:8px;cursor:pointer;border:2px solid transparent;transition:transform .12s,border-color .12s}
+  .card:hover{transform:translateY(-2px);border-color:#c9bffb}
+  .card:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .card .row{display:flex;align-items:center;gap:9px}
+  .badge{font:800 11.5px/1 var(--font);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--accent);border-radius:7px;padding:6px 8px}
+  .card .emoji{font-size:24px;line-height:1}
+  .card h3{margin:2px 0 0;font:800 18px/1.2 var(--font)}
+  .card .topic{margin:0;color:var(--accent-ink);font-size:13px;font-weight:700}
+  .card .blurb{margin:0;color:var(--ink2);font-size:13.5px;flex:1}
+  .card .foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
+  .stars{color:var(--gold);letter-spacing:2px;font-size:15px}
+  .stars .off{color:#e2e6ef}
+  .play{font:800 13.5px/1 var(--font);color:#fff;background:var(--accent);border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+  /* the player */
+  .sheet{position:fixed;inset:0;background:#0b1020cc;display:none;z-index:50;padding:12px}
+  .sheet.on{display:grid;grid-template-rows:auto 1fr;gap:10px}
+  .sheetbar{display:flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:10px 14px;flex-wrap:wrap}
+  .sheetbar b{font-size:15px}
+  .sheetbar .live{font-size:13px;color:var(--ink2)}
+  .sheetbar .live b{color:var(--ink)}
+  .sheetbar .grow{flex:1}
+  .sheetbar button{appearance:none;cursor:pointer;font:700 13px/1 var(--font);border:1.5px solid var(--line);background:#fff;color:var(--ink2);border-radius:10px;padding:9px 12px}
+  .sheetbar button:hover{border-color:#c9bffb;color:var(--ink)}
+  .mistakes{display:flex;gap:6px;flex-wrap:wrap}
+  .mistakes i{font-style:normal;font-size:11.5px;background:#fdeee8;color:#a02118;border-radius:99px;padding:4px 8px}
+  iframe{width:100%;height:100%;border:0;border-radius:14px;background:#fff}
+  .note{margin-top:22px;color:var(--muted);font-size:13px}
+  .pilot{display:flex;align-items:center;gap:16px;margin:18px 0 4px;padding:16px 18px;border:1px solid #cfe0d7;border-radius:17px;background:linear-gradient(110deg,#edf5ef,#fbf5e8);box-shadow:0 8px 20px -18px #18363a55}
+  .pilot-mark{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:#196b68;color:white;font-size:23px}
+  .pilot-copy{flex:1}.pilot-label{margin:0 0 3px;color:#a45d48;font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.pilot h2{margin:0;font-size:17px;line-height:1.2}.pilot p:last-child{margin:4px 0 0;color:#546c67;font-size:13px}
+  .pilot a{flex:none;display:inline-block;padding:11px 14px;border-radius:11px;background:#196b68;color:white;text-decoration:none;font-size:13px;font-weight:800}.pilot a:hover{background:#104d4e}
+  @media (max-width:560px){.wrap{padding:0 10px 30px}.grid{grid-template-columns:1fr}.pilot{align-items:flex-start;flex-wrap:wrap;gap:12px}.pilot-copy{min-width:calc(100% - 68px)}.pilot a{margin-inline-start:58px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="../index.html#/courses">← MathsLab</a>
+    <strong style="font-size:14px;color:var(--ink2)">Lesson games</strong>
+  </header>
+  <h1>15 lesson games + Grade 1 &amp; 2 sets</h1>
+  <p class="lede">The 15 Fikr games follow their own guided, three-level template. Clock Garden is a separate,
+    bilingual Mowazi prototype for calm full- and half-hour reading practice. All are standalone HTML activities.</p>
+
+  <aside class="pilot" aria-label="Grade 1 lesson games on the Fikr template" style="border-color:#e3c48c;background:linear-gradient(110deg,#fbf1de,#f6e2b4)">
+    <span class="pilot-mark" aria-hidden="true" style="background:#8a5a1f">🎓</span>
+    <div class="pilot-copy"><p class="pilot-label" style="color:#a45d48">Grade 1 · Fikr lesson template</p><h2>Ten Grade 1 lesson games</h2><p>Counting, comparing, adding, taking away, patterns, shapes, measuring, time, data and story problems — Rawi and Ghubar guide every round.</p></div>
+    <a href="grade1/index.html" style="background:#8a5a1f">Open the set →</a>
+  </aside>
+
+  <aside class="pilot" aria-label="Grade 2 lesson games on the Fikr template" style="border-color:#b9d7cb;background:linear-gradient(110deg,#eef8f3,#e2f2ea)">
+    <span class="pilot-mark" aria-hidden="true" style="background:#0f8394">📦</span>
+    <div class="pilot-copy"><p class="pilot-label" style="color:#a45d48">Grade 2 · Fikr lesson template</p><h2>Ten Grade 2 lesson games</h2><p>Place value to 1,000, expanded form, comparing, regrouping, skip counting, riyals, arrays, five-minute time and graph keys.</p></div>
+    <a href="grade2/index.html" style="background:#0f8394">Open the set →</a>
+  </aside>
+
+  <aside class="pilot" aria-label="Grade 3 lesson games on the Fikr template" style="border-color:#c9c4ea;background:linear-gradient(110deg,#f4f2ff,#e6e1fb)">
+    <span class="pilot-mark" aria-hidden="true" style="background:#5a5fb8">🌴</span>
+    <div class="pilot-copy"><p class="pilot-label" style="color:#a45d48">Grade 3 · Fikr lesson template</p><h2>Ten Grade 3 lesson games</h2><p>Equal groups, sharing, arrays and turnaround facts, times tables, unit fractions, fractions on a number line, equivalent fractions, area, perimeter and rounding.</p></div>
+    <a href="grade3/index.html" style="background:#5a5fb8">Open the set →</a>
+  </aside>
+
+  <aside class="pilot" aria-label="Grade 4 lesson games on the Fikr template" style="border-color:#e8c3b8;background:linear-gradient(110deg,#fff6f3,#fbe4dc)">
+    <span class="pilot-mark" aria-hidden="true" style="background:#a8452f">🧶</span>
+    <div class="pilot-copy"><p class="pilot-label" style="color:#a8452f">Grade 4 · Fikr lesson template</p><h2>Ten Grade 4 lesson games</h2><p>Area-model multiplication, division with partial quotients, hidden-question two-step problems, factors and primes, comparing fractions, like-denominator sums, decimals to hundredths, angles, place value to the millions, and quadrilaterals. Each carries the نبع lesson frame: verse anchor, roots, five objectives, stations, exit card, homework and the P2 line.</p></div>
+    <a href="grade4/index.html" style="background:#a8452f">Open the set →</a>
+  </aside>
+
+  <aside class="pilot" aria-label="Grade 5 lesson games on the Fikr template" style="border-color:#bcd9e3;background:linear-gradient(110deg,#f2fafd,#dceff6)">
+    <span class="pilot-mark" aria-hidden="true" style="background:#1f6f8b">🧭</span>
+    <div class="pilot-copy"><p class="pilot-label" style="color:#1f6f8b">Grade 5 · Fikr lesson template</p><h2>Ten Grade 5 lesson games</h2><p><b>One game per real lesson document.</b> Place value to thousandths and powers of ten, decimals to thousandths, volume in unit cubes, degrees and fractions of a turn, unlike denominators and fraction products, the coordinate plane and patterns, composite volume and capacity, percent–fraction–decimal, regular polygons and tiling, and bearing–position–speed. Each keeps its document's own bundle code (G05-U01-MAT-L01, G05-U01-MATH-L02, G05-U01-MAT-L02, G05-U01-L03, G05-U02-MATH-L02, G05-U02-MAT-L02, G05-U02-MAT-L01, G05-U03-L13, G05-U04-L18, G05-U02-L08) and the نبع lesson frame.</p></div>
+    <a href="grade5/index.html" style="background:#1f6f8b">Open the set →</a>
+  </aside>
+
+  <aside class="pilot" aria-label="Grade 6 lesson games on the Fikr template" style="border-color:#c2cee6;background:linear-gradient(110deg,#f4f7fd,#dfe6f4)">
+    <span class="pilot-mark" aria-hidden="true" style="background:#2f4f7f">🦅</span>
+    <div class="pilot-copy"><p class="pilot-label" style="color:#2f4f7f">Grade 6 · Fikr lesson template</p><h2>Nine Grade 6 lesson games</h2><p><b>One game per real lesson document.</b> Equivalent ratios and the language of ratio, unit rate with ratio tables and percent, rates from a recorded survey, sharing a quantity in a ratio on a tape diagram, dividing fractions by counting how many groups fit, integers and distance on the number line, one-step equations on a balance with inequalities, the area of polygons by decomposition, and mean / median / MAD. Each keeps its document's own bundle code (G06-U01-MAT-L01, G06-U01-MATH-L02, G06-U01-L03, G06-U02-MAT-L01, G06-U01-MAT-L02, G06-U02-MAT-L02, G06-U04-L18) and the نبع lesson frame.</p></div>
+    <a href="grade6/index.html" style="background:#2f4f7f">Open the set →</a>
+  </aside>
+
+  <aside class="pilot" aria-label="Grade 7 lesson games on the Fikr template" style="border-color:#c9d4e8;background:linear-gradient(110deg,#f3f6fc,#dfe5f5)">
+    <span class="pilot-mark" aria-hidden="true" style="background:#35507a">📈</span>
+    <div class="pilot-copy"><p class="pilot-label" style="color:#35507a">Grade 7 · Fikr lesson template</p><h2>Six Grade 7 lesson games</h2><p><b>One game per real lesson document.</b> Unit rate and the constant of proportionality k = y ÷ x, adding and subtracting signed numbers on the number line, rationals as terminating or repeating decimals, proportional relationships across table / equation / graph, successive percent discounts that are not their sum, and the circle with complementary, supplementary and vertical angles. Each keeps its document's own bundle code (G07-U01-MATH-L01, G07-U01-MAT-L02, G07-U01-MATH-L02, G07-U02-MAT-L01, G07-U02-MATH-L02, G07-U02-MAT-L02) and the نبع lesson frame.</p></div>
+    <a href="grade7/index.html" style="background:#35507a">Open the set →</a>
+  </aside>
+
+  <aside class="pilot" aria-label="Grade 8 lesson games on the Fikr template" style="border-color:#cfd8e6;background:linear-gradient(110deg,#f4f6fb,#dee2f0)">
+    <span class="pilot-mark" aria-hidden="true" style="background:#263c5e">📐</span>
+    <div class="pilot-copy"><p class="pilot-label" style="color:#263c5e">Grade 8 · Fikr lesson template</p><h2>Seven Grade 8 lesson games</h2><p><b>One game per real lesson document.</b> Slope, intercept and graphing a line, Pythagoras in building with the converse that tests a square corner, two-step equations and systems solved by substitution, choosing between two linear plans at their crossing, rate of change from a table giving y = mx + b, the distance between two plotted points, and the combined functions / Pythagoras lesson that adds an explicit limit on the model. Each keeps its document's own bundle code (G08-U01-MAT-L01, G08-U01-MAT-L02, G08-U01-MATH-L02, G08-U01-L03, G08-U02-MAT-L01, G08-U02-MAT-L02, G08-U02-MATH-L02) and the نبع lesson frame.</p></div>
+    <a href="grade8/index.html" style="background:#263c5e">Open the set →</a>
+  </aside>
+
+  <aside class="pilot" aria-label="Grade 9 lesson games on the Fikr template" style="border-color:#cfd6e2;background:linear-gradient(110deg,#f4f5fa,#dfe0ee)">
+    <span class="pilot-mark" aria-hidden="true" style="background:#2f3f63">🎯</span>
+    <div class="pilot-copy"><p class="pilot-label" style="color:#2f3f63">Grade 9 · Fikr lesson template</p><h2>Seven Grade 9 lesson games</h2><p><b>One game per real lesson document.</b> The parabola with its vertex and roots and a projectile model, systems by elimination with the solution region of two linear inequalities, factoring polynomials into their roots, a table of values with vector components, completing the square with the general formula and the discriminant, maximum versus minimum at the vertex, and intervals of increase and decrease with the limits of a claim. Each keeps its document's own bundle code (G09-U01-MAT-L01, G09-U01-MAT-L02, G09-U01-MATH-L02, G09-U01-L03, G09-U02-MAT-L01, G09-U02-MAT-L02, G09-U02-MATH-L02) and the نبع lesson frame.</p></div>
+    <a href="grade9/index.html" style="background:#2f3f63">Open the set →</a>
+  </aside>
+
+  <aside class="pilot" aria-label="Mowazi Grade 1 prototype activity">
+    <span class="pilot-mark" aria-hidden="true">◷</span>
+    <div class="pilot-copy"><p class="pilot-label">Mowazi · Grade 1 prototype</p><h2>Clock Garden</h2><p>A quiet, bilingual practice for reading full and half hours. No timer or score.</p></div>
+    <a href="play/g1-clock-garden.html">Open activity →</a>
+  </aside>
+
+  <div class="filters" id="filters">
+    <button class="on" data-band="all">All 16</button>
+    <button data-band="k2">K–2</button>
+    <button data-band="g35">3–5</button>
+    <button data-band="g68">6–8</button>
+    <button data-band="g912">9–12</button>
+  </div>
+  <div class="grid" id="grid"></div>
+
+  <p class="note">Stars are kept on this device. The games speak the Fikr message contract
+    (<code>lesson:ready / progress / level / mistakes / done</code>), so a teacher's page can show live
+    progress and a common-mistakes report — this page does exactly that in the bar above a game.</p>
+</div>
+
+<div class="sheet" id="sheet">
+  <div class="sheetbar">
+    <b id="sheetTitle">Game</b>
+    <span class="live" id="sheetLive"></span>
+    <span class="mistakes" id="sheetMistakes"></span>
+    <span class="grow"></span>
+    <button id="closeSheet">✕ Close</button>
+  </div>
+  <iframe id="frame" title="lesson game"></iframe>
+</div>
+
+<script src="catalog.js"></script>
+<script>
+(function () {
+  const CAT = window.FIKR_CATALOG || [];
+  const KEY = "fikr:stars:v1";
+  const grid = document.getElementById("grid");
+  const sheet = document.getElementById("sheet");
+  const frame = document.getElementById("frame");
+  const live = document.getElementById("sheetLive");
+  const mistakesEl = document.getElementById("sheetMistakes");
+  const titleEl = document.getElementById("sheetTitle");
+  let band = "all";
+  let open = null;
+
+  const bestOf = (id) => {
+    try { const t = JSON.parse(localStorage.getItem(KEY) || "{}"); const o = t[id] || {}; return [0, 1, 2].map((i) => o[i] || 0); } catch (e) { return [0, 0, 0]; }
+  };
+  const starStr = (arr) => arr.map((n) => "★".repeat(n) + `<span class="off">${"★".repeat(3 - n)}</span>`).join(" ");
+
+  function render() {
+    grid.innerHTML = "";
+    CAT.filter((g) => band === "all" || g.band === band).forEach((g) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.tabIndex = 0;
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-label", `${g.grade}: ${g.title}`);
+      card.innerHTML = `
+        <div class="row"><span class="badge">${g.grade}</span><span class="emoji">${g.emoji}</span></div>
+        <h3>${g.title}</h3>
+        <p class="topic">${g.topic}</p>
+        <p class="blurb">${g.blurb}</p>
+        <div class="foot"><span class="stars">${starStr(bestOf(g.id))}</span><button class="play">Play ▶</button></div>`;
+      const go = () => openGame(g);
+      card.addEventListener("click", go);
+      card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+      grid.append(card);
+    });
+  }
+  function openGame(g) {
+    open = g;
+    titleEl.textContent = `${g.emoji} ${g.title} · ${g.grade}`;
+    live.textContent = "loading…";
+    mistakesEl.innerHTML = "";
+    frame.src = "play/" + g.id + ".html";
+    sheet.classList.add("on");
+    frame.focus();
+  }
+  document.getElementById("closeSheet").addEventListener("click", () => {
+    sheet.classList.remove("on");
+    frame.src = "about:blank";
+    open = null;
+    render();
+  });
+  document.getElementById("filters").addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    band = b.dataset.band;
+    [...document.querySelectorAll("#filters button")].forEach((x) => x.classList.toggle("on", x === b));
+    render();
+  });
+
+  /* the message contract, checked exactly as Fikr's games page does */
+  addEventListener("message", (e) => {
+    if (e.origin !== location.origin) return;
+    const m = e.data || {};
+    if (m.v !== 1 || !m.id || !open || m.id !== open.id) return;
+    const num = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.round(Number(v) || 0)));
+    if (m.type === "lesson:ready") {
+      live.innerHTML = `ready · <b>${num(m.total, 0, 999)}</b> rounds in total — press Learn first`;
+    } else if (m.type === "lesson:progress") {
+      live.innerHTML = `<b>${num(m.done, 0, 999)}</b>/${num(m.total, 0, 999)} rounds · <b>${num(m.stars, 0, 999)}</b>★ · streak <b>${num(m.streak, 0, 999)}</b>`;
+    } else if (m.type === "lesson:level") {
+      const stars = num(m.stars, 0, 3);
+      try {
+        const t = JSON.parse(localStorage.getItem(KEY) || "{}");
+        t[open.id] = t[open.id] || {};
+        const lv = num(m.level, 0, 2);
+        if ((t[open.id][lv] || 0) < stars) t[open.id][lv] = stars;
+        localStorage.setItem(KEY, JSON.stringify(t));
+      } catch (err) {}
+      live.innerHTML = `level <b>${num(m.level, 0, 2) + 1}</b> done · <b>${stars}</b>★`;
+    } else if (m.type === "lesson:mistakes") {
+      mistakesEl.innerHTML = (m.list || []).slice(0, 4).map((x) => `<i>${String(x.detail).slice(0, 22)} ×${num(x.n, 1, 99)}</i>`).join("");
+    } else if (m.type === "lesson:done") {
+      const score = num(m.score, 0, 999), total = num(m.total, 0, 999);
+      live.innerHTML = `finished · <b>${score}/${total}</b> (${Math.round((score / Math.max(total, 1)) * 100)}%)`;
+    } else if (m.type === "lesson:close") {
+      document.getElementById("closeSheet").click();
+    }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

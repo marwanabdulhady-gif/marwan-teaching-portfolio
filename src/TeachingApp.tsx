@@ -110,8 +110,8 @@ function GamesPage() {
         num="03"
         label={{ en: 'Gamified Practice · FIKR Math Arcade', ar: 'التعلّم باللعب · صالة ألعاب فكر للرياضيات' }}
         subtitle={{
-          en: '18 browser-ready fluency games across four difficulty tiers plus live 1-v-1 multiplayer rooms.',
-          ar: '١٨ لعبة طلاقة رياضية مصنفة في ٤ مستويات بالإضافة إلى غرف التحدّي المباشرة.',
+          en: '18 browser-ready fluency games across four difficulty tiers, live 1-v-1 multiplayer rooms, and MathsLab: lesson games for Grades 1–9, a KG garden and the tools I teach with.',
+          ar: '١٨ لعبة طلاقة رياضية مصنفة في ٤ مستويات، وغرف التحدّي المباشرة، ومختبر الرياضيات: ألعاب دروس للصفوف ١–٩ وحديقة للروضة والأدوات التي أدرّس بها.',
         }}
       />
       <MathLab />

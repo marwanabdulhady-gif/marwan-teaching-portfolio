@@ -1,0 +1,72 @@
+[
+  {
+    "id": "g5-sliding-card",
+    "file": "g5-sliding-card.html",
+    "title": "The Sliding Card",
+    "emoji": "🔢",
+    "accent": "#1f6f8b"
+  },
+  {
+    "id": "g5-thousandths-workshop",
+    "file": "g5-thousandths-workshop.html",
+    "title": "Thousandths Workshop",
+    "emoji": "🧱",
+    "accent": "#5b4fa8"
+  },
+  {
+    "id": "g5-cube-storehouse",
+    "file": "g5-cube-storehouse.html",
+    "title": "Cube Storehouse",
+    "emoji": "🧊",
+    "accent": "#1b6b5a"
+  },
+  {
+    "id": "g5-star-clock",
+    "file": "g5-star-clock.html",
+    "title": "Star Clock",
+    "emoji": "🌙",
+    "accent": "#1d3f6e"
+  },
+  {
+    "id": "g5-oud-majlis",
+    "file": "g5-oud-majlis.html",
+    "title": "Oud Majlis",
+    "emoji": "🫖",
+    "accent": "#8c3f6b"
+  },
+  {
+    "id": "g5-map-grid",
+    "file": "g5-map-grid.html",
+    "title": "Map Grid",
+    "emoji": "🧭",
+    "accent": "#1d6f8c"
+  },
+  {
+    "id": "g5-madrasa-volume",
+    "file": "g5-madrasa-volume.html",
+    "title": "Madrasa Volume",
+    "emoji": "📦",
+    "accent": "#a5711f"
+  },
+  {
+    "id": "g5-harmony-percent",
+    "file": "g5-harmony-percent.html",
+    "title": "Harmony Percent",
+    "emoji": "💧",
+    "accent": "#1f7a63"
+  },
+  {
+    "id": "g5-zellige-courtyard",
+    "file": "g5-zellige-courtyard.html",
+    "title": "Zellige Courtyard",
+    "emoji": "🧩",
+    "accent": "#7a4a2f"
+  },
+  {
+    "id": "g5-caravan-rate",
+    "file": "g5-caravan-rate.html",
+    "title": "Caravan Rate",
+    "emoji": "🧭",
+    "accent": "#8a5a1c"
+  }
+]

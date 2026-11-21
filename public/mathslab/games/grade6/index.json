@@ -1,0 +1,65 @@
+[
+  {
+    "id": "g6-falcon-ratio",
+    "file": "g6-falcon-ratio.html",
+    "title": "Falcon Ratio",
+    "emoji": "🦅",
+    "accent": "#1f6f8b"
+  },
+  {
+    "id": "g6-date-rate",
+    "file": "g6-date-rate.html",
+    "title": "Date Rate",
+    "emoji": "🎯",
+    "accent": "#8a5a1c"
+  },
+  {
+    "id": "g6-pulse-ratio",
+    "file": "g6-pulse-ratio.html",
+    "title": "Pulse Ratio",
+    "emoji": "📊",
+    "accent": "#8c3f6b"
+  },
+  {
+    "id": "g6-tape-share",
+    "file": "g6-tape-share.html",
+    "title": "Tape Share",
+    "emoji": "🪢",
+    "accent": "#1b6b5a"
+  },
+  {
+    "id": "g6-water-divide",
+    "file": "g6-water-divide.html",
+    "title": "Water Divide",
+    "emoji": "💧",
+    "accent": "#1d6f8c"
+  },
+  {
+    "id": "g6-altitude-line",
+    "file": "g6-altitude-line.html",
+    "title": "Altitude Line",
+    "emoji": "📈",
+    "accent": "#2f4f7f"
+  },
+  {
+    "id": "g6-balance-equation",
+    "file": "g6-balance-equation.html",
+    "title": "Balance Equation",
+    "emoji": "⚖️",
+    "accent": "#5b4fa8"
+  },
+  {
+    "id": "g6-shade-area",
+    "file": "g6-shade-area.html",
+    "title": "Shade Area",
+    "emoji": "📐",
+    "accent": "#7a4a2f"
+  },
+  {
+    "id": "g6-fair-share-data",
+    "file": "g6-fair-share-data.html",
+    "title": "Fair Share Data",
+    "emoji": "📉",
+    "accent": "#1f7a63"
+  }
+]

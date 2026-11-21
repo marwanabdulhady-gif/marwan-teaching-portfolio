@@ -1,0 +1,1345 @@
+/* ===========================================================
+   MathsLab — the Maths Arcade
+   One stylesheet for the six game modes. Everything is local:
+   no images, no fonts, no network. All colour comes from the
+   site tokens in style.css.
+   =========================================================== */
+
+/* ---------- the floor ---------- */
+.ar-floor { display: grid; gap: 18px; }
+.ar-hero {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: center;
+  background: linear-gradient(135deg, #fff1f6, #eef0ff 60%, #e9fbf7);
+  border: 1px solid var(--line); border-radius: 18px; padding: 22px 24px;
+}
+.ar-hero h1 { margin: 4px 0 8px; font-size: clamp(24px, 3.4vw, 36px); letter-spacing: -.6px; }
+.ar-hero .lead { margin: 0; color: var(--ink-2, #475467); max-width: 68ch; }
+.ar-hero-art { font-size: 64px; line-height: 1; filter: drop-shadow(0 8px 18px rgba(109, 94, 252, .25)); animation: ar-tilt 4.5s ease-in-out infinite; }
+@keyframes ar-tilt { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(9deg); } }
+
+.ar-courses { display: flex; flex-wrap: wrap; gap: 6px; }
+.ar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.ar-tile {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 12px; align-items: center;
+  padding: 14px 16px; background: #fff; border: 1px solid var(--line); border-radius: 14px;
+  text-decoration: none; color: var(--ink); transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.ar-tile:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(16, 24, 40, .10); border-color: #d5cffd; }
+.ar-tile-ico { font-size: 30px; line-height: 1; text-align: center; }
+.ar-tile-main { display: grid; gap: 3px; }
+.ar-tile-main b { font-size: 15.5px; letter-spacing: -.2px; }
+.ar-tile-best { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: var(--brand-ink); background: var(--brand-soft); border-radius: 999px; padding: 4px 9px; }
+.ar-map { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.ar-map th, .ar-map td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.ar-map th { font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
+.ar-map a { color: var(--brand-ink); font-weight: 700; text-decoration: none; }
+
+/* ---------- a game page ---------- */
+.ar-game { display: grid; gap: 12px; position: relative; }
+.ar-head {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+  background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px;
+}
+.ar-head h1 { margin: 3px 0 6px; font-size: clamp(22px, 2.8vw, 30px); letter-spacing: -.5px; }
+.ar-head p { margin: 0; max-width: 70ch; }
+.ar-best { text-align: center; border: 1px dashed #d5cffd; border-radius: 12px; padding: 8px 14px; background: var(--brand-soft); }
+.ar-best span { display: block; font-size: 10px; letter-spacing: .6px; text-transform: uppercase; color: var(--brand-ink); font-weight: 800; }
+.ar-best b { font-size: 22px; color: var(--brand-ink); font-variant-numeric: tabular-nums; }
+
+.ar-hud { display: flex; flex-wrap: wrap; gap: 8px; }
+.ar-chip {
+  display: flex; align-items: baseline; gap: 7px; background: #fff; border: 1px solid var(--line);
+  border-radius: 999px; padding: 6px 13px; font-size: 12px;
+}
+.ar-chip span { color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .4px; font-size: 10px; }
+.ar-chip b { font-size: 15px; font-variant-numeric: tabular-nums; }
+
+.ar-stage { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 16px; min-height: 320px; overflow: hidden; }
+.ar-foot { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.ar-fb { font-size: 13px; color: var(--ink-2, #475467); min-height: 20px; }
+.ar-prompt { font-size: 18px; font-weight: 650; line-height: 1.5; }
+.ar-q { display: inline; }
+.ar-card { border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: linear-gradient(180deg, #fbfcff, #fff); }
+
+/* ---------- answer options ---------- */
+.ar-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 12px; }
+.ar-opt {
+  display: flex; align-items: center; gap: 10px; text-align: left; font: inherit;
+  background: #fff; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer;
+  transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+}
+.ar-opt:hover:not(:disabled) { border-color: var(--brand); transform: translateY(-1px); box-shadow: 0 8px 18px rgba(109, 94, 252, .12); }
+.ar-opt:disabled { cursor: default; opacity: .95; }
+.ar-opt-k { width: 22px; height: 22px; flex: none; display: grid; place-items: center; border-radius: 7px; background: var(--brand-soft); color: var(--brand-ink); font-size: 11px; font-weight: 800; }
+.ar-opt-t { font-size: 15px; }
+.ar-opt.ok { border-color: #1fa45b; background: #f0fdf4; }
+.ar-opt.ok .ar-opt-k { background: #1fa45b; color: #fff; }
+.ar-opt.no { border-color: #e5484d; background: #fff5f5; animation: ar-shake .34s ease; }
+.ar-opt.no .ar-opt-k { background: #e5484d; color: #fff; }
+
+@keyframes ar-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+@keyframes ar-pop { 0% { transform: scale(.86); } 60% { transform: scale(1.05); } 100% { transform: scale(1); } }
+.pop { animation: ar-pop .32s ease; }
+
+/* ---------- bingo ---------- */
+.ar-bingo { display: grid; gap: 14px; }
+.ar-bingo-prompt { display: grid; gap: 6px; }
+.ar-board { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 10px; }
+.ar-cell {
+  min-height: 92px; display: grid; place-items: center; text-align: center; padding: 10px;
+  font: inherit; font-size: 17px; font-weight: 700; background: #fff;
+  border: 1.5px solid var(--line); border-radius: 14px; cursor: pointer;
+  transition: transform .12s ease, background .2s ease, border-color .2s ease;
+}
+.ar-cell:hover { border-color: var(--brand); transform: translateY(-2px); }
+.ar-cell.is-marked { background: linear-gradient(180deg, #eafff2, #d7f7e5); border-color: #1fa45b; color: #0d7a3f; }
+.ar-cell.is-miss { border-color: #e5484d; animation: ar-shake .34s ease; }
+
+/* ---------- quiz race ---------- */
+.ar-race { display: grid; gap: 14px; }
+.ar-track { position: relative; height: 44px; border-radius: 12px; background: repeating-linear-gradient(90deg, #f4f5f9 0 22px, #eceef6 22px 44px); overflow: hidden; }
+.ar-track-fill { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(90deg, #cfc6ff, #6d5efc); opacity: .45; transition: width .3s ease; }
+.ar-runner { position: absolute; top: 50%; left: 0; transform: translate(-50%, -50%); font-size: 24px; transition: left .3s ease; }
+.ar-flag { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 20px; }
+
+/* ---------- comets ---------- */
+.ar-comets { display: grid; gap: 10px; }
+.ar-sky {
+  position: relative; height: 360px; border-radius: 14px; overflow: hidden;
+  background: radial-gradient(circle at 50% 120%, #1b2544, #0a0e1a 70%);
+}
+.ar-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 26px; background: linear-gradient(180deg, #1fa45b, #0d7a3f); opacity: .85; }
+.ar-qbox {
+  position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%);
+  max-width: min(560px, 92%); text-align: center; color: #fff; font-size: 16px; line-height: 1.45;
+  background: rgba(9, 13, 25, .72); border: 1px solid rgba(255, 255, 255, .16); border-radius: 12px; padding: 10px 14px;
+}
+.ar-qbox .katex { color: #fff; }
+.ar-comet {
+  position: absolute; display: grid; place-items: center; min-width: 96px; padding: 10px 14px;
+  font: inherit; font-size: 16px; font-weight: 700; color: #0b1020; cursor: pointer;
+  border-radius: 14px; border: none; background: radial-gradient(circle at 35% 30%, #fff, #ffe9a8 45%, #f0b429);
+  box-shadow: 0 8px 22px rgba(240, 180, 41, .35);
+}
+.ar-comet-tail { position: absolute; top: -26px; left: 50%; width: 4px; height: 26px; margin-left: -2px; border-radius: 2px; background: linear-gradient(180deg, rgba(255, 233, 168, 0), rgba(255, 233, 168, .8)); }
+.ar-comet:hover { transform: scale(1.04); }
+.ar-comet.no { background: #ffb4b4; animation: ar-shake .3s ease; }
+.ar-comet.gone { opacity: 0; transition: opacity .3s ease; }
+.ar-comet.pop { animation: ar-pop .3s ease; }
+
+/* ---------- memory ---------- */
+.ar-mem { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.ar-mcard { position: relative; min-height: 108px; background: none; border: none; padding: 0; cursor: pointer; font: inherit; }
+.ar-mface {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 8px; text-align: center;
+  border-radius: 14px; backface-visibility: hidden; transition: transform .32s ease, opacity .32s ease;
+}
+.ar-mback { background: linear-gradient(135deg, #6d5efc, #0f9d94); color: #fff; font-size: 26px; font-weight: 800; }
+.ar-mfront { background: #fff; border: 1.5px solid var(--line); font-size: 14px; font-weight: 600; opacity: 0; transform: rotateY(180deg); }
+.ar-mcard.is-open .ar-mback { opacity: 0; transform: rotateY(180deg); }
+.ar-mcard.is-open .ar-mfront { opacity: 1; transform: rotateY(0); }
+.ar-mcard.is-done .ar-mfront { border-color: #1fa45b; background: #f0fdf4; }
+.ar-mem-a { font-size: 20px; font-weight: 800; }
+
+/* ---------- rapid sort ---------- */
+.ar-sort { display: grid; gap: 14px; justify-items: center; }
+.ar-sort-rule { font-size: 14px; color: var(--ink-2, #475467); }
+.ar-sort-card {
+  min-width: 220px; min-height: 118px; display: grid; place-items: center; text-align: center;
+  font-size: 34px; font-weight: 800; letter-spacing: -.5px;
+  background: #fff; border: 2px solid var(--brand); border-radius: 18px; padding: 14px 26px;
+  box-shadow: 0 14px 30px rgba(109, 94, 252, .18);
+}
+.ar-buckets { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: min(560px, 100%); }
+.ar-bucket {
+  font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; padding: 14px;
+  border-radius: 14px; border: 1.5px dashed #cfd4dc; background: #fbfcff; color: var(--ink);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.ar-bucket:hover { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-ink); }
+.ar-bucket span { opacity: .5; }
+
+/* ---------- step order ---------- */
+.ar-steps { display: grid; gap: 12px; }
+.ar-steps-target { display: grid; gap: 8px; min-height: 60px; padding: 10px; border: 1.5px dashed #d5cffd; border-radius: 14px; background: #fbfaff; }
+.ar-steps-pool { display: grid; gap: 8px; }
+.ar-step {
+  display: flex; gap: 10px; align-items: flex-start; text-align: left; width: 100%; font: inherit;
+  font-size: 14px; line-height: 1.5; background: #fff; border: 1.5px solid var(--line);
+  border-radius: 12px; padding: 11px 13px; cursor: pointer; transition: transform .12s ease, border-color .12s ease;
+}
+.ar-step:hover { border-color: var(--brand); transform: translateY(-1px); }
+.ar-step.is-placed { cursor: default; background: #f6f4ff; border-color: #d5cffd; }
+.ar-step.is-placed b { width: 22px; height: 22px; flex: none; display: grid; place-items: center; border-radius: 7px; background: var(--brand); color: #fff; font-size: 11px; }
+.ar-step.is-wrong { border-color: #e5484d; background: #fff5f5; animation: ar-shake .34s ease; }
+.ar-row-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ---------- the end-of-round card ---------- */
+.ar-over {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 18px;
+  background: rgba(10, 14, 26, .42); backdrop-filter: blur(3px); z-index: 5;
+}
+.ar-over-card {
+  background: #fff; border-radius: 18px; padding: 24px 26px; text-align: center; max-width: 420px;
+  box-shadow: 0 24px 60px rgba(16, 24, 40, .28); animation: ar-pop .34s ease;
+}
+.ar-over-card h2 { margin: 4px 0 8px; font-size: 24px; letter-spacing: -.4px; }
+.ar-over-card p { margin: 0 0 10px; color: var(--ink-2, #475467); font-size: 14px; }
+.ar-over-icon { font-size: 40px; line-height: 1; }
+.ar-over-score { font-size: 30px; font-weight: 800; color: var(--brand-ink); font-variant-numeric: tabular-nums; margin-bottom: 12px; }
+.ar-over-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* ---------- confetti ---------- */
+.ar-confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 6; }
+.ar-confetti i {
+  position: absolute; top: -12px; width: 8px; height: 14px; border-radius: 2px; display: block;
+  animation: ar-fall 2.2s linear forwards;
+}
+@keyframes ar-fall { to { transform: translateY(120vh) rotate(540deg); opacity: .2; } }
+
+@media (max-width: 720px) {
+  .ar-hero { grid-template-columns: 1fr; }
+  .ar-hero-art { display: none; }
+  .ar-mem { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ar-board { gap: 8px; }
+  .ar-cell { min-height: 76px; font-size: 15px; }
+  .ar-sky { height: 300px; }
+  .ar-buckets { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ar-hero-art, .ar-confetti i { animation: none; }
+  .pop, .ar-opt.no, .ar-cell.is-miss, .ar-step.is-wrong { animation: none; }
+}
+
+/* ===========================================================
+   Mode pack 2 — fifteen more board layouts.
+   Same tokens, same rules: no images, no network, all local.
+   =========================================================== */
+
+/* ---------- floor: categories ---------- */
+.ar-cat { display: grid; gap: 10px; }
+.ar-cat-h { margin: 6px 0 0; font-size: 15px; letter-spacing: -.2px; display: flex; align-items: baseline; gap: 8px; }
+.ar-cat-h span { font-weight: 700; }
+.ar-tile-src { font-size: 10.5px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
+
+/* ---------- match pairs ---------- */
+.ar-pairs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.ar-ptile {
+  min-height: 96px; display: grid; place-items: center; text-align: center; padding: 10px; font: inherit;
+  font-size: 14px; font-weight: 600; background: #fff; border: 1.5px solid var(--line); border-radius: 14px;
+  cursor: pointer; transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+}
+.ar-ptile.is-ans { background: linear-gradient(180deg, #f7f9ff, #eef2ff); }
+.ar-ptile:hover { border-color: var(--brand); transform: translateY(-2px); }
+.ar-ptile.is-sel { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); transform: translateY(-2px); }
+.ar-ptile.is-done { opacity: .45; border-color: #1fa45b; background: #f0fdf4; cursor: default; }
+.ar-ptile.is-no { border-color: #e5484d; animation: ar-shake .34s ease; }
+
+/* ---------- match sweep ---------- */
+.ar-sweep { display: grid; gap: 12px; }
+.ar-sweep-rule { font-size: 15px; }
+.ar-sweepgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.ar-stile {
+  min-height: 78px; font: inherit; font-size: 26px; font-weight: 800; cursor: pointer;
+  background: #fff; border: 1.5px solid var(--line); border-radius: 14px; color: var(--ink);
+  transition: transform .12s ease, background .25s ease, border-color .2s ease;
+}
+.ar-stile:hover { border-color: var(--brand); transform: translateY(-2px); }
+.ar-stile.is-swept { background: linear-gradient(135deg, #d7f7e5, #b9f0d0); border-color: #1fa45b; color: #0d7a3f; }
+.ar-stile.is-wrong { background: #fff5f5; border-color: #e5484d; color: #b42318; opacity: .8; }
+
+/* ---------- flash recall ---------- */
+.ar-recall { display: grid; gap: 12px; }
+.ar-flashbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.ar-flashgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.ar-flashcard { border: 1.5px solid #d5cffd; border-radius: 14px; padding: 12px; background: #fbfaff; display: grid; gap: 8px; text-align: center; animation: ar-pop .3s ease; }
+.ar-flashq { font-size: 14px; }
+.ar-flasha { font-size: 20px; font-weight: 800; color: var(--brand-ink); }
+.ar-flashgone { display: grid; place-items: center; min-height: 74px; border: 1.5px dashed #d5cffd; border-radius: 14px; color: var(--muted); font-size: 13px; background: #fbfaff; }
+
+/* ---------- flashcards ---------- */
+.ar-fc { display: grid; gap: 12px; justify-items: center; }
+.ar-fc-card { position: relative; width: min(560px, 100%); min-height: 190px; cursor: pointer; transform-style: preserve-3d; transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+.ar-fc-card.is-flipped { transform: rotateY(180deg); }
+.ar-fc-face {
+  position: absolute; inset: 0; backface-visibility: hidden; border-radius: 16px; padding: 18px;
+  display: grid; gap: 10px; align-content: center; justify-items: center; text-align: center;
+}
+.ar-fc-front { background: #fff; border: 1.5px solid var(--line); }
+.ar-fc-back { background: linear-gradient(160deg, #f7faff, #eef2ff); border: 1.5px solid #d5cffd; transform: rotateY(180deg); }
+.ar-fc-ans { font-size: 26px; font-weight: 800; color: var(--brand-ink); }
+.ar-fc-step { font-size: 13px; color: var(--ink-2, #475467); background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
+.ar-fc-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+/* ---------- bubble pop ---------- */
+.ar-bub { display: grid; gap: 10px; }
+.ar-bubfield { position: relative; height: 300px; border-radius: 14px; overflow: hidden; background: linear-gradient(180deg, #eaf4ff, #f7fbff 60%, #eefaf3); }
+.ar-bubble {
+  position: absolute; bottom: -70px; min-width: 84px; padding: 14px 16px; font: inherit; font-size: 17px; font-weight: 800;
+  border: none; border-radius: 999px; cursor: pointer; color: #0b1020;
+  background: radial-gradient(circle at 32% 28%, #ffffff, #cfe6ff 45%, #8fc4f7);
+  box-shadow: inset 0 -6px 12px rgba(47, 124, 246, .25), 0 8px 24px rgba(47, 124, 246, .18);
+  animation-name: ar-rise; animation-timing-function: linear; animation-fill-mode: forwards;
+}
+.ar-bubble:hover { filter: brightness(1.05); }
+.ar-bubble.is-pop { animation: ar-burst .4s ease forwards; }
+.ar-bubble.is-no { background: radial-gradient(circle at 32% 28%, #fff, #ffc9c9 45%, #f79c9c); }
+@keyframes ar-rise { from { transform: translateY(0); } to { transform: translateY(-460px); } }
+@keyframes ar-burst { 0% { transform: scale(1); opacity: 1; } 60% { transform: scale(1.35); opacity: .7; } 100% { transform: scale(1.6); opacity: 0; } }
+.ar-bubprompt { text-align: center; font-size: 16px; }
+.ar-bubprompt .ar-q { display: block; }
+
+/* ---------- mystery crates ---------- */
+.ar-crates { display: grid; gap: 12px; }
+.ar-crate-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.ar-crate {
+  min-height: 92px; display: grid; gap: 2px; place-content: center; justify-items: center; font: inherit; cursor: pointer;
+  background: linear-gradient(180deg, #fff8ec, #ffeed3); border: 1.5px solid #f0c987; border-radius: 14px;
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.ar-crate:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(232, 160, 8, .18); }
+.ar-crate.is-open { background: #fff; border-style: dashed; }
+.ar-crate.is-won { background: linear-gradient(180deg, #f0fdf4, #dcfce7); border-color: #1fa45b; }
+.ar-crate.is-live { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+.ar-crate-lid { font-size: 24px; line-height: 1.1; }
+.ar-crate-pts { font-size: 12px; font-weight: 800; color: #b45309; }
+.ar-crate.is-won .ar-crate-pts { color: #0d7a3f; }
+
+/* ---------- spin the wheel ---------- */
+.ar-wheel { display: grid; gap: 14px; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); align-items: start; }
+.ar-wheel-wrap { position: relative; }
+.ar-wheel-ptr { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); font-size: 22px; color: var(--brand-ink); z-index: 2; }
+.ar-wheel-svg { width: 100%; height: auto; cursor: pointer; filter: drop-shadow(0 10px 24px rgba(109, 94, 252, .22)); }
+.ar-wheel-ask { display: grid; gap: 10px; }
+.ar-wheel-ask .ar-opts { margin-top: 0; }
+
+/* ---------- discovery tiles ---------- */
+.ar-tiles { display: grid; gap: 14px; grid-template-columns: minmax(240px, 340px) minmax(0, 1fr); align-items: start; }
+.ar-artwrap { position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 14px 34px rgba(43, 27, 87, .28); }
+.ar-art { display: block; width: 100%; height: auto; }
+.ar-tilegrid { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(var(--n, 5), 1fr); grid-template-rows: repeat(var(--n, 5), 1fr); gap: 2px; }
+.ar-dtile { background: linear-gradient(135deg, #6d5efc, #4b3ee0); border-radius: 3px; transition: opacity .45s ease, transform .45s ease; }
+.ar-dtile.is-off { opacity: 0; transform: scale(.6) rotate(-6deg); pointer-events: none; }
+.ar-artbadge { position: absolute; left: 8px; bottom: 8px; background: rgba(10, 14, 26, .62); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px; backdrop-filter: blur(4px); }
+
+/* ---------- circuit maze ---------- */
+.ar-maze { display: grid; gap: 12px; }
+.ar-board-grid { display: grid; grid-template-columns: repeat(var(--n, 5), minmax(0, 1fr)); gap: 8px; }
+.ar-cell2 {
+  position: relative; min-height: 56px; border-radius: 12px; display: grid; place-items: center;
+  background: #f4f6fb; border: 1.5px solid var(--line); transition: background .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.ar-cell2-n { font-size: 11px; color: var(--muted); font-weight: 700; }
+.ar-cell2-dot { position: absolute; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: #cfd4dc; transition: background .3s ease, box-shadow .3s ease; }
+.ar-cell2.is-on { background: linear-gradient(180deg, #eafff2, #d7f7e5); border-color: #1fa45b; }
+.ar-cell2.is-on .ar-cell2-dot { background: #1fa45b; box-shadow: 0 0 0 4px rgba(31, 164, 91, .18); }
+.ar-cell2.is-here { box-shadow: 0 0 0 3px var(--brand-soft); border-color: var(--brand); }
+.ar-maze-exit { display: grid; place-items: center; min-height: 56px; border-radius: 12px; border: 1.5px dashed #cfd4dc; font-size: 20px; opacity: .55; }
+.ar-maze-exit.is-on { opacity: 1; border-color: #1fa45b; background: #f0fdf4; }
+
+/* ---------- magnet zap ---------- */
+.ar-zap { display: grid; gap: 10px; }
+.ar-zapfield { position: relative; height: 320px; border-radius: 14px; overflow: hidden; background: radial-gradient(circle at 50% 0%, #1b2544, #0a0e1a 75%); }
+.ar-magnet {
+  position: absolute; left: -160px; min-width: 96px; padding: 10px 14px; font: inherit; font-size: 16px; font-weight: 800;
+  border: none; border-radius: 10px; cursor: pointer; color: #201a05;
+  background: linear-gradient(180deg, #ffe9a8, #f3bf4a); box-shadow: 0 8px 20px rgba(243, 191, 74, .28);
+  animation-name: ar-drift; animation-timing-function: linear; animation-iteration-count: infinite;
+}
+.ar-magnet::after { content: ""; position: absolute; inset: 0; border-radius: 10px; box-shadow: inset 0 -5px 0 rgba(180, 83, 9, .25); }
+.ar-magnet.is-zapped { animation: ar-burst .45s ease forwards; }
+.ar-magnet.is-no { background: linear-gradient(180deg, #ffc9c9, #f79c9c); opacity: .55; }
+.ar-zapprompt { text-align: center; font-size: 16px; }
+
+/* ---------- group sort ---------- */
+.ar-groups { display: grid; gap: 14px; }
+.ar-group-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.ar-gcard {
+  font: inherit; font-size: 15px; font-weight: 700; padding: 12px 10px; cursor: pointer;
+  background: #fff; border: 1.5px solid var(--line); border-radius: 12px; transition: transform .12s ease, border-color .12s ease;
+}
+.ar-gcard:hover { border-color: var(--brand); transform: translateY(-2px); }
+.ar-gcard.is-sel { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+.ar-gcard.is-no { border-color: #e5484d; animation: ar-shake .34s ease; }
+.ar-group-bins { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.ar-bin {
+  font: inherit; cursor: pointer; padding: 14px 10px; border-radius: 14px; border: 1.5px dashed #cfd4dc;
+  background: #fbfcff; display: grid; gap: 3px; justify-items: center;
+}
+.ar-bin b { font-size: 14px; }
+.ar-bin span { font-size: 11px; color: var(--muted); }
+.ar-bin:hover { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-ink); }
+
+/* ---------- rocket glide ---------- */
+.ar-rocket { display: grid; gap: 14px; grid-template-columns: 190px minmax(0, 1fr); align-items: stretch; }
+.ar-skycol { position: relative; height: 360px; border-radius: 16px; overflow: hidden; background: linear-gradient(180deg, #0a0e1a, #16224a 55%, #33518f); }
+.ar-stars i { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #fff; opacity: .85; animation: ar-twinkle 2.6s ease-in-out infinite; }
+@keyframes ar-twinkle { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+.ar-alt-track { position: absolute; left: 16px; top: 18px; bottom: 18px; width: 8px; border-radius: 999px; background: rgba(255, 255, 255, .16); overflow: hidden; }
+.ar-alt-fill { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: linear-gradient(180deg, #8ff0e0, #1fa45b); transition: height .5s ease; }
+.ar-ship { position: absolute; left: 4px; bottom: -12px; font-size: 22px; transform: rotate(-90deg); transition: bottom .5s cubic-bezier(.2,.8,.2,1); }
+.ar-orbit { position: absolute; right: 8px; top: 12px; font-size: 10px; font-weight: 800; letter-spacing: .4px; color: #8ff0e0; text-transform: uppercase; }
+.ar-alt-label { position: absolute; right: 8px; bottom: 8px; font-size: 12px; font-weight: 800; color: #fff; }
+.ar-rocket-side { display: grid; gap: 10px; align-content: start; }
+
+/* ---------- penguin leap ---------- */
+.ar-leap { display: grid; gap: 12px; }
+.ar-leap-scene { position: relative; height: 150px; border-radius: 16px; overflow: hidden; background: linear-gradient(180deg, #dff1ff, #f4fbff 62%, #cfe9ff); }
+.ar-ice { position: absolute; left: 0; bottom: 0; height: 34px; width: 8%; border-radius: 0 14px 0 0; background: linear-gradient(180deg, #ffffff, #cfe6ff); border-top: 3px solid #a8d8ff; transition: width .5s ease; }
+.ar-penguin { position: absolute; bottom: 30px; left: 2%; font-size: 34px; transition: left .5s cubic-bezier(.2,.8,.2,1), transform .25s ease; }
+.ar-penguin.is-hop { animation: ar-hop .5s ease; }
+.ar-penguin.is-slip { animation: ar-shake .45s ease; }
+@keyframes ar-hop { 0% { transform: translateY(0) rotate(0); } 45% { transform: translateY(-30px) rotate(-8deg); } 100% { transform: translateY(0) rotate(0); } }
+.ar-igloo { position: absolute; right: 8px; bottom: 30px; font-size: 26px; opacity: .8; }
+.ar-floes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ar-floe { justify-content: center; background: linear-gradient(180deg, #ffffff, #eef8ff); border-radius: 999px 999px 16px 16px; }
+
+/* ---------- zoom guess ---------- */
+.ar-zoom { display: grid; gap: 14px; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; }
+.ar-zoom-plot { position: relative; border-radius: 16px; overflow: hidden; background: #0b1020; box-shadow: 0 14px 34px rgba(11, 16, 32, .28); }
+.ar-zoom-plot canvas { display: block; width: 100%; height: auto; }
+.ar-zoom-badge { position: absolute; right: 8px; top: 8px; background: rgba(255, 255, 255, .14); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px; }
+.ar-zoom-side { display: grid; gap: 10px; align-content: start; }
+
+/* ---------- correcting deck ---------- */
+.ar-deckg { display: grid; gap: 14px; grid-template-columns: 130px minmax(0, 1fr); align-items: start; }
+.ar-deckg-side { display: grid; gap: 6px; justify-items: center; text-align: center; }
+.ar-deckg-count { font-size: 40px; font-weight: 800; color: var(--brand-ink); line-height: 1; font-variant-numeric: tabular-nums; }
+.ar-deckg-stack { position: relative; width: 56px; height: 42px; margin-top: 4px; }
+.ar-deckg-stack i { position: absolute; inset: 0; border-radius: 8px; border: 1.5px solid #d5cffd; background: #f7f5ff; }
+.ar-deckg-stack i:nth-child(1) { transform: translate(-5px, 4px) rotate(-6deg); }
+.ar-deckg-stack i:nth-child(2) { transform: translate(4px, 2px) rotate(4deg); }
+.ar-deckg-stack i:nth-child(3) { background: linear-gradient(135deg, #6d5efc, #0f9d94); border: none; }
+
+@media (max-width: 820px) {
+  .ar-wheel, .ar-tiles, .ar-zoom, .ar-rocket, .ar-deckg { grid-template-columns: 1fr; }
+  .ar-pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ar-sweepgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ar-skycol { height: 260px; }
+  .ar-bubfield { height: 250px; }
+  .ar-zapfield { height: 260px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ar-bubble, .ar-magnet { animation: none; }
+  .ar-bubble { bottom: 12px; }
+  .ar-magnet { left: 8px; }
+  .ar-stars i, .ar-ship, .ar-penguin, .ar-fc-card { animation: none; transition: none; }
+}
+
+/* ===========================================================
+   Arcade art (assets/arcade-art.js) — inline SVG sprites that
+   replace the emoji, plus the motion the games were missing.
+   =========================================================== */
+.ar-glyph { display: inline-block; vertical-align: middle; flex: none; overflow: visible; }
+.ar-token { width: 15px; height: 15px; margin-right: 2px; }
+.ar-chip b .ar-glyph { vertical-align: -3px; }
+
+/* the card / overlay icon slot */
+.ar-over-icon { display: grid; place-items: center; }
+.ar-over-icon .ar-glyph { width: 46px; height: 46px; }
+.ar-hero-art .ar-glyph { width: 84px; height: 84px; }
+
+/* hub tiles: give the glyph a real frame instead of a text-sized slot */
+.ar-tile { grid-template-columns: 52px minmax(0, 1fr) auto; }
+.ar-tile-ico {
+  width: 44px; height: 44px; display: grid; place-items: center; border-radius: 13px;
+  background: linear-gradient(135deg, var(--brand-soft), #eef4ff); color: var(--brand-ink);
+  font-size: 0;
+}
+.ar-tile-ico .ar-glyph { width: 26px; height: 26px; }
+.ar-tile:hover .ar-tile-ico { background: linear-gradient(135deg, #e6e2ff, #e3edff); }
+.ar-tile-main { min-width: 0; }
+.ar-tile-main span { font-size: 12.5px; line-height: 1.45; color: var(--ink-2, #475467); }
+.ar-tile-best { white-space: nowrap; }
+
+/* ---------- sprite motion ---------- */
+@keyframes ar-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes ar-flame { 0%, 100% { opacity: .55; transform: scaleY(.85); } 50% { opacity: 1; transform: scaleY(1.15); } }
+@keyframes ar-wave { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(8deg); } }
+@keyframes ar-spin-art { to { transform: rotate(360deg); } }
+@keyframes ar-fade-up { from { transform: translateY(6px); opacity: .3; } to { transform: translateY(0); opacity: 1; } }
+
+.ar-bob { animation: ar-bob 2.4s ease-in-out infinite; transform-origin: 50% 90%; }
+.ar-thrust .ar-flame { animation: ar-flame .42s ease-in-out infinite; transform-origin: 50% 0; }
+.ar-flag-wave { animation: ar-wave 2.2s ease-in-out infinite; transform-origin: 10% 90%; }
+.ar-spin { animation: ar-spin-art 2.6s linear infinite; transform-origin: 50% 50%; }
+.ar-hop .ar-glyph { animation: ar-hop .5s ease; }
+.ar-rise { animation: ar-fade-up .35s ease both; }
+
+/* sprites that used to be emoji text: size and place them as art */
+.ar-runner { font-size: 0; }
+.ar-runner .ar-glyph { width: 26px; height: 26px; }
+.ar-flag { font-size: 0; }
+.ar-flag .ar-glyph { width: 22px; height: 22px; }
+.ar-ship { font-size: 0; }
+.ar-ship .ar-glyph { width: 28px; height: 28px; }
+.ar-ship .ar-glyph { transform: rotate(90deg); }   /* nose up the column */
+.ar-igloo { font-size: 0; }
+.ar-igloo .ar-glyph { width: 34px; height: 34px; }
+.ar-penguin { font-size: 0; }
+.ar-penguin .ar-glyph { width: 36px; height: 36px; }
+.ar-crate-lid { font-size: 0; display: grid; place-items: center; }
+.ar-crate-lid .ar-glyph { width: 30px; height: 30px; }
+.ar-maze-exit { font-size: 0; }
+.ar-maze-exit .ar-glyph { width: 22px; height: 22px; }
+.ar-hero-art { font-size: 0; }
+.ar-hero-art .ar-glyph { animation: ar-bob 5s ease-in-out infinite; }
+
+/* the wheel gets its spokes turning while it spins */
+.ar-wheel-disc.is-spinning .ar-glyph, .ar-wheel.is-spinning .ar-wheel-disc { animation: ar-spin-art 1.1s linear infinite; }
+
+/* ---------- the board can own the screen, like the originals ---------- */
+.ar-stage.is-full {
+  position: fixed; inset: 0; z-index: 9200; border-radius: 0; border: none;
+  padding: 18px; overflow: auto; background: #f7f8fc;
+}
+.ar-stage.is-full > * { max-width: 1180px; margin-left: auto; margin-right: auto; }
+.ar-fs { display: inline-flex; align-items: center; gap: 6px; }
+body.ar-fs-lock { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .ar-bob, .ar-thrust .ar-flame, .ar-flag-wave, .ar-spin, .ar-hero-art .ar-glyph { animation: none; }
+}
+
+/* ---------- the floor tile, rebuilt so the blurb gets the full width ---------- */
+.ar-tile {
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  grid-template-areas:
+    "ico title best"
+    "ico blurb blurb"
+    "ico src   go";
+  row-gap: 4px; align-content: start;
+}
+.ar-tile-ico { grid-area: ico; align-self: start; }
+.ar-tile-title { grid-area: title; font-size: 15.5px; letter-spacing: -.2px; line-height: 1.3; }
+.ar-tile-best { grid-area: best; align-self: start; font-size: 10.5px; }
+.ar-tile-blurb { grid-area: blurb; line-height: 1.5; }
+.ar-tile-src { grid-area: src; font-size: 10.5px; text-transform: uppercase; letter-spacing: .5px; opacity: .8; }
+.ar-tile-go { grid-area: go; justify-self: end; align-self: center; color: var(--brand); opacity: .45; font-size: 16px; line-height: 1; }
+.ar-tile:hover .ar-tile-go { opacity: 1; transform: translateX(2px); transition: all .16s ease; }
+@media (max-width: 520px) {
+  .ar-tile { grid-template-columns: 44px minmax(0, 1fr) auto; }
+  .ar-tile-ico { width: 38px; height: 38px; }
+  .ar-tile-ico .ar-glyph { width: 22px; height: 22px; }
+}
+
+/* ---------- the header's right-hand column ---------- */
+.ar-head-side { display: grid; gap: 8px; justify-items: end; }
+.ar-best { display: grid; gap: 2px; justify-items: center; min-width: 88px; padding: 8px 14px; }
+.ar-best span { font-size: 10px; }
+.ar-fs { white-space: nowrap; }
+
+/* ---------- rocket glide: a real sky, not a strip ---------- */
+.ar-rocket { grid-template-columns: 260px minmax(0, 1fr); }
+.ar-skycol { height: auto; min-height: 380px; }
+.ar-ship { left: 20px; bottom: 12px; }
+.ar-ship .ar-glyph { transform: none; }
+.ar-orbit { right: 12px; top: 14px; font-size: 10.5px; }
+.ar-alt-label { right: 12px; bottom: 12px; font-size: 13px; }
+.ar-rocket-side { align-content: center; }
+@media (max-width: 900px) { .ar-rocket { grid-template-columns: 1fr; } .ar-skycol { min-height: 240px; } }
+
+/* ---------- penguin leap: sprites sitting on the ice ---------- */
+.ar-penguin { bottom: 34px; }
+.ar-igloo { bottom: 34px; }
+.ar-leap-scene .ar-ice { height: 38px; }
+
+/* rocket: a ship you can actually see, on the pad, with an exhaust trail */
+.ar-ship { left: 34px; bottom: 10px; }
+.ar-ship .ar-glyph { width: 40px; height: 40px; }
+.ar-ship::after {
+  content: ""; position: absolute; left: 50%; top: 100%; width: 10px; height: 26px; transform: translateX(-50%);
+  background: radial-gradient(ellipse at 50% 0%, #ffd27a, rgba(255, 122, 40, .65) 45%, rgba(255, 122, 40, 0) 75%);
+  opacity: .0; transition: opacity .25s ease; pointer-events: none;
+}
+.ar-ship.is-burn::after { opacity: 1; animation: ar-exhaust .35s ease-in-out infinite; }
+@keyframes ar-exhaust { 0%, 100% { transform: translateX(-50%) scaleY(.85); } 50% { transform: translateX(-50%) scaleY(1.15); } }
+.ar-alt-track { left: auto; right: 18px; }
+.ar-orbit { right: 44px; }
+
+/* ---------- polish: wheel, tiles, maze ---------- */
+.ar-wheel { grid-template-columns: minmax(260px, 420px) minmax(0, 1fr); }
+.ar-wheel-wrap { max-width: 420px; }
+.ar-wheel-svg { animation: ar-wobble 7s ease-in-out infinite; }
+@keyframes ar-wobble { 0%, 100% { transform: rotate(-2.2deg); } 50% { transform: rotate(2.2deg); } }
+.ar-wheel.is-spinning .ar-wheel-svg { animation: none; }
+.ar-wheel-ask:empty::before {
+  content: "Spin the wheel — five spins, five topics, five generated questions. Nothing hides twice.";
+  display: block; color: var(--muted); font-size: 13.5px; line-height: 1.6; max-width: 46ch; padding: 16px 0;
+}
+.ar-wheel-svg text { font-size: 9.5px; font-weight: 700; }
+
+/* the unrevealed picture shimmers, so the board looks alive between taps */
+.ar-dtile { background: linear-gradient(135deg, #7f70ff, #5342d8 60%, #6d5efc); }
+.ar-dtile::after {
+  content: ""; position: absolute; inset: 0; border-radius: 3px;
+  background: linear-gradient(115deg, rgba(255,255,255,0) 35%, rgba(255,255,255,.22) 50%, rgba(255,255,255,0) 65%);
+  background-size: 260% 100%; animation: ar-shimmer 3.6s linear infinite;
+}
+.ar-dtile { position: relative; overflow: hidden; }
+@keyframes ar-shimmer { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+
+/* the circuit maze: the cell you are standing on pulses */
+.ar-cell2.is-here { animation: ar-pulse-cell 1.6s ease-in-out infinite; }
+@keyframes ar-pulse-cell {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(109, 94, 252, .45); }
+  50% { box-shadow: 0 0 0 6px rgba(109, 94, 252, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ar-wheel-svg, .ar-dtile::after, .ar-cell2.is-here { animation: none; }
+}
+
+/* ---------- penguin leap: a bigger, friendlier scene ---------- */
+.ar-leap-scene { height: 190px; background: linear-gradient(180deg, #cfeaff 0%, #e8f6ff 52%, #bfe3ff 53%, #a8d6f7 100%); }
+.ar-leap-scene::before {
+  content: ""; position: absolute; right: 22px; top: 16px; width: 34px; height: 34px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #ffe9a3, #ffc861); box-shadow: 0 0 24px rgba(255, 200, 97, .55);
+}
+.ar-penguin .ar-glyph { width: 46px; height: 46px; }
+.ar-igloo .ar-glyph { width: 46px; height: 46px; }
+.ar-penguin { bottom: 40px; }
+.ar-igloo { bottom: 40px; right: 14px; }
+.ar-leap-scene .ar-ice { height: 42px; background: linear-gradient(180deg, #ffffff, #cfe6ff); border-top: 3px solid #a8d8ff; }
+.ar-floe { border-radius: 999px 999px 14px 14px; padding-top: 18px; }
+.ar-floe .ar-opt-t { font-size: 14.5px; }
+
+/* ===========================================================
+   Effects layer (assets/arcade-fx.js)
+   =========================================================== */
+/* the effect layer hangs off the game shell, not the stage, so a board that
+   re-renders for the next question cannot delete the burst you just earned */
+.ar-fx { position: absolute; inset: 0; pointer-events: none; z-index: 30; overflow: visible; }
+.ar-fx-p {
+  position: absolute; width: var(--sz, 7px); height: var(--sz, 7px); border-radius: 50%;
+  transform: translate(-50%, -50%); animation: ar-fx-burst .62s cubic-bezier(.2,.7,.3,1) forwards;
+}
+@keyframes ar-fx-burst {
+  0% { transform: translate(-50%, -50%) scale(.4); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.15); opacity: 0; }
+}
+.ar-fx-float {
+  position: absolute; transform: translate(-50%, -50%); font-size: 15px; font-weight: 900;
+  color: #1fa45b; text-shadow: 0 2px 0 #fff, 0 0 12px rgba(255,255,255,.9);
+  animation: ar-fx-rise 1s ease-out forwards; white-space: nowrap;
+}
+.ar-fx-float.is-bad { color: #e5484d; }
+@keyframes ar-fx-rise { 0% { opacity: 0; transform: translate(-50%, -30%) scale(.8); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -190%) scale(1.05); } }
+.ar-fx-ring {
+  position: absolute; height: var(--sz, auto); min-height: 40px; border-radius: 999px;
+  border: 3px solid rgba(109, 94, 252, .75); transform: translate(-50%, -50%) scale(.6);
+  animation: ar-fx-ring .62s ease-out forwards;
+}
+@keyframes ar-fx-ring { to { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
+.ar-fx-shake { animation: ar-shake .42s ease; }
+.ar-fx-flash { position: absolute; inset: 0; background: rgba(31, 164, 91, .16); animation: ar-fx-fade .5s ease forwards; pointer-events: none; }
+.ar-fx-flash.is-bad { background: rgba(229, 72, 77, .16); }
+@keyframes ar-fx-fade { from { opacity: 1; } to { opacity: 0; } }
+
+/* ===========================================================
+   Scene art: planet bubbles, crate lids, comet tails
+   =========================================================== */
+/* bubble pop: the original's planet bubbles, with a landing pad */
+.ar-drop {
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 14px;
+  border: 2px dashed #a8d8ff; background: linear-gradient(180deg, #f4fbff, #eaf4ff);
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+.ar-drop.is-filled { border-color: #1fa45b; background: linear-gradient(180deg, #f0fdf4, #dcf7e6); transform: scale(1.02); }
+.ar-drop-k { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.ar-drop-v { font-size: 17px; font-weight: 750; }
+.ar-drop-h { font-size: 12.5px; color: var(--ink-2, #475467); }
+.ar-drop.is-filled .ar-drop-h { color: #0d7a3f; font-weight: 700; }
+
+.ar-bubble { padding: 0; background: none; box-shadow: none; overflow: visible; }
+.ar-bubble .ar-planet { display: block; width: 100%; height: auto; filter: drop-shadow(0 10px 18px rgba(47, 124, 246, .25)); }
+.ar-bubble .ar-bub-t {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 0 14px;
+  font-size: 15.5px; font-weight: 800; color: #0b1020; text-align: center; line-height: 1.2;
+}
+.ar-bubble.is-pop { animation: ar-planet-burst .45s ease forwards; }
+@keyframes ar-planet-burst {
+  0% { transform: scale(1); opacity: 1; }
+  55% { transform: scale(1.28) rotate(6deg); opacity: .85; }
+  100% { transform: scale(1.6) rotate(12deg); opacity: 0; }
+}
+
+/* crates: the lid flips off when you open one */
+.ar-crate { position: relative; overflow: visible; }
+.ar-crate .ar-crate-lid { transition: transform .35s cubic-bezier(.3,.8,.2,1), opacity .3s ease; }
+.ar-crate.is-open .ar-crate-lid { transform: translateY(-6px) rotate(-12deg); }
+.ar-crate.is-won .ar-crate-lid { transform: none; }
+.ar-crate-pts { transition: transform .3s ease; }
+.ar-crate.is-won .ar-crate-pts { transform: scale(1.15); }
+
+/* bubble pop scene sizing — planet bubbles need room to read */
+.ar-bubble { width: 106px; min-width: 0; height: auto; }
+.ar-bubble .ar-bub-t { font-size: 14px; padding: 0 18px; }
+.ar-bub { gap: 12px; }
+.ar-bub .ar-drop { justify-content: center; text-align: left; }
+.ar-bub-hearts { display: flex; gap: 3px; align-items: center; }
+.ar-bub-hearts svg { display: block; }
+.ar-bubble.is-no { animation: ar-shake .4s ease; }
+@media (max-width: 640px) {
+  .ar-bubble { width: 84px; }
+  .ar-bubble .ar-bub-t { font-size: 12px; padding: 0 14px; }
+}
+.ar-bubble.is-fade { animation: none; opacity: .28; transition: opacity .3s ease; }
+.ar-chip .ar-bub-hearts, .ar-chip svg[data-heart] { color: #e5484d; }
+.ar-bub .ar-drop { align-items: center; justify-content: space-between; gap: 16px; }
+.ar-bub .ar-drop > div:last-child { text-align: right; }
+/* the field is a sky: planets start in view, not below the fold */
+.ar-bubfield { height: 292px; }
+
+/* ===========================================================
+   Ambient life for the turn-based modes.
+   The originals were never still: cards breathed, tiles
+   shimmered, the wheel idled, the maze pulsed. Nothing here
+   touches transform where a mode already animates transform,
+   so flips and lifts keep working.
+   =========================================================== */
+@keyframes ar-breathe {
+  0%, 100% { box-shadow: 0 2px 6px rgba(16, 24, 40, .05); }
+  50% { box-shadow: 0 8px 20px rgba(109, 94, 252, .16); }
+}
+@keyframes ar-float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+@keyframes ar-swap {
+  0%, 100% { opacity: .55; }
+  50% { opacity: 1; }
+}
+@keyframes ar-sheen {
+  from { background-position: -160% 0; }
+  to { background-position: 260% 0; }
+}
+
+/* bingo: unmarked cells breathe, fresh cells deal in */
+.ar-cell { animation: ar-breathe 3.6s ease-in-out infinite; }
+.ar-cell:nth-child(2n) { animation-delay: .45s; }
+.ar-cell:nth-child(3n) { animation-delay: .9s; }
+.ar-cell.is-marked { animation: none; box-shadow: 0 6px 16px rgba(31, 164, 91, .22); }
+.ar-board .ar-cell { animation-fill-mode: both; }
+
+/* memory + pairs: the facedown cards breathe, so a still board still moves */
+.ar-mcard .ar-mback { animation: ar-breathe 3.2s ease-in-out infinite; }
+.ar-mcard:nth-child(2n) .ar-mback { animation-delay: .4s; }
+.ar-mcard:nth-child(3n) .ar-mback { animation-delay: .8s; }
+.ar-mcard.is-open .ar-mback { animation: none; }
+.ar-ptile { animation: ar-breathe 4.1s ease-in-out infinite; }
+.ar-ptile:nth-child(2n) { animation-delay: .5s; }
+.ar-ptile.is-done { animation: none; }
+
+/* sweep + discovery tiles: a slow sheen crossing the grid */
+.ar-stile { position: relative; overflow: hidden; animation: ar-breathe 3.8s ease-in-out infinite; }
+.ar-stile:nth-child(2n) { animation-delay: .6s; }
+.ar-stile::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 38%, rgba(109, 94, 252, .1) 50%, transparent 62%);
+  background-size: 260% 100%; animation: ar-sheen 5.5s linear infinite;
+}
+.ar-stile.is-swept::after, .ar-stile.is-wrong::after { animation: none; opacity: 0; }
+
+/* group sort: cards sway a little, bins wait with a soft pulse */
+.ar-gcard { animation: ar-breathe 3.4s ease-in-out infinite; }
+.ar-gcard:nth-child(2n) { animation-delay: .35s; }
+.ar-gcard.is-sel { animation: none; }
+.ar-bin { animation: ar-breathe 2.9s ease-in-out infinite; }
+.ar-bin:nth-child(2) { animation-delay: .5s; }
+.ar-bin:nth-child(3) { animation-delay: 1s; }
+
+/* flashcards + recall: the card sits on a live surface */
+.ar-fc-card, .ar-flashcard, .ar-recall-flash { animation: ar-breathe 4.4s ease-in-out infinite; }
+.ar-flashgrid .ar-flashcard:nth-child(2n) { animation-delay: .5s; }
+
+/* mystery crates stack: the deck shuffles itself while it waits */
+.ar-deckg-stack i { animation: ar-swap 2.6s ease-in-out infinite; }
+.ar-deckg-stack i:nth-child(2) { animation-delay: .4s; }
+.ar-deckg-stack i:nth-child(3) { animation-delay: .8s; }
+
+/* circuit maze: the live cell pulses so the eye finds it */
+.ar-cell2.is-here { animation: ar-breathe 1.9s ease-in-out infinite; box-shadow: 0 0 0 3px var(--brand-soft); }
+.ar-cell2.is-on .ar-cell2-dot { animation: ar-breathe 2.4s ease-in-out infinite; }
+
+/* zoom guess: the badge lights the window it is watching */
+.ar-zoom-badge { animation: ar-swap 2.2s ease-in-out infinite; }
+
+/* discovery tiles art: the picture drifts behind the grid */
+.ar-art { animation: ar-float-y 6.5s ease-in-out infinite; }
+
+/* the sort card hovers in place before it is filed */
+.ar-sort-card { animation: ar-float-y 4.6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ar-cell, .ar-mcard .ar-mback, .ar-ptile, .ar-stile, .ar-stile::after, .ar-gcard, .ar-bin,
+  .ar-fc-card, .ar-flashcard, .ar-recall-flash, .ar-deckg-stack i, .ar-cell2.is-here,
+  .ar-cell2.is-on .ar-cell2-dot, .ar-zoom-badge, .ar-art, .ar-sort-card { animation: none; }
+}
+/* step order: the pool chips breathe, a placed step lands with a pop */
+.ar-step { animation: ar-breathe 3.3s ease-in-out infinite; }
+.ar-steps-pool .ar-step:nth-child(2n) { animation-delay: .4s; }
+.ar-steps-pool .ar-step:nth-child(3n) { animation-delay: .8s; }
+.ar-step.is-placed { animation: ar-pop .32s cubic-bezier(.2,.9,.3,1.2) both; }
+
+/* floor cards: even heights, a blurb that never runs long */
+.ar-tile { min-height: 136px; }
+.ar-tile-blurb {
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  font-size: 12.5px;
+}
+
+/* ===========================================================
+   Night-sky scenes: comets, magnets, crates
+   =========================================================== */
+.ar-stars { position: absolute; inset: 0; pointer-events: none; }
+.ar-moon {
+  position: absolute; right: 26px; top: 22px; width: 54px; height: 54px; border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #fffdf3, #ffe9a8 60%, #e8c26a);
+  box-shadow: 0 0 34px rgba(255, 233, 168, .45);
+  animation: ar-float-y 8s ease-in-out infinite;
+}
+.ar-sky { height: 348px; background: radial-gradient(circle at 50% 130%, #1b2544, #0a0e1a 68%); }
+.ar-comet { box-shadow: 0 0 22px rgba(255, 209, 102, .45), 0 10px 24px rgba(0, 0, 0, .35); }
+.ar-comet.pop { animation: ar-planet-burst .45s ease forwards; }
+
+/* the magnets cross the whole field, not just its left half */
+.ar-magnet { left: -22%; }
+@keyframes ar-drift { from { left: -22%; } to { left: 104%; } }
+.ar-zapfield { height: 300px; }
+
+/* mystery crates: a wooden chest with a lid that lifts */
+.ar-crate {
+  position: relative; overflow: hidden; padding: 20px 10px 10px; min-height: 104px;
+  background:
+    repeating-linear-gradient(90deg, rgba(120, 72, 20, .07) 0 2px, transparent 2px 22px),
+    linear-gradient(180deg, #f7dda9, #e9bb75 48%, #d7a05a);
+  border: 1.5px solid #b57e35; border-radius: 12px;
+  box-shadow: inset 0 -7px 0 rgba(120, 72, 20, .16), 0 6px 14px rgba(180, 120, 40, .2);
+}
+.ar-crate::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 17px;
+  background: linear-gradient(180deg, #ffe8c0, #e2b273);
+  border-bottom: 1.5px solid rgba(120, 72, 20, .38);
+  transition: transform .4s cubic-bezier(.3,.8,.2,1);
+}
+.ar-crate::after {
+  content: ""; position: absolute; left: 50%; top: 11px; width: 20px; height: 13px; margin-left: -10px;
+  background: #8a5a1e; border-radius: 0 0 6px 6px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55);
+  transition: opacity .25s ease;
+}
+.ar-crate:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(180, 120, 40, .3); }
+.ar-crate.is-open::before { transform: translateY(-16px) rotate(-5deg); }
+.ar-crate.is-open::after, .ar-crate.is-won::after { opacity: 0; }
+.ar-crate.is-open { background: linear-gradient(180deg, #fff7e6, #ffeccb); border-style: dashed; }
+.ar-crate.is-live { box-shadow: 0 0 0 3px var(--brand-soft), 0 10px 22px rgba(232, 160, 8, .25); }
+.ar-crate-lid .ar-glyph { width: 40px; height: 40px; }
+.ar-crate-pts { font-size: 13px; font-weight: 800; color: #7a4c12; }
+
+/* ===========================================================
+   Scene dressing: the pad, the water, the lane, the card backs
+   =========================================================== */
+@keyframes ar-current {
+  from { background-position: 0 0; }
+  to { background-position: 180px 0; }
+}
+
+/* rocket: a launch pad, a ruler up the column, a bigger ship */
+@media (min-width: 901px) {
+  .ar-rocket { grid-template-columns: 300px minmax(0, 1fr); }
+  .ar-skycol { min-height: 420px; }
+}
+@media (max-width: 900px) {
+  .ar-skycol { min-height: 184px; height: 184px; }
+  .ar-ship { left: 18px; bottom: 8px; }
+  .ar-ship .ar-glyph { width: 34px; height: 34px; }
+}
+.ar-skycol::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 28px;
+  background: linear-gradient(180deg, #39456b, #1b2137); border-top: 2px solid #58639b;
+}
+.ar-alt-track { background-image: repeating-linear-gradient(180deg, rgba(255, 255, 255, .55) 0 1px, transparent 1px 20%); }
+.ar-ship { z-index: 2; }
+.ar-ship .ar-glyph { width: 46px; height: 46px; }
+
+/* penguin leap: water that moves, floes that float, a bigger cast */
+.ar-leap-scene { height: 190px; }
+.ar-leap-scene::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 62%; bottom: 0; pointer-events: none;
+  background: repeating-linear-gradient(115deg, rgba(255, 255, 255, .32) 0 5px, rgba(255, 255, 255, 0) 5px 20px);
+  animation: ar-current 6s linear infinite;
+}
+.ar-leap-scene::after {
+  content: ""; position: absolute; right: 24%; bottom: 40px; width: 96px; height: 20px; border-radius: 14px;
+  background: linear-gradient(180deg, #fff, #d7ecff); box-shadow: 0 7px 0 rgba(122, 180, 230, .22);
+  animation: ar-float-y 5.2s ease-in-out infinite;
+}
+.ar-penguin .ar-glyph { width: 52px; height: 52px; }
+.ar-igloo .ar-glyph { width: 46px; height: 46px; }
+
+/* quiz race: a real lane with markers and a checkered finish */
+.ar-track { height: 58px; }
+.ar-track::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; transform: translateY(-1px);
+  background: repeating-linear-gradient(90deg, #c9cede 0 12px, transparent 12px 26px);
+}
+.ar-track::after {
+  content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 34px;
+  background:
+    repeating-conic-gradient(#0b1020 0 25%, #fff 0 50%) 0 0 / 12px 12px;
+  opacity: .16;
+}
+.ar-flag .ar-glyph { width: 26px; height: 26px; }
+.ar-runner .ar-glyph { width: 34px; height: 34px; }
+
+/* memory: a printed card back */
+.ar-mback {
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, .13) 0 7px, rgba(255, 255, 255, 0) 7px 15px),
+    radial-gradient(circle at 50% 34%, rgba(255, 255, 255, .3), rgba(255, 255, 255, 0) 62%),
+    linear-gradient(135deg, #6d5efc, #0f9d94);
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .22), 0 6px 14px rgba(16, 24, 40, .12);
+}
+
+/* circuit maze: a bot on the live cell, a flag on the exit */
+.ar-cell2.is-here::before {
+  content: ""; position: absolute; width: 20px; height: 20px; border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #fff, #6d5efc 70%);
+  box-shadow: 0 0 0 4px rgba(109, 94, 252, .18);
+  animation: ar-breathe 1.7s ease-in-out infinite;
+}
+.ar-maze-exit .ar-glyph { width: 26px; height: 26px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ar-leap-scene::before, .ar-leap-scene::after, .ar-cell2.is-here::before { animation: none; }
+}
+.ar-qbox { z-index: 3; }
+@media (max-width: 640px) {
+  .ar-qbox { left: 8px; right: 8px; bottom: 32px; transform: none; max-width: none; font-size: 14px; background: rgba(9, 13, 25, .88); }
+  .ar-comet { font-size: 14px; padding: 8px 10px; }
+}
+
+/* ===========================================================
+   Final scene pass: the leap cove and the treasure crates
+   =========================================================== */
+.ar-leap-scene {
+  height: 208px;
+  background:
+    radial-gradient(circle at 88% 16%, #ffe08a 0 24px, rgba(255, 224, 138, .5) 25px 34px, rgba(255, 224, 138, 0) 44px),
+    linear-gradient(180deg, #dff1ff 0%, #eaf7ff 44%, #c4e8ff 52%, #8fd0f4 74%, #57b3e6 100%);
+}
+.ar-leap-scene::before {
+  top: 52%; bottom: 0; opacity: .75;
+  background: repeating-linear-gradient(115deg, rgba(255, 255, 255, .55) 0 5px, rgba(255, 255, 255, 0) 5px 28px);
+  animation: ar-current 7s linear infinite;
+}
+.ar-leap-scene::after {
+  right: 27%; bottom: 52px; width: 104px; height: 22px;
+  box-shadow: 0 8px 0 rgba(92, 160, 214, .28);
+  animation: ar-float-y 5.4s ease-in-out infinite;
+}
+.ar-leap-scene .ar-ice { height: 44px; border-top: 4px solid #f6fbff; box-shadow: 0 -2px 0 #a8d8ff; }
+.ar-penguin { bottom: 46px; left: 2%; }
+.ar-igloo { bottom: 46px; right: 10px; }
+.ar-penguin .ar-glyph { width: 54px; height: 54px; }
+.ar-igloo .ar-glyph { width: 48px; height: 48px; }
+@media (max-width: 640px) {
+  .ar-leap-scene { height: 170px; }
+  .ar-penguin .ar-glyph { width: 44px; height: 44px; }
+  .ar-igloo .ar-glyph { width: 38px; height: 38px; }
+}
+
+/* crates: a chest you want to open */
+.ar-crate-grid { gap: 12px; }
+.ar-crate {
+  min-height: 118px; padding: 28px 10px 12px;
+  background:
+    radial-gradient(circle at 11px 11px, rgba(90, 55, 15, .38) 0 2.5px, transparent 3px),
+    radial-gradient(circle at calc(100% - 11px) 11px, rgba(90, 55, 15, .38) 0 2.5px, transparent 3px),
+    radial-gradient(circle at 11px calc(100% - 11px), rgba(90, 55, 15, .38) 0 2.5px, transparent 3px),
+    radial-gradient(circle at calc(100% - 11px) calc(100% - 11px), rgba(90, 55, 15, .38) 0 2.5px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(120, 72, 20, .1) 0 2px, rgba(120, 72, 20, 0) 2px 24px),
+    linear-gradient(180deg, #f3d49b, #e2b171 50%, #cd9550);
+  border: 2px solid #a9742e;
+  box-shadow: inset 0 -8px 0 rgba(120, 72, 20, .2), 0 8px 18px rgba(180, 120, 40, .24);
+}
+.ar-crate::before {
+  height: 22px;
+  background: linear-gradient(180deg, #ffeecb, #e7bd83 72%, #c99a5c);
+  border-bottom: 2px solid #a9742e;
+  box-shadow: 0 2px 5px rgba(120, 72, 20, .25);
+}
+.ar-crate::after { top: 15px; width: 24px; height: 15px; margin-left: -12px; background: #7d4d13; }
+.ar-crate.is-open::before { transform: translateY(-19px) rotate(-4deg); }
+.ar-crate-lid .ar-glyph { width: 44px; height: 44px; }
+.ar-crate-pts {
+  font-size: 13px; font-weight: 800; color: #6b4210; min-width: 24px; height: 24px;
+  display: grid; place-items: center; border-radius: 999px;
+  background: rgba(255, 255, 255, .62); box-shadow: inset 0 0 0 1.5px rgba(120, 72, 20, .22);
+}
+.ar-crate:hover { animation: ar-bob 1.2s ease-in-out infinite; }
+
+/* leap: a horizon you can read — sky on top, sea below, floe on the water */
+.ar-leap-scene {
+  background:
+    radial-gradient(circle at 88% 15%, #ffe08a 0 24px, rgba(255, 224, 138, .5) 25px 34px, rgba(255, 224, 138, 0) 44px),
+    linear-gradient(180deg, #dff1ff 0 45%, #f2fbff 45% 47%, #7cc4ee 47% 62%, #3f9fd6 100%);
+}
+.ar-leap-scene::before { top: 47%; opacity: .6; }
+.ar-leap-scene::after { bottom: 62px; }
+.ar-leap-scene .ar-ice {
+  height: 46px; width: 8%;
+  border-radius: 0 26px 0 0; border-top: 4px solid #f8fdff;
+  background: linear-gradient(180deg, #ffffff, #d5ebff);
+  box-shadow: 0 -3px 0 #a8d8ff, 0 6px 12px rgba(60, 130, 190, .25);
+}
+.ar-penguin { bottom: 50px; }
+.ar-igloo { bottom: 50px; }
+
+/* crates keep a chest-like proportion instead of stretching full width */
+.ar-crate-grid { max-width: 640px; margin: 0 auto; width: 100%; }
+@media (max-width: 640px) { .ar-crate-grid { max-width: none; } .ar-crate { min-height: 104px; padding: 24px 8px 10px; } }
+
+/* ===========================================================
+   Visual pass 2 — after screenshotting all 21 boards
+   Fixes found by looking at the frames, not by reading code:
+   the race marker hung off the lane, the circuit board read as
+   blank cards, the wheel face labels collided, the deck back was
+   a smudge, and short boards sat at the top of a half-empty stage.
+   =========================================================== */
+
+/* a short board should sit in the middle of its stage, not hang at the top */
+.ar-stage { display: grid; align-content: center; }
+
+/* ---------- quiz race: the marker stays on the lane ---------- */
+.ar-runner { left: calc(20px + (100% - 40px) * var(--p, 0)); }
+
+/* ---------- spin the wheel ---------- */
+/* only widen on a wide screen — the 820 px breakpoint still stacks these */
+@media (min-width: 821px) {
+  .ar-wheel { grid-template-columns: minmax(260px, 430px) minmax(0, 1fr); gap: 26px; align-items: center; }
+}
+.ar-wheel-wrap { max-width: 430px; margin: 0 auto; }
+.ar-wheel-ptr {
+  top: -10px; font-size: 0; width: 0; height: 0; z-index: 3;
+  border-left: 11px solid transparent; border-right: 11px solid transparent;
+  border-top: 18px solid var(--brand-ink);
+  filter: drop-shadow(0 3px 4px rgba(76, 62, 224, .35));
+}
+.ar-wheel-svg text { font-size: 8.6px; letter-spacing: .1px; }
+.ar-wheel-ask { align-content: center; }
+.ar-wheel-ask:empty::before { padding: 0; }
+
+/* ---------- circuit maze: a wire, bulbs and a finish rail ---------- */
+/* wider gaps so the wire between two gates is actually visible */
+.ar-board-grid { position: relative; gap: 18px 16px; }
+.ar-wires { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: visible; }
+.ar-wire-off { fill: none; stroke: #d7dce7; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.ar-wire-on {
+  fill: none; stroke: #1fa45b; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(31, 164, 91, .55));
+}
+.ar-wire-tip { fill: #1fa45b; filter: drop-shadow(0 0 8px rgba(31, 164, 91, .8)); }
+.ar-cell2, .ar-maze-exit { position: relative; z-index: 1; }
+.ar-cell2 { background: #fbfcff; border-color: #e2e7f0; }
+.ar-cell2-dot {
+  top: 10px; left: 50%; margin-left: -7px; width: 14px; height: 14px;
+  background: radial-gradient(circle at 34% 30%, #fdfdfd, #cfd6e2 70%);
+  box-shadow: inset 0 0 0 2px #fff, 0 1px 2px rgba(30, 40, 70, .18);
+}
+.ar-cell2.is-on { background: linear-gradient(180deg, #f2fff8, #ddfaeb); }
+.ar-cell2.is-on .ar-cell2-dot {
+  background: radial-gradient(circle at 34% 30%, #d8ffe8, #16a34a 72%);
+  box-shadow: 0 0 14px rgba(22, 163, 74, .85), 0 0 0 3px rgba(31, 164, 91, .16);
+}
+.ar-maze-exit {
+  grid-column: 1 / -1; display: flex; align-items: center; justify-content: flex-start; gap: 10px;
+  padding: 0 18px; min-height: 54px; border-style: dashed;
+  background: repeating-linear-gradient(135deg, #f7f8fb 0 12px, #ffffff 12px 24px);
+}
+.ar-maze-exit-t { font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.ar-maze-exit.is-on { background: repeating-linear-gradient(135deg, #ecfff4 0 12px, #f8fffb 12px 24px); }
+.ar-maze-exit.is-on .ar-maze-exit-t { color: #16a34a; }
+
+/* ---------- rocket glide: a ship you can see, a scene with depth ---------- */
+.ar-skycol { background: radial-gradient(circle at 62% 18%, #2a3a6d 0, #16224a 42%, #0a0e1a 100%); }
+.ar-skycol::before {
+  content: ""; position: absolute; right: 12%; bottom: 40px; width: 120px; height: 120px; border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #6f7fbe, #26315a 60%, #131a33 100%);
+  box-shadow: 0 0 40px rgba(94, 120, 210, .35); opacity: .85;
+}
+/* the sprite is drawn nose-right and .ar-ship already carries rotate(-90deg),
+   which points it up the column — the glyph itself must stay square */
+.ar-ship .ar-glyph { width: 64px; height: 64px; transform: none; filter: drop-shadow(0 0 14px rgba(255, 176, 92, .5)); }
+.ar-ship { z-index: 3; bottom: 26px; }
+.ar-skycol::before { opacity: .62; width: 104px; height: 104px; }
+.ar-orbit {
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase; font-weight: 800;
+  color: #cfe0ff; background: rgba(10, 16, 34, .55); border-radius: 999px; padding: 4px 10px;
+}
+
+/* ---------- the correcting deck: a real card back ---------- */
+@media (min-width: 821px) { .ar-deckg { grid-template-columns: 168px minmax(0, 1fr); gap: 24px; align-items: center; } }
+.ar-deckg-side { justify-items: center; gap: 8px; }
+.ar-deckg-stack { width: 74px; height: 100px; margin-top: 6px; }
+.ar-deckg-stack i { border-radius: 10px; border: 1.5px solid #d5cffd; background: #fbfaff; }
+.ar-deckg-stack i:nth-child(3) {
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, .18) 0 6px, rgba(255, 255, 255, 0) 6px 12px),
+    linear-gradient(155deg, #7a6bff, #4b3ee0);
+  border: none; box-shadow: 0 8px 18px rgba(76, 62, 224, .32);
+}
+.ar-deckg-stack i:nth-child(3)::after {
+  content: ""; position: absolute; inset: 9px; border-radius: 6px;
+  border: 1.5px solid rgba(255, 255, 255, .55);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .22) 0 12px, transparent 13px);
+}
+.ar-deckg-count { font-size: 44px; }
+.ar-deckg-side .small { max-width: 14ch; line-height: 1.35; }
+
+/* ---------- group sort: lanes you can actually drop into ---------- */
+.ar-bin { min-height: 78px; align-content: center; }
+.ar-bin b { font-size: 14.5px; }
+
+/* ---------- comet catch: quiet sky behind, nothing clipped ---------- */
+.ar-moon { opacity: .55; z-index: 0; }
+.ar-comet { z-index: 2; }
+.ar-comet-tail {
+  width: 7px; height: 34px; top: -32px; margin-left: -3.5px;
+  background: linear-gradient(180deg, rgba(255, 233, 168, 0), rgba(255, 214, 128, .92));
+  filter: blur(.4px); border-radius: 4px;
+}
+.ar-ground { height: 22px; background: linear-gradient(180deg, #12503a, #0a3128); opacity: .95; }
+
+/* ---------- penguin leap: floes across the water, penguin on its ledge ---------- */
+.ar-leap-scene::after { content: none; }
+.ar-floe-d {
+  position: absolute; height: 15px; border-radius: 10px;
+  background: linear-gradient(180deg, #ffffff, #dcf0ff);
+  box-shadow: 0 7px 0 rgba(70, 140, 200, .22), inset 0 -2px 0 rgba(150, 200, 235, .35);
+  animation: ar-float-y 4.8s ease-in-out infinite;
+}
+.ar-penguin { bottom: 44px; }
+.ar-leap-scene .ar-ice { border-radius: 0 22px 0 0; }
+
+/* ---------- magnet zap: a bar magnet, not a yellow lozenge ---------- */
+.ar-magnet {
+  padding: 10px 22px; border-radius: 9px;
+  background: linear-gradient(180deg, #ffe9a8, #f0b83f);
+  box-shadow: 0 8px 20px rgba(243, 191, 74, .3), inset 0 0 0 1.5px rgba(120, 80, 10, .18);
+}
+.ar-magnet::before {
+  content: ""; position: absolute; inset: 0; border-radius: 9px; pointer-events: none;
+  background:
+    linear-gradient(90deg, #e5484d 0 13px, rgba(229, 72, 77, 0) 13px calc(100% - 13px), #2f7cf6 calc(100% - 13px) 100%);
+  opacity: .92;
+}
+.ar-magnet.is-no::before { opacity: .35; }
+.ar-magnet.is-zapped::before { opacity: 0; }
+
+/* ---------- pairs: prompts wrap instead of spilling off the tile ---------- */
+.ar-ptile { line-height: 1.35; overflow-wrap: anywhere; }
+
+/* ---------- memory: cards keep a card's proportion ---------- */
+.ar-mem { max-width: 880px; margin: 0 auto; width: 100%; gap: 12px; }
+.ar-mcard { min-height: 0; aspect-ratio: 7 / 5; }
+.ar-mem .ar-mcard .ar-mback, .ar-mem .ar-mcard .ar-mfront { border-radius: 14px; }
+@media (max-width: 620px) { .ar-mem .ar-mcard { aspect-ratio: 4 / 3; } }
+
+/* ===========================================================
+   Visual pass 3 — the morning-after measurement.
+   Nine boards scored under 0.5 % of pixels changed over 600 ms
+   of idle time: technically animated (a breath of box-shadow),
+   visibly still. These add motion you can actually see, without
+   turning a maths quiz into a pinball table.
+   =========================================================== */
+
+/* bingo: a light band sweeping the board */
+.ar-board { position: relative; overflow: hidden; }
+.ar-board::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: 14px;
+  background: linear-gradient(105deg, rgba(109, 94, 252, 0) 42%, rgba(109, 94, 252, .13) 50%, rgba(109, 94, 252, 0) 58%);
+  transform: translateX(-100%);
+  animation: ar-sweep 5.2s ease-in-out infinite;
+}
+@keyframes ar-sweep { 0% { transform: translateX(-100%); } 55%, 100% { transform: translateX(100%); } }
+
+/* quiz race: the lane dashes travel under the runner */
+.ar-track { background-image:
+  repeating-linear-gradient(90deg, #f4f5f9 0 22px, #eceef6 22px 44px),
+  repeating-linear-gradient(90deg, rgba(109, 94, 252, .32) 0 14px, rgba(109, 94, 252, 0) 14px 44px);
+  background-size: 44px 100%, 44px 6px;
+  background-position: 0 0, 0 50%;
+  background-repeat: repeat, repeat-x;
+  animation: ar-lane 1.6s linear infinite;
+}
+.ar-flag .ar-glyph { animation: ar-flag-wave 2.2s ease-in-out infinite; transform-origin: 10% 90%; }
+
+/* step order: the pool lifts and settles in sequence */
+.ar-step { animation: ar-float-y 3.6s ease-in-out infinite; }
+.ar-step:nth-child(2) { animation-delay: .45s; }
+.ar-step:nth-child(3) { animation-delay: .9s; }
+.ar-step:nth-child(4) { animation-delay: 1.35s; }
+
+/* flashcards: the card hovers, the flip button breathes */
+.ar-fc-card { animation: ar-float-y 4.2s ease-in-out infinite, ar-breathe 4.4s ease-in-out infinite; }
+
+/* circuit maze: current actually flows along the lit wire */
+.ar-wire-on { stroke-dasharray: 16 9; animation: ar-wire-flow .85s linear infinite; }
+@keyframes ar-wire-flow { to { stroke-dashoffset: -25; } }
+
+/* rocket glide: the starfield drifts, the ship idles on its pad */
+.ar-stars { animation: ar-starfield 40s linear infinite; }
+.ar-ship { animation: ar-bob 3.4s ease-in-out infinite; }
+.ar-ship.is-burn { animation: ar-bob 3.4s ease-in-out infinite, ar-thrust .35s ease-in-out infinite; }
+
+/* penguin leap: waves you can see travelling, a sun that pulses */
+.ar-leap-scene::before {
+  opacity: .85;
+  background: repeating-linear-gradient(115deg, rgba(255, 255, 255, .62) 0 6px, rgba(255, 255, 255, 0) 6px 26px);
+  animation: ar-current 4.2s linear infinite;
+}
+.ar-leap-scene { background-blend-mode: normal; }
+.ar-leap-scene .ar-penguin { animation: ar-bob 2.6s ease-in-out infinite; }
+
+/* zoom guess: a scan line sweeps the plot, the badge pulses */
+.ar-zoom-plot::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 26%; pointer-events: none;
+  background: linear-gradient(180deg, rgba(109, 94, 252, 0), rgba(109, 94, 252, .22), rgba(109, 94, 252, 0));
+  animation: ar-scan 4.6s ease-in-out infinite;
+}
+@keyframes ar-scan { 0% { top: -30%; } 50%, 100% { top: 105%; } }
+
+/* memory + pairs: cards breathe in a stagger rather than in lockstep */
+.ar-mcard:nth-child(2n), .ar-ptile:nth-child(2n) { animation-delay: .4s; }
+.ar-mcard:nth-child(3n), .ar-ptile:nth-child(3n) { animation-delay: .8s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ar-board::after, .ar-track, .ar-step, .ar-fc-card, .ar-wire-on, .ar-stars, .ar-ship,
+  .ar-leap-scene::before, .ar-zoom-plot::after { animation: none; }
+}
+
+/* ---------- the four boards that were still under 0.5 % ---------- */
+
+/* quiz race: the centre dashes are drawn by ::before, so that is what travels */
+.ar-track { animation: none; background-image: none; background-size: auto; background-repeat: repeat; }
+.ar-track::before {
+  background: repeating-linear-gradient(90deg, #b9c0d6 0 14px, transparent 14px 30px);
+  background-size: 30px 2px;
+  animation: ar-lane 1.5s linear infinite;
+}
+@keyframes ar-lane { to { background-position: -30px 0; } }
+
+/* match pairs: the tiles lift in a stagger, like the step pool */
+.ar-ptile { animation: ar-float-y 3.8s ease-in-out infinite; }
+.ar-ptile:nth-child(2n) { animation-delay: .5s; }
+.ar-ptile:nth-child(3n) { animation-delay: 1s; }
+
+/* circuit maze: the unlit wire carries a faint travelling pulse, and the live
+   gate keeps a ring breathing, so the board moves before the first answer */
+.ar-wire-off { stroke-dasharray: 12 10; animation: ar-wire-flow 2.4s linear infinite; }
+.ar-cell2.is-here .ar-cell2-dot { animation: ar-breathe 2.4s ease-in-out infinite; }
+.ar-cell2.is-here { animation: ar-glow 2.6s ease-in-out infinite; }
+@keyframes ar-glow {
+  0%, 100% { box-shadow: 0 0 0 3px var(--brand-soft); }
+  50% { box-shadow: 0 0 0 8px rgba(109, 94, 252, .12); }
+}
+
+/* rocket glide: a nebula breathes behind the stars (the ground band stays on
+   ::after — it was already there and this pass must not take it away) */
+.ar-stars::before {
+  content: ""; position: absolute; inset: -10% -30%; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(55% 45% at 30% 35%, rgba(109, 94, 252, .34), rgba(109, 94, 252, 0) 72%),
+    radial-gradient(48% 40% at 72% 62%, rgba(15, 157, 148, .22), rgba(15, 157, 148, 0) 72%);
+  animation: ar-nebula 7s ease-in-out infinite alternate;
+}
+.ar-stars i { position: relative; z-index: 1; }
+/* the altitude read-out sits to the left of its ruler, not on top of it */
+.ar-alt-label { right: 40px; bottom: 10px; }
+.ar-ship .ar-glyph { transform: none; }
+
+/* ---------- rocket + maze, second go: enough movement to read at a glance ---------- */
+.ar-stars { animation: ar-starfield 13s linear infinite; }
+@keyframes ar-starfield { to { transform: translateY(40px); } }
+.ar-stars::before { animation: ar-nebula 3.8s ease-in-out infinite alternate; }
+@keyframes ar-nebula {
+  from { opacity: .22; transform: scale(.96) translate3d(-3%, 0, 0); }
+  to { opacity: .95; transform: scale(1.1) translate3d(3%, 2%, 0); }
+}
+.ar-ship { animation: ar-bob 2.4s ease-in-out infinite; }
+@keyframes ar-ship-sway { 0%, 100% { transform: translateX(-3px); } 50% { transform: translateX(3px); } }
+.ar-ship { animation: ar-bob 2.4s ease-in-out infinite, ar-ship-sway 3.6s ease-in-out infinite; }
+
+/* every gate breathes, staggered, so the board is alive before you answer */
+.ar-cell2 { animation: ar-breathe 3.2s ease-in-out infinite; }
+.ar-cell2:nth-child(2n) { animation-delay: .5s; }
+.ar-cell2:nth-child(3n) { animation-delay: 1.1s; }
+.ar-cell2.is-on { animation: ar-glow 2.6s ease-in-out infinite; }
+
+/* the ship reads as a silhouette on the night sky — light it up */
+.ar-ship { color: #e9efff; filter: drop-shadow(0 0 10px rgba(160, 190, 255, .45)); }
+
+/* the two quietest boards get one more obvious cue each */
+.ar-track::after {
+  background:
+    repeating-conic-gradient(#0b1020 0 25%, #fff 0 50%) 0 0 / 12px 12px,
+    linear-gradient(100deg, rgba(109, 94, 252, 0) 40%, rgba(109, 94, 252, .35) 50%, rgba(109, 94, 252, 0) 60%);
+  background-size: 12px 12px, 220% 100%;
+  animation: ar-lane-sheen 4.6s ease-in-out infinite;
+  opacity: .2;
+}
+@keyframes ar-lane-sheen { 0% { background-position: 0 0, 180% 0; } 60%, 100% { background-position: 0 0, -80% 0; } }
+.ar-leap-scene::before {
+  background: repeating-linear-gradient(115deg, rgba(255, 255, 255, .75) 0 8px, rgba(255, 255, 255, 0) 8px 24px);
+  animation: ar-current 3.4s linear infinite;
+}
+
+/* quiz race: the lane itself scrolls under the runner — the whole band reads as
+   a running track instead of two static greys */
+.ar-track {
+  background-image: repeating-linear-gradient(90deg, #f3f4f9 0 22px, #e7eaf4 22px 44px);
+  background-size: 44px 100%;
+  background-repeat: repeat-x;
+  animation: ar-track-scroll 1.15s linear infinite;
+}
+@keyframes ar-track-scroll { to { background-position: -44px 0; } }
+
+/* penguin leap: the swell travels further per cycle so the sea reads as moving */
+.ar-leap-scene::before {
+  background: repeating-linear-gradient(115deg, rgba(255, 255, 255, .8) 0 9px, rgba(255, 255, 255, 0) 9px 22px);
+  background-size: 240px 100%;
+  animation: ar-swell 2.6s linear infinite;
+}
+@keyframes ar-swell { from { background-position: 0 0; } to { background-position: 240px 0; } }
+
+/* the leap "waves" pseudo was pinned to 34×34 by the first sun rule, so the sea
+   has been flat — release the box and let the swell stretch across the water */
+.ar-leap-scene::before {
+  left: 0; right: 0; top: 52%; bottom: 0;
+  width: auto; height: auto; border-radius: 0; box-shadow: none;
+  opacity: .45;
+  background:
+    repeating-linear-gradient(115deg, rgba(255, 255, 255, .62) 0 5px, rgba(255, 255, 255, 0) 5px 26px);
+  background-size: 260px 100%;
+  animation: ar-swell 3.8s linear infinite;
+}
+
+/* the three quietest: sort, crates, wheel */
+.ar-sort-card { animation: ar-sway 3.2s ease-in-out infinite; }
+@keyframes ar-sway {
+  0%, 100% { transform: rotate(-1.4deg) translateY(0); }
+  50% { transform: rotate(1.4deg) translateY(-3px); }
+}
+.ar-bucket { animation: ar-glow-soft 2.8s ease-in-out infinite; }
+.ar-bucket:nth-child(2) { animation-delay: .6s; }
+@keyframes ar-glow-soft {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(109, 94, 252, 0); }
+  50% { box-shadow: 0 0 0 5px rgba(109, 94, 252, .1); }
+}
+.ar-crate { animation: ar-bob 2.6s ease-in-out infinite; }
+.ar-crate:nth-child(2n) { animation-delay: .5s; }
+.ar-crate:nth-child(3n) { animation-delay: 1s; }
+.ar-wheel-ptr { animation: ar-ptr 2.2s ease-in-out infinite; }
+@keyframes ar-ptr { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(3px); } }
+.ar-wheel-svg circle:last-of-type { animation: ar-hub 2.4s ease-in-out infinite; }
+@keyframes ar-hub { 0%, 100% { r: 16; } 50% { r: 18; } }

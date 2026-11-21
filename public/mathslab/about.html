@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — MathsLab</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%236d5efc'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='white' font-family='system-ui'%3E%E2%88%91%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/qstudio.css">
+<style>
+  .about{max-width:820px}
+  .about h2{margin-top:34px}
+  .about p,.about li{color:var(--ink-2);font-size:15px}
+  .about ul{padding-left:20px}
+  .about li{margin:6px 0}
+  .map{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:12px}
+  .map th,.map td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  .map th{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .map code{font-family:var(--fm);font-size:12.5px;background:var(--surface-2);padding:1px 5px;border-radius:5px}
+  .map a{font-weight:700;text-decoration:none}
+  .map a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">∑</span><span class="brand-text">Maths<em>Lab</em></span></a>
+    <nav class="topnav" aria-label="Primary"><a href="index.html">All apps</a><a href="index.html#/questions">Question Studio</a><a href="index.html#/generator">Generator</a><a href="about.html" class="on">About</a></nav>
+  </div>
+</header>
+<main class="about">
+  <div class="eyebrow">About this rebuild</div>
+  <h1>From Flash projectors to the open web</h1>
+  <p class="lead">The original folder held 31 items — ClickOnce manifests, Flash 5/6 projector executables
+  and a handful of Excel workbooks — for a set of classroom maths tools. Flash support ended in December 2020,
+  the installers are 32-bit Windows only, and several files were duplicates or setup packages. Everything with
+  real maths content in it has been reimplemented from scratch.</p>
+
+  <h2>What changed</h2>
+  <ul>
+    <li><b>Same activities, new engine.</b> Each program was rebuilt around its actual behaviour — the ranges,
+    the operations, the scoring, the printouts — in plain HTML, CSS and JavaScript.</li>
+    <li><b>Works everywhere.</b> Phones, tablets, Chromebooks, interactive whiteboards. No downloads, no plugins,
+    no accounts.</li>
+    <li><b>Printable.</b> Worksheets, times tables and reference tables have print stylesheets and fit on A4.</li>
+    <li><b>Private by default.</b> Scores and settings are stored in this browser's local storage only. Nothing is
+    sent anywhere; there is no analytics or tracking of any kind.</li>
+    <li><b>Accessible.</b> Keyboard control throughout, visible focus states, reduced-motion support and no reliance
+    on emoji or icon fonts.</li>
+  </ul>
+
+  <h2>Courses — how the site is organised</h2>
+  <p>The 4,741 questions used to sit in one flat deck, which makes the site hard to walk into. They are now filed
+  under <b>courses</b> (<a href="index.html#/courses"><b>#/courses</b></a>): 6 courses, 42 chapters, 23 lesson pages.</p>
+  <table class="map">
+    <tr><th>Course</th><th>Shape</th><th>What a lesson page carries</th></tr>
+    <tr><td><b>Calculus</b> · Grade 12</td><td>3 chapters · 14 lessons</td><td rowspan="2">The worked example you step through one line at a time, the inline SVG graphs recovered from the captured course pages, a live graph lab (drag to pan, scroll to zoom, retype the function, hover to trace) and the lesson's own marked questions under <b>Your turn</b>.</td></tr>
+    <tr><td><b>Precalculus</b> · Grade 11</td><td>2 chapters · 9 lessons</td></tr>
+    <tr><td><b>Algebra 1 · Course 1 · Course 2</b></td><td>31 chapters, skills inside</td><td>The recovered <code>.bnk</code> wording, filed by book, chapter and skill; one click starts a practice run on any chapter or skill.</td></tr>
+    <tr><td><b>Exam Preparation</b></td><td>6 programs</td><td>SAT, SAAT, GAT, NAFS, NASMO and Remedial MCQs, filed by program, grade and skill.</td></tr>
+  </table>
+
+  <h2>Question Studio — every question in one deck</h2>
+  <p>The project's questions lived in four unrelated places. They are now merged into a single searchable
+  studio (<a href="index.html#/questions"><b>#/questions</b></a>) with <b>4,741</b> questions:</p>
+  <table class="map">
+    <tr><th>Source</th><th>Questions</th><th>What it gives you</th></tr>
+        <tr><td><b>TestGen <code>.BOK</code></b> (2 books)</td><td>4,128</td><td>Precalculus and Calculus wording recovered by <code>tools/parse_bok.py</code> — the gaps are the formula objects still held in ExamView's internal notation, as in the <code>.bnk</code> recovery.</td></tr>
+<tr><td><b>.bnk banks</b> (31 chapters)</td><td>2,840</td><td>Recovered wording from the Quiz Show banks. Generated numbers show as ruled gaps you can click and fill with your own — no answer key exists in the file.</td></tr>
+    <tr><td><b>FikrCounts</b> export</td><td>1,736</td><td>Grade 6–12 and GAT multiple choice, 4 options, Easy/Medium/Hard. The export kept no key, so you mark yourself.</td></tr>
+    <tr><td><b>Calculus question bank</b></td><td>162</td><td>Limits, continuity, derivative rules, related rates, implicit differentiation — with stored answer keys, hints, per-option feedback and explanations.</td></tr>
+    <tr><td><b>Lesson quizzes</b></td><td>3</td><td>Quiz checkpoints lifted straight out of the Grade 12 course pages, with their correct answers.</td></tr>
+  </table>
+  <p>Each card is live: pick with <b>A–D</b> or <b>1–4</b>, check with <b>Enter</b>, hint with <b>H</b>, save with <b>S</b>,
+  move with <b>←</b>/<b>→</b>. Answer-keyed questions mark themselves and explain every option; the recovered and
+  FikrCounts questions lock your choice in and ask you to self-report, because no key survived. Cards can be starred,
+  copied, read aloud, and filtered by source, chapter, level, skill or “ones I got wrong”. <b>Practice</b> runs 10, 20 or
+  50 of them for score, with a streak, a timer and a review sheet at the end.</p>
+
+  <h2>Question generator — the TestGen logic, rebuilt</h2>
+  <p>A second Drive folder (<code>test gen</code>) held the machinery behind the question banks: the Savvas enVision
+  ExamView <code>.bnk</code> files for Algebra 1, Algebra 2 and Geometry, plus the <b>TestGen 7.6.5</b> Windows
+  installer. Those dynamic items do not store finished questions — they store a <b>recipe</b>: named variables with
+  ranges, a constraint expression, a template for the stem and options, and an answer computed from the variables.
+  That idea is now in the site itself (<a href="index.html#/generator"><b>#/generator</b></a>): <b>112 recipes</b>
+  across seven courses write a fresh question — options, key, hint and worked steps — on every ask, entirely in the
+  browser. The workbook side is a worksheet builder (10, 20 or 40 questions) with a printable answer key, so the same
+  sheet can be handed out and marked without any software.</p>
+
+  <h2>File-by-file map</h2>
+  <p>Each app page also lists the original file it came from in its tags.</p>
+  <table class="map">
+    <tr><th>Original</th><th>Rebuilt as</th></tr>
+    <tr><td><code>Handy Graph.exe</code>, <code>Algebra.application</code></td><td><a href="index.html#/hu9graph">Function Plotter</a></td></tr>
+    <tr><td><code>Polar Graphs.xlsx</code></td><td><a href="index.html#/polar">Polar Graph Plotter</a></td></tr>
+    <tr><td><code>SpeedPractice.xlsx</code></td><td><a href="index.html#/speedpractice">Speed Practice Sheets</a></td></tr>
+    <tr><td><code>Times Tables Master.exe</code></td><td><a href="index.html#/timestables">Times Tables Master</a></td></tr>
+    <tr><td><code>Application Files/</code></td><td><a href="index.html#/tablesheets">Times Table Sheets</a></td></tr>
+    <tr><td><code>Buying With Coins.exe</code></td><td><a href="index.html#/coins">Buying With Coins</a></td></tr>
+    <tr><td><code>Finding Change.exe</code></td><td><a href="index.html#/change">Finding Change</a></td></tr>
+    <tr><td><code>Algebra.exe</code>, <code>factorising quadratics.exe</code></td><td><a href="index.html#/algebra">Algebra — Expand &amp; Factorise</a></td></tr>
+    <tr><td><code>sequences.exe</code></td><td><a href="index.html#/sequences">Sequences</a></td></tr>
+    <tr><td><code>Whats My Angle.exe</code>, <code>trignometry.exe</code></td><td><a href="index.html#/angles">What's My Angle?</a></td></tr>
+    <tr><td><code>Probtools.exe</code></td><td><a href="index.html#/prob">Probability Tools</a></td></tr>
+    <tr><td><code>Pi - Recursive Formula.xlsx</code></td><td><a href="index.html#/pi">π by Recursion</a></td></tr>
+    <tr><td><code>501 Darts.exe</code></td><td><a href="index.html#/darts501">501 Darts</a></td></tr>
+    <tr><td><code>3 Dart Checkout.exe</code></td><td><a href="index.html#/checkout">3 Dart Checkout</a></td></tr>
+    <tr><td><code>Alien Coordinate Game.exe</code></td><td><a href="index.html#/aliens">Alien Coordinate Game</a></td></tr>
+    <tr><td><code>asteroids.exe</code></td><td><a href="index.html#/asteroids">Asteroids</a></td></tr>
+    <tr><td><code>transformations game.exe</code></td><td><a href="index.html#/transform">Transformations</a></td></tr>
+        <tr><td>EduMagnet game library (separate Drive folder, 21 modes)</td><td><a href="index.html#/arcade">Maths Arcade — all 21 modes rebuilt for maths</a>: Bingo, Quiz Race, Match Pairs, Memory Match, Mystery Crates, Spin the Wheel, Formula Flashcards, Comet Catch, Bubble Pop, Magnet Zap, Penguin Leap, Flash Recall, Rapid Sort, Group Sort, Step Order, Discovery Tiles, Circuit Maze, Rocket Glide, Zoom Guess and the Correcting Deck. Every question generated fresh by the 112-recipe engine; the wheel, the maze, the tiles and the comets are CSS and inline SVG; bests persist per mode</td></tr>
+        <tr><td>protractor &amp; ruler (new)</td><td><a href="index.html#/protractor">Protractor &amp; Ruler — drag the ray, read both scales, measure a bar to the millimetre, then answer blind</a></td></tr>
+        <tr><td>course pages (new)</td><td><a href="index.html#/courses">a live, animated figure on every course</a> — parabola vertex form, circle&nbsp;→&nbsp;sphere, exponential&nbsp;/&nbsp;log mirror, HSRV transformations, tangent from a secant, and what a score means; the lesson graph lab adds tangent&nbsp;+&nbsp;f′, a shaded area A→B and a sweeping point</td></tr>
+    <tr><td>unit-circle explorer (new)</td><td><a href="index.html#/unitcircle">Unit Circle Explorer — drag the terminal side, exact sin/cos/tan, special-angle quiz</a></td></tr>
+<tr><td><code>Question Sets/</code> (31 <code>.bnk</code> banks)</td><td><a href="index.html#/questions">Question Studio — every question, all four sources</a><br><a href="index.html#/quizshow">Quiz Show — chapter question game</a><br><a href="index.html#/bankqs">Bank Questions — the recovered text alone</a></td></tr>
+        <tr><td><code>PCALC7Z.BOK</code>, <code>TCALT15W.BOK</code> (TestGen banks, <code>test gen</code> folder)</td><td>Decoded with <code>tools/parse_bok.py</code>: 65,532 RDC-compressed blocks → 110.7 MB, 4,128 filtered items that now run in Question Studio (the maths inside the formula objects is still a gap, as in the <code>.bnk</code> recovery)</td></tr>
+<tr><td>Savvas enVision ExamView banks, <code>Install_Win_TestGen7.6.5.exe</code> (the <code>test gen</code> folder)</td><td><a href="index.html#/generator">Generator — 112 algorithmic question recipes with keys, hints, worked steps and printable worksheets</a></td></tr>
+    <tr><td><code>setup.exe</code>, <code>setup(1–5).exe</code>, <code>*.application</code></td><td>Installers and manifests — no content, not rebuilt</td></tr>
+  </table>
+
+  <h2>Run or host it yourself</h2>
+  <p>The whole site is static: open <code>index.html</code>, or serve the folder
+  (<code>node server.js</code> on port 3000). A <code>vercel.json</code> is included for one-command deploys;
+  no build step and no framework preset is needed.</p>
+
+  <p style="margin-top:30px"><a class="btn" href="index.html">Back to the apps</a></p>
+</main>
+<footer class="footer"><span>MathsLab · a modern rebuild of a 2000s maths toolkit</span></footer>
+</body>
+</html>

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "g7-market-graph",
+    "file": "g7-market-graph.html",
+    "title": "Market Graph",
+    "emoji": "📈",
+    "accent": "#35507a"
+  },
+  {
+    "id": "g7-signed-ledger",
+    "file": "g7-signed-ledger.html",
+    "title": "Signed Ledger",
+    "emoji": "🧾",
+    "accent": "#2f5f6e"
+  },
+  {
+    "id": "g7-decimal-mill",
+    "file": "g7-decimal-mill.html",
+    "title": "Decimal Mill",
+    "emoji": "⚙️",
+    "accent": "#4c5a4a"
+  },
+  {
+    "id": "g7-constant-line",
+    "file": "g7-constant-line.html",
+    "title": "Constant Line",
+    "emoji": "📊",
+    "accent": "#265a63"
+  },
+  {
+    "id": "g7-discount-chain",
+    "file": "g7-discount-chain.html",
+    "title": "Discount Chain",
+    "emoji": "🏷️",
+    "accent": "#8a5a1c"
+  },
+  {
+    "id": "g7-dome-corner",
+    "file": "g7-dome-corner.html",
+    "title": "Dome and Corner",
+    "emoji": "🕌",
+    "accent": "#4a5d8a"
+  }
+]
