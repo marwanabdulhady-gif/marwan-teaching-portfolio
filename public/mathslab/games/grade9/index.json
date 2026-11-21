@@ -1,0 +1,51 @@
+[
+  {
+    "id": "g9-parabola-launch",
+    "file": "g9-parabola-launch.html",
+    "title": "Parabola Launch",
+    "emoji": "🎯",
+    "accent": "#35507a"
+  },
+  {
+    "id": "g9-region-planner",
+    "file": "g9-region-planner.html",
+    "title": "Region Planner",
+    "emoji": "🗺️",
+    "accent": "#1f6b6b"
+  },
+  {
+    "id": "g9-factor-bench",
+    "file": "g9-factor-bench.html",
+    "title": "Factor Bench",
+    "emoji": "🧩",
+    "accent": "#6b4a7a"
+  },
+  {
+    "id": "g9-arc-table",
+    "file": "g9-arc-table.html",
+    "title": "Arc Table",
+    "emoji": "📊",
+    "accent": "#8a5a1c"
+  },
+  {
+    "id": "g9-complete-square",
+    "file": "g9-complete-square.html",
+    "title": "Complete the Square",
+    "emoji": "⬛",
+    "accent": "#2f5f6e"
+  },
+  {
+    "id": "g9-vertex-extremes",
+    "file": "g9-vertex-extremes.html",
+    "title": "Vertex Extremes",
+    "emoji": "⛰️",
+    "accent": "#4c5a4a"
+  },
+  {
+    "id": "g9-quadratic-apps",
+    "file": "g9-quadratic-apps.html",
+    "title": "Quadratic Apps",
+    "emoji": "📈",
+    "accent": "#35507a"
+  }
+]

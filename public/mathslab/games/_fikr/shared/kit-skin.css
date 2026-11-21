@@ -1,0 +1,340 @@
+/* ═══════════════════════════════════════════════════════════════════════════════════════════════════
+   KIT SKIN — the lesson games wear the FIKR dashboard's lesson-kit look (fikr-dashboard
+   playhub/lessons/kit/kit.css): the game's own world behind everything, a floating ink bar with the
+   game's tile, a home screen split into the picture and a level path, chunky ink-edged panels and
+   buttons, and the guide bar pinned to the bottom.
+   Injected AFTER theme.css, so it wins; theme.css still styles the authored pictures, CUBES and the
+   lesson frame. kit-skin.js adds the world, wraps the home side panel and puts the two home actions
+   in the guide bar. The engine is not touched.
+   ═══════════════════════════════════════════════════════════════════════════════════════════════════ */
+:root {
+  --ink: #141a33;
+  --line: #141a33;
+  --paper: #fffdf8;
+  --panel: #fffdf8;
+  --muted: #4a5570;
+  --ink-soft: #4a5570;
+  --accent-2: #ffd23f;
+  --star: #f5b400;
+  --good: #16a34a;
+  --bad: #e0302f;
+  --kit-r: 20px;
+  --display: "Trebuchet MS", "Segoe UI Rounded", "Nunito", ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Arabic", sans-serif;
+  --font: var(--body);
+}
+
+/* ---------- the world: the game's own place fills the screen (kit-skin.js puts it in .ks-world) ---------- */
+html { background: color-mix(in srgb, var(--accent) 30%, #eef6f4); }
+body {
+  font: 600 17px/1.4 var(--body) !important;
+  color: var(--ink) !important;
+  background: transparent !important;
+  padding: 10px 12px 12px !important;
+  padding-left: max(12px, env(safe-area-inset-left)) !important;
+  padding-right: max(12px, env(safe-area-inset-right)) !important;
+  padding-bottom: max(12px, env(safe-area-inset-bottom)) !important;
+  gap: 10px;
+  -webkit-font-smoothing: antialiased;
+}
+body::after { display: none !important; }
+.ks-world { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.ks-world svg { position: absolute; inset: -48px; width: calc(100% + 96px); height: calc(100% + 96px); display: block; filter: blur(22px) saturate(1.35); }
+.ks-world::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20, 26, 51, .08), rgba(20, 26, 51, .22)); }
+
+/* ---------- the ink bar ---------- */
+.bar {
+  position: sticky !important; top: max(10px, env(safe-area-inset-top)); z-index: 20 !important;
+  width: min(1500px, 100%); margin: 0 auto !important;
+  display: flex; align-items: center; flex-wrap: nowrap !important; gap: 10px !important;
+  padding: 6px 8px 6px 6px !important;
+  border-radius: 18px !important;
+  background: var(--ink) !important; color: #fff !important;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, .35), 0 12px 28px rgba(20, 26, 51, .22) !important;
+  font: 800 15px/1.2 var(--display);
+  min-width: 0;
+}
+#g-emoji {
+  width: 36px; height: 36px; flex: none; border-radius: 11px;
+  display: inline-grid !important; place-items: center;
+  background: var(--accent); font-size: 20px !important; line-height: 1;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .25);
+}
+#g-emoji svg { width: 24px; height: 24px; }
+.bar h1 {
+  flex: 0 1 auto !important; min-width: 0 !important; margin: 0 !important;
+  font: 800 16px/1.2 var(--display) !important; color: #fff !important;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.bar h1 small { font: 700 12px/1.2 var(--body) !important; opacity: .7; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar .chip {
+  display: inline-flex !important; align-items: center; gap: 4px;
+  padding: 5px 11px !important; border-radius: 99px !important;
+  background: rgba(255, 255, 255, .12) !important; color: #fff !important;
+  font: 800 14px/1.2 var(--display) !important; white-space: nowrap;
+  border: 0 !important; box-shadow: none !important;
+  font-variant-numeric: tabular-nums;
+}
+.bar .chip svg { width: 16px; height: 16px; }
+#g-stars, #g-streak { background: rgba(255, 255, 255, .1) !important; }
+.bar .dots { display: flex; gap: 5px !important; align-items: center; margin-inline-end: auto; min-width: 0; flex-wrap: wrap; }
+.bar .dots i { width: 12px !important; height: 12px !important; border-radius: 50%; background: rgba(255, 255, 255, .18) !important; box-shadow: none !important; }
+.bar .dots i.on { background: var(--accent-2) !important; }
+.bar .dots i.miss { background: #ff9f1c !important; }
+.bar .ibtn {
+  width: 36px !important; min-width: 36px !important; height: 36px !important; flex: none;
+  border-radius: 11px !important; border: 0 !important; padding: 0 !important;
+  display: inline-grid !important; place-items: center;
+  background: rgba(255, 255, 255, .12) !important; color: #fff !important;
+  box-shadow: none !important; font-size: 17px !important;
+}
+.bar .ibtn:hover { background: rgba(255, 255, 255, .22) !important; }
+.bar .ibtn svg { width: 20px !important; height: 20px !important; }
+.bar .ibtn svg * { stroke: #fff; }
+.bar button:focus-visible { outline: 3px solid var(--accent-2) !important; outline-offset: 2px; }
+
+/* ---------- the play area ---------- */
+main {
+  position: relative; z-index: 1;
+  width: min(1500px, 100%) !important; margin: 0 auto !important;
+  padding: 0 !important; gap: 10px !important;
+  justify-content: flex-start !important;
+}
+.stage {
+  position: relative;
+  background: var(--panel) !important;
+  border: 2.5px solid var(--ink) !important;
+  border-radius: var(--kit-r) !important;
+  box-shadow: 0 5px 0 var(--ink) !important;
+  padding: 18px !important;
+  min-height: 0 !important;
+}
+.stage > div:not(.home) { max-width: 860px !important; }
+.prompt { font: 900 clamp(22px, 3vw, 32px)/1.2 var(--display) !important; color: var(--ink) !important; }
+
+/* the steps of a word problem, as the kit's trail */
+.path li, .trail span {
+  border: 2px solid #e3dfd2 !important; background: #fff !important; color: #8a8696 !important;
+  border-radius: 12px !important; box-shadow: none !important;
+}
+.path li.now, .trail span.now { border-color: var(--ink) !important; color: var(--ink) !important; background: #fff !important; box-shadow: 0 3px 0 var(--ink) !important; }
+.path li.done, .trail span.done { background: #e3f8ec !important; border-color: #9fdcb7 !important; color: #137a43 !important; }
+
+/* ---------- choices and the keypad: the kit's chunky ink-edged buttons ---------- */
+.opt {
+  background: #fff !important; color: var(--ink) !important;
+  border: 2.5px solid var(--ink) !important; border-radius: 16px !important;
+  box-shadow: 0 4px 0 var(--ink) !important;
+  font: 900 21px/1.2 var(--display) !important;
+  transition: transform .1s, box-shadow .1s, background .2s !important;
+}
+.opt:hover { transform: translateY(-2px); }
+.opt:active { transform: translateY(3px) !important; box-shadow: 0 1px 0 var(--ink) !important; }
+.opt.good { background: #c9f5d6 !important; border-color: #11743a !important; box-shadow: 0 4px 0 #11743a !important; }
+.opt.bad { background: #fde0e0 !important; border-color: #b42323 !important; box-shadow: 0 4px 0 #b42323 !important; }
+.pad {
+  padding: 10px !important; border-radius: 20px !important; gap: 7px !important;
+  background: var(--panel) !important; border: 2.5px solid var(--ink) !important; box-shadow: 0 5px 0 var(--ink) !important;
+  grid-template-columns: repeat(3, minmax(var(--target), 1fr)) !important; width: min(320px, 100%);
+}
+.pad .disp {
+  min-height: 58px !important; border-radius: 14px !important;
+  background: #141a33 !important; color: #fff !important; border: 0 !important; box-shadow: none !important;
+  font: 900 34px/58px var(--display) !important; letter-spacing: 1px; font-variant-numeric: tabular-nums;
+}
+.pad button {
+  background: #fff !important; color: var(--ink) !important;
+  border: 2px solid rgba(20, 26, 51, .18) !important; border-radius: 12px !important;
+  box-shadow: 0 3px 0 rgba(20, 26, 51, .25) !important;
+  font: 900 22px/1 var(--display) !important;
+}
+.pad button:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(20, 26, 51, .25) !important; }
+.pad .go { background: var(--accent) !important; color: #fff !important; border-color: transparent !important; box-shadow: 0 4px 0 var(--accent-deep) !important; font-size: 19px !important; }
+
+/* wide screens: the keypad stands beside the round, as the kit's .lk-pad does */
+@media (min-width: 861px) {
+  .stage:has(> .pad) {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    column-gap: 22px; row-gap: 0 !important;
+    align-content: start; align-items: start;
+  }
+  .stage:has(> .pad) > :not(.pad) { grid-column: 1; margin: 0 0 12px !important; max-width: none !important; width: 100%; }
+  .stage:has(> .pad) > .pad { grid-column: 2; grid-row: 1 / span 12; width: 100% !important; margin: 0 !important; position: sticky; top: 76px; }
+}
+.pad { margin-inline: auto; width: min(320px, 100%) !important; }
+
+/* models, the marked word problem, the order strip */
+.model { background: #fff !important; border: 2px solid rgba(20, 26, 51, .16) !important; border-radius: 16px !important; box-shadow: none !important; }
+.ttext, .tcard { background: #fff !important; border: 2px solid #ece8dc !important; border-radius: 14px !important; box-shadow: none !important; }
+
+/* ---------- the guide bar, pinned to the bottom like the kit's coach ---------- */
+.coach {
+  position: sticky !important; bottom: max(12px, env(safe-area-inset-bottom)); z-index: 15;
+  margin: 0 !important;
+  display: flex; align-items: center; gap: 12px !important;
+  min-height: 68px;
+  padding: 8px 10px 8px 8px !important;
+  border-radius: 20px !important;
+  background: var(--paper) !important;
+  border: 2.5px solid var(--ink) !important;
+  box-shadow: 0 4px 0 var(--ink) !important;
+}
+.coach.good, .coach.bad, .coach.hint { background: var(--paper) !important; }
+.coach.good .say { color: #11743a !important; }
+.coach.bad .say { color: #b42323 !important; }
+.coach.hint .say { color: #4b3db8 !important; }
+.coach .face {
+  width: 54px !important; height: 54px !important; flex: none;
+  border-radius: 16px; background: color-mix(in srgb, var(--accent) 22%, #fff4dc);
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .12); overflow: hidden; display: grid; place-items: center;
+}
+.coach .face svg { width: 100%; height: 100%; }
+.coach .say { font: 700 18px/1.35 var(--body) !important; color: var(--ink) !important; min-height: 0 !important; padding: 4px 2px; }
+.coach .say b { font-weight: 900; }
+#coach-tools { gap: 8px !important; justify-content: flex-end; }
+.cbtn, .ks-act {
+  min-height: 0 !important;
+  padding: 12px 18px !important; border-radius: 14px !important;
+  border: 0 !important;
+  background: var(--accent) !important; color: #fff !important;
+  box-shadow: 0 4px 0 var(--accent-deep) !important;
+  font: 900 16px/1 var(--display) !important; white-space: nowrap; cursor: pointer;
+  transition: transform .1s, box-shadow .1s, filter .1s;
+}
+.cbtn:hover, .ks-act:hover { filter: brightness(1.07); }
+.cbtn:active, .ks-act:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--accent-deep) !important; }
+.cbtn:focus-visible, .ks-act:focus-visible { outline: 3px solid var(--accent-2) !important; outline-offset: 2px; }
+.cbtn:disabled { opacity: .45; cursor: not-allowed; }
+.cbtn.hint, .cbtn.show, .cbtn.back, .ks-act.quiet { background: #eef0f6 !important; color: var(--ink) !important; box-shadow: 0 4px 0 #c9cede !important; }
+.cbtn svg, .ks-act svg { width: 18px; height: 18px; vertical-align: -3px; }
+
+/* ---------- home: the picture beside a side panel with the level path ---------- */
+.stage.ks-home { background: transparent !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; }
+.home.ks {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 1fr) !important;
+  gap: 16px !important; align-items: stretch !important; justify-items: stretch !important;
+  text-align: start !important;
+}
+.home.ks > .hero {
+  position: relative; min-height: 320px; margin: 0 !important; max-width: none !important; width: 100% !important;
+  border-radius: var(--kit-r) !important; overflow: hidden;
+  border: 2.5px solid var(--ink) !important; box-shadow: 0 5px 0 var(--ink) !important;
+  background: var(--panel) !important; aspect-ratio: auto !important;
+}
+.home.ks > .hero svg { position: absolute; inset: 0; width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; }
+.home.ks > .hero.ks-model { display: grid; place-items: center; padding: 18px; background: #fff !important; }
+.home.ks > .hero.ks-model svg { position: static !important; width: 100% !important; height: 100% !important; max-height: 440px !important; overflow: visible; }
+.home.ks > .hero.ks-tile { display: grid; place-items: center; }
+.ks-hero-tile {
+  position: relative; z-index: 1; width: 132px; height: 132px; border-radius: 34px;
+  display: grid; place-items: center; font-size: 76px; line-height: 1;
+  background: var(--accent); box-shadow: inset 0 -8px 0 rgba(0, 0, 0, .22), 0 6px 0 var(--ink); border: 2.5px solid var(--ink);
+}
+.ks-side {
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 18px; border-radius: var(--kit-r);
+  background: var(--paper); border: 2.5px solid var(--ink); box-shadow: 0 5px 0 var(--ink);
+  min-width: 0;
+}
+.ks-side h2 { margin: 0 !important; font: 900 30px/1.1 var(--display) !important; color: var(--ink) !important; text-align: start !important; }
+.ks-side > p { margin: 0 !important; color: var(--muted) !important; font: 600 17px/1.4 var(--body) !important; max-width: none !important; text-align: start !important; }
+.home.ks > .lesson-shell { grid-column: 1 / -1; max-width: none !important; width: 100%; margin: 0 !important;
+  border: 2.5px solid var(--ink) !important; border-radius: var(--kit-r) !important; box-shadow: 0 5px 0 var(--ink) !important; background: var(--paper) !important; }
+
+.ks-side .cards { display: flex !important; flex-direction: column; gap: 12px !important; margin-top: 4px; }
+.ks-side .card {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: 48px 1fr auto !important;
+  grid-template-areas: "ic b st" "ic sm st";
+  column-gap: 12px !important; row-gap: 0 !important;
+  align-items: center !important; justify-items: start !important; text-align: start !important;
+  min-height: 0 !important;
+  padding: 9px 12px 9px 9px !important;
+  border-radius: 16px !important;
+  background: #fff !important;
+  border: 2px solid rgba(20, 26, 51, .16) !important;
+  box-shadow: none !important;
+  transition: transform .12s, border-color .12s !important;
+}
+.ks-side .card::before { display: none !important; }
+.ks-side .card + .card::after {
+  content: ""; position: absolute; inset-inline-start: 30px; top: -14px; width: 4px; height: 12px;
+  background: repeating-linear-gradient(var(--ink) 0 3px, transparent 3px 6px); opacity: .35;
+}
+.ks-side .card:hover { transform: translateX(3px) !important; border-color: var(--accent) !important; box-shadow: none !important; }
+[dir="rtl"] .ks-side .card:hover { transform: translateX(-3px) !important; }
+.ks-side .card:focus-visible { outline: 3px solid var(--accent-2) !important; outline-offset: 2px; }
+.ks-side .card .ic {
+  grid-area: ic; width: 48px !important; height: 48px !important; border-radius: 14px;
+  display: grid !important; place-items: center; background: #eef0f6; font-size: 24px !important;
+}
+.ks-side .card .ic svg { width: 32px !important; height: 32px !important; }
+.ks-side .card .ic[data-ks-emoji]::before { content: attr(data-ks-emoji); font-size: 24px; line-height: 1; }
+.ks-side .card:first-child .ic { background: #ecebfa; }
+.ks-side .card.ks-done .ic { background: color-mix(in srgb, var(--accent) 22%, #fff); }
+.ks-side .card b { grid-area: b; font: 900 17px/1.2 var(--display) !important; color: var(--ink) !important; }
+.ks-side .card small { grid-area: sm; font: 600 14px/1.3 var(--body) !important; color: var(--muted) !important; }
+.ks-side .card .st { grid-area: st; font-size: 20px !important; color: var(--star) !important; letter-spacing: 1px !important; white-space: nowrap; }
+.ks-side .card.ks-next { border-color: var(--accent) !important; box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent) !important; }
+
+/* ---------- dialogs: the kit's how-to card ---------- */
+.dlg-back { background: rgba(15, 20, 40, .55) !important; backdrop-filter: blur(3px); }
+.dlg {
+  width: min(480px, 100%) !important;
+  padding: 24px !important; text-align: start !important;
+  border-radius: 24px !important;
+  background: var(--paper) !important;
+  border: 2.5px solid var(--ink) !important;
+  box-shadow: 0 6px 0 var(--ink), 0 30px 70px rgba(0, 0, 0, .3) !important;
+}
+.dlg .di { font-size: 46px !important; line-height: 1; text-align: start; }
+.dlg .di svg { width: 46px; height: 46px; }
+.dlg h2 { margin: 8px 0 4px !important; font: 900 25px/1.15 var(--display) !important; color: var(--ink) !important; text-align: start !important; }
+.dlg .dh, .dlg p { color: var(--muted); font: 600 16px/1.45 var(--body); }
+.dlg ol { list-style: none; margin: 12px 0 4px !important; padding: 0 !important; counter-reset: s; display: grid; gap: 9px; }
+.dlg ol li { counter-increment: s; display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: start; font: 600 16px/1.4 var(--body); color: var(--ink); }
+.dlg ol li::before {
+  content: counter(s); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent); color: #fff; font: 900 15px/1 var(--display);
+}
+.dlg ol li svg { display: none; }
+.dlg .db { justify-content: stretch !important; }
+.dlg .db .cbtn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex: 1; padding: 14px !important; font-size: 18px !important; border-radius: 15px !important; }
+.dlg .stars { color: var(--star) !important; text-shadow: 0 3px 0 #b77d00; text-align: center; }
+.toast { background: var(--ink) !important; color: #fff !important; border-radius: 14px !important; }
+.ghubar .gb { border: 2.5px solid var(--ink) !important; box-shadow: 0 4px 0 var(--ink) !important; }
+
+/* ---------- small screens, as the kit ---------- */
+@media (max-width: 860px) {
+  .home.ks { grid-template-columns: 1fr !important; }
+  .home.ks > .hero { min-height: 220px; }
+  .bar h1 small { display: none; }
+  .bar .dots i { width: 9px !important; height: 9px !important; }
+}
+@media (max-width: 620px) {
+  body { padding: 8px !important; }
+  /* one row, as the kit: the tile, the level, the counters, the buttons; the game's name is in the tile */
+  .bar { flex-wrap: nowrap !important; gap: 6px !important; padding: 5px 6px 5px 5px !important; border-radius: 16px !important; }
+  .bar h1 { display: none !important; }
+  .bar #g-level { order: 0 !important; flex: 1 1 auto !important; min-width: 0; max-width: none; overflow: hidden; text-overflow: ellipsis; font-size: 13px !important; padding: 5px 9px !important; }
+  .bar .dots { display: none !important; }
+  .bar .chip { padding: 4px 8px !important; font-size: 13px !important; }
+  #g-emoji, .bar .ibtn { width: 34px !important; min-width: 34px !important; height: 34px !important; }
+  #g-streak { display: none !important; }
+  /* on a phone the guide bar follows the page (as the kit's does) instead of covering the keypad */
+  .coach { position: relative !important; bottom: auto; }
+  .stage { padding: 12px !important; }
+  .coach { flex-wrap: wrap; }
+  .coach .face { width: 44px !important; height: 44px !important; }
+  .coach .say { font-size: 16px !important; flex-basis: calc(100% - 60px); }
+  #coach-tools { width: 100%; }
+  #coach-tools > * { flex: 1; text-align: center; padding: 12px 10px !important; }
+  .ks-side { padding: 14px; }
+  .ks-side h2 { font-size: 26px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ks-side .card, .opt, .cbtn, .ks-act { transition: none !important; }
+}

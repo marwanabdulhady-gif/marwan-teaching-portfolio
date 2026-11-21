@@ -1,0 +1,14 @@
+{
+  "repo": "marwanabdulhady-gif/mathslab",
+  "commit": "5aef1eba30d82fad808914e889546b4add7b4fca",
+  "copied": "2026-11-21",
+  "excluded": [
+    "screenshots",
+    "source-archives",
+    "tools",
+    "server.js",
+    "vercel.json",
+    ".github",
+    "package-lock.json"
+  ]
+}

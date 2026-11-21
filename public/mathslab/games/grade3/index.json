@@ -1,0 +1,72 @@
+[
+  {
+    "id": "g3-grove-rows",
+    "file": "g3-grove-rows.html",
+    "title": "Grove Rows",
+    "emoji": "🌴",
+    "accent": "#2f7d5c"
+  },
+  {
+    "id": "g3-date-trays",
+    "file": "g3-date-trays.html",
+    "title": "Date Tray Sharing",
+    "emoji": "🧺",
+    "accent": "#a8781f"
+  },
+  {
+    "id": "g3-array-terraces",
+    "file": "g3-array-terraces.html",
+    "title": "Terrace Arrays",
+    "emoji": "🟠",
+    "accent": "#b26a2c"
+  },
+  {
+    "id": "g3-souq-tables",
+    "file": "g3-souq-tables.html",
+    "title": "Souq Tables",
+    "emoji": "🛒",
+    "accent": "#3b6fb6"
+  },
+  {
+    "id": "g3-falaj-fractions",
+    "file": "g3-falaj-fractions.html",
+    "title": "Falaj Fractions",
+    "emoji": "💧",
+    "accent": "#1f8a9e"
+  },
+  {
+    "id": "g3-fraction-line",
+    "file": "g3-fraction-line.html",
+    "title": "Fraction Line",
+    "emoji": "📏",
+    "accent": "#5a5fb8"
+  },
+  {
+    "id": "g3-equal-shares",
+    "file": "g3-equal-shares.html",
+    "title": "Equal Shares",
+    "emoji": "🪟",
+    "accent": "#8a5fc4"
+  },
+  {
+    "id": "g3-courtyard-tiles",
+    "file": "g3-courtyard-tiles.html",
+    "title": "Courtyard Tiles",
+    "emoji": "🟫",
+    "accent": "#9c5a2c"
+  },
+  {
+    "id": "g3-fence-walk",
+    "file": "g3-fence-walk.html",
+    "title": "Fence Walk",
+    "emoji": "🚧",
+    "accent": "#4f8a3d"
+  },
+  {
+    "id": "g3-rounding-road",
+    "file": "g3-rounding-road.html",
+    "title": "Rounding Road",
+    "emoji": "🛣️",
+    "accent": "#c1642f"
+  }
+]

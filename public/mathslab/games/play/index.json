@@ -1,0 +1,184 @@
+[
+ {
+  "id": "k-date-basket",
+  "grade": "K",
+  "title": "Date Basket",
+  "band": "k2",
+  "file": "play/k-date-basket.html"
+ },
+ {
+  "id": "k-pattern-path",
+  "grade": "K",
+  "title": "Oasis Pattern Path",
+  "band": "k2",
+  "file": "play/k-pattern-path.html"
+ },
+ {
+  "id": "g1-ten-seat-dhow",
+  "grade": "Grade 1",
+  "title": "Ten-Seat Dhow",
+  "band": "k2",
+  "file": "play/g1-ten-seat-dhow.html"
+ },
+ {
+  "id": "g1-corniche-clock",
+  "grade": "Grade 1",
+  "title": "Corniche Clock Tower",
+  "band": "k2",
+  "file": "play/g1-corniche-clock.html"
+ },
+ {
+  "id": "g1-corniche-ruler",
+  "grade": "Grade 1",
+  "title": "Corniche Ruler",
+  "band": "k2",
+  "file": "play/g1-corniche-ruler.html"
+ },
+ {
+  "id": "g2-date-packing",
+  "grade": "Grade 2",
+  "title": "Date Packing",
+  "band": "k2",
+  "file": "play/g2-date-packing.html"
+ },
+ {
+  "id": "g3-palm-grove",
+  "grade": "Grade 3",
+  "title": "Palm Grove Arrays",
+  "band": "g35",
+  "file": "play/g3-palm-grove.html"
+ },
+ {
+  "id": "g4-hidden-question",
+  "grade": "Grade 4",
+  "title": "The Hidden Question",
+  "band": "g35",
+  "file": "play/g4-hidden-question.html"
+ },
+ {
+  "id": "g5-kunafa-fractions",
+  "grade": "Grade 5",
+  "title": "Kunafa Fractions",
+  "band": "g35",
+  "file": "play/g5-kunafa-fractions.html"
+ },
+ {
+  "id": "g6-juice-bar",
+  "grade": "Grade 6",
+  "title": "Juice Bar Ratios",
+  "band": "g68",
+  "file": "play/g6-juice-bar.html"
+ },
+ {
+  "id": "g7-red-sea-dive",
+  "grade": "Grade 7",
+  "title": "Red Sea Dive",
+  "band": "g68",
+  "file": "play/g7-red-sea-dive.html"
+ },
+ {
+  "id": "g8-graph-pilot",
+  "grade": "Grade 8",
+  "title": "Graph Pilot",
+  "band": "g68",
+  "file": "play/g8-graph-pilot.html"
+ },
+ {
+  "id": "g9-falcons-arc",
+  "grade": "Grade 9",
+  "title": "Falcon's Arc",
+  "band": "g912",
+  "file": "play/g9-falcons-arc.html"
+ },
+ {
+  "id": "g10-tower-trig",
+  "grade": "Grade 10",
+  "title": "Tower Trig",
+  "band": "g912",
+  "file": "play/g10-tower-trig.html"
+ },
+ {
+  "id": "g11-neom-growth",
+  "grade": "Grade 11",
+  "title": "NEOM Growth",
+  "band": "g912",
+  "file": "play/g11-neom-growth.html"
+ },
+ {
+  "id": "g12-haramain-rates",
+  "grade": "Grade 12",
+  "title": "Haramain Rates",
+  "band": "g912",
+  "file": "play/g12-haramain-rates.html"
+ },
+ {
+  "id": "g1-chime-match",
+  "grade": "Grade 1",
+  "title": "Chime Match",
+  "band": "k2",
+  "file": "play/g1-chime-match.html"
+ },
+ {
+  "id": "g2-place-value-port",
+  "grade": "Grade 2",
+  "title": "Place-Value Port",
+  "band": "k2",
+  "file": "play/g2-place-value-port.html"
+ },
+ {
+  "id": "g3-array-garden",
+  "grade": "Grade 3",
+  "title": "Array Garden",
+  "band": "g35",
+  "file": "play/g3-array-garden.html"
+ },
+ {
+  "id": "g4-times-as-many",
+  "grade": "Grade 4",
+  "title": "Times-as-Many Workshop",
+  "band": "g35",
+  "file": "play/g4-times-as-many.html"
+ },
+ {
+  "id": "g5-decimal-shift",
+  "grade": "Grade 5",
+  "title": "Decimal Shift Lab",
+  "band": "g35",
+  "file": "play/g5-decimal-shift.html"
+ },
+ {
+  "id": "g6-ratio-route",
+  "grade": "Grade 6",
+  "title": "Ratio Route",
+  "band": "g68",
+  "file": "play/g6-ratio-route.html"
+ },
+ {
+  "id": "g7-number-line-rescue",
+  "grade": "Grade 7",
+  "title": "Number-Line Rescue",
+  "band": "g68",
+  "file": "play/g7-number-line-rescue.html"
+ },
+ {
+  "id": "g8-line-builder",
+  "grade": "Grade 8",
+  "title": "Line Builder",
+  "band": "g68",
+  "file": "play/g8-line-builder.html"
+ },
+ {
+  "id": "g9-parabola-lab",
+  "grade": "Grade 9",
+  "title": "Parabola Lab",
+  "band": "g912",
+  "file": "play/g9-parabola-lab.html"
+ },
+ {
+  "id": "g10-angle-of-approach",
+  "grade": "Grade 10",
+  "title": "Angle of Approach",
+  "band": "g912",
+  "file": "play/g10-angle-of-approach.html"
+ }
+]

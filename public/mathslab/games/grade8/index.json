@@ -1,0 +1,51 @@
+[
+  {
+    "id": "g8-slope-intercept",
+    "file": "g8-slope-intercept.html",
+    "title": "Slope Intercept",
+    "emoji": "📐",
+    "accent": "#35507a"
+  },
+  {
+    "id": "g8-pythagoras-arch",
+    "file": "g8-pythagoras-arch.html",
+    "title": "Builders Corner",
+    "emoji": "🧱",
+    "accent": "#7a5230"
+  },
+  {
+    "id": "g8-system-crossing",
+    "file": "g8-system-crossing.html",
+    "title": "Two Planks",
+    "emoji": "🪵",
+    "accent": "#2f5f6e"
+  },
+  {
+    "id": "g8-plan-choice",
+    "file": "g8-plan-choice.html",
+    "title": "Plan Choice",
+    "emoji": "⚖️",
+    "accent": "#6b4a7a"
+  },
+  {
+    "id": "g8-rate-of-change",
+    "file": "g8-rate-of-change.html",
+    "title": "Steady Tank",
+    "emoji": "🚰",
+    "accent": "#1f6b6b"
+  },
+  {
+    "id": "g8-distance-grid",
+    "file": "g8-distance-grid.html",
+    "title": "Grid Flight",
+    "emoji": "🛩️",
+    "accent": "#35507a"
+  },
+  {
+    "id": "g8-model-limit",
+    "file": "g8-model-limit.html",
+    "title": "Roof Span",
+    "emoji": "🏠",
+    "accent": "#8a5a1c"
+  }
+]

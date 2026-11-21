@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Gamepad2, Maximize2, Minimize2, Play, Users, X } from 'lucide-react';
+import { ArrowUpRight, FlaskConical, Gamepad2, Maximize2, Minimize2, Play, Users, X } from 'lucide-react';
 import { useLocale } from '../LocaleContext';
-import { ARCADE, type ArcadeTier } from '../teachingData';
+import { ARCADE, MATHSLAB, type ArcadeTier } from '../teachingData';
 import LiveRooms from './LiveRooms';
+import MathsLabPanel from './MathsLabPanel';
 import Reveal from './Reveal';
 
 const TIER_ORDER: ArcadeTier[] = ['class', 'easy', 'medium', 'hard'];
@@ -18,15 +19,15 @@ export default function MathLab() {
   const { isRtl } = useLocale();
   const L = (o: { en: string; ar: string }) => (isRtl ? o.ar : o.en);
 
-  const [arcadeTab, setArcadeTab] = useState<'games' | 'rooms'>('games');
+  const [arcadeTab, setArcadeTab] = useState<'games' | 'rooms' | 'mathslab'>('games');
   const [tierFilter, setTierFilter] = useState<'all' | ArcadeTier>('all');
   const [frameSrc, setFrameSrc] = useState<string | null>(null);
   const [frameTitle, setFrameTitle] = useState<string>('');
   const [expanded, setExpanded] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
 
-  const openArcadeUrl = (url: string, title: string) => {
-    setArcadeTab('games');
+  const openArcadeUrl = (url: string, title: string, tab: 'games' | 'mathslab' = 'games') => {
+    setArcadeTab(tab);
     setFrameSrc(url);
     setFrameTitle(title);
     requestAnimationFrame(() => {
@@ -99,6 +100,19 @@ export default function MathLab() {
               <Users className="w-4 h-4" />
               {isRtl ? 'غرف التحدّي المباشرة (١ ضد ١)' : 'Live 1-v-1 Rooms'}
             </button>
+            <button
+              type="button"
+              onClick={() => setArcadeTab('mathslab')}
+              aria-pressed={arcadeTab === 'mathslab'}
+              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer transition-all border-0 ${
+                arcadeTab === 'mathslab'
+                  ? 'bg-[var(--t-accent)] text-[#fff] shadow-md'
+                  : 'bg-transparent text-[color-mix(in_srgb,var(--t-ink)_72%,transparent)] hover:text-[var(--t-ink)]'
+              }`}
+            >
+              <FlaskConical className="w-4 h-4" />
+              {L(MATHSLAB.tab)}
+            </button>
           </div>
 
           {arcadeTab === 'games' && (
@@ -149,8 +163,8 @@ export default function MathLab() {
         {/* Live 1-v-1 Rooms Tab */}
         {arcadeTab === 'rooms' && <LiveRooms />}
 
-        {/* Games Catalogue Tab */}
-        {arcadeTab === 'games' && (
+        {/* The player, shared by the arcade and MathsLab */}
+        {(arcadeTab === 'games' || arcadeTab === 'mathslab') && (
           <>
             {frameSrc && (
               <div
@@ -204,6 +218,11 @@ export default function MathLab() {
               </div>
             )}
 
+            {arcadeTab === 'mathslab' && (
+              <MathsLabPanel playing={frameSrc} onOpen={(url, title) => openArcadeUrl(url, title, 'mathslab')} />
+            )}
+
+            {arcadeTab === 'games' && (
             <div className="space-y-9">
               {visibleTiers.map((tierKey) => {
                 const games = ARCADE.games.filter((g) => g.tier === tierKey);
@@ -264,6 +283,7 @@ export default function MathLab() {
                 );
               })}
             </div>
+            )}
           </>
         )}
       </div>

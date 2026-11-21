@@ -24,7 +24,7 @@ Vite; no settings or environment variables are needed.
 | Orientation · Hero & Credentials Strip | `src/components/TeachHero.tsx` + `CredentialsBar.tsx` |
 | **Ch. 01 · Profile & Teaching Track Record**: Meet Mr. Marwan (philosophy), then the School Timeline & Exam Results (stats derived from the data, collapsible cards), then the compact chapter guide (`PortfolioDirectory.tsx`) | `src/components/TeachAbout.tsx` + `Experience.tsx`; section order in `src/TeachingApp.tsx` and `src/homeSections.ts` |
 | **Ch. 02 · Mathematics Academy & Labs** — 5 Live SVG Models + Tabbed Academy (23 Lessons, Guided Sampler, YouTube & Store) | `src/components/VisualMathShowcase.tsx` + `ResourceLibrary.tsx` + `public/academy/` |
-| **Ch. 03 · FIKR Math Arcade** — 18 Tier-Filtered Games & Live 1-v-1 Rooms | `src/components/MathLab.tsx` + `LiveRooms.tsx` + `public/arcade/` |
+| **Ch. 03 · FIKR Math Arcade** — 18 Tier-Filtered Games, Live 1-v-1 Rooms & the MathsLab library | `src/components/MathLab.tsx` + `LiveRooms.tsx` + `MathsLabPanel.tsx` + `public/arcade/` + `public/mathslab/` |
 | **Ch. 04 · EdTech Designs**: 4 Tabbed Flagship Platforms. The AI Teacher Studio is parked until it is functional (see `docs/later-improvements.md`) | `src/components/LearningDesigns.tsx` (parked: `AiTeacherStudio.tsx` + `public/studio/`) |
 | Closing · Work With Me & Footer | `src/components/WorkWithMe.tsx` + `TeachFooter.tsx` |
 
@@ -51,6 +51,12 @@ games ship here: the lesson games and the dashboard (and its pupil data) are
 not part of this repository. To update it, copy the new `playhub/index.html`
 over and keep that style block. Framed, the hub wears the FIKR look, whose heading
 face is served from `public/vendor/fonts/`.
+
+**MathsLab.** `public/mathslab/` is a copy of the MathsLab site (the `mathslab` repo): lesson games
+for Grades 1–9, the KG Math Garden, the Maths Arcade, the courses, the question studio and the board tools.
+Chapter 03's **MathsLab** tab lists them (`MATHSLAB` in `src/teachingData.ts`) and opens each in the arcade
+player. To update it, run `node scripts/sync-mathslab.mjs <path to a mathslab checkout>`: it copies the
+committed site (no screenshots, archives or build tools) and records the commit in `public/mathslab/SOURCE.json`.
 
 **Live rooms.** Two players on two devices play the real Math Fighter or Tug of War:
 one makes a room and shares the 4-letter code (or the invite link, `?room=CODE#lab`),

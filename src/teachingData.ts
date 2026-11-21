@@ -542,6 +542,47 @@ export const ARCADE = {
 };
 
 /* -------------------------------------------------------------------------
+   MATHSLAB — the third mode of Ch. 03. The site itself is copied into
+   public/mathslab/ by `node scripts/sync-mathslab.mjs <mathslab checkout>`;
+   every path below is a page of that copy. Counts come from MathsLab's own
+   README and game indexes (games/gradeN/index.json) at the copied commit.
+   ------------------------------------------------------------------------- */
+
+export type MathsLabGroup = 'games' | 'apps' | 'tools';
+
+export const MATHSLAB = {
+  tab: { en: 'MathsLab', ar: 'مختبر الرياضيات' },
+  intro: {
+    en: 'MathsLab is where I rebuilt an old Flash and Windows maths toolkit for the web, then kept going: lesson games for every grade from 1 to 9, each teaching one skill in a Saudi setting, a picture-first garden for KG, and the apps and tools I use at the board. Everything runs offline in the browser.',
+    ar: 'مختبر الرياضيات هو المكان الذي أعدت فيه بناء أدوات رياضيات قديمة كانت تعمل بفلاش وويندوز لتعمل على الويب، ثم واصلت: ألعاب دروس لكل صف من الأول إلى التاسع، كل لعبة تعلّم مهارة واحدة في بيئة سعودية، وحديقة مصوّرة للروضة، والتطبيقات والأدوات التي أستخدمها أمام السبورة. كلها تعمل في المتصفح دون اتصال.',
+  },
+  draft: {
+    en: 'The lesson games are prototypes: aligned to draft lesson plans, not yet classroom-tested.',
+    ar: 'ألعاب الدروس نماذج أولية: مبنية على خطط دروس مسودة، ولم تُجرَّب في الفصل بعد.',
+  },
+  home: '/mathslab/index.html',
+  groups: {
+    games: { en: 'Games', ar: 'الألعاب' },
+    apps: { en: 'Courses & question banks', ar: 'المقررات وبنوك الأسئلة' },
+    tools: { en: 'Tools for the board', ar: 'أدوات للسبورة' },
+  } as Record<MathsLabGroup, Bi>,
+  items: [
+    { id: 'lesson-games', group: 'games', icon: '🎯', url: '/mathslab/games/index.html', count: 79, title: { en: 'Lesson games · Grades 1–9', ar: 'ألعاب الدروس · الصفوف ١–٩' }, desc: { en: 'One skill per game, three levels, hints that stop one step short of the answer', ar: 'مهارة واحدة لكل لعبة، ثلاثة مستويات، وتلميحات تتوقف قبل الجواب بخطوة' } },
+    { id: 'kg-garden', group: 'games', icon: '🌱', url: '/mathslab/index.html#/kgmath', count: 17, title: { en: 'KG Math Garden', ar: 'حديقة الرياضيات للروضة' }, desc: { en: 'Picture games for ages 4–6. No timer, gentle retries, English and Arabic', ar: 'ألعاب مصوّرة لعمر ٤–٦ سنوات. بلا مؤقت، ومحاولات لطيفة، بالعربية والإنجليزية' } },
+    { id: 'arcade', group: 'games', icon: '🕹️', url: '/mathslab/index.html#/arcade', count: 21, title: { en: 'Maths Arcade', ar: 'صالة ألعاب الرياضيات' }, desc: { en: 'Classic game modes rebuilt for maths, every question generated', ar: 'أنماط ألعاب كلاسيكية أعيد بناؤها للرياضيات، وكل سؤال مولَّد' } },
+    { id: 'courses', group: 'apps', icon: '📚', url: '/mathslab/index.html#/courses', count: 6, title: { en: 'Courses & worked examples', ar: 'المقررات والأمثلة المحلولة' }, desc: { en: 'Six courses, 42 chapters, lessons with step-by-step examples and a live graph', ar: 'ستة مقررات و٤٢ فصلًا، ودروس بأمثلة خطوة بخطوة ورسم بياني حي' } },
+    { id: 'questions', group: 'apps', icon: '🗂️', url: '/mathslab/index.html#/questions', count: 4741, title: { en: 'Question Studio', ar: 'استوديو الأسئلة' }, desc: { en: 'Every recovered question in one searchable, playable deck', ar: 'كل الأسئلة المستعادة في مجموعة واحدة قابلة للبحث واللعب' } },
+    { id: 'generator', group: 'apps', icon: '⚙️', url: '/mathslab/index.html#/generator', count: 112, title: { en: 'Question generator', ar: 'مولّد الأسئلة' }, desc: { en: 'Algorithmic recipes: a fresh set of questions every time', ar: 'وصفات خوارزمية: مجموعة أسئلة جديدة في كل مرة' } },
+    { id: 'graphcalc', group: 'tools', icon: '📈', url: '/mathslab/index.html#/graphcalc', count: 0, title: { en: 'Graphing calculator', ar: 'الحاسبة البيانية' }, desc: { en: 'Six curves, sliders, trace with tangent, intersections. No sign-in, works offline', ar: 'ستة منحنيات ومنزلقات وتتبّع مع المماس والتقاطعات. بلا تسجيل ويعمل دون اتصال' } },
+    { id: 'protractor', group: 'tools', icon: '📐', url: '/mathslab/index.html#/protractor', count: 0, title: { en: 'Protractor & ruler', ar: 'المنقلة والمسطرة' }, desc: { en: 'Measure angles and lengths, then measure them blind', ar: 'قِس الزوايا والأطوال، ثم قِسها دون أن ترى' } },
+    { id: 'unitcircle', group: 'tools', icon: '⭕', url: '/mathslab/index.html#/unitcircle', count: 0, title: { en: 'Unit circle', ar: 'دائرة الوحدة' }, desc: { en: 'Drag the angle round: exact sin, cos and tan', ar: 'اسحب الزاوية حول الدائرة: القيم الدقيقة لـ sin وcos وtan' } },
+    { id: 'transform', group: 'tools', icon: '🔁', url: '/mathslab/index.html#/transform', count: 0, title: { en: 'Transformations lab', ar: 'مختبر التحويلات' }, desc: { en: 'Reflect, rotate and translate, with a challenge mode', ar: 'انعكاس ودوران وانسحاب، مع وضع التحدي' } },
+    { id: 'algebra', group: 'tools', icon: '🧮', url: '/mathslab/index.html#/algebra', count: 0, title: { en: 'Expand & factorise', ar: 'الفك والتحليل' }, desc: { en: 'The rectangle model for quadratics', ar: 'نموذج المستطيل للعبارات التربيعية' } },
+    { id: 'prob', group: 'tools', icon: '🎲', url: '/mathslab/index.html#/prob', count: 0, title: { en: 'Probability tools', ar: 'أدوات الاحتمالات' }, desc: { en: 'Dice and coin experiments: experimental against theoretical', ar: 'تجارب النرد والعملة: التجريبي مقابل النظري' } },
+  ] as { id: string; group: MathsLabGroup; icon: string; url: string; count: number; title: Bi; desc: Bi }[],
+};
+
+/* -------------------------------------------------------------------------
    FOOTER
    ------------------------------------------------------------------------- */
 

@@ -1,0 +1,122 @@
+/* ===========================================================
+   Graphing Calculator — a native, offline Desmos-style panel.
+   =========================================================== */
+.gc { display: grid; gap: 16px; }
+.gc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap;
+  background: linear-gradient(135deg, #f2fbf3, #eef4ff 70%); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; }
+.gc-head h1 { margin: 4px 0 6px; font-size: clamp(22px, 3vw, 30px); letter-spacing: -.5px; }
+.gc-head-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.gc-body { display: grid; grid-template-columns: minmax(280px, 360px) minmax(0, 1fr); gap: 14px; align-items: start; }
+@media (max-width: 900px) { .gc-body { grid-template-columns: 1fr; } }
+
+/* ---------- left: the expression list ---------- */
+.gc-list { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 14px; display: grid; gap: 12px; }
+.gc-listhead { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
+.gc-rows { display: grid; gap: 8px; }
+.gc-row { display: grid; grid-template-columns: 22px auto minmax(0, 1fr) 26px 22px; align-items: center; gap: 6px;
+  background: #fbfcff; border: 1.5px solid var(--line); border-radius: 12px; padding: 6px 8px; transition: border-color .15s ease, opacity .15s ease; }
+.gc-row:focus-within { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+.gc-row.is-off { opacity: .5; }
+.gc-dot { width: 18px; height: 18px; border-radius: 50%; border: none; cursor: pointer; box-shadow: inset 0 0 0 2px rgba(255,255,255,.7); }
+.gc-eq { font: 700 13px/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
+.gc-input { font: 500 15px/1.35 ui-monospace, SFMono-Regular, Menlo, monospace; border: none; background: transparent; outline: none; min-width: 0; color: var(--ink); }
+.gc-eye, .gc-x { border: none; background: none; cursor: pointer; font-size: 15px; color: var(--muted); line-height: 1; }
+.gc-eye:hover, .gc-x:hover { color: var(--ink); }
+
+.gc-presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.gc-chip { font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; padding: 5px 10px; border-radius: 999px;
+  border: 1px solid var(--line); background: #fff; color: var(--ink-2, #475467); }
+.gc-chip:hover { border-color: var(--brand); color: var(--brand-ink); background: var(--brand-soft); }
+
+.gc-sub { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin-bottom: 6px; }
+.gc-params-list { display: grid; gap: 6px; }
+.gc-param { display: grid; grid-template-columns: 18px minmax(0, 1fr) 44px; align-items: center; gap: 8px; }
+.gc-param label { font: 700 13px/1 ui-monospace, monospace; color: var(--brand-ink); }
+.gc-param input[type="range"] { width: 100%; accent-color: var(--brand); }
+.gc-param b { font-size: 13px; font-variant-numeric: tabular-nums; text-align: right; }
+
+.gc-limits { display: grid; gap: 6px; }
+.gc-limit-row { display: grid; grid-template-columns: 52px minmax(0, 1fr) 40px; align-items: center; gap: 8px; font-size: 12px; }
+.gc-limit-row label { color: var(--muted); font-weight: 700; }
+.gc-limit-row input[type="range"] { accent-color: #0f9d94; }
+.gc-limit-row b { font-variant-numeric: tabular-nums; text-align: right; }
+.gc-limit-out { display: grid; gap: 4px; background: #f6fdfb; border: 1px solid #cdeee7; border-radius: 12px; padding: 10px; }
+.gc-lrow { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: var(--ink-2, #475467); }
+.gc-lrow b { font-variant-numeric: tabular-nums; color: var(--ink); }
+.gc-lsum { border-top: 1px dashed #cdeee7; padding-top: 5px; }
+
+/* ---------- right: the plot ---------- */
+.gc-plotwrap { display: grid; gap: 10px; }
+.gc-canvashost { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 6px; }
+.gc-canvashost canvas { display: block; width: 100%; height: auto; border-radius: 12px; cursor: crosshair; }
+.gc-zoom { position: absolute; right: 14px; top: 14px; display: grid; gap: 4px; }
+.gc-zoom .btn { width: 30px; height: 28px; padding: 0; display: grid; place-items: center; font-size: 15px; }
+.gc-window { position: absolute; left: 16px; bottom: 12px; font-size: 10.5px; color: var(--muted);
+  background: rgba(255,255,255,.86); border: 1px solid var(--line); border-radius: 999px; padding: 3px 9px; font-variant-numeric: tabular-nums; }
+
+.gc-read { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 34px; font-size: 13px; }
+.gc-tag { display: inline-flex; align-items: center; gap: 6px; font: 600 12px/1 ui-monospace, monospace; color: var(--ink-2, #475467);
+  background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--c, var(--brand)); border-radius: 8px; padding: 6px 9px; }
+.gc-num { font-size: 12.5px; color: var(--ink-2, #475467); }
+.gc-num b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.gc-ix { font-size: 12px; color: #b0267a; font-weight: 600; }
+.gc-err { font-size: 12px; color: #b42318; background: #fff5f5; border-radius: 8px; padding: 5px 8px; }
+
+.gc-foot { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; font-size: 12px; color: var(--ink-2, #475467); }
+.gc-toggle { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.gc-toggle input { accent-color: var(--brand); }
+
+.gc-table { overflow-x: auto; }
+.gc-tbl { border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; width: 100%; }
+.gc-tbl th, .gc-tbl td { border: 1px solid var(--line); padding: 5px 8px; text-align: center; white-space: nowrap; }
+.gc-tbl th { background: #f9fafb; font-weight: 700; color: var(--ink-2, #475467); text-align: left; }
+.gc-tbl tr:first-child td { color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .gc-row, .gc-chip { transition: none; } }
+
+/* ---------- the compact lesson widget (ML.gcWidget) ---------- */
+.gcw { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(180px, .75fr); gap: 12px; align-items: start; }
+@media (max-width: 680px) { .gcw { grid-template-columns: 1fr; } }
+.gcw-host { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 4px; }
+.gcw-host canvas { display: block; width: 100%; height: auto; border-radius: 10px; cursor: crosshair; touch-action: none; }
+.gcw-zoom { position: absolute; right: 10px; top: 10px; display: grid; gap: 3px; }
+.gcw-zoom .btn { width: 26px; height: 24px; padding: 0; display: grid; place-items: center; font-size: 13px; }
+.gcw-side { display: grid; gap: 8px; align-content: start; }
+.gcw-params { display: grid; gap: 6px; }
+.gcw-param { display: grid; grid-template-columns: 14px minmax(0, 1fr) 34px; align-items: center; gap: 6px; }
+.gcw-param label { font: 700 12px/1 ui-monospace, monospace; color: var(--brand-ink); }
+.gcw-param input[type="range"] { width: 100%; accent-color: var(--brand); }
+.gcw-param b { font-size: 12px; font-variant-numeric: tabular-nums; text-align: right; }
+.gcw-read { font-size: 12px; color: var(--ink-2, #475467); background: #fbfcff; border: 1px solid var(--line);
+  border-radius: 9px; padding: 7px 9px; min-height: 34px; font-variant-numeric: tabular-nums; }
+.gcw-steps { grid-column: 1 / -1; font-size: 13px; }
+.gcw-steps summary { cursor: pointer; font-weight: 700; color: var(--brand-ink); }
+.gcw-steps ol { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 5px; color: var(--ink-2, #475467); }
+.co-slider-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 900px) { .co-slider-grid { grid-template-columns: 1fr; } }
+.co-slider-card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; }
+.co-slider-card h3 { margin: 0 0 10px; font-size: 14px; }
+
+/* ---------- keep the plot inside its own column, and in view ---------- */
+.gc, .gc-body, .gc-plotwrap, .gc-list { min-width: 0; max-width: 100%; }
+.gc .mstage-body { height: var(--mstage-h, clamp(280px, 42vh, 480px)); }
+.gc-canvashost { padding: 6px; border: 1px solid var(--line); background: #fff; }
+@media (min-width: 901px) {
+  /* the figure stays put while you edit the expression list beside it */
+  .gc-plotwrap { position: sticky; top: 76px; align-self: start; }
+}
+@media (max-width: 900px) {
+  .gc-plotwrap { position: static; }
+}
+
+/* on a phone the figure comes first — the control column can be long */
+@media (max-width: 900px) {
+  .gc-body { display: flex; flex-direction: column; gap: 12px; }
+  .gc-plotwrap { order: -1; }
+  .gc-plotwrap .gc-table { max-height: none; }
+}
+
+/* same rule as the other stages: the box has the height, the canvas fills it */
+.gc-canvashost canvas, .gcw-host canvas { height: 100%; }
+.gc-canvashost { min-height: 300px; }

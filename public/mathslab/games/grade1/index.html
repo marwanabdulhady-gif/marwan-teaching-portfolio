@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grade 1 lesson games · Fikr template</title>
+<style>
+  :root{--ink:#1d1408;--line:#4a2f15;--brand:#0e7c86;--paper:#fffaf0;--muted:#6b5a3a;
+    --font:"Segoe UI","Noto Sans","Noto Sans Arabic",system-ui,sans-serif}
+  *{box-sizing:border-box}
+  body{margin:0;font:600 17px/1.45 var(--font);color:var(--ink);background:linear-gradient(170deg,#f6e2b4,#e3c48c 60%,#c99d5f);min-height:100vh}
+  .wrap{max-width:1040px;margin:0 auto;padding:26px 16px 44px}
+  a.back{display:inline-block;color:var(--ink);text-decoration:none;font-weight:800;font-size:14px;border:3px solid var(--line);background:var(--paper);padding:8px 13px;border-radius:12px;box-shadow:0 3px 0 var(--line)}
+  h1{font-size:clamp(26px,4vw,38px);margin:18px 0 6px}
+  .lede{margin:0;max-width:74ch;color:#3b2814}
+  .note{margin:14px 0 24px;padding:12px 14px;border:3px solid var(--line);border-radius:14px;background:#fff3c4;font-size:14.5px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+  .card{display:grid;gap:6px;text-align:start;background:var(--paper);border:3px solid var(--line);border-radius:18px;box-shadow:0 5px 0 var(--line);padding:16px;text-decoration:none;color:inherit}
+  .card:hover{transform:translateY(-2px)}
+  .card .ic{font-size:30px}
+  .card b{font-size:18px}
+  .card small{color:var(--muted);font-weight:600}
+  .card .go{margin-top:6px;font-weight:900;color:var(--brand)}
+  footer{margin-top:30px;font-size:14px;color:#3b2814}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="../../index.html">← MathsLab</a>
+  <h1>Grade 1 lesson games</h1>
+  <p class="lede">Ten Grade 1 maths games, one per step of the Grade 1 sequence. Every game is built from the
+    Fikr lesson-game template: Rawi the guide, Ghubar the mischief-maker, guided Learn slides, CUBES think-first
+    on every word problem, a three-step hint ladder, and three CRA levels.</p>
+  <p class="note">Prototypes for review — not curriculum-approved and not classroom-tested. Objective mapping and
+    the evidence boundary are recorded in <a href="../../docs/mowazi/g1-expansion.md">docs/mowazi/g1-expansion.md</a>.</p>
+  <div class="grid" id="grid"></div>
+  <footer>Each game is one self-contained offline HTML file in this folder. No network, no external fonts, no images —
+    artwork is inline SVG drawn in the page.</footer>
+</main>
+<script>
+  const CAT = [
+    ['g1-counting-cove','🐟','Counting Cove','Count to 20, one touch per object'],
+    ['g1-pearl-pairs','🦪','Pearl Market','More, fewer and the same'],
+    ['g1-oasis-add','🌱','Oasis Addition Garden','Join groups, add within 10'],
+    ['g1-lantern-light','🏮','Lantern Light-Out','Take away, subtract within 10'],
+    ['g1-coral-patterns','🪸','Coral Pattern Path','Find and extend a repeating pattern'],
+    ['g1-tile-shapes','🔷','Jeddah Tile Studio','Name 2-D shapes by sides and corners'],
+    ['g1-shell-steps','🐚','Shell-Step Measure','Measure with equal units, no gaps'],
+    ['g1-time-garden','🌻','Time in the Garden','Read o’clock and half past'],
+    ['g1-date-data','📊','Date-Shop Data Detectives','Read a picture graph'],
+    ['g1-story-scout','🧭','Story Scout','Choose + or − for a one-step story']
+  ];
+  const grid = document.getElementById('grid');
+  CAT.forEach(([id, ic, title, blurb]) => {
+    const a = document.createElement('a');
+    a.className = 'card'; a.href = id + '.html';
+    a.innerHTML = `<span class="ic">${ic}</span><b>${title}</b><small>${blurb}</small><span class="go">Play ▶</span>`;
+    grid.append(a);
+  });
+</script>
+</body>
+</html>

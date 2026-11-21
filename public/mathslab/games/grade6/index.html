@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grade 6 lesson games · Fikr template</title>
+<style>
+  :root{--ink:#1d1408;--line:#4a2f15;--brand:#2f4f7f;--paper:#fffaf0;--muted:#6b5a3a;
+    --font:"Segoe UI","Noto Sans","Noto Sans Arabic",system-ui,sans-serif}
+  *{box-sizing:border-box}
+  body{margin:0;font:600 17px/1.45 var(--font);color:var(--ink);background:linear-gradient(170deg,#eef2fa,#d5dff0 60%,#b6c6e0);min-height:100vh}
+  .wrap{max-width:1040px;margin:0 auto;padding:26px 16px 44px}
+  a.back{display:inline-block;color:var(--ink);text-decoration:none;font-weight:800;font-size:14px;border:3px solid var(--line);background:var(--paper);padding:8px 13px;border-radius:12px;box-shadow:0 3px 0 var(--line)}
+  h1{font-size:clamp(26px,4vw,38px);margin:18px 0 6px}
+  .lede{margin:0;max-width:74ch;color:#3b2814}
+  .note{margin:14px 0 24px;padding:12px 14px;border:3px solid var(--line);border-radius:14px;background:#fff3c4;font-size:14.5px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+  .card{display:grid;gap:6px;text-align:start;background:var(--paper);border:3px solid var(--line);border-radius:18px;box-shadow:0 5px 0 var(--line);padding:16px;text-decoration:none;color:inherit}
+  .card:hover{transform:translateY(-2px)}
+  .card .ic{font-size:30px}
+  .card b{font-size:18px}
+  .card small{color:var(--muted);font-weight:600}
+  .card .go{margin-top:6px;font-weight:900;color:var(--brand)}
+  footer{margin-top:30px;font-size:14px;color:#3b2814}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="../../index.html">← MathsLab</a>
+  <h1>Grade 6 lesson games</h1>
+  <p class="lede">Nine Grade 6 maths games, <b>one per real lesson document</b> in the Grade 6 mathematics
+    folder (الرياضيات — السنة السادسة) — not one per invented objective. Each keeps its document's own bundle
+    code: G06-U01-MAT-L01, G06-U01-MATH-L02, G06-U01-L03, G06-U02-MAT-L01, G06-U01-MAT-L02, G06-U02-MAT-L02,
+    G06-U04-L18. Subjects: ratios and <b>equivalent ratios</b>, unit rate and <b>percent</b>, rates from a recorded
+    survey, sharing in a ratio on a tape diagram, <b>dividing fractions</b>, <b>integers</b> on the number line,
+    <b>one-step equations and inequalities</b>, the <b>area of polygons</b> by decomposition, and
+    <b>mean / median / MAD</b>.</p>
+  <p class="lede">Every game also renders the نبع/موازي <b>lesson frame</b> under the play cards: the unit's Quranic
+    verse anchor and three-letter roots, the anti-overreach caution, five objectives, the three levels as
+    stations, an exit card of four items with a success criterion, two screen-free homework tasks, a reflection,
+    and the P2 status line.</p>
+  <p class="note">Prototypes for review — <b>not curriculum-approved and not classroom-tested (P2)</b>.
+    <b>Note the two near-identical codes:</b> <code>G06-U01-MAT-L02</code> (dividing fractions,
+    6.NS.A.1) and <code>G06-U01-MATH-L02</code> (ratios, unit rate and percent, 6.RP.A) are different
+    lessons, as are <code>G06-U02-MAT-L02</code> (one-step equations, 6.EE.B) and
+    <code>G06-U02-MATH-L02</code> (algebraic expressions and linear inequalities). They are not merged.
+    Source mapping is recorded in <a href="../../docs/mowazi/g6-expansion.md">docs/mowazi/g6-expansion.md</a>.</p>
+  <div class="grid" id="grid"></div>
+  <footer>Each game is one self-contained offline HTML file in this folder. No network, no external fonts, no images —
+    artwork is inline SVG drawn in the page.</footer>
+</main>
+<script>
+/* ── the shared inline icon set, embedded so this page is one offline file ────────────────
+   The cards used to print a raw emoji; an emoji depends on the device font and turns into an
+   empty box on a locked-down school machine. These are drawn flat icons instead. */
+window.G1ICON_EMBED = true;
+/* ══════════════════════════════════════════════════════════════════════════════════════════════════════
+   THE SHARED INLINE ICON SET (every grade built from the Fikr template)
+   The template uses emoji for its buttons, chips, level icons and dialog pictures. Emoji depend on the
+   device's font: on a school desktop, a locked-down tablet or an older Android they can render as empty
+   boxes, or as adult-looking glyphs. These are authored flat icons instead — one language for the whole
+   set, drawn in the accent colour, legible at 20 px and at 60 px.
+
+   G1ICON.replace() swaps every emoji in the chrome for its icon, and G1ICON.card() gives the Learn / level
+   cards their big picture.
+   ══════════════════════════════════════════════════════════════════════════════════════════════════════ */
+const G1ICON = (() => {
+  const P = {
+    fish: '#2a8b9c', fish2: '#67c7d4', sun: '#ffc93c', coral: '#ed6a5a', ink: '#24303f',
+    leaf: '#4faa63', lamp: '#f08a3c', shape: '#7b61c9', shell: '#e0a67a', sail: '#f2f6f8',
+    clock: '#3b6fb6', data: '#5b8def', stone: '#b6b0a6', accent: '#0e7c86',
+  };
+  /* each entry returns the inner markup of a 64×64 viewBox */
+  const art = {
+    fish: `<path d="M8 32c8-12 26-14 36-4 4 4 8 4 12 2-2 6-6 9-12 8-10 12-28 10-36-6Z" fill="${P.fish}"/><path d="M46 28c6-3 10-6 12-11 3 6 2 12-1 16 4 4 6 9 5 15-6-3-10-7-13-12Z" fill="${P.fish2}"/><circle cx="22" cy="29" r="3" fill="#fff"/><circle cx="22" cy="29" r="1.6" fill="${P.ink}"/><path d="M14 38c4 3 9 4 14 3" stroke="${P.fish2}" stroke-width="2.5" fill="none" stroke-linecap="round"/>`,
+    pearl: `<circle cx="24" cy="34" r="15" fill="#f3d9e4"/><circle cx="24" cy="34" r="15" fill="none" stroke="#a9577a" stroke-width="3"/><circle cx="18" cy="28" r="4" fill="#fff" opacity=".85"/><path d="M40 46c8-5 12-13 12-22" stroke="#a9577a" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="52" cy="20" r="7" fill="#fff" stroke="#a9577a" stroke-width="3"/><path d="M10 50c6 4 14 4 20 0" stroke="#a9577a" stroke-width="3" fill="none" stroke-linecap="round"/>`,
+    leaf: `<path d="M32 54V28" stroke="#3f7d4f" stroke-width="4" stroke-linecap="round"/><path d="M32 34C20 34 12 26 12 14c12 0 20 8 20 20Z" fill="${P.leaf}"/><path d="M32 30c0-10 8-18 20-18 0 12-8 18-20 18Z" fill="#6fc17e"/><path d="M20 50h24" stroke="#8a6a3d" stroke-width="4" stroke-linecap="round"/>`,
+    lamp: `<path d="M32 6v6" stroke="#8a6a3d" stroke-width="3" stroke-linecap="round"/><path d="M32 12c10 8 14 20 12 28-6 6-18 6-24 0-2-8 2-20 12-28Z" fill="${P.lamp}"/><circle cx="32" cy="33" r="7" fill="#ffe9a8"/><path d="M32 46v6" stroke="#8a6a3d" stroke-width="3" stroke-linecap="round"/><path d="M5 20l5 4M59 20l-5 4M9 44l6-2M55 44l-6-2" stroke="#ffc93c" stroke-width="3" stroke-linecap="round"/>`,
+    coral: `<path d="M32 56V30" stroke="${P.coral}" stroke-width="7" stroke-linecap="round"/><path d="M32 38 18 26M32 44 46 28M18 26v-8M46 28l8-6" stroke="${P.coral}" stroke-width="6" stroke-linecap="round"/><circle cx="18" cy="16" r="4" fill="#f6a19a"/><circle cx="54" cy="20" r="4" fill="#f6a19a"/><path d="M14 56h36" stroke="#8a6a3d" stroke-width="4" stroke-linecap="round" opacity=".5"/>`,
+    yarn: `<circle cx="32" cy="32" r="17" fill="#c9703f" stroke="#8a4a26" stroke-width="3"/><path d="M20 22c8 6 16 10 24 8M19 32c9 4 17 6 25 2M22 43c8 2 14 0 20-4" stroke="#fff3e6" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M49 46l8 10" stroke="#8a4a26" stroke-width="3" stroke-linecap="round"/>`,
+    dove: `<path d="M20 34c8-10 20-12 28-6 6-2 10-6 12-10 2 8-2 14-8 17 2 8-4 15-14 15-10 0-18-7-18-16Z" fill="#f4f7fb" stroke="#9fb0c4" stroke-width="2.6" stroke-linejoin="round"/><path d="M40 20c4-3 7-4 9-4" stroke="#9fb0c4" stroke-width="2.4" stroke-linecap="round"/><circle cx="26" cy="30" r="1.8" fill="#24303f"/><path d="M18 32l-6 3 6 3Z" fill="#f0b429"/>`,
+    pot: `<path d="M18 30h28l-3 20a6 6 0 0 1-6 5H27a6 6 0 0 1-6-5Z" fill="#c9703f" stroke="#8a4a26" stroke-width="3" stroke-linejoin="round"/><path d="M16 26h32v6H16Z" fill="#e0a06a" stroke="#8a4a26" stroke-width="2.6"/><path d="M32 10v10" stroke="#8a4a26" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="9" r="4" fill="#8a4a26"/><path d="M46 34c6 1 8 4 6 8" stroke="#8a4a26" stroke-width="2.6" fill="none" stroke-linecap="round"/>`,
+    bus: `<rect x="10" y="22" width="44" height="22" rx="5" fill="#4a5fa8" stroke="#33437a" stroke-width="2.8"/><path d="M16 28h13v8H16ZM33 28h13v8H33Z" fill="#dce8f7" stroke="#33437a" stroke-width="1.8"/><circle cx="20" cy="47" r="4.5" fill="#24303f"/><circle cx="44" cy="47" r="4.5" fill="#24303f"/><path d="M12 44h40" stroke="#33437a" stroke-width="2.4"/>`,
+    divide: `<circle cx="32" cy="20" r="4" fill="#2a8b9c"/><path d="M18 32h28" stroke="#2a8b9c" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="44" r="4" fill="#2a8b9c"/>`,
+    link: `<path d="M26 38l12-12" stroke="#6b7a8a" stroke-width="5" stroke-linecap="round"/><path d="M22 30a9 9 0 0 1 0-13 9 9 0 0 1 13 0l3 3" stroke="#6b7a8a" stroke-width="4.4" fill="none" stroke-linecap="round"/><path d="M42 34a9 9 0 0 1 0 13 9 9 0 0 1-13 0l-3-3" stroke="#6b7a8a" stroke-width="4.4" fill="none" stroke-linecap="round"/>`,
+    trench: `<path d="M2 44h24l6-16 6 16h24" stroke="#8a6a45" stroke-width="4" fill="none" stroke-linejoin="round"/><path d="M26 44h12l-6-16Z" fill="#b58a5a"/><path d="M2 50h60" stroke="#d9c49b" stroke-width="3" stroke-linecap="round"/>`,
+    dune: `<path d="M2 46c10-14 22-18 34-10 6-10 16-12 24-4v14Z" fill="#e8d7b4"/><path d="M2 46c12-8 22-8 32-2 8-8 18-8 26-2v4Z" fill="#d8c69c"/><circle cx="46" cy="14" r="7" fill="#ffd257"/>`,
+    shape: `<rect x="8" y="10" width="22" height="22" rx="5" fill="${P.shape}" transform="rotate(-8 19 21)"/><circle cx="46" cy="22" r="12" fill="#3fa3b5"/><path d="M20 48l12-20 12 20Z" fill="#ed6a5a"/><rect x="38" y="42" width="18" height="14" rx="4" fill="#f0b429"/>`,
+    shell: `<path d="M32 52c-14 0-24-8-24-18S18 12 32 12s24 12 24 22-10 18-24 18Z" fill="${P.shell}"/><path d="M32 14v38M22 18l4 34M42 18l-4 34M12 30l18 4M52 30l-18 4" stroke="#a9753f" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M18 54h28" stroke="#a9753f" stroke-width="4" stroke-linecap="round"/>`,
+    clock: `<circle cx="32" cy="32" r="24" fill="#fff" stroke="${P.clock}" stroke-width="4"/><path d="M32 32V17" stroke="${P.clock}" stroke-width="4" stroke-linecap="round"/><path d="M32 32l11 7" stroke="#ed6a5a" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="32" r="3.4" fill="${P.ink}"/><circle cx="32" cy="12" r="2" fill="${P.clock}"/><circle cx="52" cy="32" r="2" fill="${P.clock}"/><circle cx="32" cy="52" r="2" fill="${P.clock}"/><circle cx="12" cy="32" r="2" fill="${P.clock}"/>`,
+    flower: `<circle cx="32" cy="18" r="9" fill="#ffc93c"/><circle cx="46" cy="28" r="9" fill="#ffd76b"/><circle cx="41" cy="44" r="9" fill="#ffc93c"/><circle cx="23" cy="44" r="9" fill="#ffd76b"/><circle cx="18" cy="28" r="9" fill="#ffc93c"/><circle cx="32" cy="32" r="9" fill="#f08a3c"/><path d="M32 42v14" stroke="#4faa63" stroke-width="4" stroke-linecap="round"/>`,
+    data: `<rect x="8" y="34" width="12" height="20" rx="3" fill="${P.data}"/><rect x="26" y="20" width="12" height="34" rx="3" fill="#7b61c9"/><rect x="44" y="28" width="12" height="26" rx="3" fill="#3fa3b5"/><path d="M6 56h52" stroke="${P.ink}" stroke-width="3" stroke-linecap="round"/>`,
+    compass: `<circle cx="32" cy="32" r="23" fill="#fff" stroke="${P.ink}" stroke-width="4"/><path d="M40 24 28 34l-4 10 12-10Z" fill="#ed6a5a"/><circle cx="32" cy="32" r="3" fill="${P.ink}"/>`,
+    /* chrome */
+    home: `<path d="M10 30 32 12l22 18v22a3 3 0 0 1-3 3H41V42H23v13H13a3 3 0 0 1-3-3Z" fill="currentColor"/>`,
+    /* an outlined ring and a currentColor question mark: a filled disc with a white mark vanished on a light
+       button, because the header's currentColor is already near-white */
+    help: `<circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="4.5"/><path d="M25 26c0-4 3-7 7-7s7 3 7 7c0 5-6 6-6 11" stroke="currentColor" stroke-width="4.5" fill="none" stroke-linecap="round"/><circle cx="33" cy="46" r="2.9" fill="currentColor"/>`,
+    sound: `<path d="M10 26h8l12-10v36L18 42h-8Z" fill="currentColor"/><path d="M38 24c4 4 4 14 0 18M45 18c7 8 7 22 0 30" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+    mute: `<path d="M10 26h8l12-10v36L18 42h-8Z" fill="currentColor"/><path d="M40 26l12 12M52 26 40 38" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>`,
+    voice: `<circle cx="32" cy="22" r="11" fill="#f3b98e" stroke="currentColor" stroke-width="3"/><path d="M14 54c2-11 9-16 18-16s16 5 18 16" fill="currentColor"/><path d="M24 20h16" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>`,
+    star: `<path d="M32 8l7.6 15.4 17 2.5-12.3 12 2.9 17-15.2-8-15.2 8 2.9-17-12.3-12 17-2.5Z" fill="currentColor"/>`,
+    streak: `<path d="M32 6c8 10 14 14 14 24 0 10-6 18-14 18s-14-8-14-18c0-6 3-11 7-15 1 5 3 8 7 9-3-7-2-12 0-18Z" fill="currentColor"/><path d="M32 40c4-3 5-8 4-13-1 3-3 5-6 6 2 3 2 5 2 7Z" fill="#fff" opacity=".6"/>`,
+    /* level + learn icons */
+    point: `<path d="M26 54V34l-6 4-4-5 12-11V14a4 4 0 0 1 8 0v12l12 9v14a5 5 0 0 1-5 5Z" fill="currentColor"/>`,
+    count: `<rect x="8" y="12" width="48" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="20" cy="24" r="4" fill="currentColor"/><circle cx="32" cy="24" r="4" fill="currentColor"/><circle cx="44" cy="24" r="4" fill="currentColor"/><circle cx="20" cy="38" r="4" fill="currentColor"/><circle cx="32" cy="38" r="4" fill="currentColor"/>`,
+    balance: `<path d="M32 10v40M14 50h36" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M10 24h44" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M10 24 4 38h12ZM54 24l-6 14h12Z" fill="currentColor"/><circle cx="32" cy="12" r="4" fill="currentColor"/>`,
+    talk: `<path d="M8 14h34a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H22l-10 8V40H8a4 4 0 0 1-4-4V18a4 4 0 0 1 4-4Z" fill="currentColor"/><circle cx="18" cy="27" r="2.6" fill="#fff"/><circle cx="27" cy="27" r="2.6" fill="#fff"/><circle cx="36" cy="27" r="2.6" fill="#fff"/>`,
+    book: `<path d="M32 14c-6-4-14-5-22-4v38c8-1 16 0 22 4 6-4 14-5 22-4V10c-8-1-16 0-22 4Z" fill="currentColor"/><path d="M32 14v38" stroke="#fff" stroke-width="3"/>`,
+    ruler: `<rect x="6" y="22" width="52" height="20" rx="4" fill="currentColor"/><path d="M16 22v8M24 22v12M32 22v8M40 22v12M48 22v8" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`,
+    puzzle: `<path d="M12 12h14a6 6 0 1 1 12 0h14v14a6 6 0 1 0 0 12v14H38a6 6 0 1 0-12 0H12V38a6 6 0 1 1 0-12Z" fill="currentColor"/>`,
+    search: `<circle cx="28" cy="28" r="16" fill="none" stroke="currentColor" stroke-width="5"/><path d="M40 40l14 14" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>`,
+    sort: `<rect x="8" y="34" width="20" height="16" rx="4" fill="currentColor"/><rect x="32" y="34" width="20" height="16" rx="4" fill="currentColor" opacity=".55"/><rect x="8" y="14" width="20" height="16" rx="4" fill="currentColor" opacity=".55"/><rect x="32" y="14" width="20" height="16" rx="4" fill="currentColor"/>`,
+    flip: `<path d="M32 10a22 22 0 1 1-15 6" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M32 2v14" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>`,
+    minus: `<rect x="10" y="27" width="44" height="10" rx="5" fill="currentColor"/>`,
+    arrow: `<path d="M8 32h34l-8-12 22 12-22 12 8-12H8Z" fill="currentColor"/>`,
+    sparkle: `<path d="M32 6l5 16 16 5-16 5-5 16-5-16-16-5 16-5Z" fill="currentColor"/><path d="M50 42l2.5 7 7 2.5-7 2.5L50 61l-2.5-7-7-2.5 7-2.5Z" fill="currentColor" opacity=".65"/>`,
+    pin: `<path d="M32 6c9 0 16 7 16 16 0 12-16 30-16 30S16 34 16 22C16 13 23 6 32 6Z" fill="currentColor"/><circle cx="32" cy="22" r="5.5" fill="#fff"/>`,
+    eyes: `<path d="M4 32c8-11 17-16 28-16s20 5 28 16c-8 11-17 16-28 16S12 43 4 32Z" fill="#fff" stroke="currentColor" stroke-width="3.5"/><circle cx="32" cy="32" r="9" fill="currentColor"/><circle cx="36" cy="28" r="3" fill="#fff"/>`,
+    handshake: `<path d="M6 30l10-8 10 4 6-4 8 6 8-4 10 8-6 12-10-4-8 4-8-6-8 6-10-4Z" fill="currentColor"/>`,
+    abacus: `<rect x="6" y="10" width="52" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="4"/><path d="M6 24h52M6 38h52" stroke="currentColor" stroke-width="3"/><circle cx="18" cy="17" r="4" fill="currentColor"/><circle cx="30" cy="17" r="4" fill="currentColor"/><circle cx="24" cy="31" r="4" fill="currentColor"/><circle cx="42" cy="31" r="4" fill="currentColor"/><circle cx="20" cy="45" r="4" fill="currentColor"/><circle cx="44" cy="45" r="4" fill="currentColor"/>`,
+    /* dialogs and finale */
+    trophy: `<path d="M18 10h28v14a14 14 0 0 1-28 0Z" fill="#f0b429"/><path d="M18 14H8v6c0 6 4 10 10 10M46 14h10v6c0 6-4 10-10 10" fill="none" stroke="#f0b429" stroke-width="4"/><path d="M28 38h8v8h-8Z" fill="#c98a12"/><rect x="18" y="46" width="28" height="8" rx="3" fill="#c98a12"/><path d="M32 16l2.6 5.4 6 .9-4.3 4.2 1 5.9-5.3-2.8-5.3 2.8 1-5.9-4.3-4.2 6-.9Z" fill="#fff8e0"/>`,
+    /* a knocked-out triangle: it reads the same on a white button and on the accent header */
+    play: `<path fill-rule="evenodd" d="M32 6a26 26 0 1 1 0 52 26 26 0 0 1 0-52Zm-6 14v24l20-12Z" fill="currentColor"/>`,
+    save: `<path d="M10 12h34l10 10v30a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4Z" fill="currentColor"/><rect x="20" y="12" width="20" height="14" fill="#fff" opacity=".85"/><rect x="18" y="36" width="28" height="18" rx="3" fill="#fff" opacity=".85"/>`,
+    redo: `<path d="M32 12a20 20 0 1 1-14 6" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M34 4v16H18" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`,
+    check: `<path d="M10 34l14 14 30-30" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>`,
+    cross: `<path d="M14 14l36 36M50 14 14 50" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>`,
+    bulb: `<path d="M32 6a18 18 0 0 1 11 32c-2 2-3 4-3 7H24c0-3-1-5-3-7A18 18 0 0 1 32 6Z" fill="currentColor"/><path d="M26 50h12M28 56h8" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>`,
+    cut: `<circle cx="16" cy="48" r="8" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="48" cy="48" r="8" fill="none" stroke="currentColor" stroke-width="4"/><path d="M22 42 46 8M42 42 18 8" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>`,
+    wave: `<path d="M6 24c8-8 14 8 22 0s14 8 22 0M6 40c8-8 14 8 22 0s14 8 22 0" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>`,
+    box: `<rect x="10" y="14" width="44" height="36" rx="6" fill="none" stroke="currentColor" stroke-width="5"/>`,
+    circle: `<circle cx="32" cy="32" r="20" fill="none" stroke="currentColor" stroke-width="5"/>`,
+    brain: `<path d="M24 12c-6 0-10 4-10 10-4 2-6 6-6 10 0 5 3 9 7 11 0 6 4 9 9 9 3 0 5-1 7-3V14c-2-2-4-2-7-2Z" fill="currentColor"/><path d="M40 12c6 0 10 4 10 10 4 2 6 6 6 10 0 5-3 9-7 11 0 6-4 9-9 9-3 0-5-1-7-3V14c2-2 4-2 7-2Z" fill="currentColor" opacity=".65"/>`,
+    bolt: `<path d="M36 4 14 34h14l-4 26 22-30H32Z" fill="currentColor"/>`,
+    oyster: `<ellipse cx="32" cy="38" rx="26" ry="17" fill="#e7d8c3" stroke="#a9577a" stroke-width="3"/><path d="M8 34c8-10 16-14 24-14s16 4 24 14" fill="#f4e9d8" stroke="#a9577a" stroke-width="3"/><circle cx="32" cy="38" r="8" fill="#fff" stroke="#c9a2b4" stroke-width="2"/><circle cx="29" cy="35" r="2.6" fill="#fff"/>`,
+    brick: `<rect x="8" y="16" width="22" height="14" rx="3" fill="#c9703f"/><rect x="34" y="16" width="22" height="14" rx="3" fill="#b5622f"/><rect x="8" y="34" width="22" height="14" rx="3" fill="#b5622f"/><rect x="34" y="34" width="22" height="14" rx="3" fill="#c9703f"/>`,
+    shield: `<path d="M32 6l22 8v16c0 14-10 24-22 28-12-4-22-14-22-28V14Z" fill="currentColor"/><path d="M22 32l8 8 14-14" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`,
+    /* ---- grade 2: packing, place value, money, arrays and harbours ---- */
+    /* ---- grade 5: the lesson frame marker, unit cubes and the night sky ---- */
+    clipboard: `<rect x="14" y="10" width="36" height="46" rx="4" fill="#fff" stroke="currentColor" stroke-width="3.5"/><rect x="24" y="5" width="16" height="9" rx="3" fill="#b5622f"/><path d="M22 26h20M22 34h20M22 42h12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>`,
+    icecube: `<path d="M32 6 54 18v28L32 58 10 46V18Z" fill="#cfe4f6"/><path d="M32 6 54 18 32 30 10 18Z" fill="#e6f2fc"/><path d="M32 30v28" stroke="#2b4a66" stroke-width="3"/><path d="M10 18l22 12 22-12" fill="none" stroke="#2b4a66" stroke-width="3" stroke-linejoin="round"/><path d="M32 6 54 18v28L32 58 10 46V18Z" fill="none" stroke="#2b4a66" stroke-width="3" stroke-linejoin="round"/>`,
+    moon: `<path d="M40 6a26 26 0 1 0 16 44A22 22 0 0 1 40 6Z" fill="#f6d67c" stroke="#b9962f" stroke-width="3" stroke-linejoin="round"/><circle cx="46" cy="18" r="2.6" fill="#b9962f"/><circle cx="52" cy="30" r="2" fill="#b9962f"/>`,
+    crate: `<path d="M8 18 32 8l24 10v30L32 58 8 48Z" fill="#c9703f"/><path d="M32 8v50" stroke="#8a4a26" stroke-width="3"/><path d="M8 18l24 10 24-10" fill="none" stroke="#8a4a26" stroke-width="3"/><path d="M8 30l24 10 24-10" fill="none" stroke="#fff" stroke-width="2" opacity=".45"/>`,
+    receipt: `<path d="M14 6h36v50l-6-4-6 4-6-4-6 4-6-4-6 4Z" fill="#fff" stroke="currentColor" stroke-width="3.5"/><path d="M22 20h20M22 30h20M22 40h12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>`,
+    camel: `<path d="M12 46c0-8 4-14 10-16 2-6 6-8 10-6 2-6 8-8 12-4 4 4 4 10 2 16 4 4 6 10 4 16h-8c2-6 0-10-4-12-4 4-10 4-14 0-2 4-2 8 0 12Z" fill="#c99d5f"/><circle cx="42" cy="16" r="2.4" fill="#4a2f15"/><path d="M12 50h44" stroke="#8a6a3d" stroke-width="3" stroke-linecap="round"/>`,
+    money: `<rect x="6" y="16" width="40" height="26" rx="4" fill="#a7c7a1" stroke="currentColor" stroke-width="3"/><rect x="18" y="26" width="40" height="26" rx="4" fill="#c9a86a" stroke="currentColor" stroke-width="3"/><circle cx="38" cy="39" r="5" fill="#fff" opacity=".75"/>`,
+    falcon: `<path d="M32 20c6 0 10 4 10 10 0 5-3 8-6 10l6 14H22l6-14c-4-2-6-6-6-10 0-6 4-10 10-10Z" fill="#7d6a52"/><path d="M20 26 4 34l18 2ZM44 26l16 8-18 2Z" fill="#a08a6b"/><path d="M28 42l4 12 4-12" fill="#d9c9a8"/><circle cx="29" cy="28" r="2" fill="#fff"/><circle cx="29" cy="28" r="1" fill="#24303f"/><path d="M38 30l6 2-6 2Z" fill="#f0b429"/>`,
+    steps: `<ellipse cx="22" cy="18" rx="7" ry="10" fill="currentColor" opacity=".9"/><ellipse cx="42" cy="34" rx="7" ry="10" fill="currentColor" opacity=".9"/><ellipse cx="22" cy="48" rx="6" ry="8" fill="currentColor" opacity=".45"/>`,
+    /* reads as "100": a 1 then two O beside it. Stacking the zeros made it look like a stray 18. */
+    hundred: `<path d="M14 22 8 26v4.5l6-3.6V50h6.5V22Z" fill="currentColor"/><circle cx="32" cy="36" r="8" fill="none" stroke="currentColor" stroke-width="4.6"/><circle cx="50" cy="36" r="8" fill="none" stroke="currentColor" stroke-width="4.6"/>`,
+    coin: `<circle cx="32" cy="32" r="22" fill="#e8dcc0" stroke="currentColor" stroke-width="3.5"/><circle cx="32" cy="32" r="15" fill="none" stroke="currentColor" stroke-width="2.5" opacity=".5"/><path d="M26 32h12M32 26v12" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>`,
+    orange: `<circle cx="32" cy="36" r="20" fill="#f0902f"/><path d="M32 16c0-6 4-9 9-9-1 6-4 9-9 9Z" fill="#4faa63"/><path d="M32 36v20M32 36 18 26M32 36l14-10" stroke="#d2721c" stroke-width="2.4" opacity=".7"/>`,
+    chart: `<path d="M8 54h48" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M10 44l12-12 10 8 18-22" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="18" r="5" fill="#ed6a5a"/>`,
+    boat: `<path d="M10 40h44l-8 14H18Z" fill="#b5622f"/><path d="M32 8v32" stroke="#8a6a3d" stroke-width="3"/><path d="M34 12v26h16ZM30 16v22H18Z" fill="#f2f6f8" stroke="#b9c6cf" stroke-width="2"/><path d="M6 56h52" stroke="#2a8b9c" stroke-width="3" stroke-linecap="round"/>`,
+    clock5: `<circle cx="32" cy="32" r="24" fill="#fff" stroke="currentColor" stroke-width="4"/><path d="M32 32V16M32 32l12 6" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/><circle cx="32" cy="32" r="3" fill="currentColor"/><path d="M32 8v4M32 52v4M8 32h4M52 32h4" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>`,
+    stars: `<path d="M32 10l6.4 13 14.3 2.1-10.4 10.1 2.5 14.3L32 42.8 19.2 49.5l2.5-14.3L11.3 25.1 25.6 23Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>`,
+    backspace: `<path d="M20 14h34a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H20L4 32Z" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round"/><path d="M28 24l16 16M44 24 28 40" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/>`,
+    divider: `<rect x="8" y="10" width="48" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="4"/><path d="M26 10v44M40 10v44" stroke="currentColor" stroke-width="3" opacity=".55"/><circle cx="17" cy="24" r="3" fill="currentColor"/><circle cx="33" cy="24" r="3" fill="currentColor"/><circle cx="47" cy="24" r="3" fill="currentColor"/><circle cx="17" cy="40" r="3" fill="currentColor"/><circle cx="33" cy="40" r="3" fill="currentColor"/>`,
+    /* ---- grade 6: ratios, rates, fractions of a fraction, the integer line, algebra and data ---- */
+    ratio: `<rect x="6" y="14" width="22" height="14" rx="3" fill="#8fc4e8" stroke="currentColor" stroke-width="3"/><rect x="36" y="14" width="22" height="14" rx="3" fill="#f3c98b" stroke="currentColor" stroke-width="3"/><rect x="6" y="36" width="22" height="14" rx="3" fill="#8fc4e8" stroke="currentColor" stroke-width="3"/><rect x="36" y="36" width="22" height="14" rx="3" fill="#f3c98b" stroke="currentColor" stroke-width="3"/>`,
+    tape: `<rect x="4" y="20" width="26" height="10" rx="2" fill="#8fc4e8" stroke="currentColor" stroke-width="2.6"/><rect x="30" y="20" width="26" height="10" rx="2" fill="#5d9fd0" stroke="currentColor" stroke-width="2.6"/><rect x="4" y="36" width="17" height="10" rx="2" fill="#f3c98b" stroke="currentColor" stroke-width="2.6"/><rect x="21" y="36" width="17" height="10" rx="2" fill="#d9a55b" stroke="currentColor" stroke-width="2.6"/><rect x="38" y="36" width="17" height="10" rx="2" fill="#f3c98b" stroke="currentColor" stroke-width="2.6"/>`,
+    percent6: `<circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="44" cy="44" r="11" fill="none" stroke="currentColor" stroke-width="4"/><path d="M48 12 16 52" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/>`,
+    dividefrac: `<path d="M8 32h48" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="18" r="4.5" fill="currentColor"/><circle cx="32" cy="46" r="4.5" fill="currentColor"/><path d="M12 10h12M18 10v12M40 42h12M46 42v12" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".6"/>`,
+    intline: `<path d="M6 32h52" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><path d="M58 32l-7-4v8Z" fill="currentColor"/><path d="M6 32l7-4v8Z" fill="currentColor"/><path d="M18 26v12M32 26v12M46 26v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="18" cy="32" r="5" fill="#c0392b"/>`,
+    balance6: `<path d="M32 10v38" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M24 52h16l-3 6H27Z" fill="currentColor"/><path d="M10 22h44" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M10 22 4 34h12Zm44 0-6 12h12Z" fill="currentColor" opacity=".55"/><circle cx="32" cy="22" r="4" fill="currentColor"/>`,
+    expression: `<path d="M14 18h16M22 10v16M22 34l12 20M34 34 22 54" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/><path d="M42 22h14M42 44h14" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/>`,
+    median: `<path d="M8 50h48" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><circle cx="18" cy="40" r="5" fill="currentColor"/><circle cx="30" cy="40" r="5" fill="currentColor" opacity=".55"/><circle cx="42" cy="40" r="5" fill="currentColor"/><circle cx="30" cy="26" r="5" fill="currentColor"/><path d="M30 18v-8" stroke="#c0392b" stroke-width="3.4" stroke-linecap="round"/><path d="M26 14l4-4 4 4" fill="none" stroke="#c0392b" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>`,
+    mad: `<path d="M8 50h48" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><circle cx="16" cy="38" r="4.5" fill="currentColor"/><circle cx="32" cy="38" r="4.5" fill="currentColor"/><circle cx="48" cy="38" r="4.5" fill="currentColor"/><path d="M32 30v-6" stroke="#2f6f9f" stroke-width="3" stroke-linecap="round"/><path d="M16 20h32" stroke="#2f6f9f" stroke-width="2.6" stroke-dasharray="4 4"/><path d="M16 14v12M48 14v12" stroke="#2f6f9f" stroke-width="2.6" stroke-linecap="round"/>`,
+    unitrate: `<path d="M10 44h20l4 10H14Z" fill="#8fc4e8" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M34 44h20l4 10H38Z" fill="#f3c98b" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M20 26h24M44 26v10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="5 4"/><text x="32" y="20" text-anchor="middle" font-size="15" font-weight="800" fill="currentColor">/1</text>`,
+    polygon6: `<path d="M18 12h28l10 18-14 24H22L8 30Z" fill="#8fc4e8" fill-opacity=".55" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/><circle cx="18" cy="12" r="3.4" fill="currentColor"/><circle cx="46" cy="12" r="3.4" fill="currentColor"/><circle cx="22" cy="54" r="3.4" fill="currentColor"/><circle cx="50" cy="30" r="3.4" fill="currentColor"/><circle cx="8" cy="30" r="3.4" fill="currentColor"/>`,
+    triangle6: `<path d="M32 8 56 52H8Z" fill="#8fc4e8" fill-opacity=".6" stroke="currentColor" stroke-width="3.6" stroke-linejoin="round"/><path d="M32 8v44" stroke="currentColor" stroke-width="2.4" stroke-dasharray="4 4" opacity=".7"/>`,
+    knot: `<path d="M22 18c0 10 20 10 20 20s-20 10-20 20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M42 18c0 10-20 10-20 20s20 10 20 20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity=".6"/>`,
+    stopwatch: `<circle cx="32" cy="34" r="20" fill="#fff" stroke="currentColor" stroke-width="3.4"/><path d="M32 34V22" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/><path d="M32 34l9 6" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/><path d="M26 10h12M32 10v4" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>`,
+    /* ---- grade 3: palm groves, dates, arrays, the souq, water, fractions, glass, tile, fence, road ---- */
+    palm: `<path d="M32 56c-3-12-2-24 2-32" stroke="#8a6a3d" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="20" cy="20" rx="13" ry="6" fill="#4faa63" transform="rotate(-24 20 20)"/><ellipse cx="44" cy="18" rx="13" ry="6" fill="#6fc17e" transform="rotate(22 44 18)"/><ellipse cx="32" cy="14" rx="11" ry="6" fill="#4faa63"/><ellipse cx="32" cy="52" rx="12" ry="5" fill="#d9c9a8"/>`,
+    tray: `<path d="M8 26h48l-5 22H13Z" fill="#e9d9bd" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><circle cx="22" cy="38" r="4.5" fill="#c9703f"/><circle cx="33" cy="38" r="4.5" fill="#c9703f"/><circle cx="44" cy="38" r="4.5" fill="#c9703f"/><circle cx="27" cy="28" r="3.5" fill="#a8501f"/><circle cx="39" cy="28" r="3.5" fill="#a8501f"/>`,
+    dots: `<circle cx="16" cy="18" r="5.5" fill="#c9703f"/><circle cx="32" cy="18" r="5.5" fill="#c9703f"/><circle cx="48" cy="18" r="5.5" fill="#c9703f"/><circle cx="16" cy="34" r="5.5" fill="#c9703f"/><circle cx="32" cy="34" r="5.5" fill="#c9703f"/><circle cx="48" cy="34" r="5.5" fill="#c9703f"/><circle cx="16" cy="50" r="5.5" fill="#c9703f"/><circle cx="32" cy="50" r="5.5" fill="#c9703f"/><circle cx="48" cy="50" r="5.5" fill="#c9703f"/>`,
+    cart: `<path d="M8 12h8l8 28h26l6-20H22" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="26" cy="50" r="5" fill="currentColor"/><circle cx="46" cy="50" r="5" fill="currentColor"/>`,
+    drop: `<path d="M32 6c10 12 16 19 16 26a16 16 0 0 1-32 0c0-7 6-14 16-26Z" fill="#3aa9c9"/><path d="M25 33c0 5 3 8 7 8" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity=".8"/>`,
+    window: `<rect x="8" y="8" width="48" height="48" rx="4" fill="#cfe6f7" stroke="currentColor" stroke-width="4"/><path d="M32 8v48M8 32h48" stroke="currentColor" stroke-width="4"/><rect x="8" y="8" width="24" height="24" fill="#8fc3e6" opacity=".6"/>`,
+    tile: `<rect x="8" y="8" width="22" height="22" rx="2" fill="#f6dcc0" stroke="currentColor" stroke-width="3"/><rect x="34" y="8" width="22" height="22" rx="2" fill="#fbead7" stroke="currentColor" stroke-width="3"/><rect x="8" y="34" width="22" height="22" rx="2" fill="#fbead7" stroke="currentColor" stroke-width="3"/><rect x="34" y="34" width="22" height="22" rx="2" fill="#f6dcc0" stroke="currentColor" stroke-width="3"/>`,
+    fence: `<path d="M10 56V22M26 56V22M42 56V22M58 56V22" stroke="#8a6a3d" stroke-width="4.5" stroke-linecap="round"/><path d="M6 30h52M6 44h52" stroke="#a8875a" stroke-width="4" stroke-linecap="round"/>`,
+    road: `<path d="M20 58 28 6M44 58 36 6" stroke="#5b6b7a" stroke-width="5" stroke-linecap="round"/><path d="M32 52v8M32 36v8M32 20v8" stroke="#f0b429" stroke-width="4.5" stroke-linecap="round"/>`,
+    repeat: `<path d="M12 26a20 20 0 0 1 34-10" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/><path d="M46 8v10H36" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M52 38a20 20 0 0 1-34 10" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/><path d="M18 56V46h10" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>`,
+    abacus3: `<rect x="6" y="12" width="52" height="40" rx="4" fill="none" stroke="currentColor" stroke-width="4"/><path d="M6 28h52M6 42h52" stroke="currentColor" stroke-width="3"/><circle cx="18" cy="20" r="4" fill="currentColor"/><circle cx="30" cy="20" r="4" fill="currentColor"/><circle cx="24" cy="35" r="4" fill="currentColor"/><circle cx="44" cy="35" r="4" fill="currentColor"/><circle cx="38" cy="49" r="4" fill="currentColor"/>`,
+    ruler2: `<rect x="4" y="22" width="56" height="20" rx="3" fill="#f7e6c4" stroke="currentColor" stroke-width="3.5" transform="rotate(-8 32 32)"/><path d="M16 26v8M26 24v8M36 22v8M46 20v8" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>`,
+    slice: `<circle cx="32" cy="32" r="24" fill="#fff" stroke="currentColor" stroke-width="4"/><path d="M32 32V8A24 24 0 0 1 56 32Z" fill="#8a5fc4" opacity=".85"/><path d="M32 32 8 32" stroke="currentColor" stroke-width="3"/>`,
+    puzzle2: `<path d="M26 8h12v7a5 5 0 1 0 0 10v7H26v-7a5 5 0 1 0 0-10Z" fill="currentColor"/><path d="M38 32v7h7a5 5 0 1 0 10 0V32h7v20H38Z" fill="currentColor" opacity=".55"/>`,
+    plates: `<path d="M8 20h48M10 20c2 22 8 32 22 32s20-10 22-32" fill="#e9d9bd" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><path d="M8 12h48" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>`,
+    pin2: `<path d="M32 6a16 16 0 0 1 16 16c0 12-16 26-16 26S16 34 16 22A16 16 0 0 1 32 6Z" fill="#3b6fb6"/><circle cx="32" cy="22" r="6.5" fill="#fff"/>`,
+    tool2: `<path d="M14 50 34 24" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M40 8l16 16-8 8-16-16Z" fill="currentColor" opacity=".7"/><circle cx="14" cy="50" r="6" fill="currentColor"/>`,
+  };
+  const svg = (name, size) => {
+    const body = art[name] || art.sparkle;
+    return `<svg class="g1i" viewBox="0 0 64 64" width="${size || 24}" height="${size || 24}" aria-hidden="true" focusable="false" style="color:inherit">${body}</svg>`;
+  };
+  /* emoji → icon, covering every symbol the template and these games use */
+  const MAP = {
+    '🎓': 'book', '🐟': 'fish', '👆': 'point', '🔢': 'count', '⚖️': 'balance', '⚖': 'balance',
+    '➕': 'count', '➖': 'minus', '🌱': 'leaf', '🏮': 'lamp', '🪸': 'coral', '🔷': 'shape',
+    '🐚': 'shell', '🌻': 'flower', '🕰️': 'clock', '🕰': 'clock', '📊': 'data', '🧭': 'compass',
+    '👀': 'eyes', '💬': 'talk', '📖': 'book', '📏': 'ruler', '🧩': 'puzzle', '🔄': 'flip',
+    '🔎': 'search', '🧺': 'sort', '📍': 'pin', '➡️': 'arrow', '➡': 'arrow', '✨': 'sparkle',
+    '🤝': 'handshake', '🧮': 'abacus', '🦪': 'oyster', '🧱': 'brick', '◂': 'arrow', '▸': 'arrow', '★': 'star', '☆': 'star',
+    /* ▶ is the template's "go forward" mark on dialog buttons, so it becomes an arrow, not a media icon */
+    '▶': 'arrow', '◀': 'arrow', '▲': 'arrow', '■': 'box', '●': 'circle', '🔍': 'search', '→': 'arrow', '⟶': 'arrow', '🏆': 'trophy', '⭐': 'star', '🌟': 'sparkle', '🎖️': 'trophy', '🎖': 'trophy',
+    '🔥': 'streak', '💡': 'bulb', '✂': 'cut', '⭕': 'circle', '〰': 'wave', '🔲': 'box',
+    '✅': 'check', '✓': 'check', '✗': 'cross', '↻': 'redo', '🏠': 'home', '❓': 'help',
+    '🔊': 'sound', '🔇': 'mute', '🗣': 'voice', '💾': 'save', '🧠': 'brain',
+    '🧍': 'point', '⛵': 'boat', '🌬️': 'wave', '🌬': 'wave', '🎉': 'sparkle', '💪': 'bolt',
+    /* grade 2 */
+    '📦': 'crate', '🧾': 'receipt', '🐪': 'camel', '💵': 'money', '💸': 'money',
+    /* grade 5 */
+    '📋': 'clipboard', '🧊': 'icecube', '🌙': 'moon',
+    '🦅': 'falcon', '👣': 'steps', '💯': 'hundred', '🪙': 'coin', '🍊': 'orange',
+    '⌫': 'backspace', '📈': 'chart', '🕐': 'clock5', '🕑': 'clock5', '🕒': 'clock5', '🗂️': 'divider', '🗂': 'divider',
+    /* grade 3 */
+    '🌴': 'palm', '🧺': 'tray', '🟠': 'dots', '🛒': 'cart', '💧': 'drop', '🪟': 'window',
+    '🟫': 'tile', '🚧': 'fence', '🛣️': 'road', '🛣': 'road', '🔁': 'repeat', '🧮': 'abacus3',
+    '📐': 'ruler2', '🍽️': 'plates', '🍽': 'plates', '📍': 'pin', '🧾': 'receipt',
+    /* grade 4 — these eight were used in the authored sources but never mapped, so they fell through the
+       replacement pass and rendered as tofu boxes in the how-to list and the level chips */
+    '🧶': 'yarn', '🕊️': 'dove', '🕊': 'dove', '🫖': 'pot', '🚌': 'bus',
+    '➗': 'divide', '🔗': 'link', '🌉': 'trench', '🏜️': 'dune', '🏜': 'dune',
+    /* grade 6 — the ratio family, the algebra symbols and the statistics marks */
+    '🔗': 'link', '💰': 'money', '🥤': 'pot', '🧃': 'pot', '🍯': 'pot',
+    '%': 'percent6', '×': 'expression', '✕': 'cross',
+    '⬆️': 'arrow', '⬆': 'arrow', '⬇️': 'arrow', '⬇': 'arrow',
+    '🎯': 'unitrate', '🏷️': 'ratio', '🏷': 'ratio', '🪜': 'steps', '🪣': 'crate',
+    '📉': 'median', '📊': 'data',
+    '🔺': 'triangle6', '🪢': 'knot', '⏱️': 'stopwatch', '⏱': 'stopwatch', '⏲️': 'stopwatch', '⏲': 'stopwatch',
+  };
+  const name = (emoji) => MAP[String(emoji).trim()] || null;
+
+  /* one symbol or one surrogate-pair emoji; the same pattern tests a node before we touch it */
+  /* U+1F000–U+1FAFF is the whole emoji-pictograph block (the old pattern only covered U+1F300+ surrogate pairs,
+     so 🧠 in the template's "Think first" heading and co. slipped through and rendered as a box) */
+  /* a trailing U+FE0F makes an emoji render as a picture on some systems; it is matched with the glyph it
+     belongs to, so the icon replacement does not leave an orphan variation selector behind as a stray box */
+  const EMOJI = /([\u2190-\u21ff\u2300-\u27bf\u2b00-\u2bff\u25a0-\u25ff\u2600-\u26ff\u3030\u303d]|[\ud83c-\ud83e][\udc00-\udfff]|\ud83e[\udd00-\udfff])\ufe0f?/g;
+  const HAS = new RegExp(EMOJI.source);
+
+  /* replace one text node's emoji with icons; keeps the words.
+     An icon's own art may contain emoji (the bulb has a 💡 glyph in its SVG text), and it is still the parent's
+     textContent, so a second pass would wrap the icon inside another icon. Nodes already inside a mapped icon are
+     therefore left alone — this is what put a stray empty box beside the coach's face. */
+  function inline(text) {
+    return String(text)
+      .replace(EMOJI, (m) => {
+        const icon = name(m);
+        return icon ? svg(icon, 20) : m;
+      })
+      /* any variation selector left on a character that has no icon: it renders as a box, so drop it */
+      .replace(/\ufe0f/g, '');
+  }
+  const insideIcon = (node) => {
+    const el = node.parentElement;
+    return !!(el && el.closest('svg.g1i'));
+  };
+
+  /* icon for a whole emoji string (used for the level-card top pictures) */
+  function big(emoji, size) { const n = name(emoji); return n ? svg(n, size || 58) : ''; }
+
+  function walk(root) {
+    const it = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: (n) => (n.parentNode && /^(SCRIPT|STYLE|svg)$/i.test(n.parentNode.tagName) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+    });
+    const nodes = [];
+    while (it.nextNode()) nodes.push(it.currentNode);
+    nodes.forEach((n) => {
+      if (!HAS.test(n.nodeValue)) return;
+      if (insideIcon(n)) return;
+      const out = inline(n.nodeValue);
+      /* nothing was mapped: leave the node alone, or the observer would repaint it forever */
+      if (out === n.nodeValue) return;
+      const span = document.createElement('span');
+      span.innerHTML = out;
+      n.parentNode.replaceChild(span, n);
+    });
+  }
+
+  /* swap emoji for icons everywhere in the chrome, and put big art on the cards */
+  function replace() {
+    /* header buttons */
+    const set = (sel, icon) => { const el = document.querySelector(sel); if (el) el.innerHTML = svg(icon, 24); };
+    set('#b-sound', 'sound'); set('#b-voice', 'voice'); set('#b-help', 'help'); set('#b-home', 'home');
+    const chips = document.querySelectorAll('#g-stars, #g-streak');
+    if (chips[0]) chips[0].innerHTML = `${svg('star', 18)} <span>${(chips[0].textContent.match(/\d+/) || ['0'])[0]}</span>`;
+    if (chips[1]) chips[1].innerHTML = `${svg('streak', 18)} <span>${(chips[1].textContent.match(/\d+/) || ['0'])[0]}</span>`;
+    /* the template rewrites these on every round, so decorate after each paint */
+    const paint = () => {
+      const st = document.querySelector('#g-stars'); const sk = document.querySelector('#g-streak');
+      if (st && !st.querySelector('svg')) st.innerHTML = `${svg('star', 18)} <span>${(st.textContent.match(/\d+/) || ['0'])[0]}</span>`;
+      if (sk && !sk.querySelector('svg')) sk.innerHTML = `${svg('streak', 18)} <span>${(sk.textContent.match(/\d+/) || ['0'])[0]}</span>`;
+      const home = document.querySelector('#g-level');
+      if (home) walk(home);
+      const btns = [['#b-sound', 'sound'], ['#b-voice', 'voice']];
+      btns.forEach(([sel, icon]) => { const el = document.querySelector(sel); if (el && !el.querySelector('svg') && el.textContent.trim()) el.innerHTML = svg(icon, 24); });
+      /* level and learn cards */
+      document.querySelectorAll('.card .ic').forEach((ic) => {
+        const em = ic.textContent.trim();
+        if (em && !ic.querySelector('svg')) ic.innerHTML = big(em, 58);
+      });
+      /* a choice of A/B/C/D letters reads better as four square tiles in one row */
+      document.querySelectorAll('.opts').forEach((o) => {
+        const kids = [...o.children];
+        const lettersOnly = kids.length > 1 && kids.every((k) => /^[A-D]$/.test(k.textContent.trim()) && !k.querySelector('svg'));
+        o.classList.toggle('short', lettersOnly);
+      });
+      /* the CUBES strip: "C⭕ Circle the numbers" → the letter plus an icon. It is rebuilt by the engine on
+         every think round and is not in the text list below, so it needs its own pass. */
+      document.querySelectorAll('.trail span').forEach((sp) => {
+        if (sp.querySelector('svg')) return;
+        const b = sp.querySelector('b');
+        const letter = b ? b.textContent : '';
+        const words = sp.textContent.replace(/^[A-Z]/, '').replace(/[\u2190-\u21ff\u2300-\u27bf\u2b00-\u2bff\u25a0-\u25ff\u2600-\u26ff\u{1F000}-\u{1FAFF}\s]+/u, ' ').trim();
+        const glyph = (sp.textContent.replace(/^[A-Z]/, '').match(EMOJI) || [])[0];
+        const ic = glyph && name(glyph);
+        if (!ic || !words) return;
+        /* only the glyph is replaced: an inner <span> would nest inside the strip's own span and break the grid */
+        sp.innerHTML = sp.innerHTML.replace(glyph, svg(ic, 18));
+      });
+      /* keypad keys, the Check button and a star row are drawn by the engine as raw symbols; a missing glyph
+         font turns them into boxes on a Chromebook, so they get icon markup too */
+      document.querySelectorAll('.pad button, .cbtn.go, .dlg .stars, .card .st').forEach((el) => {
+        if (el.querySelector('svg')) return;
+        const t = el.textContent.trim();
+        if (t === '⌫') { el.innerHTML = svg('backspace', 22); return; }
+        if (/^check\s*✓$/i.test(t)) { el.innerHTML = `${t.replace(/✓/, '')}${svg('check', 18)}`; return; }
+        if (/^[★☆\s]+$/.test(t) && t) {
+          el.innerHTML = t.replace(/[★☆]/g, (c) => {
+            const star = '<svg class="g1i" viewBox="0 0 64 64" width="26" height="26" aria-hidden="true" focusable="false" style="color:inherit">';
+            return star + (c === '★'
+              ? '<path d="M32 8l7.6 15.4 17 2.5-12.3 12 2.9 17-15.2-8-15.2 8 2.9-17-12.3-12 17-2.5Z" fill="#f0b429"/>'
+              : '<path d="M32 8l7.6 15.4 17 2.5-12.3 12 2.9 17-15.2-8-15.2 8 2.9-17-12.3-12 17-2.5Z" fill="none" stroke="#c9b083" stroke-width="3.5" stroke-linejoin="round"/>') + '</svg>';
+          });
+          el.style.display = 'flex'; el.style.gap = '4px'; el.style.justifyContent = 'center';
+        }
+      });
+      /* the title-bar emoji is hidden by the theme, but its glyph is still in the DOM; draw the icon there so no
+         raw emoji character survives anywhere in the page (same guard as the dialog picture below) */
+      const ge = document.querySelector('#g-emoji');
+      if (ge && !ge.querySelector('svg') && ge.textContent.trim()) {
+        const drawn = big(ge.textContent.trim(), 26);
+        if (drawn) ge.innerHTML = drawn;
+      }
+      /* the code chip and coach face are text; leave the coach SVG alone */
+      /* the coach's mood badge is drawn by the engine as <text>💡</text> (or ✓ / !) inside its own face SVG;
+         an SVG <text> cannot be replaced by a nested <svg>, so swap the symbol for a stroked path instead */
+      document.querySelectorAll('#coach-face text').forEach((t) => {
+        const glyph = t.textContent.trim();
+        if (!name(glyph)) return;
+        const paths = {
+          bulb: '<path d="M50 12a4 4 0 0 1 3 6c-1 1-1 2-1 3h-4c0-1 0-2-1-3a4 4 0 0 1 3-6Z" fill="#f5c33d" stroke="#8a5a1f" stroke-width="1"/><path d="M49 22h2" stroke="#8a5a1f" stroke-width="1.4" stroke-linecap="round"/>',
+          check: '<path d="M47 15l3 3 6-7" fill="none" stroke="#2f8a4f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>',
+          cross: '<path d="M49 13l8 8M57 13l-8 8" stroke="#c62828" stroke-width="2.6" stroke-linecap="round"/>',
+        };
+        const d = paths[name(glyph)];
+        if (d) t.innerHTML = d;
+        else t.textContent = '';
+      });
+      /* the celebration burst is eight fixed-position spans the engine builds from ⭐ ✨ 🌟 and removes after
+         0.9 s; drawing them as icons keeps the reward and loses the raw glyphs */
+      document.querySelectorAll('.burst').forEach((b) => {
+        if (b.querySelector('svg')) return;
+        const g = b.textContent.trim();
+        const ic = name(g) || 'sparkle';
+        b.innerHTML = svg(ic === 'star' ? 'star' : 'sparkle', 30);
+      });
+      /* "🧠 Think first — CUBES" is a bare <b>, not a .prompt — give it the same treatment */
+      document.querySelectorAll('.think > b, .think > p > b, #coach-say b').forEach((b) => walk(b));
+      const say = document.querySelectorAll('#coach-say, .prompt, .ttext, .tcard p, .dlg .dh, .dlg h2, .dlg .di, .opt, .cbtn, .path li, .picked span, .home p, .home h2, .card, .model text');
+      document.querySelectorAll('.cbtn').forEach((b) => { if (!b.querySelector('svg')) walk(b); });
+      document.querySelectorAll('.home > div:first-child').forEach((d) => { if (!d.querySelector('svg') && d.textContent.trim()) d.innerHTML = big(d.textContent.trim(), 96); });
+      say.forEach((el) => { if (!el.querySelector('svg')) walk(el); });
+      const di = document.querySelector('.dlg .di');
+      if (di && !di.querySelector('svg') && di.textContent.trim()) {
+        /* big() returns '' for an emoji with no icon: writing that back would replace the node with its
+           own markup, fire the observer again and loop forever, so the assignment is guarded. */
+        const drawn = big(di.textContent.trim(), 68);
+        if (drawn) di.innerHTML = drawn;
+      }
+    };
+    paint();
+    new MutationObserver(() => paint()).observe(document.body, { childList: true, subtree: true });
+    setTimeout(paint, 60);
+    setTimeout(paint, 260);
+  }
+  return { svg, inline, big, replace, name };
+})();
+
+</script>
+<script>
+  const CAT = [
+    ['g6-falcon-ratio','🦅','Falcon Ratio','Read a ratio part-to-part and scale it without changing it'],
+    ['g6-date-rate','🎯','Date Rate','Unit rate, ratio tables, and percent as a rate per 100'],
+    ['g6-pulse-ratio','📊','Pulse Ratio','Scale a rate to another time span; compare per 100'],
+    ['g6-tape-share','🪢','Tape Share','Share a quantity in a ratio with a tape diagram'],
+    ['g6-water-divide','💧','Water Divide','Divide fractions by counting how many groups fit'],
+    ['g6-altitude-line','📈','Altitude Line','Integers, opposites and distance on the number line'],
+    ['g6-balance-equation','⚖️','Balance Equation','One-step equations on a balance; inequalities on a line'],
+    ['g6-shade-area','📐','Shade Area','Area of polygons by cutting into shapes you know'],
+    ['g6-fair-share-data','📉','Fair Share Data','Mean, median and the mean absolute deviation']
+  ];
+  const grid = document.getElementById('grid');
+  CAT.forEach(([id, ic, title, blurb]) => {
+    const a = document.createElement('a');
+    a.className = 'card'; a.href = id + '.html';
+    /* G1ICON.big() draws the icon at 34 px; if the emoji has no drawing it falls back to the character */
+    const art = (typeof G1ICON !== 'undefined' && G1ICON.big(ic, 34)) || ic;
+    a.innerHTML = `<span class="ic">${art}</span><b>${title}</b><small>${blurb}</small><span class="go">Play ▶</span>`;
+    grid.append(a);
+  });
+</script>
+</html>

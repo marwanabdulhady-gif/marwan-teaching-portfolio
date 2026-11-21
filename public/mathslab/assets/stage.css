@@ -1,0 +1,113 @@
+/* ===========================================================
+   The stage — one bounded box for every graph on the site,
+   with a full-screen switch. See assets/stage.js.
+
+   The graph sits in a fixed-height area (clamped so it works on a
+   phone and on a wide monitor), never grows with the page, and can
+   be blown up to the whole viewport with the ⤢ button, F, or a
+   double-click — Escape (or the button again) comes back.
+   =========================================================== */
+.mstage {
+  position: relative;
+  display: block;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.mstage-body {
+  position: relative;
+  width: 100%;
+  height: var(--mstage-h, clamp(300px, 46vh, 540px));
+  overflow: hidden;
+  background: #fff;
+}
+.mstage-cv,
+.mstage-body canvas {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
+  border-radius: 10px;
+  touch-action: none;
+}
+
+/* the switch itself */
+.mstage-fs {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: .01em;
+  color: #344054;
+  background: rgba(255, 255, 255, .94);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 11px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(16, 24, 40, .1);
+  backdrop-filter: blur(4px);
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.mstage-fs:hover { border-color: var(--brand); color: var(--brand-ink); background: var(--brand-soft); }
+.mstage-fs:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.mstage-fs-ico { font-size: 13px; line-height: 1; }
+
+/* on a phone the label is just noise */
+@media (max-width: 520px) {
+  .mstage-fs-txt { display: none; }
+  .mstage-fs { padding: 7px 9px; }
+}
+
+/* ---------- full screen ---------- */
+.mstage.is-full {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  border-radius: 0;
+  box-shadow: 0 30px 90px rgba(16, 24, 40, .4);
+  background: #fff;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mstage.is-full .mstage-body {
+  height: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+.mstage.is-full .mstage-fs {
+  bottom: 18px;
+  right: 18px;
+  background: #fff;
+  font-size: 12.5px;
+  padding: 8px 14px;
+}
+/* the little "escape" hint, only while blown up */
+.mstage.is-full::after {
+  content: "Esc or the button to come back";
+  position: absolute;
+  left: 18px;
+  bottom: 20px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--muted, #667085);
+  pointer-events: none;
+}
+body.mstage-lock { overflow: hidden; }
+
+/* the floating controls of each tool keep clear of the switch */
+.mstage.is-full .gc-zoom { right: 18px; top: 18px; }
+.mstage.is-full .gc-window { left: 18px; bottom: 46px; }
+.mstage.is-full .gcw-zoom { right: 16px; top: 16px; }
+
+@media (prefers-reduced-motion: reduce) { .mstage-fs { transition: none; } }
