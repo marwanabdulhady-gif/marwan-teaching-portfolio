@@ -179,3 +179,19 @@ The latest historical full browser audit before the Grade 1 clock/ruler and Oasi
 3. `node ../tools/build_games.js`, then `node gtests.js <new-id>` and `node ptest.js <new-id>`.
 
 Bands set the pacing: `k2 {rounds:4, tts, no timer}`, `g35 {6}`, `g68 {8, timer}`, `g912 {8, timer}`.
+
+## The look: FIKR dashboard lesson kit (2026-11-21)
+
+The Grade 1–9 lesson games wear the FIKR dashboard's lesson-kit look (`fikr-dashboard`
+`playhub/lessons/kit/kit.css`): the game's own place, soft-focus, behind everything; a floating ink bar
+with the game's tile; a home screen split into the picture and a level path with stars; chunky ink-edged
+panels, choices and keypad (the keypad beside the round on wide screens); the guide bar pinned to the
+bottom with **How to play** and the next step; the kit's how-to card. A game with no authored place shows
+its first Learn model on the home screen instead.
+
+It lives in two files layered over the Grade 1 theme by `tools/build_fikr_games.js`:
+`games/_fikr/shared/kit-skin.css` and `kit-skin.js`. The engine is not touched, and the type is the kit's
+system stack, so the embedded Fredoka font is no longer inlined. Rebuild with
+`node tools/build_fikr_games.js`; check with `node tools/fikr_static_gate.mjs`.
+Not yet reskinned: the prototypes in `play/` and the KG Math Garden, which run on other kits.
+
